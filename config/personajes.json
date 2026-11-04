@@ -1,0 +1,142 @@
+{
+  "modelos_texto": ["gemini-3.8-flash", "gemini-3.8-flash-lite"],
+  "modelo_voz": "gemini-2.5-flash-preview-tts",
+  "motor_voz": "gemini",
+  "pausa_tts_segundos": 21,
+  "pausa_entre_voces": 0.35,
+  "caracteres_por_subtitulo": 46,
+  "hora_publicacion": 7,
+  "busquedas_genericas": ["Jesus teaching", "Jesus disciples", "Jesus multitude", "Christ"],
+  "personajes": {
+    "narrador": {
+      "nombre": "",
+      "descripcion": "el evangelista que narra; todo lo que no es estilo directo",
+      "voz_gemini": "Charon",
+      "voz_edge": "es-ES-AlvaroNeural",
+      "estilo": "Lee como un narrador sereno y claro, con ritmo pausado, en español neutro",
+      "color": "FFFFFF",
+      "color_texto": "FFFFFF",
+      "alias": []
+    },
+    "jesus": {
+      "nombre": "Jesús",
+      "descripcion": "Jesús",
+      "voz_gemini": "Algieba",
+      "voz_edge": "es-MX-JorgeNeural",
+      "estilo": "Habla como Jesús: voz serena, cálida y cercana, con autoridad tranquila y sin teatralidad, en español neutro",
+      "color": "F5C542",
+      "color_texto": "FFE7A3",
+      "alias": ["Jesús", "el Señor", "Maestro"]
+    },
+    "maria": {
+      "nombre": "María",
+      "descripcion": "la Virgen María, madre de Jesús",
+      "voz_gemini": "Sulafat",
+      "voz_edge": "es-ES-ElviraNeural",
+      "estilo": "Habla como María, madre de Jesús: voz dulce, humilde y firme, en español neutro",
+      "color": "8EC5FF",
+      "color_texto": "FFFFFF",
+      "alias": ["su madre", "la madre de Jesús"]
+    },
+    "magdalena": {
+      "nombre": "María Magdalena",
+      "descripcion": "María Magdalena",
+      "voz_gemini": "Aoede",
+      "voz_edge": "es-ES-XimenaNeural",
+      "estilo": "Habla como María Magdalena: voz joven, sincera y emocionada, en español neutro",
+      "color": "F49AC1",
+      "color_texto": "FFFFFF",
+      "alias": ["Magdalena"]
+    },
+    "pedro": {
+      "nombre": "Pedro",
+      "descripcion": "Simón Pedro",
+      "voz_gemini": "Algenib",
+      "voz_edge": "es-AR-TomasNeural",
+      "estilo": "Habla como el apóstol Pedro: voz grave, algo ruda, directa e impulsiva, en español neutro",
+      "color": "FFA36B",
+      "color_texto": "FFFFFF",
+      "alias": ["Pedro", "Simón"]
+    },
+    "juan": {
+      "nombre": "Juan",
+      "descripcion": "el apóstol Juan (no Juan el Bautista)",
+      "voz_gemini": "Achird",
+      "voz_edge": "es-CO-GonzaloNeural",
+      "estilo": "Habla como el apóstol Juan: voz joven, suave y cercana, en español neutro",
+      "color": "9EE6A0",
+      "color_texto": "FFFFFF",
+      "alias": []
+    },
+    "tomas": {
+      "nombre": "Tomás",
+      "descripcion": "el apóstol Tomás",
+      "voz_gemini": "Iapetus",
+      "voz_edge": "es-CL-LorenzoNeural",
+      "estilo": "Habla como el apóstol Tomás: voz reflexiva, algo escéptica, en español neutro",
+      "color": "C7A6FF",
+      "color_texto": "FFFFFF",
+      "alias": ["Tomás"]
+    },
+    "bautista": {
+      "nombre": "Juan el Bautista",
+      "descripcion": "Juan el Bautista",
+      "voz_gemini": "Rasalgethi",
+      "voz_edge": "es-US-AlonsoNeural",
+      "estilo": "Habla como Juan el Bautista: voz fuerte de profeta, apasionada, en español neutro",
+      "color": "E6C79E",
+      "color_texto": "FFFFFF",
+      "alias": ["Bautista"]
+    },
+    "apostol": {
+      "nombre": "Discípulo",
+      "descripcion": "otro apóstol o discípulo (Andrés, Felipe, Santiago, Natanael, Judas...) o los discípulos en grupo",
+      "voz_gemini": "Orus",
+      "voz_edge": "es-US-AlonsoNeural",
+      "estilo": "Habla como un discípulo de Jesús: voz de hombre adulto, sencilla y natural, en español neutro",
+      "color": "B5D99C",
+      "color_texto": "FFFFFF",
+      "alias": ["Felipe", "Andrés", "Santiago", "Natanael", "Judas", "discípulos", "discípulo", "apóstoles"]
+    },
+    "fariseos": {
+      "nombre": "Fariseos",
+      "descripcion": "fariseos, escribas, saduceos, sacerdotes o maestros de la ley",
+      "voz_gemini": "Enceladus",
+      "voz_edge": "es-VE-SebastianNeural",
+      "estilo": "Habla como un fariseo: voz seca, desconfiada y algo altiva, en español neutro",
+      "color": "FF8A80",
+      "color_texto": "FFFFFF",
+      "alias": ["fariseos", "escribas", "saduceos", "sacerdotes", "maestros de la ley", "doctores de la ley", "fariseo"]
+    },
+    "hombre": {
+      "nombre": "",
+      "descripcion": "cualquier otro hombre (un ciego, un centurión, un joven rico, un ángel...)",
+      "voz_gemini": "Umbriel",
+      "voz_edge": "es-MX-JorgeNeural",
+      "estilo": "Habla con voz de hombre adulto, natural y expresiva, en español neutro",
+      "color": "E0E0E0",
+      "color_texto": "FFFFFF",
+      "alias": ["hombre", "ángel", "centurión"]
+    },
+    "mujer": {
+      "nombre": "",
+      "descripcion": "cualquier otra mujer (la samaritana, Marta, una viuda...)",
+      "voz_gemini": "Kore",
+      "voz_edge": "es-MX-DaliaNeural",
+      "estilo": "Habla con voz de mujer adulta, natural y expresiva, en español neutro",
+      "color": "F7C6D9",
+      "color_texto": "FFFFFF",
+      "alias": ["mujer", "Marta"]
+    },
+    "multitud": {
+      "nombre": "La gente",
+      "descripcion": "la gente, la multitud o el pueblo hablando a la vez",
+      "voz_gemini": "Fenrir",
+      "voz_edge": "es-ES-AlvaroNeural",
+      "estilo": "Habla como una multitud: voz enérgica y popular, en español neutro",
+      "color": "CCCCCC",
+      "color_texto": "FFFFFF",
+      "alias": ["gente", "multitud", "pueblo"]
+    }
+  }
+}
