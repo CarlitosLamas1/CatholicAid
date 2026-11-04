@@ -77,7 +77,7 @@ def gemini(modelo, cuerpo, intentos=3):
         try:
             return http(f"{GEMINI}models/{modelo}:generateContent", cuerpo, clave_gemini(), timeout=300)
         except urllib.error.HTTPError as e:
-            log(f"   Gemini {modelo} -> {e.code}: {e.read().decode(errors='replace')[:200]}")
+            log(f"   Gemini {modelo} -> {e.code}: {e.read().decode(errors='replace')[:500]}")
             if e.code in (500, 502, 503, 504) and i < intentos - 1:
                 time.sleep(15 * (i + 1))
                 continue
@@ -222,11 +222,38 @@ def a_wav_estandar(origen, destino):
     ffmpeg("-i", origen, "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", destino)
 
 
-def tts_gemini(f, destino):
-    p = PJ[f["personaje"]]
-    cuerpo = {"contents": [{"parts": [{"text": f"{p['estilo']}: {hablado(f['texto'])}"}]}],
-              "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": {
-                  "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": p["voz_gemini"]}}}}}
+def lotes_gemini(frs):
+    """Agrupa fragmentos consecutivos de como mucho 2 personajes: 1 petición de voz por grupo."""
+    maximo = CFG.get("max_caracteres_lote", 2500)
+    lotes, actual, voces, largo = [], [], set(), 0
+    for i, f in enumerate(frs):
+        n = len(hablado(f["texto"]))
+        if actual and (len(voces | {f["personaje"]}) > 2 or largo + n > maximo):
+            lotes.append(actual)
+            actual, voces, largo = [], set(), 0
+        actual.append(i)
+        voces.add(f["personaje"])
+        largo += n
+    if actual:
+        lotes.append(actual)
+    return lotes
+
+
+def tts_gemini(frs, lote, destino):
+    voces = list(dict.fromkeys(frs[i]["personaje"] for i in lote))
+    if len(voces) == 1:
+        p = PJ[voces[0]]
+        texto = f"{p['estilo']}: " + " ".join(hablado(frs[i]["texto"]) for i in lote)
+        habla = {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": p["voz_gemini"]}}}
+    else:
+        guia = " ".join(f"Voz de {k.capitalize()}: {PJ[k]['estilo']}." for k in voces)
+        lineas = "\n".join(f"{frs[i]['personaje'].capitalize()}: {hablado(frs[i]['texto'])}" for i in lote)
+        texto = f"Lee en voz alta esta lectura del Evangelio a dos voces. {guia}\n\n{lineas}"
+        habla = {"multiSpeakerVoiceConfig": {"speakerVoiceConfigs": [
+            {"speaker": k.capitalize(), "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": PJ[k]["voz_gemini"]}}}
+            for k in voces]}}
+    cuerpo = {"contents": [{"parts": [{"text": texto}]}],
+              "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": habla}}
     r = gemini(CFG["modelo_voz"], cuerpo)
     dato = r["candidates"][0]["content"]["parts"][0]["inlineData"]
     m = re.search(r"rate=(\d+)", dato.get("mimeType", ""))
@@ -251,24 +278,28 @@ def tts_edge(f, destino):
 def generar_audio(frs, carpeta):
     motores = ["gemini", "edge"] if CFG.get("motor_voz") == "gemini" else ["edge"]
     for motor in motores:
+        lotes = lotes_gemini(frs) if motor == "gemini" else [[i] for i in range(len(frs))]
         try:
-            for i, f in enumerate(frs):
-                destino = carpeta / f"voz_{i:02d}.wav"
-                log(f"   [{motor}] {i + 1}/{len(frs)} {f['personaje']}")
+            pistas = []
+            for j, lote in enumerate(lotes):
+                destino = carpeta / f"voz_{motor}_{j:02d}.wav"
+                quienes = " + ".join(dict.fromkeys(frs[i]["personaje"] for i in lote))
+                log(f"   [{motor}] petición {j + 1}/{len(lotes)}: {quienes}")
                 if motor == "gemini":
-                    if i:
+                    if j:
                         time.sleep(CFG.get("pausa_tts_segundos", 21))
-                    tts_gemini(f, destino)
+                    tts_gemini(frs, lote, destino)
                 else:
-                    tts_edge(f, destino)
-                f["audio"] = destino.name
-            return motor
+                    tts_edge(frs[lote[0]], destino)
+                pistas.append({"archivo": destino.name, "fragmentos": lote})
+            return motor, pistas
         except Exception as e:
             log(f"   El motor de voz {motor} falló: {e}")
     raise RuntimeError("Ningún motor de voz funcionó")
 
 
-def montar_audio(frs, carpeta):
+def montar_audio(frs, pistas, carpeta):
+    """Une las pistas con pausas y reparte el tiempo de cada pista entre sus fragmentos (por letras)."""
     pausa = int(HZ * CFG.get("pausa_entre_voces", 0.35))
     inicio = int(HZ * 0.6)
     t = inicio / HZ
@@ -277,13 +308,19 @@ def montar_audio(frs, carpeta):
         out.setsampwidth(2)
         out.setframerate(HZ)
         out.writeframes(b"\0\0" * inicio)
-        for f in frs:
-            with wave.open(str(carpeta / f["audio"])) as w:
+        for pista in pistas:
+            with wave.open(str(carpeta / pista["archivo"])) as w:
                 n = w.getnframes()
                 out.writeframes(w.readframes(n))
-            f["inicio"], f["fin"] = t, t + n / HZ
+            dur = n / HZ
+            largos = [max(1, len(hablado(frs[i]["texto"]))) for i in pista["fragmentos"]]
+            s = t
+            for i, largo in zip(pista["fragmentos"], largos):
+                d = dur * largo / sum(largos)
+                frs[i]["inicio"], frs[i]["fin"] = s, s + d
+                s += d
             out.writeframes(b"\0\0" * pausa)
-            t = f["fin"] + pausa / HZ
+            t += dur + pausa / HZ
         out.writeframes(b"\0\0" * HZ)
     return t + 1.0
 
@@ -482,8 +519,8 @@ def main():
         log(f"   [{f['escena']}] {f['personaje']}: {f['texto'][:80]}")
 
     log("3/6 Voces")
-    motor = generar_audio(frs, carpeta)
-    total = montar_audio(frs, carpeta)
+    motor, pistas = generar_audio(frs, carpeta)
+    total = montar_audio(frs, pistas, carpeta)
     log(f"   Motor: {motor} · duración {total:.1f} s" + ("  (más de 3 min: no será Short)" if total > 180 else ""))
 
     log("4/6 Cuadros")
@@ -501,7 +538,7 @@ def main():
     log(f"   video.mp4 · {video.stat().st_size / 1e6:.1f} MB")
 
     registro = {"fecha": str(fecha), "modo": a.modo, "cita": ev["cita"], "fuente": ev["url"],
-                "guion": g.get("origen"), "voces": motor, "duracion_s": round(total, 1),
+                "guion": g.get("origen"), "voces": motor, "peticiones_voz": len(pistas), "duracion_s": round(total, 1),
                 "cuadros": {str(k): v["titulo"] for k, v in cuadros.items()},
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"]} for f in frs],
