@@ -1,0 +1,67 @@
+{
+  "fecha": "2026-11-05",
+  "modo": "prueba",
+  "cita": "Lucas 15, 1-10",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/05.html",
+  "guion": "gemini-flash-lite-latest",
+  "voces": "gemini",
+  "peticiones_voz": 2,
+  "duracion_s": 97.0,
+  "cuadros": {
+    "1": "File:Brooklyn Museum - The Miracle of the Loaves and Fishes (La multiplication des pains) by James Tissot.jpg",
+    "2": "File:Brooklyn Museum - The Good Shepherd (Le bon pasteur) - James Tissot - overall.jpg",
+    "3": "File:Brooklyn Museum - The Lost Drachma (La drachme perdue) - James Tissot - overall.jpg"
+  },
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 0.6,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.33,
+      "texto": "En aquel tiempo, se acercaban a Jesús los publicanos y los pecadores a escucharlo; por lo cual los fariseos y los escribas murmuraban entre sí:"
+    },
+    {
+      "personaje": "fariseos",
+      "escena": 1,
+      "inicio": 16.45,
+      "texto": "“Este recibe a los pecadores y come con ellos”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 20.27,
+      "texto": "Jesús les dijo entonces esta parábola:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 23.84,
+      "texto": "“¿Quién de ustedes, si tiene cien ovejas y se le pierde una, no deja las noventa y nueve en el campo y va en busca de la que se le perdió hasta encontrarla? Y una vez que la encuentra, la carga sobre sus hombros, lleno de alegría y al llegar a su casa, reúne a los amigos y vecinos y les dice: ‘Alégrense conmigo, porque ya encontré la oveja que se me había perdido’. Yo les aseguro que también en el cielo habrá más alegría por un pecador que se arrepiente, que por noventa y nueve justos, que no necesitan arrepentirse."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 63.9,
+      "texto": "¿Y qué mujer hay, que si tiene diez monedas de plata y pierde una, no enciende luego una lámpara y barre la casa y la busca con cuidado hasta encontrarla? Y cuando la encuentra, reúne a sus amigas y vecinas y les dice: ‘Alégrense conmigo, porque ya encontré la moneda que se me había perdido’. Yo les aseguro que así también se alegran los ángeles de Dios por un solo pecador que se arrepiente”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 94.22,
+      "texto": "Palabra del Señor."
+    }
+  ],
+  "generado": "2026-11-04T16:09:00+01:00",
+  "youtube": {
+    "id": "ImZbSjAs2Kk",
+    "url": "https://youtu.be/ImZbSjAs2Kk",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true
+  }
+}
