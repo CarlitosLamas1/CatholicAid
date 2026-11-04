@@ -831,7 +831,8 @@ def main():
     fecha = (dt.date.fromisoformat(a.fecha.strip()) if a.fecha.strip()
              else dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
     previo = RAIZ / "episodios" / f"{fecha}.json"
-    if a.si_falta and previo.exists() and "youtube" in json.loads(previo.read_text(encoding="utf-8")):
+    hecho = json.loads(previo.read_text(encoding="utf-8")) if previo.exists() else {}
+    if a.si_falta and "youtube" in hecho and hecho.get("modo") == "diario":
         log(f"El vídeo del {fecha} ya está subido; nada que hacer.")
         return
     carpeta = RAIZ / "salida" / fecha.isoformat()
