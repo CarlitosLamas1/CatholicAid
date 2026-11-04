@@ -401,7 +401,7 @@ def tts_edge(f, destino):
 
 
 def generar_audio(frs, carpeta):
-    motores = ["gemini", "edge"] if CFG.get("motor_voz") == "gemini" else ["edge"]
+    motores = ["gemini"] + (["edge"] if CFG.get("respaldo_edge") else []) if CFG.get("motor_voz") == "gemini" else ["edge"]
     for motor in motores:
         lotes = lotes_gemini(frs) if motor == "gemini" else [[i] for i in range(len(frs))]
         try:
@@ -420,7 +420,7 @@ def generar_audio(frs, carpeta):
             return motor, pistas
         except Exception as e:
             log(f"   El motor de voz {motor} falló: {e}")
-    raise RuntimeError("Ningún motor de voz funcionó")
+    raise RuntimeError("No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.")
 
 
 def montar_audio(frs, pistas, carpeta):
@@ -453,16 +453,27 @@ def montar_audio(frs, pistas, carpeta):
 # ---------- 4. Cuadros ----------
 
 def buscar_cuadro(busqueda, usados):
+    """Busca cuadros de dominio público (pintores de config) y prefiere los verticales."""
     gen = CFG["busquedas_genericas"]
+    pintores = CFG.get("pintores", ["James Tissot"])
     for q in ([busqueda] if busqueda else []) + random.sample(gen, len(gen)):
-        r = http("https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({
-            "action": "query", "format": "json", "list": "search", "srnamespace": 6, "srlimit": 20,
-            "srsearch": f'intitle:"James Tissot" {q} filetype:bitmap'}))
-        titulos = [x["title"] for x in r.get("query", {}).get("search", []) if x["title"] not in usados]
-        if titulos:
-            t = titulos[0] if q == busqueda else random.choice(titulos[:10])
-            usados.add(t)
-            return t
+        candidatos = []
+        for pintor in pintores:
+            r = http("https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({
+                "action": "query", "format": "json", "generator": "search", "gsrnamespace": 6, "gsrlimit": 15,
+                "gsrsearch": f'intitle:"{pintor}" {q} filetype:bitmap', "prop": "imageinfo", "iiprop": "size"}))
+            paginas = sorted(r.get("query", {}).get("pages", {}).values(), key=lambda p: p.get("index", 99))
+            for p in paginas:
+                ii = (p.get("imageinfo") or [{}])[0]
+                if p["title"] not in usados and ii.get("width"):
+                    candidatos.append((ii["height"] < ii["width"], p["title"]))
+            time.sleep(1)
+        if candidatos:
+            verticales = [x for horizontal, x in candidatos if not horizontal]
+            lista = verticales or [x for _, x in candidatos]
+            elegido = lista[0] if q == busqueda else random.choice(lista[:8])
+            usados.add(elegido)
+            return elegido
     raise RuntimeError("No encuentro cuadros en Wikimedia Commons")
 
 
@@ -535,17 +546,16 @@ def bloques(frs, total):
 
 def clip_escena(img, frames, n, carpeta):
     marco = carpeta / f"marco_{n}.png"
-    ffmpeg("-i", img, "-filter_complex",
-           f"[0]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=40:3,"
-           f"eq=brightness=-0.12[bg];[0]scale=1000:860:force_original_aspect_ratio=decrease[fg];"
-           f"[bg][fg]overlay=(W-w)/2:290+(860-h)/2", "-frames:v", 1, marco)
+    ffmpeg("-i", img, "-vf",
+           f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},"
+           "eq=saturation=1.08:brightness=0.02,vignette=PI/5", "-frames:v", 1, marco)
     dur = frames / FPS
     z = f"1+0.10*on/{frames}" if n % 2 == 0 else f"1.10-0.10*on/{frames}"
     salida = carpeta / f"clip_{n:02d}.mp4"
     ffmpeg("-loop", 1, "-framerate", FPS, "-i", marco, "-vf",
-           f"scale={int(W * 1.5)}:{int(H * 1.5)},zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+           f"scale={W * 2}:{H * 2}:flags=lanczos,zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
            f":d=1:s={W}x{H}:fps={FPS},fade=t=in:st=0:d=0.3,fade=t=out:st={max(0.0, dur - 0.3):.2f}:d=0.3",
-           "-frames:v", frames, "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", salida)
+           "-frames:v", frames, "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", salida)
     return salida
 
 
@@ -554,15 +564,13 @@ def clip_video(origen, frames, n, carpeta):
     dur = frames / FPS
     base = carpeta / f"base_{n:02d}.mp4"
     ffmpeg("-i", origen, "-an", "-filter_complex",
-           f"[0:v]setpts=1.5*PTS,fps={FPS},split[a][b];"
-           f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=30:2,eq=brightness=-0.12[bg];"
-           f"[b]scale={W}:{H}:force_original_aspect_ratio=decrease[fg];"
-           f"[bg][fg]overlay=(W-w)/2:(H-h)/2,split[f][r0];[r0]reverse[r];[f][r]concat=n=2:v=1:a=0,format=yuv420p[v]",
+           f"[0:v]setpts=1.5*PTS,fps={FPS},scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,"
+           f"crop={W}:{H},eq=saturation=1.05,vignette=PI/5,split[f][r0];[r0]reverse[r];[f][r]concat=n=2:v=1:a=0,format=yuv420p[v]",
            "-map", "[v]", "-c:v", "libx264", "-preset", "veryfast", base)
     salida = carpeta / f"clip_{n:02d}.mp4"
     ffmpeg("-stream_loop", -1, "-i", base, "-vf",
            f"fade=t=in:st=0:d=0.3,fade=t=out:st={max(0.0, dur - 0.3):.2f}:d=0.3",
-           "-frames:v", frames, "-an", "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", salida)
+           "-frames:v", frames, "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", salida)
     return salida
 
 
@@ -618,6 +626,25 @@ def subtitulos(frs, ev, fecha, total, ruta):
         "60,60,120,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
     cuerpo = "".join(f"Dialogue: 0,{ts(a)},{ts(b)},{s},,0,0,0,,{x}\n" for s, a, b, x in eventos)
     ruta.write_text(cabecera + cuerpo, encoding="utf-8")
+
+
+def musica_del_dia(fecha):
+    """Música clásica de dominio público (Wikimedia Commons), rotando por días; se guarda en musica/."""
+    pistas = CFG.get("musica", [])
+    if not pistas:
+        return None
+    nombre = pistas[fecha.toordinal() % len(pistas)].replace(" ", "_")
+    ruta = RAIZ / "musica" / nombre
+    if not ruta.exists():
+        try:
+            url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(nombre)
+            datos = http(url, raw=True, timeout=180)[1]
+            ruta.parent.mkdir(exist_ok=True)
+            ruta.write_bytes(datos)
+        except Exception as e:
+            log(f"   Sin música ({e})")
+            return None
+    return ruta
 
 
 # ---------- 6. YouTube ----------
@@ -722,14 +749,26 @@ def main():
         cuadros[b["escena"]]["archivo"], b["frames"], i, carpeta) for i, b in enumerate(bl)]
     (carpeta / "clips.txt").write_text("".join(f"file '{c.name}'\n" for c in clips))
     subtitulos(frs, ev, fecha, total, carpeta / "subtitulos.ass")
-    ffmpeg("-f", "concat", "-safe", "0", "-i", "clips.txt", "-i", "audio.wav", "-vf", "ass=subtitulos.ass",
-           "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-pix_fmt", "yuv420p",
+    musica = musica_del_dia(fecha)
+    entradas = ["-f", "concat", "-safe", "0", "-i", "clips.txt", "-i", "audio.wav"]
+    voz = "[1:a]aresample=48000,aformat=channel_layouts=stereo"
+    if musica:
+        log(f"   Música: {musica.name}")
+        vol = CFG.get("volumen_musica", 0.10)
+        filtro = (f"{voz}[v];[2:a]aresample=48000,aformat=channel_layouts=stereo,volume={vol},"
+                  f"atrim=0:{total:.2f},afade=t=in:st=0:d=2,afade=t=out:st={max(0.0, total - 3):.2f}:d=3[m];"
+                  "[v][m]amix=inputs=2:duration=first:normalize=0[a]")
+        entradas += ["-i", musica]
+    else:
+        filtro = f"{voz}[a]"
+    ffmpeg(*entradas, "-filter_complex", filtro + ";[0:v]ass=subtitulos.ass[vid]", "-map", "[vid]", "-map", "[a]",
+           "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p",
            "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", "video.mp4", cwd=carpeta)
     video = carpeta / "video.mp4"
     log(f"   video.mp4 · {video.stat().st_size / 1e6:.1f} MB")
 
     registro = {"fecha": str(fecha), "modo": a.modo, "cita": ev["cita"], "fuente": ev["url"], "texto_fuente": ev["fuente_texto"],
-                "guion": g.get("origen"), "voces": motor, "peticiones_voz": len(pistas), "duracion_s": round(total, 1),
+                "guion": g.get("origen"), "voces": motor, "peticiones_voz": len(pistas), "musica": musica.name if musica else None, "duracion_s": round(total, 1),
                 "cuadros": {str(k): v["titulo"] for k, v in cuadros.items()},
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"]} for f in frs],
