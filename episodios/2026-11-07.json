@@ -1,0 +1,65 @@
+{
+  "fecha": "2026-11-07",
+  "modo": "prueba",
+  "cita": "Lucas 16, 9-15",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/07.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-flash-lite-latest",
+  "voces": "gemini",
+  "peticiones_voz": 5,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 69.7,
+  "imagenes": [
+    "dias/2026-11-07_e1.png",
+    "biblioteca/G07",
+    "biblioteca/D05",
+    "dias/2026-11-07_e2.png",
+    "biblioteca/D02"
+  ],
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 0.6,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.8,
+      "texto": "En aquel tiempo, dijo Jesús a sus discípulos:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 9.45,
+      "texto": "“Así os digo yo: ganaos amigos con las riquezas injustas, para que, cuando muráis, seáis recibidos en las moradas eternas. Quien es fiel en lo poco, también lo es en lo mucho; y quien es injusto en lo poco, también lo es en lo mucho. Si no habéis sido fieles en las riquezas injustas, ¿quién os confiará las verdaderas? Y si no fuisteis fieles en lo ajeno, ¿quién os dará lo que es vuestro? Ningún criado puede servir a dos amos, porque o aborrecerá a uno y amará al otro, o se apegará al primero y no hará caso del segundo. No podéis servir a Dios y a las riquezas”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 46.18,
+      "texto": "Estaban oyendo todo esto los fariseos, que eran amigos del dinero, y se burlaban de él. Pero Jesús les dijo:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 55.51,
+      "texto": "“Vosotros os hacéis pasar por justos delante de los hombres, pero Dios conoce vuestros corazones; porque lo que los hombres tienen por grande es abominable a los ojos de Dios”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 66.48,
+      "texto": "Palabra del Señor."
+    }
+  ],
+  "generado": "2026-11-04T23:49:32+01:00",
+  "youtube": {
+    "id": "8yNorRyHMX8",
+    "url": "https://youtu.be/8yNorRyHMX8",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true
+  }
+}
