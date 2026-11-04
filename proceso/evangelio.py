@@ -124,10 +124,134 @@ def obtener_evangelio(fecha):
     return {"url": url, "titulo": titulo, "cita": cita, "texto": "\n".join(cuerpo)}
 
 
+# ---------- 1b. Texto de Torres Amat (dominio público) ----------
+
+NOMBRES = {"Jesús", "Jesus", "Pedro", "Simón", "Juan", "María", "Dios", "Jerusalén", "Galilea", "Herodes", "Pilato"}
+ORTOGRAFIA = {
+    "Jesus": "Jesús", "muger": "mujer", "mugeres": "mujeres", "entónces": "entonces", "Entónces": "Entonces",
+    "despues": "después", "Despues": "Después", "todavia": "todavía", "léjos": "lejos", "oidos": "oídos",
+    "habia": "había", "habian": "habían", "tenia": "tenía", "tenian": "tenían", "decia": "decía", "Decia": "Decía",
+    "dia": "día", "dias": "días", "fé": "fe", "tambien": "también", "Jerusalem": "Jerusalén", "ácia": "hacia",
+    "extrangero": "extranjero", "ageno": "ajeno", "comun": "común", "habeis": "habéis", "sabeis": "sabéis",
+    "podeis": "podéis", "seais": "seáis", "mia": "mía", "tí": "ti", "Regocijáos": "Regocijaos",
+    "Alegráos": "Alegraos", "drachma": "dracma", "mostráos": "mostraos", "querais": "queráis", "vayais": "vayáis",
+    "compreis": "compréis", "administracion": "administración", "obligacion": "obligación",
+    "poblacion": "población", "Ningun": "Ningún", "vendeis": "vendéis", "vendian": "vendían"}
+
+
+def ortografia(t):
+    """Actualiza la ortografía de 1836: á/ó/é/ú sueltas y palabras frecuentes."""
+    t = re.sub(r"\s+([.,;:?!])", r"\1", t)
+    t = re.sub(r"(?<!\w)([áóéú])(?!\w)", lambda m: "aoeu"["áóéú".index(m.group(1))], t)
+    return re.sub(r"\w+", lambda m: ORTOGRAFIA.get(m.group(0), m.group(0)), t)
+
+
+def cargar_libro(libro):
+    """Evangelio de Torres Amat (1836) desde Wikisource; se guarda en biblia/torres-amat/."""
+    ruta = RAIZ / "biblia" / "torres-amat" / f"{libro.lower()}.json"
+    if ruta.exists():
+        return json.loads(ruta.read_text(encoding="utf-8"))
+    log(f"   Descargando {libro} (Torres Amat, 1836) de Wikisource")
+    url = ("https://es.wikisource.org/w/api.php?action=parse&format=json&formatversion=2&prop=text&page="
+           + urllib.parse.quote(f"La Sagrada Biblia (XIII)/{libro}"))
+    h = http(url)["parse"]["text"]
+    h = re.sub(r'<sup[^>]*class="reference"[\s\S]*?</sup>', "", h)
+    h = re.sub(r'<ol class="references"[\s\S]*?</ol>', "", h)
+    h = re.sub(r"<br\s*/?>|</p>|</div>|</dd>|</li>", "\n", h)
+    texto = html.unescape(re.sub(r"<[^>]+>", "", h)).replace("\xa0", " ")
+    romanos = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100}
+    datos, cap, ver = {}, 0, None
+    for linea in texto.split("\n"):
+        linea = linea.strip()
+        if not linea:
+            continue
+        m = re.match(r"CAP[IÍ]TULO\s+([IVXLC]+)", linea)
+        if m:
+            d = [romanos[c] for c in m.group(1)]
+            cap = sum(-x if i + 1 < len(d) and x < d[i + 1] else x for i, x in enumerate(d))
+            datos[str(cap)], ver = {}, None
+            continue
+        m = re.match(r"^[^\w¿¡]*(\d+)\s+(.+)", linea)
+        if cap and m:
+            ver = m.group(1)
+            datos[str(cap)][ver] = m.group(2).strip()
+        elif cap and ver:
+            datos[str(cap)][ver] += " " + linea
+    ruta.parent.mkdir(parents=True, exist_ok=True)
+    ruta.write_text(json.dumps(datos, ensure_ascii=False, indent=1), encoding="utf-8")
+    return datos
+
+
+def versiculos(cita, datos):
+    """'Lucas 15, 1-10' / 'Juan 20, 1-2. 11-18' / 'Mateo 26, 14-27, 66' -> [(cap, ver), ...]"""
+    resto = re.sub(r"^\s*[1-3]?\s?\w+\s+", "", cita).replace("—", "-").replace("–", "-")
+    lista, cap = [], None
+    for parte in re.split(r"[.;]\s*", resto):
+        parte = re.sub(r"(\d)[a-d]\b", r"\1", parte.strip())
+        if not parte:
+            continue
+        if re.match(r"^\d+\s*,", parte):
+            c, parte = parte.split(",", 1)
+            cap, parte = int(c), parte.strip()
+        a, _, b = parte.partition("-")
+        if not b:
+            lista.append((cap, int(a)))
+            continue
+        c2, v2 = (int(x) for x in b.split(",")) if "," in b else (cap, int(b))
+        c, v = cap, int(a)
+        while (c, v) <= (c2, v2):
+            lista.append((c, v))
+            ultimo = max((int(k) for k in datos.get(str(c), {})), default=0)
+            c, v = (c + 1, 1) if v >= ultimo else (c, v + 1)
+        cap = c2
+    return lista
+
+
+def texto_torres_amat(cita):
+    libro = cita.split()[0]
+    datos = cargar_libro(libro)
+    ruta_rev = RAIZ / "biblia" / "revisada" / f"{libro.lower()}.json"
+    rev = json.loads(ruta_rev.read_text(encoding="utf-8")) if ruta_rev.exists() else {}
+    vs = versiculos(cita, datos)
+    partes, faltan, revisados = [], [], 0
+    for c, v in vs:
+        r = rev.get(str(c), {}).get(str(v))
+        o = datos.get(str(c), {}).get(str(v))
+        if r:
+            partes.append(r)
+            revisados += 1
+        elif o:
+            partes.append(ortografia(o))
+        else:
+            faltan.append(f"{c},{v}")
+    if not vs or faltan:
+        raise ValueError(f"faltan versículos: {faltan or cita}")
+    texto = " ".join(partes)
+    inicio = rev.get("_inicios", {}).get(f"{vs[0][0]}:{vs[0][1]}")
+    if inicio is None:
+        inicio = "" if vs[0] == (1, 1) else "En aquel tiempo,"
+    if inicio:
+        primera = texto.split()[0].strip("¿¡“«")
+        if inicio.endswith(",") and primera not in NOMBRES:
+            texto = texto[0].lower() + texto[1:]
+        texto = f"{inicio} {texto}"
+    if revisados == len(vs):
+        fuente = "Torres Amat (1836), versión revisada por CatholicAid"
+    elif revisados:
+        fuente = "Torres Amat (1836), revisión parcial"
+    else:
+        fuente = "Torres Amat (1836), ortografía actualizada"
+    return texto, fuente
+
+
 # ---------- 2. Guion ----------
 
-def guion_gemini(texto):
+def guion_gemini(texto, clips):
     lista = "\n".join(f"- {k}: {v['descripcion']}" for k, v in PJ.items())
+    biblioteca = ""
+    if clips:
+        biblioteca = ("\n5. Para cada escena elige en \"clip\" el vídeo de la biblioteca que mejor muestre lo que se narra"
+                      " (o \"ninguno\" si ninguno encaja):\n" + "\n".join(f"- {k}: {v}" for k, v in clips.items()))
     prompt = f"""Prepara una lectura dramatizada del Evangelio con varias voces.
 
 PERSONAJES (usa solo estas claves):
@@ -137,7 +261,7 @@ REGLAS:
 1. Divide el texto en fragmentos consecutivos. Copia cada fragmento EXACTAMENTE igual que en el original: no añadas, quites ni cambies ninguna palabra ni signo. Unidos en orden, los fragmentos deben reproducir el texto completo.
 2. Las palabras en estilo directo (entre comillas “ ”) van en un fragmento propio, asignado a quien las dice. Si alguien cita a otro dentro de su discurso (comillas ‘ ’), sigue hablando el mismo personaje. Todo lo demás es del narrador.
 3. Si habla un personaje secundario que no está en la lista, usa hombre, mujer o multitud.
-4. Agrupa el relato en 2 a 4 escenas visuales. En cada fragmento indica su escena (1, 2, ...). Para cada escena da "busqueda": 1 a 3 palabras en inglés para encontrar un cuadro de James Tissot de esa escena (ej.: "good shepherd", "Pharisees", "Jesus teaching", "Peter").
+4. Agrupa el relato en 2 a 4 escenas visuales. En cada fragmento indica su escena (1, 2, ...). Para cada escena da "busqueda": 1 a 3 palabras en inglés para encontrar un cuadro de James Tissot de esa escena (ej.: "good shepherd", "Pharisees", "Jesus teaching", "Peter").{biblioteca}
 
 TEXTO:
 {texto}"""
@@ -147,7 +271,8 @@ TEXTO:
             "texto": {"type": "STRING"},
             "escena": {"type": "INTEGER"}}, "required": ["personaje", "texto", "escena"]}},
         "escenas": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
-            "numero": {"type": "INTEGER"}, "busqueda": {"type": "STRING"}},
+            "numero": {"type": "INTEGER"}, "busqueda": {"type": "STRING"},
+            "clip": {"type": "STRING", "enum": list(clips) + ["ninguno"]}},
             "required": ["numero", "busqueda"]}}},
         "required": ["fragmentos", "escenas"]}
     for modelo in modelos_texto():
@@ -341,8 +466,8 @@ def buscar_cuadro(busqueda, usados):
     raise RuntimeError("No encuentro cuadros en Wikimedia Commons")
 
 
-def elegir_cuadros(escenas, busquedas, carpeta):
-    usados, cuadros = set(), {}
+def elegir_cuadros(escenas, busquedas, carpeta, usados=None):
+    usados, cuadros = (set() if usados is None else usados), {}
     for n in escenas:
         titulo = buscar_cuadro(busquedas.get(n, ""), usados)
         nombre = titulo.split(":", 1)[1].replace(" ", "_")
@@ -352,6 +477,46 @@ def elegir_cuadros(escenas, busquedas, carpeta):
         cuadros[n] = {"archivo": destino, "titulo": titulo}
         log(f"   Escena {n}: {titulo}")
     return cuadros
+
+
+def archivo_clip(nombre, carpeta="clips"):
+    for ext in (".mp4", ".mov", ".webm", ".png", ".jpg", ".jpeg", ".webp"):
+        p = RAIZ / "biblioteca" / carpeta / f"{nombre}{ext}"
+        if p.exists():
+            return p
+    return None
+
+
+def clips_disponibles():
+    ruta = RAIZ / "biblioteca" / "catalogo.json"
+    if not ruta.exists():
+        return {}
+    cat = json.loads(ruta.read_text(encoding="utf-8"))["clips"]
+    return {k: v["descripcion"] for k, v in cat.items() if archivo_clip(k)}
+
+
+def es_video(p):
+    return Path(p).suffix.lower() in (".mp4", ".mov", ".webm")
+
+
+def elegir_visuales(escenas, info, fecha, carpeta):
+    """Prioridad: clip propio del día > clip de la biblioteca elegido por Gemini > cuadro de Tissot."""
+    datos = {int(e["numero"]): e for e in info}
+    usados, visuales = set(), {}
+    for n in escenas:
+        e = datos.get(n, {})
+        propio = archivo_clip(f"{fecha}_e{n}", "dias")
+        clip = e.get("clip", "ninguno")
+        if propio:
+            visuales[n] = {"archivo": propio, "titulo": f"dias/{propio.name}"}
+            log(f"   Escena {n}: clip del día {propio.name}")
+        elif clip != "ninguno" and clip not in usados and archivo_clip(clip):
+            usados.add(clip)
+            visuales[n] = {"archivo": archivo_clip(clip), "titulo": f"biblioteca/{clip}"}
+            log(f"   Escena {n}: biblioteca {clip}")
+        else:
+            visuales[n] = elegir_cuadros([n], {n: e.get("busqueda", "")}, carpeta, usados)[n]
+    return visuales
 
 
 # ---------- 5. Vídeo ----------
@@ -372,15 +537,32 @@ def clip_escena(img, frames, n, carpeta):
     marco = carpeta / f"marco_{n}.png"
     ffmpeg("-i", img, "-filter_complex",
            f"[0]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=40:3,"
-           f"eq=brightness=-0.30[bg];[0]scale=1000:860:force_original_aspect_ratio=decrease[fg];"
+           f"eq=brightness=-0.12[bg];[0]scale=1000:860:force_original_aspect_ratio=decrease[fg];"
            f"[bg][fg]overlay=(W-w)/2:290+(860-h)/2", "-frames:v", 1, marco)
     dur = frames / FPS
     z = f"1+0.10*on/{frames}" if n % 2 == 0 else f"1.10-0.10*on/{frames}"
     salida = carpeta / f"clip_{n:02d}.mp4"
     ffmpeg("-loop", 1, "-framerate", FPS, "-i", marco, "-vf",
            f"scale={int(W * 1.5)}:{int(H * 1.5)},zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
-           f":d=1:s={W}x{H}:fps={FPS},fade=t=in:st=0:d=0.4,fade=t=out:st={max(0.0, dur - 0.4):.2f}:d=0.4",
+           f":d=1:s={W}x{H}:fps={FPS},fade=t=in:st=0:d=0.3,fade=t=out:st={max(0.0, dur - 0.3):.2f}:d=0.3",
            "-frames:v", frames, "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", salida)
+    return salida
+
+
+def clip_video(origen, frames, n, carpeta):
+    """Clip de la biblioteca: cámara lenta, ida y vuelta (sin cortes) y relleno vertical 9:16."""
+    dur = frames / FPS
+    base = carpeta / f"base_{n:02d}.mp4"
+    ffmpeg("-i", origen, "-an", "-filter_complex",
+           f"[0:v]setpts=1.5*PTS,fps={FPS},split[a][b];"
+           f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=30:2,eq=brightness=-0.12[bg];"
+           f"[b]scale={W}:{H}:force_original_aspect_ratio=decrease[fg];"
+           f"[bg][fg]overlay=(W-w)/2:(H-h)/2,split[f][r0];[r0]reverse[r];[f][r]concat=n=2:v=1:a=0,format=yuv420p[v]",
+           "-map", "[v]", "-c:v", "libx264", "-preset", "veryfast", base)
+    salida = carpeta / f"clip_{n:02d}.mp4"
+    ffmpeg("-stream_loop", -1, "-i", base, "-vf",
+           f"fade=t=in:st=0:d=0.3,fade=t=out:st={max(0.0, dur - 0.3):.2f}:d=0.3",
+           "-frames:v", frames, "-an", "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", salida)
     return salida
 
 
@@ -452,8 +634,8 @@ def subir_youtube(video, ev, fecha, modo):
         titulo += " #shorts"
     descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
                    f"Evangelio del {DIAS[fecha.weekday()]} {fecha_txt} de {fecha.year}, leído con varias voces.\n\n"
-                   f"📖 Texto: Vatican News · {ev['url']}\n"
-                   "🎨 Imágenes: James Tissot, Brooklyn Museum (dominio público, Wikimedia Commons)\n"
+                   f"📖 Texto: {ev.get('fuente_texto', 'Vatican News')}. Calendario litúrgico: Vatican News.\n"
+                   "🎨 Imágenes: escenas generadas con IA y cuadros de James Tissot (dominio público)\n"
                    "🎙️ Voces generadas con inteligencia artificial.\n\n"
                    "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico")
     estado = {"privacyStatus": "private", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}
@@ -506,10 +688,18 @@ def main():
 
     log("1/6 Evangelio")
     ev = obtener_evangelio(fecha)
-    log(f"   {ev['cita']} · {len(ev['texto'])} caracteres")
+    if CFG.get("texto") == "torres-amat":
+        try:
+            ev["texto"], ev["fuente_texto"] = texto_torres_amat(ev["cita"])
+        except Exception as e:
+            log(f"   Torres Amat no disponible ({e}); uso el texto de Vatican News")
+    ev.setdefault("fuente_texto", "Vatican News")
+    log(f"   {ev['cita']} · {ev['fuente_texto']} · {len(ev['texto'])} caracteres")
 
     log("2/6 Guion")
-    g = guion_gemini(ev["texto"])
+    biblioteca = clips_disponibles()
+    log(f"   Biblioteca: {len(biblioteca)} clips disponibles")
+    g = guion_gemini(ev["texto"], biblioteca)
     if not g:
         log("   Gemini no disponible o no fiel: uso reglas por comillas")
         g = guion_reglas(ev["texto"])
@@ -525,10 +715,11 @@ def main():
 
     log("4/6 Cuadros")
     bl = bloques(frs, total)
-    cuadros = elegir_cuadros(sorted({b["escena"] for b in bl}), busquedas, carpeta)
+    cuadros = elegir_visuales(sorted({b["escena"] for b in bl}), g.get("escenas", []), fecha, carpeta)
 
     log("5/6 Vídeo")
-    clips = [clip_escena(cuadros[b["escena"]]["archivo"], b["frames"], i, carpeta) for i, b in enumerate(bl)]
+    clips = [(clip_video if es_video(cuadros[b["escena"]]["archivo"]) else clip_escena)(
+        cuadros[b["escena"]]["archivo"], b["frames"], i, carpeta) for i, b in enumerate(bl)]
     (carpeta / "clips.txt").write_text("".join(f"file '{c.name}'\n" for c in clips))
     subtitulos(frs, ev, fecha, total, carpeta / "subtitulos.ass")
     ffmpeg("-f", "concat", "-safe", "0", "-i", "clips.txt", "-i", "audio.wav", "-vf", "ass=subtitulos.ass",
@@ -537,7 +728,7 @@ def main():
     video = carpeta / "video.mp4"
     log(f"   video.mp4 · {video.stat().st_size / 1e6:.1f} MB")
 
-    registro = {"fecha": str(fecha), "modo": a.modo, "cita": ev["cita"], "fuente": ev["url"],
+    registro = {"fecha": str(fecha), "modo": a.modo, "cita": ev["cita"], "fuente": ev["url"], "texto_fuente": ev["fuente_texto"],
                 "guion": g.get("origen"), "voces": motor, "peticiones_voz": len(pistas), "duracion_s": round(total, 1),
                 "cuadros": {str(k): v["titulo"] for k, v in cuadros.items()},
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
