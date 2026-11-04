@@ -1,137 +1,165 @@
 {
-  "_voces": "Cada personaje tiene SIEMPRE la misma voz de Gemini (voz_gemini) y el mismo estilo. No cambiarlos sin motivo: el público reconoce las voces.",
-  "modelos_texto": [
-    "gemini-3.8-flash",
-    "gemini-3.8-flash-lite"
-  ],
-  "modelo_voz": "gemini-2.5-flash-preview-tts",
-  "motor_voz": "gemini",
-  "respaldo_edge": false,
-  "texto": "torres-amat",
-  "pausa_tts_segundos": 21,
-  "pausa_entre_voces": 0.35,
-  "caracteres_por_subtitulo": 46,
-  "hora_publicacion": 7,
-  "volumen_musica": 0.1,
-  "musica": [
-    "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg",
-    "Clair de lune (Claude Debussy) Suite bergamasque.ogg",
-    "JS Bach - Well Tempered Clavier - Prelude in Fugue No.1 in C major.ogg"
-  ],
-  "pintores": [
-    "Carl Heinrich Bloch",
-    "Heinrich Hofmann",
-    "James Tissot"
-  ],
-  "busquedas_genericas": [
-    "Jesus teaching",
-    "Jesus disciples",
-    "Jesus multitude",
-    "Christ"
-  ],
+  "message": "API rate limit exceeded for 37.10.239.56. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+  "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting",
+  "_voces": "Cada personaje tiene SIEMPRE la misma voz de Gemini (voz_gemini) y el mismo estilo; ninguna voz se repite entre personajes. El narrador cambia según el evangelista de la lectura (narradores). No cambiar sin motivo: el público reconoce las voces.",
+  "max_segundos_imagen": 16,
+  "narradores": {
+    "Mateo": {
+      "voz_gemini": "Sadaltager",
+      "estilo": "voz de anciano sabio y sereno, grave y cálida, ritmo pausado, acento de España"
+    },
+    "Marcos": {
+      "voz_gemini": "Rasalgethi",
+      "estilo": "voz de hombre mayor, clara y directa, con viveza contenida, ritmo sereno, acento de España"
+    },
+    "Lucas": {
+      "voz_gemini": "Schedar",
+      "estilo": "voz de anciano dulce y culto, cálida y delicada como la de un médico bondadoso, ritmo pausado, acento de España"
+    },
+    "Juan": {
+      "voz_gemini": "Charon",
+      "estilo": "voz de anciano contemplativo y profundo, muy pausada y llena de ternura, casi un susurro solemne, acento de España"
+    }
+  },
   "personajes": {
     "narrador": {
       "nombre": "",
       "descripcion": "el evangelista que narra; todo lo que no es estilo directo",
-      "voz_gemini": "Charon",
-      "voz_edge": "es-ES-AlvaroNeural",
-      "estilo": "Lee como un narrador sereno y claro, con ritmo pausado, con acento de España (castellano peninsular)",
+      "voz_gemini": "Schedar",
+      "estilo": "voz de anciano sereno y cálido, ritmo pausado, acento de España",
       "color": "FFFFFF",
       "color_texto": "FFFFFF",
-      "alias": []
+      "alias": [],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "jesus": {
       "nombre": "Jesús",
       "descripcion": "Jesús",
-      "voz_gemini": "Algieba",
-      "voz_edge": "es-MX-JorgeNeural",
-      "estilo": "Habla como Jesús: voz serena, cálida y cercana, con autoridad tranquila y sin teatralidad, con acento de España (castellano peninsular)",
+      "voz_gemini": "Alnilam",
+      "estilo": "voz solemne, profunda y serena, llena de ternura y de autoridad, pausada y con pequeñas pausas expresivas, acento de España",
       "color": "F5C542",
       "color_texto": "FFE7A3",
       "alias": [
         "Jesús",
         "el Señor",
         "Maestro"
-      ]
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "maria": {
       "nombre": "María",
       "descripcion": "la Virgen María, madre de Jesús",
       "voz_gemini": "Sulafat",
-      "voz_edge": "es-ES-ElviraNeural",
-      "estilo": "Habla como María, madre de Jesús: voz dulce, humilde y firme, con acento de España (castellano peninsular)",
+      "estilo": "voz de mujer joven, dulce, humilde y luminosa, llena de paz, acento de España",
       "color": "8EC5FF",
       "color_texto": "FFFFFF",
       "alias": [
         "su madre",
         "la madre de Jesús"
-      ]
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "magdalena": {
       "nombre": "María Magdalena",
       "descripcion": "María Magdalena",
-      "voz_gemini": "Aoede",
-      "voz_edge": "es-ES-XimenaNeural",
-      "estilo": "Habla como María Magdalena: voz joven, sincera y emocionada, con acento de España (castellano peninsular)",
+      "voz_gemini": "Leda",
+      "estilo": "voz de mujer joven, sincera, emocionada y agradecida, acento de España",
       "color": "F49AC1",
       "color_texto": "FFFFFF",
       "alias": [
         "Magdalena"
-      ]
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
+    },
+    "marta": {
+      "nombre": "Marta",
+      "descripcion": "Marta, hermana de Lázaro",
+      "voz_gemini": "Kore",
+      "estilo": "voz de mujer adulta, firme, práctica y afectuosa, acento de España",
+      "color": "F7C6A0",
+      "color_texto": "FFFFFF",
+      "alias": [
+        "Marta"
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
+    },
+    "isabel": {
+      "nombre": "Isabel",
+      "descripcion": "Isabel, madre de Juan el Bautista, u otra mujer anciana",
+      "voz_gemini": "Gacrux",
+      "estilo": "voz de mujer anciana, cálida y llena de alegría serena, acento de España",
+      "color": "E8D5B0",
+      "color_texto": "FFFFFF",
+      "alias": [
+        "Isabel"
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
+    },
+    "mujer": {
+      "nombre": "",
+      "descripcion": "cualquier otra mujer (la samaritana, una viuda, una sierva...)",
+      "voz_gemini": "Despina",
+      "estilo": "voz de mujer adulta, natural y expresiva, acento de España",
+      "color": "F7C6D9",
+      "color_texto": "FFFFFF",
+      "alias": [
+        "mujer"
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "pedro": {
       "nombre": "Pedro",
       "descripcion": "Simón Pedro",
       "voz_gemini": "Algenib",
-      "voz_edge": "es-AR-TomasNeural",
-      "estilo": "Habla como el apóstol Pedro: voz grave, algo ruda, directa e impulsiva, con acento de España (castellano peninsular)",
+      "estilo": "voz de pescador maduro, grave y algo áspera, franca, impulsiva y apasionada, acento de España",
       "color": "FFA36B",
       "color_texto": "FFFFFF",
       "alias": [
         "Pedro",
         "Simón"
-      ]
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "juan": {
       "nombre": "Juan",
-      "descripcion": "el apóstol Juan (no Juan el Bautista)",
+      "descripcion": "el apóstol Juan (no Juan el Bautista ni el evangelista narrando)",
       "voz_gemini": "Achird",
-      "voz_edge": "es-CO-GonzaloNeural",
-      "estilo": "Habla como el apóstol Juan: voz joven, suave y cercana, con acento de España (castellano peninsular)",
+      "estilo": "voz de hombre joven, suave, cercana y afectuosa, acento de España",
       "color": "9EE6A0",
       "color_texto": "FFFFFF",
-      "alias": []
+      "alias": [],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "tomas": {
       "nombre": "Tomás",
       "descripcion": "el apóstol Tomás",
       "voz_gemini": "Iapetus",
-      "voz_edge": "es-CL-LorenzoNeural",
-      "estilo": "Habla como el apóstol Tomás: voz reflexiva, algo escéptica, con acento de España (castellano peninsular)",
+      "estilo": "voz de hombre de mediana edad, reflexiva, algo escéptica pero sincera, acento de España",
       "color": "C7A6FF",
       "color_texto": "FFFFFF",
       "alias": [
         "Tomás"
-      ]
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
-    "bautista": {
-      "nombre": "Juan el Bautista",
-      "descripcion": "Juan el Bautista",
-      "voz_gemini": "Rasalgethi",
-      "voz_edge": "es-US-AlonsoNeural",
-      "estilo": "Habla como Juan el Bautista: voz fuerte de profeta, apasionada, con acento de España (castellano peninsular)",
-      "color": "E6C79E",
+    "judas": {
+      "nombre": "Judas",
+      "descripcion": "Judas Iscariote",
+      "voz_gemini": "Enceladus",
+      "estilo": "voz de hombre tensa, baja y entrecortada, acento de España",
+      "color": "B0B0B0",
       "color_texto": "FFFFFF",
       "alias": [
-        "Bautista"
-      ]
+        "Judas Iscariote",
+        "Judas"
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "apostol": {
       "nombre": "Discípulo",
-      "descripcion": "otro apóstol o discípulo (Andrés, Felipe, Santiago, Natanael, Judas...) o los discípulos en grupo",
-      "voz_gemini": "Orus",
-      "voz_edge": "es-US-AlonsoNeural",
-      "estilo": "Habla como un discípulo de Jesús: voz de hombre adulto, sencilla y natural, con acento de España (castellano peninsular)",
+      "descripcion": "otro apóstol o discípulo (Andrés, Felipe, Santiago, Natanael...) o los discípulos en grupo",
+      "voz_gemini": "Zubenelgenubi",
+      "estilo": "voz de hombre adulto sencillo, natural y cercana, acento de España",
       "color": "B5D99C",
       "color_texto": "FFFFFF",
       "alias": [
@@ -139,18 +167,29 @@
         "Andrés",
         "Santiago",
         "Natanael",
-        "Judas",
         "discípulos",
         "discípulo",
         "apóstoles"
-      ]
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
+    },
+    "bautista": {
+      "nombre": "Juan el Bautista",
+      "descripcion": "Juan el Bautista",
+      "voz_gemini": "Orus",
+      "estilo": "voz de profeta, fuerte, firme y apasionada, que resuena en el desierto, acento de España",
+      "color": "E6C79E",
+      "color_texto": "FFFFFF",
+      "alias": [
+        "Bautista"
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "fariseos": {
       "nombre": "Fariseos",
       "descripcion": "fariseos, escribas, saduceos, sacerdotes o maestros de la ley",
-      "voz_gemini": "Enceladus",
-      "voz_edge": "es-VE-SebastianNeural",
-      "estilo": "Habla como un fariseo: voz seca, desconfiada y algo altiva, con acento de España (castellano peninsular)",
+      "voz_gemini": "Sadachbia",
+      "estilo": "voz de hombre culto, seca, desconfiada y algo altiva, acento de España",
       "color": "FF8A80",
       "color_texto": "FFFFFF",
       "alias": [
@@ -161,48 +200,38 @@
         "maestros de la ley",
         "doctores de la ley",
         "fariseo"
-      ]
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "hombre": {
       "nombre": "",
-      "descripcion": "cualquier otro hombre (un ciego, un centurión, un joven rico, un ángel...)",
+      "descripcion": "cualquier otro hombre (un ciego, un centurión, un joven rico, un ángel, los judíos...)",
       "voz_gemini": "Umbriel",
-      "voz_edge": "es-MX-JorgeNeural",
-      "estilo": "Habla con voz de hombre adulto, natural y expresiva, con acento de España (castellano peninsular)",
+      "estilo": "voz de hombre adulto, natural y expresiva, acento de España",
       "color": "E0E0E0",
       "color_texto": "FFFFFF",
       "alias": [
         "hombre",
         "ángel",
-        "centurión"
-      ]
-    },
-    "mujer": {
-      "nombre": "",
-      "descripcion": "cualquier otra mujer (la samaritana, Marta, una viuda...)",
-      "voz_gemini": "Kore",
-      "voz_edge": "es-MX-DaliaNeural",
-      "estilo": "Habla con voz de mujer adulta, natural y expresiva, con acento de España (castellano peninsular)",
-      "color": "F7C6D9",
-      "color_texto": "FFFFFF",
-      "alias": [
-        "mujer",
-        "Marta"
-      ]
+        "centurión",
+        "judíos"
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     },
     "multitud": {
       "nombre": "La gente",
-      "descripcion": "la gente, la multitud o el pueblo hablando a la vez",
+      "descripcion": "la gente, la multitud, el pueblo o un grupo (leprosos, criados...) hablando a la vez",
       "voz_gemini": "Fenrir",
-      "voz_edge": "es-ES-AlvaroNeural",
-      "estilo": "Habla como una multitud: voz enérgica y popular, con acento de España (castellano peninsular)",
+      "estilo": "voz enérgica y popular, como de muchas personas, acento de España",
       "color": "CCCCCC",
       "color_texto": "FFFFFF",
       "alias": [
         "gente",
         "multitud",
-        "pueblo"
-      ]
+        "pueblo",
+        "leprosos"
+      ],
+      "voz_edge": "es-ES-AlvaroNeural"
     }
   }
 }
