@@ -13,6 +13,11 @@
   "caracteres_por_subtitulo": 46,
   "hora_publicacion": 7,
   "max_segundos_imagen": 16,
+  "imagenes_ia": {
+    "activo": true,
+    "modelo": "gemini-2.5-flash-image",
+    "max_por_video": 5
+  },
   "volumen_musica": 0.1,
   "musica": [
     "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg",

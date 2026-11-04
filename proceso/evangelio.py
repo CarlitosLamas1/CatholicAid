@@ -261,7 +261,11 @@ REGLAS:
 1. Divide el texto en fragmentos consecutivos. Copia cada fragmento EXACTAMENTE igual que en el original: no añadas, quites ni cambies ninguna palabra ni signo. Unidos en orden, los fragmentos deben reproducir el texto completo.
 2. Las palabras en estilo directo (entre comillas “ ”) van en un fragmento propio, asignado a quien las dice. Si alguien cita a otro dentro de su discurso (comillas ‘ ’), sigue hablando el mismo personaje. Todo lo demás es del narrador.
 3. Si habla un personaje secundario que no está en la lista, usa hombre, mujer o multitud.
-4. Agrupa el relato en 3 a 5 escenas visuales (cambia de escena cuando cambie lo que se ve). En cada fragmento indica su escena (1, 2, ...). Para cada escena da "busqueda": 1 a 3 palabras en inglés para encontrar un cuadro de James Tissot de esa escena (ej.: "good shepherd", "Pharisees", "Jesus teaching", "Peter").{biblioteca}
+4. Agrupa el relato en 3 a 5 escenas visuales (cambia de escena cuando cambie lo que se ve). En cada fragmento indica su escena (1, 2, ...). Para cada escena da:
+   - "busqueda": 1 a 3 palabras en inglés para encontrar un cuadro clásico de esa escena (ej.: "good shepherd", "Pharisees").
+   - "descripcion": en inglés, 1 o 2 frases que describan la imagen a pintar: quién aparece, qué hace, dónde y con qué emoción. Debe mostrar lo que narra el Evangelio en ese momento, de forma bella, tierna e íntima (nunca violenta).
+   - "personajes": claves de los personajes que se ven en la imagen (por ejemplo ["jesus"]).
+   - "estilo": "oleo" para escenas de interior, noche o recogimiento; "acuarela" para escenas al aire libre y luminosas.{biblioteca}
 
 TEXTO:
 {texto}"""
@@ -272,6 +276,9 @@ TEXTO:
             "escena": {"type": "INTEGER"}}, "required": ["personaje", "texto", "escena"]}},
         "escenas": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "numero": {"type": "INTEGER"}, "busqueda": {"type": "STRING"},
+            "descripcion": {"type": "STRING"},
+            "personajes": {"type": "ARRAY", "items": {"type": "STRING", "enum": list(PJ)}},
+            "estilo": {"type": "STRING", "enum": ["oleo", "acuarela"]},
             "clip": {"type": "STRING", "enum": list(clips) + ["ninguno"]}},
             "required": ["numero", "busqueda"]}}},
         "required": ["fragmentos", "escenas"]}
@@ -508,6 +515,34 @@ def clips_disponibles():
 
 def es_video(p):
     return Path(p).suffix.lower() in (".mp4", ".mov", ".webm")
+
+
+def generar_imagenes_dia(info, escenas, fecha):
+    """Pinta con Nano Banana (API de pago) una imagen por escena y la guarda en biblioteca/dias/.
+    Si ya existe (o falla), no hace nada: el proceso sigue con la biblioteca."""
+    opciones = CFG.get("imagenes_ia", {})
+    if not opciones.get("activo") or not os.environ.get("GEMINI_API_KEY_IMAGENES", "").strip():
+        return
+    import imagenes
+    if opciones.get("modelo"):
+        imagenes.PREFERIDOS = [opciones["modelo"]]
+    datos = {int(e["numero"]): e for e in info}
+    hechas = 0
+    for n in escenas:
+        e = datos.get(n, {})
+        if archivo_clip(f"{fecha}_e{n}", "dias") or not e.get("descripcion"):
+            continue
+        if hechas >= opciones.get("max_por_video", 5):
+            break
+        refs = [(k.capitalize(), RAIZ / "personajes" / f"{k}.png") for k in e.get("personajes", [])
+                if (RAIZ / "personajes" / f"{k}.png").exists()]
+        destino = RAIZ / "biblioteca" / "dias" / f"{fecha}_e{n}.png"
+        try:
+            modelo = imagenes.generar(e["descripcion"], destino, refs, e.get("estilo", "oleo"))
+            hechas += 1
+            log(f"   Imagen IA escena {n} ({modelo}): {e['descripcion'][:90]}")
+        except Exception as ex:
+            log(f"   Imagen IA escena {n} falló ({ex}); se usa la biblioteca")
 
 
 def elegir_visuales(tramos, info, fecha, carpeta):
@@ -763,6 +798,7 @@ def main():
 
     log("4/6 Cuadros")
     bl = bloques(frs, total)
+    generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha)
     visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta)
 
     log("5/6 Vídeo")

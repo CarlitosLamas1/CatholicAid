@@ -47,6 +47,7 @@ jobs:
       - name: Producir vídeo
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
@@ -76,7 +77,7 @@ jobs:
         run: |
           git config user.name "gestor-catholicaid"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add episodios/ biblia/ musica/
+          git add episodios/ biblia/ musica/ biblioteca/dias/
           if ! git diff --cached --quiet; then
             git commit -q -m "Registro del episodio $(ls -t episodios | head -1)"
             git pull -q --rebase
