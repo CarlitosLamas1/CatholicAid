@@ -7,10 +7,17 @@
   "guion": "gemini-flash-lite-latest",
   "voces": "gemini",
   "peticiones_voz": 1,
-  "duracion_s": 80.4,
-  "cuadros": {
-    "1": "File:Brooklyn Museum - The Communion of the Apostles (La communion des apôtres) - James Tissot.jpg"
-  },
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 93.4,
+  "imagenes": [
+    "dias/2026-11-06_e1.png",
+    "biblioteca/G07",
+    "biblioteca/D10",
+    "biblioteca/D03",
+    "biblioteca/D09",
+    "dias/2026-11-06_e2.png",
+    "biblioteca/D02"
+  ],
   "fragmentos": [
     {
       "personaje": "narrador",
@@ -21,26 +28,32 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 3.78,
+      "inicio": 4.31,
       "texto": "En aquel tiempo, decía Jesús a sus discípulos:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 7.11,
-      "texto": "“Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’. Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’. Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”."
+      "inicio": 8.19,
+      "texto": "“Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’. Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’."
     },
     {
       "personaje": "narrador",
-      "escena": 1,
-      "inicio": 77.79,
+      "escena": 2,
+      "inicio": 76.75,
+      "texto": "Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 90.49,
       "texto": "Palabra del Señor."
     }
   ],
-  "generado": "2026-11-04T16:29:44+01:00",
+  "generado": "2026-11-04T23:13:20+01:00",
   "youtube": {
-    "id": "CJLFhG8fJl0",
-    "url": "https://youtu.be/CJLFhG8fJl0",
+    "id": "K-NKERWPRIg",
+    "url": "https://youtu.be/K-NKERWPRIg",
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true
