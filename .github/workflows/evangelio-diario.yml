@@ -1,0 +1,83 @@
+name: Evangelio diario
+
+on:
+  # Se activará cuando Carlos apruebe el formato (17:00 UTC = tarde de la víspera en España):
+  # schedule:
+  #   - cron: "0 17 * * *"
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha AAAA-MM-DD (vacío = mañana)"
+        required: false
+        default: ""
+      modo:
+        description: "prueba = privado sin programar · diario = programado a las 07:00"
+        type: choice
+        options: [prueba, diario]
+        default: prueba
+      subir:
+        description: "Subir a YouTube"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: evangelio
+  cancel-in-progress: false
+
+jobs:
+  producir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar herramientas
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core > /dev/null
+          pip install -q edge-tts
+
+      - name: Producir vídeo
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          FECHA: ${{ inputs.fecha }}
+          MODO: ${{ inputs.modo || 'diario' }}
+          SUBIR: ${{ github.event_name == 'schedule' || inputs.subir }}
+        run: |
+          ARGS="--modo $MODO"
+          if [ -n "$FECHA" ]; then ARGS="$ARGS --fecha $FECHA"; fi
+          if [ "$SUBIR" != "true" ]; then ARGS="$ARGS --no-subir"; fi
+          python proceso/evangelio.py $ARGS
+
+      - name: Guardar vídeo y guion (30 días)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evangelio-${{ github.run_number }}
+          path: |
+            salida/**/video.mp4
+            salida/**/guion.json
+            salida/**/subtitulos.ass
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Guardar registro del episodio
+        if: success()
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add episodios/
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Registro del episodio $(ls -t episodios | head -1)"
+            git push -q
+          fi
