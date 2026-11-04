@@ -1,8 +1,35 @@
 {
-  "message": "API rate limit exceeded for 37.10.239.56. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
-  "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting",
   "_voces": "Cada personaje tiene SIEMPRE la misma voz de Gemini (voz_gemini) y el mismo estilo; ninguna voz se repite entre personajes. El narrador cambia según el evangelista de la lectura (narradores). No cambiar sin motivo: el público reconoce las voces.",
+  "modelos_texto": [
+    "gemini-3.8-flash",
+    "gemini-3.8-flash-lite"
+  ],
+  "modelo_voz": "gemini-2.5-flash-preview-tts",
+  "motor_voz": "gemini",
+  "respaldo_edge": false,
+  "texto": "torres-amat",
+  "pausa_tts_segundos": 21,
+  "pausa_entre_voces": 0.35,
+  "caracteres_por_subtitulo": 46,
+  "hora_publicacion": 7,
   "max_segundos_imagen": 16,
+  "volumen_musica": 0.1,
+  "musica": [
+    "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg",
+    "Clair de lune (Claude Debussy) Suite bergamasque.ogg",
+    "JS Bach - Well Tempered Clavier - Prelude in Fugue No.1 in C major.ogg"
+  ],
+  "pintores": [
+    "Carl Heinrich Bloch",
+    "Heinrich Hofmann",
+    "James Tissot"
+  ],
+  "busquedas_genericas": [
+    "Jesus teaching",
+    "Jesus disciples",
+    "Jesus multitude",
+    "Christ"
+  ],
   "narradores": {
     "Mateo": {
       "voz_gemini": "Sadaltager",
