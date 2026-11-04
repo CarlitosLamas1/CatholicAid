@@ -70,5 +70,10 @@
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true,
     "publishAt": "2026-11-05T06:00:00Z"
+  },
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7704468403024791574",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
   }
 }
