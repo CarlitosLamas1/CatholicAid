@@ -1,0 +1,68 @@
+name: Publicar en TikTok
+
+# Cada mañana publica en TikTok el vídeo del día que dejó preparado «Evangelio diario» la tarde anterior.
+# 06:00 UTC = 7:00 en España en invierno (8:00 en verano). El segundo horario es un reintento.
+on:
+  schedule:
+    - cron: "0 6 * * *"
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha AAAA-MM-DD (vacío = hoy)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tiktok
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+      TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publicar
+        run: |
+          F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
+          if [ ! -f secretos/tiktok.enc ]; then echo "TikTok aún no está conectado."; exit 0; fi
+          if ! gh release view "tiktok-$F" >/dev/null 2>&1; then echo "No hay vídeo preparado para $F (ya publicado o no generado)."; exit 0; fi
+          mkdir -p t && gh release download "tiktok-$F" -D t -p video.mp4
+          gh release view "tiktok-$F" --json body -q .body > t/texto.txt
+          python3 - "$F" <<'PY'
+          import json, sys
+          from pathlib import Path
+          sys.path.insert(0, "proceso")
+          import tiktok
+          fecha = sys.argv[1]
+          cfg = json.loads(Path("config/personajes.json").read_text(encoding="utf-8")).get("tiktok", {})
+          pid, estado, priv = tiktok.subir("t/video.mp4", Path("t/texto.txt").read_text(encoding="utf-8"),
+                                           cfg.get("privacidad", "PUBLIC_TO_EVERYONE"))
+          print("TikTok:", pid, estado, priv)
+          reg = Path(f"episodios/{fecha}.json")
+          if reg.exists():
+              d = json.loads(reg.read_text(encoding="utf-8"))
+              d["tiktok"] = {"publish_id": pid, "estado": estado, "privacidad": priv}
+              reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+          if estado == "FAILED":
+              raise SystemExit("TikTok rechazó el vídeo")
+          PY
+          gh release delete "tiktok-$F" --yes --cleanup-tag
+      - name: Guardar
+        if: always()
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add episodios/ secretos/ 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "TikTok: publicación del día"
+            git pull -q --rebase && git push -q
+          fi

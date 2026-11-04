@@ -266,5 +266,8 @@
       ],
       "voz_edge": "es-ES-AlvaroNeural"
     }
+  },
+  "tiktok": {
+    "privacidad": "PUBLIC_TO_EVERYONE"
   }
 }

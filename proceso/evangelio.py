@@ -927,6 +927,13 @@ def main():
         registro["youtube"] = {"id": vid, "url": f"https://youtu.be/{vid}", **estado}
         log(f"   Subido: https://youtu.be/{vid} ({estado['privacyStatus']})")
 
+    # TikTok no permite programar: se deja el texto preparado y el vídeo se publica a las 7:00 (tiktok-publicar.yml).
+    fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
+    (carpeta / "tiktok.txt").write_text(
+        f"Evangelio del día · {fecha_txt} · {ev['cita']} 🙏\n\n{ev['titulo']}\n"
+        "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
+        "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion", encoding="utf-8")
+
     texto = json.dumps(registro, ensure_ascii=False, indent=2)
     (carpeta / "guion.json").write_text(texto, encoding="utf-8")
     (RAIZ / "episodios").mkdir(exist_ok=True)
