@@ -7,6 +7,8 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 
 ## Funcionamiento automático (todo en la nube, sin el ordenador de Carlos)
 - **Cada tarde** (GitHub Actions, `.github/workflows/evangelio-diario.yml`, 15:00 UTC + reintentos a las 17, 19, 20 y 21 UTC): genera el vídeo de **mañana** y lo sube a YouTube programado a las 07:00 (Madrid). Si ya está subido, los reintentos no hacen nada (`--si-falta`).
+- **Cada mañana 06:00 UTC** (`tiktok-publicar.yml`, reintento 08:00): publica en TikTok el vídeo que la tarde anterior quedó como release `tiktok-AAAA-MM-DD` (TikTok no permite programar). El permiso de TikTok está cifrado en `secretos/tiktok.enc` con `TIKTOK_CLIENT_SECRET` y se renueva solo. Reconectar: workflow «Conectar TikTok» + página https://carlitoslamas1.github.io/CatholicAid/tiktok.html.
+- **Cada sábado 12:00 UTC** (`preparar-semana.yml`): guarda en `biblia/citas.json` las citas de los próximos días y el Torres Amat necesario.
 - **Cada domingo 17:00 UTC** (rutina de Claude en la nube «CatholicAid · Gestor semanal», https://claude.ai/code/routines/trig_01DuGF5Ed1n51CatmqDQy96f): revisa los textos Torres Amat de la semana siguiente y escribe un informe en `informes/AAAA-MM-DD.md`.
 
 Proceso (`proceso/evangelio.py`):
@@ -44,3 +46,6 @@ Fiel al sentido del Torres Amat; ortografía y vocabulario actuales; sin glosas 
 - [ ] **Una vez (Carlos):** confirmar que la app OAuth de Google Cloud está «En producción» (si no, el token de YouTube caduca a los 7 días).
 - [ ] **Una vez (Carlos):** enviar la auditoría de la API de YouTube (el gestor prepara páginas de inicio/privacidad y el texto). Hasta que la aprueben, los vídeos quedan privados y hay que publicarlos a mano.
 - [ ] Vigilar el saldo de prepago de imágenes (aviso en el informe semanal).
+- [x] Voces fijas elegidas por casting (ver `_voces` en config); una sola grabación por personaje.
+- [x] TikTok conectado (Sandbox: publica en «solo yo»). Pendiente: enviar la App review de TikTok (textos en el historial del gestor) y, al aprobarla, reconectar con las claves de Production.
+- [x] Prueba completa 05/11/2026 OK (YouTube + TikTok). Horarios fijados.
