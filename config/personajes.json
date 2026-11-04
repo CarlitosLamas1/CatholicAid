@@ -1,5 +1,5 @@
 {
-  "_voces": "Cada personaje tiene SIEMPRE la misma voz de Gemini (voz_gemini) y el mismo estilo; ninguna voz se repite entre personajes. El narrador cambia según el evangelista de la lectura (narradores). No cambiar sin motivo: el público reconoce las voces.",
+  "_voces": "Voces elegidas por Carlos en el casting (4/11/2026): Jesús = Enceladus, María = Gacrux. Cada evangelista tiene su voz única (narradores). Ninguna voz se repite entre personajes. No cambiar sin que Carlos lo pida.",
   "modelos_texto": [
     "gemini-3.8-flash",
     "gemini-3.8-flash-lite"
@@ -68,8 +68,8 @@
     "jesus": {
       "nombre": "Jesús",
       "descripcion": "Jesús",
-      "voz_gemini": "Alnilam",
-      "estilo": "voz solemne, profunda y serena, llena de ternura y de autoridad, ritmo natural, acento de España",
+      "voz_gemini": "Enceladus",
+      "estilo": "voz de hombre adulto, cálida, armoniosa y tierna, llena de amor y de autoridad serena, ritmo natural, acento de España",
       "color": "F5C542",
       "color_texto": "FFE7A3",
       "alias": [
@@ -82,8 +82,8 @@
     "maria": {
       "nombre": "María",
       "descripcion": "la Virgen María, madre de Jesús",
-      "voz_gemini": "Sulafat",
-      "estilo": "voz de mujer joven, dulce, humilde y luminosa, llena de paz, acento de España",
+      "voz_gemini": "Gacrux",
+      "estilo": "voz de mujer joven, dulce, humilde y luminosa, llena de paz, ritmo natural, acento de España",
       "color": "8EC5FF",
       "color_texto": "FFFFFF",
       "alias": [
@@ -119,7 +119,7 @@
     "isabel": {
       "nombre": "Isabel",
       "descripcion": "Isabel, madre de Juan el Bautista, u otra mujer anciana",
-      "voz_gemini": "Gacrux",
+      "voz_gemini": "Achernar",
       "estilo": "voz de mujer anciana, cálida y llena de alegría serena, acento de España",
       "color": "E8D5B0",
       "color_texto": "FFFFFF",
@@ -178,7 +178,7 @@
     "judas": {
       "nombre": "Judas",
       "descripcion": "Judas Iscariote",
-      "voz_gemini": "Enceladus",
+      "voz_gemini": "Algieba",
       "estilo": "voz de hombre tensa, baja y entrecortada, acento de España",
       "color": "B0B0B0",
       "color_texto": "FFFFFF",
