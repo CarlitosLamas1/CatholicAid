@@ -1,13 +1,34 @@
 {
-  "modelos_texto": ["gemini-3.8-flash", "gemini-3.8-flash-lite"],
+  "_voces": "Cada personaje tiene SIEMPRE la misma voz de Gemini (voz_gemini) y el mismo estilo. No cambiarlos sin motivo: el público reconoce las voces.",
+  "modelos_texto": [
+    "gemini-3.8-flash",
+    "gemini-3.8-flash-lite"
+  ],
   "modelo_voz": "gemini-2.5-flash-preview-tts",
   "motor_voz": "gemini",
+  "respaldo_edge": false,
   "texto": "torres-amat",
   "pausa_tts_segundos": 21,
   "pausa_entre_voces": 0.35,
   "caracteres_por_subtitulo": 46,
   "hora_publicacion": 7,
-  "busquedas_genericas": ["Jesus teaching", "Jesus disciples", "Jesus multitude", "Christ"],
+  "volumen_musica": 0.1,
+  "musica": [
+    "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg",
+    "Clair de lune (Claude Debussy) Suite bergamasque.ogg",
+    "JS Bach - Well Tempered Clavier - Prelude in Fugue No.1 in C major.ogg"
+  ],
+  "pintores": [
+    "Carl Heinrich Bloch",
+    "Heinrich Hofmann",
+    "James Tissot"
+  ],
+  "busquedas_genericas": [
+    "Jesus teaching",
+    "Jesus disciples",
+    "Jesus multitude",
+    "Christ"
+  ],
   "personajes": {
     "narrador": {
       "nombre": "",
@@ -27,7 +48,11 @@
       "estilo": "Habla como Jesús: voz serena, cálida y cercana, con autoridad tranquila y sin teatralidad, con acento de España (castellano peninsular)",
       "color": "F5C542",
       "color_texto": "FFE7A3",
-      "alias": ["Jesús", "el Señor", "Maestro"]
+      "alias": [
+        "Jesús",
+        "el Señor",
+        "Maestro"
+      ]
     },
     "maria": {
       "nombre": "María",
@@ -37,7 +62,10 @@
       "estilo": "Habla como María, madre de Jesús: voz dulce, humilde y firme, con acento de España (castellano peninsular)",
       "color": "8EC5FF",
       "color_texto": "FFFFFF",
-      "alias": ["su madre", "la madre de Jesús"]
+      "alias": [
+        "su madre",
+        "la madre de Jesús"
+      ]
     },
     "magdalena": {
       "nombre": "María Magdalena",
@@ -47,7 +75,9 @@
       "estilo": "Habla como María Magdalena: voz joven, sincera y emocionada, con acento de España (castellano peninsular)",
       "color": "F49AC1",
       "color_texto": "FFFFFF",
-      "alias": ["Magdalena"]
+      "alias": [
+        "Magdalena"
+      ]
     },
     "pedro": {
       "nombre": "Pedro",
@@ -57,7 +87,10 @@
       "estilo": "Habla como el apóstol Pedro: voz grave, algo ruda, directa e impulsiva, con acento de España (castellano peninsular)",
       "color": "FFA36B",
       "color_texto": "FFFFFF",
-      "alias": ["Pedro", "Simón"]
+      "alias": [
+        "Pedro",
+        "Simón"
+      ]
     },
     "juan": {
       "nombre": "Juan",
@@ -77,7 +110,9 @@
       "estilo": "Habla como el apóstol Tomás: voz reflexiva, algo escéptica, con acento de España (castellano peninsular)",
       "color": "C7A6FF",
       "color_texto": "FFFFFF",
-      "alias": ["Tomás"]
+      "alias": [
+        "Tomás"
+      ]
     },
     "bautista": {
       "nombre": "Juan el Bautista",
@@ -87,7 +122,9 @@
       "estilo": "Habla como Juan el Bautista: voz fuerte de profeta, apasionada, con acento de España (castellano peninsular)",
       "color": "E6C79E",
       "color_texto": "FFFFFF",
-      "alias": ["Bautista"]
+      "alias": [
+        "Bautista"
+      ]
     },
     "apostol": {
       "nombre": "Discípulo",
@@ -97,7 +134,16 @@
       "estilo": "Habla como un discípulo de Jesús: voz de hombre adulto, sencilla y natural, con acento de España (castellano peninsular)",
       "color": "B5D99C",
       "color_texto": "FFFFFF",
-      "alias": ["Felipe", "Andrés", "Santiago", "Natanael", "Judas", "discípulos", "discípulo", "apóstoles"]
+      "alias": [
+        "Felipe",
+        "Andrés",
+        "Santiago",
+        "Natanael",
+        "Judas",
+        "discípulos",
+        "discípulo",
+        "apóstoles"
+      ]
     },
     "fariseos": {
       "nombre": "Fariseos",
@@ -107,7 +153,15 @@
       "estilo": "Habla como un fariseo: voz seca, desconfiada y algo altiva, con acento de España (castellano peninsular)",
       "color": "FF8A80",
       "color_texto": "FFFFFF",
-      "alias": ["fariseos", "escribas", "saduceos", "sacerdotes", "maestros de la ley", "doctores de la ley", "fariseo"]
+      "alias": [
+        "fariseos",
+        "escribas",
+        "saduceos",
+        "sacerdotes",
+        "maestros de la ley",
+        "doctores de la ley",
+        "fariseo"
+      ]
     },
     "hombre": {
       "nombre": "",
@@ -117,7 +171,11 @@
       "estilo": "Habla con voz de hombre adulto, natural y expresiva, con acento de España (castellano peninsular)",
       "color": "E0E0E0",
       "color_texto": "FFFFFF",
-      "alias": ["hombre", "ángel", "centurión"]
+      "alias": [
+        "hombre",
+        "ángel",
+        "centurión"
+      ]
     },
     "mujer": {
       "nombre": "",
@@ -127,7 +185,10 @@
       "estilo": "Habla con voz de mujer adulta, natural y expresiva, con acento de España (castellano peninsular)",
       "color": "F7C6D9",
       "color_texto": "FFFFFF",
-      "alias": ["mujer", "Marta"]
+      "alias": [
+        "mujer",
+        "Marta"
+      ]
     },
     "multitud": {
       "nombre": "La gente",
@@ -137,7 +198,11 @@
       "estilo": "Habla como una multitud: voz enérgica y popular, con acento de España (castellano peninsular)",
       "color": "CCCCCC",
       "color_texto": "FFFFFF",
-      "alias": ["gente", "multitud", "pueblo"]
+      "alias": [
+        "gente",
+        "multitud",
+        "pueblo"
+      ]
     }
   }
 }
