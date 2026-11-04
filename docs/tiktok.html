@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conectar TikTok · CatolicAid</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+  #codigo { font: 15px/1.4 ui-monospace, Menlo, monospace; word-break: break-all; padding: 12px; border: 1px solid var(--suave); border-radius: 8px; }
+  button { margin-top: 12px; padding: 10px 18px; font-size: 16px; border-radius: 8px; border: 0; background: var(--acento); color: #fff; cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Conectar TikTok</h1>
+  <p id="estado">Leyendo la respuesta de TikTok…</p>
+  <div id="bloque" hidden>
+    <p>Copia este código y pégalo en el Terminal, donde te lo pide el comando de conexión:</p>
+    <p id="codigo"></p>
+    <button id="copiar">Copiar código</button>
+  </div>
+  <p class="fecha">Esta página solo muestra el código que TikTok envía tras autorizar a CatolicAid. No guarda nada.</p>
+</main>
+<script>
+  const p = new URLSearchParams(location.search);
+  const codigo = p.get("code"), error = p.get("error_description") || p.get("error");
+  const estado = document.getElementById("estado");
+  if (codigo) {
+    estado.textContent = "TikTok ha autorizado a CatolicAid.";
+    document.getElementById("codigo").textContent = codigo;
+    document.getElementById("bloque").hidden = false;
+    document.getElementById("copiar").onclick = async () => {
+      try { await navigator.clipboard.writeText(codigo); document.getElementById("copiar").textContent = "Copiado ✓"; } catch (e) {}
+    };
+  } else {
+    estado.textContent = error ? "TikTok ha devuelto un error: " + error : "No hay ningún código en esta dirección.";
+  }
+</script>
+</body>
+</html>
