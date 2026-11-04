@@ -493,7 +493,7 @@ def elegir_cuadros(escenas, busquedas, carpeta, usados=None):
 def archivo_clip(nombre, carpeta="clips"):
     for ext in (".mp4", ".mov", ".webm", ".png", ".jpg", ".jpeg", ".webp"):
         p = RAIZ / "biblioteca" / carpeta / f"{nombre}{ext}"
-        if p.exists():
+        if p.exists() and p.stat().st_size > 10_000:  # ignora archivos vacíos o rotos
             return p
     return None
 
