@@ -1,5 +1,5 @@
 {
-  "_voces": "Voces elegidas por Carlos en el casting (4/11/2026): Jesús = Enceladus, María = Gacrux. Cada evangelista tiene su voz única (narradores). Ninguna voz se repite entre personajes. No cambiar sin que Carlos lo pida.",
+  "_voces": "Voces elegidas por Carlos en el casting (4/11/2026): Jesús = Enceladus, María = Gacrux; narradores: Lucas = Charon, Mateo = Iapetus, Marcos = Schedar, Juan = Achird (compartida con el apóstol Juan, misma persona). Ninguna otra voz se repite. No cambiar sin que Carlos lo pida.",
   "modelos_texto": [
     "gemini-3.8-flash",
     "gemini-3.8-flash-lite"
@@ -38,27 +38,27 @@
   ],
   "narradores": {
     "Mateo": {
-      "voz_gemini": "Sadaltager",
+      "voz_gemini": "Iapetus",
       "estilo": "voz de anciano sabio y sereno, grave y cálida, ritmo natural, acento de España"
     },
     "Marcos": {
-      "voz_gemini": "Rasalgethi",
+      "voz_gemini": "Schedar",
       "estilo": "voz de hombre mayor, clara y directa, con viveza contenida, ritmo natural, acento de España"
     },
     "Lucas": {
-      "voz_gemini": "Schedar",
+      "voz_gemini": "Charon",
       "estilo": "voz de anciano dulce y culto, cálida y delicada como la de un médico bondadoso, ritmo natural, acento de España"
     },
     "Juan": {
-      "voz_gemini": "Charon",
-      "estilo": "voz de anciano contemplativo y profundo, llena de ternura, casi un susurro solemne, acento de España"
+      "voz_gemini": "Achird",
+      "estilo": "voz de anciano contemplativo y profundo, cálida y llena de ternura, ritmo natural, acento de España"
     }
   },
   "personajes": {
     "narrador": {
       "nombre": "",
       "descripcion": "el evangelista que narra; todo lo que no es estilo directo",
-      "voz_gemini": "Schedar",
+      "voz_gemini": "Charon",
       "estilo": "voz de anciano sereno y cálido, ritmo natural, acento de España",
       "color": "FFFFFF",
       "color_texto": "FFFFFF",
@@ -166,7 +166,7 @@
     "tomas": {
       "nombre": "Tomás",
       "descripcion": "el apóstol Tomás",
-      "voz_gemini": "Iapetus",
+      "voz_gemini": "Alnilam",
       "estilo": "voz de hombre de mediana edad, reflexiva, algo escéptica pero sincera, acento de España",
       "color": "C7A6FF",
       "color_texto": "FFFFFF",
