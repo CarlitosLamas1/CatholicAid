@@ -1,0 +1,33 @@
+name: Preparar semana
+
+# Cada sábado deja en el repo las citas de los próximos días y el texto de Torres Amat,
+# para que el gestor semanal (domingo) pueda revisar los textos sin acceso a internet.
+on:
+  schedule:
+    - cron: "0 12 * * 6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  preparar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Descargar citas y textos
+        run: python proceso/preparar_semana.py
+      - name: Guardar
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add biblia/
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Citas y textos de la semana"
+            git pull -q --rebase
+            git push -q
+          fi
