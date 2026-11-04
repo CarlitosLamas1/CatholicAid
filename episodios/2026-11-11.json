@@ -1,0 +1,89 @@
+{
+  "fecha": "2026-11-11",
+  "modo": "prueba",
+  "cita": "Lucas 17, 11-19",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/11.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-flash-lite-latest",
+  "voces": "gemini",
+  "peticiones_voz": 10,
+  "musica": "JS_Bach_-_Well_Tempered_Clavier_-_Prelude_in_Fugue_No.1_in_C_major.ogg",
+  "duracion_s": 63.9,
+  "imagenes": [
+    "dias/2026-11-11_e1.png",
+    "biblioteca/G16",
+    "dias/2026-11-11_e2.png",
+    "biblioteca/D01",
+    "biblioteca/D08"
+  ],
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 0.6,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.96,
+      "texto": "En aquel tiempo, caminando Jesús hacia Jerusalén, pasaba entre Samaría y Galilea. Y, al entrar en un pueblo, le salieron al encuentro diez leprosos, que se pararon a lo lejos y levantaron la voz, diciendo:"
+    },
+    {
+      "personaje": "multitud",
+      "escena": 1,
+      "inicio": 19.07,
+      "texto": "“Jesús, maestro, ten compasión de nosotros”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 22.78,
+      "texto": "Al verlos, Jesús les dijo:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 25.81,
+      "texto": "“Id a presentaros a los sacerdotes”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 28.96,
+      "texto": "Y, mientras iban, quedaron limpios. Uno de ellos, al ver que estaba curado, se volvió glorificando a Dios a grandes voces, y se postró a los pies de Jesús, rostro en tierra, dándole gracias. Y este era un samaritano. Jesús dijo entonces:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 46.16,
+      "texto": "“¿No han quedado limpios los diez? Y los otros nueve, ¿dónde están? ¿No ha habido quien volviera a dar gloria a Dios, sino este extranjero?”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 56.0,
+      "texto": "Y le dijo:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 57.76,
+      "texto": "“Levántate, vete; tu fe te ha salvado”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 61.38,
+      "texto": "Palabra del Señor."
+    }
+  ],
+  "generado": "2026-11-05T00:07:30+01:00",
+  "youtube": {
+    "id": "4XXzq6ccibc",
+    "url": "https://youtu.be/4XXzq6ccibc",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true
+  }
+}
