@@ -1,23 +1,22 @@
 {
   "fecha": "2026-11-05",
-  "modo": "prueba",
+  "modo": "diario",
   "cita": "Lucas 15, 1-10",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/05.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
   "guion": "gemini-flash-lite-latest",
   "voces": "gemini",
-  "peticiones_voz": 2,
+  "peticiones_voz": 7,
   "musica": "JS_Bach_-_Well_Tempered_Clavier_-_Prelude_in_Fugue_No.1_in_C_major.ogg",
-  "duracion_s": 102.9,
+  "duracion_s": 88.4,
   "imagenes": [
+    "dias/2026-11-05_e1.png",
     "biblioteca/G07",
-    "biblioteca/D02",
+    "dias/2026-11-05_e2.png",
     "biblioteca/G08",
-    "biblioteca/D06",
-    "biblioteca/D05",
-    "biblioteca/G25",
-    "biblioteca/D10",
-    "biblioteca/D09"
+    "biblioteca/D04",
+    "dias/2026-11-05_e3.png",
+    "biblioteca/G25"
   ],
   "fragmentos": [
     {
@@ -29,46 +28,47 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 4.56,
+      "inicio": 4.7,
       "texto": "En aquel tiempo, solían los publicanos y los pecadores acercarse a Jesús para oírle. Y los fariseos y los escribas murmuraban por ello, diciendo:"
     },
     {
       "personaje": "fariseos",
       "escena": 1,
-      "inicio": 17.6,
+      "inicio": 15.96,
       "texto": "“Mirad cómo trata con los pecadores y come con ellos”."
     },
     {
       "personaje": "narrador",
-      "escena": 2,
-      "inicio": 22.28,
+      "escena": 1,
+      "inicio": 20.29,
       "texto": "Entonces Jesús les propuso esta parábola:"
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 26.32,
+      "inicio": 24.72,
       "texto": "“¿Quién de vosotros, teniendo cien ovejas y habiendo perdido una de ellas, no deja las noventa y nueve en el campo y va en busca de la que se perdió, hasta encontrarla? Y, al encontrarla, se la pone sobre los hombros lleno de alegría; y, llegado a casa, reúne a sus amigos y vecinos y les dice: ‘Alegraos conmigo, porque he encontrado la oveja que se me había perdido’. Os digo que, del mismo modo, habrá más fiesta en el cielo por un pecador que se arrepiente que por noventa y nueve justos que no tienen necesidad de arrepentirse."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 70.09,
+      "inicio": 60.86,
       "texto": "¿O qué mujer, teniendo diez monedas de plata, si pierde una, no enciende una luz, barre bien la casa y lo registra todo hasta dar con ella? Y, al encontrarla, reúne a sus amigas y vecinas y les dice: ‘Alegraos conmigo, que ya he encontrado la moneda que había perdido’. Así os digo yo que hay fiesta entre los ángeles de Dios por un solo pecador que se arrepiente”."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 100.04,
+      "inicio": 85.81,
       "texto": "Palabra del Señor."
     }
   ],
-  "generado": "2026-11-04T18:31:44+01:00",
+  "generado": "2026-11-05T00:54:03+01:00",
   "youtube": {
-    "id": "j7rvW2FmLVw",
-    "url": "https://youtu.be/j7rvW2FmLVw",
+    "id": "Lhyg7iu67sk",
+    "url": "https://youtu.be/Lhyg7iu67sk",
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-05T06:00:00Z"
   }
 }
