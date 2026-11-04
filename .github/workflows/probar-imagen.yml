@@ -1,0 +1,31 @@
+name: Probar imagen
+
+on:
+  workflow_dispatch:
+    inputs:
+      escena:
+        description: "Escena a pintar"
+        default: "Jesus, the good shepherd, carries a lost lamb on his shoulders across rocky hills at sunset, smiling with joy."
+      estilo:
+        type: choice
+        options: [oleo, acuarela]
+        default: acuarela
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+      - name: Generar imagen
+        env:
+          GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+          ESCENA: ${{ inputs.escena }}
+          ESTILO: ${{ inputs.estilo }}
+        run: python3 proceso/imagenes.py "$ESCENA" prueba.png --ref personajes/jesus.png --estilo "$ESTILO"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prueba-imagen
+          path: prueba.png
