@@ -20,7 +20,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 API = "https://generativelanguage.googleapis.com/v1beta/"
-PREFERIDOS = ["gemini-3-pro-image-preview", "gemini-2.5-flash-image"]
+PREFERIDOS = [m for m in os.environ.get("MODELO_IMAGEN", "").split(",") if m] or ["gemini-3-pro-image-preview", "gemini-2.5-flash-image"]
 
 ESTILO_OLEO = ("Devotional fine-art oil painting with visible, expressive brushstrokes, glowing warm golden divine "
                "light radiating softly, rich warm colors (gold, deep red, cream, soft blue), tender and intimate "

@@ -10,6 +10,9 @@ on:
         type: choice
         options: [oleo, acuarela]
         default: acuarela
+      modelo:
+        description: "Modelo (vacío = el mejor disponible)"
+        default: ""
 
 jobs:
   probar:
@@ -24,6 +27,7 @@ jobs:
           GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
           ESCENA: ${{ inputs.escena }}
           ESTILO: ${{ inputs.estilo }}
+          MODELO_IMAGEN: ${{ inputs.modelo }}
         run: python3 proceso/imagenes.py "$ESCENA" prueba.png --ref personajes/jesus.png --estilo "$ESTILO"
       - uses: actions/upload-artifact@v4
         with:
