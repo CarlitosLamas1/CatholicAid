@@ -7,10 +7,10 @@ Cada día, un vídeo vertical (Short) con el **Evangelio del día** de la liturg
 
 ## Cómo funciona (coste 0, sin agentes en el día a día)
 Workflow `.github/workflows/evangelio-diario.yml` → script único `proceso/evangelio.py`:
-1. **Evangelio**: Vatican News (cita + texto).
+1. **Evangelio**: la cita del día sale de Vatican News; el texto, de **Torres Amat (1836, dominio público)**. Se usa la versión revisada de `biblia/revisada/` si existe; si no, el original con la ortografía actualizada. Si falla, se usa el texto de Vatican News.
 2. **Guion**: Gemini reparte el texto entre personajes. Se valida que el texto quede **idéntico** al original; si no, se usan reglas por comillas.
 3. **Voces**: Gemini TTS (gratis, con cupo diario). Si falla, Edge TTS para todo el episodio.
-4. **Cuadros**: Wikimedia Commons (James Tissot, Brooklyn Museum).
+4. **Imágenes**, por orden de prioridad: clip del día (`biblioteca/dias/`) → clip de la biblioteca de Veo que Gemini elige según el catálogo (`biblioteca/clips/` + `biblioteca/catalogo.json`) → cuadro de James Tissot (Wikimedia Commons).
 5. **Vídeo** 1080×1920 con FFmpeg (zoom lento, cabecera con fecha y cita, subtítulos por personaje).
 6. **YouTube**: se sube en privado. En modo `diario` se programa a las 07:00 (Madrid).
 
@@ -20,6 +20,10 @@ Ajustes (voces, estilos, colores, modelos, hora de publicación): `config/person
 
 ## Secretos (GitHub → Settings → Secrets and variables → Actions)
 `GEMINI_API_KEY`, `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN` (permisos youtube.upload + youtube.readonly). Nunca pidas que se peguen en el chat. Para comprobarlos: workflow «Verificar secretos».
+
+## Tareas semanales del gestor
+- **Revisar los textos de la semana siguiente**: mira las citas en Vatican News y, en `biblia/revisada/<libro>.json`, añade los versículos que falten con una revisión moderna del Torres Amat. Reglas de la revisión: fiel al sentido; ortografía y vocabulario actuales; sin las glosas explicativas del traductor; comillas “ ” para el estilo directo y ‘ ’ para citas dentro de él; «vosotros». Usa `_inicios` cuando la lectura empiece con Jesús ya hablando (por ejemplo «En aquel tiempo, dijo Jesús a sus discípulos:»).
+- **Prompts de Veo**: si Carlos lo pide, prepara los prompts de los días siguientes con el mismo estilo de `biblioteca/catalogo.json` (campos `estilo` y `jesus`). Añade al catálogo los clips nuevos que suba.
 
 ## Subagentes
 - **productor**: cambia o arregla el proceso (código, workflow, configuración) y lanza pruebas.
@@ -46,5 +50,6 @@ No tiene git, gh ni Python (faltan las herramientas de desarrollo de Xcode). Tra
 - [ ] Activar el `schedule` (cron) del workflow cuando Carlos apruebe el formato.
 - [ ] Confirmar que la app OAuth está «En producción» (si está en «Prueba», el token caduca a los 7 días).
 - [ ] Páginas de inicio y privacidad (GitHub Pages) y solicitar la auditoría de la API de YouTube. Hasta entonces, lo subido por la API queda privado y Carlos lo publica a mano en YouTube Studio.
-- [ ] Texto bíblico: ahora se usa el de Vatican News (leccionario hispanoamericano, con «ustedes»). Revisar derechos antes de monetizar; alternativas: permiso de la CEE o una traducción de dominio público.
+- [x] Texto: Torres Amat revisado (5–11 nov 2026 hechos). Pendiente opcional: pedir permiso a la CEE para el texto litúrgico oficial.
+- [ ] Carlos genera clips con Veo (Gemini PRO) siguiendo `biblioteca/README.md`. Sin pagar la API de momento: voces de Gemini con cupo gratuito y Edge como respaldo.
 - [ ] Música de fondo suave (dominio público).
