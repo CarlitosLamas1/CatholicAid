@@ -1,9 +1,14 @@
 name: Evangelio diario
 
 on:
-  # Se activará cuando Carlos apruebe el formato (17:00 UTC = tarde de la víspera en España):
-  # schedule:
-  #   - cron: "0 17 * * *"
+  # Cada tarde prepara y programa el vídeo de MAÑANA (hora UTC; en España +1/+2).
+  # Las ejecuciones siguientes son reintentos: si el vídeo ya está subido, no hacen nada.
+  schedule:
+    - cron: "0 15 * * *"
+    - cron: "0 17 * * *"
+    - cron: "0 19 * * *"
+    - cron: "0 21 * * *"
+    - cron: "0 20 * * *"
   workflow_dispatch:
     inputs:
       fecha:
@@ -58,6 +63,7 @@ jobs:
           ARGS="--modo $MODO"
           if [ -n "$FECHA" ]; then ARGS="$ARGS --fecha $FECHA"; fi
           if [ "$SUBIR" != "true" ]; then ARGS="$ARGS --no-subir"; fi
+          if [ "${{ github.event_name }}" = "schedule" ]; then ARGS="$ARGS --si-falta"; fi
           python proceso/evangelio.py $ARGS
 
       - name: Guardar vídeo y guion (30 días)

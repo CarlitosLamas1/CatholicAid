@@ -757,9 +757,14 @@ def main():
     ap.add_argument("--fecha", default="")
     ap.add_argument("--modo", choices=["prueba", "diario"], default="prueba")
     ap.add_argument("--no-subir", action="store_true")
+    ap.add_argument("--si-falta", action="store_true", help="no hace nada si ese día ya está subido (reintentos)")
     a = ap.parse_args()
     fecha = (dt.date.fromisoformat(a.fecha.strip()) if a.fecha.strip()
              else dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
+    previo = RAIZ / "episodios" / f"{fecha}.json"
+    if a.si_falta and previo.exists() and "youtube" in json.loads(previo.read_text(encoding="utf-8")):
+        log(f"El vídeo del {fecha} ya está subido; nada que hacer.")
+        return
     carpeta = RAIZ / "salida" / fecha.isoformat()
     shutil.rmtree(carpeta, ignore_errors=True)
     carpeta.mkdir(parents=True)
