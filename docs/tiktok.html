@@ -14,8 +14,13 @@
 <main>
   <h1>Conectar TikTok</h1>
   <p id="estado">Leyendo la respuesta de TikTok…</p>
+  <div id="inicio" hidden>
+    <p>Pega la <strong>Client Key</strong> de la app de TikTok (no es secreta) y pulsa el botón. Entra con la cuenta de CatolicAid y autoriza.</p>
+    <input id="clave" placeholder="Client Key" style="width:100%;padding:10px;font-size:16px;border-radius:8px;border:1px solid var(--suave)">
+    <button id="ir">Autorizar en TikTok</button>
+  </div>
   <div id="bloque" hidden>
-    <p>Copia este código y pégalo en el Terminal, donde te lo pide el comando de conexión:</p>
+    <p>Copia este código y pégaselo a Claude en el chat (es de un solo uso y caduca en pocos minutos):</p>
     <p id="codigo"></p>
     <button id="copiar">Copiar código</button>
   </div>
@@ -31,6 +36,16 @@
     document.getElementById("bloque").hidden = false;
     document.getElementById("copiar").onclick = async () => {
       try { await navigator.clipboard.writeText(codigo); document.getElementById("copiar").textContent = "Copiado ✓"; } catch (e) {}
+    };
+  } else if (!error) {
+    estado.textContent = "Conectar la cuenta de TikTok de CatolicAid";
+    document.getElementById("inicio").hidden = false;
+    document.getElementById("ir").onclick = () => {
+      const k = document.getElementById("clave").value.trim();
+      if (!k) return;
+      location.href = "https://www.tiktok.com/v2/auth/authorize/?" + new URLSearchParams({
+        client_key: k, scope: "user.info.basic,video.upload,video.publish", response_type: "code",
+        redirect_uri: "https://carlitoslamas1.github.io/CatholicAid/tiktok.html", state: "catolicaid"});
     };
   } else {
     estado.textContent = error ? "TikTok ha devuelto un error: " + error : "No hay ningún código en esta dirección.";
