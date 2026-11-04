@@ -366,10 +366,8 @@ def lotes_gemini(frs):
     return lotes
 
 
-def tts_gemini(frs, lote, destino):
-    """Voz de UN solo personaje, siempre con su voz fija. Clave gratuita; si se agota el cupo, la de pago (misma voz)."""
-    p = PJ[frs[lote[0]]["personaje"]]
-    texto = f"Lee en voz alta, con {p['estilo']}, este texto:\n\n" + " ".join(hablado(frs[i]["texto"]) for i in lote)
+def voz_gemini(p, texto, destino):
+    """Graba un texto con la voz fija del personaje p. Clave gratuita; si se agota el cupo, la de pago (misma voz)."""
     cuerpo = {"contents": [{"parts": [{"text": texto}]}],
               "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": {
                   "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": p["voz_gemini"]}}}}}
@@ -384,14 +382,81 @@ def tts_gemini(frs, lote, destino):
         r = gemini(CFG["modelo_voz"], cuerpo)
     dato = r["candidates"][0]["content"]["parts"][0]["inlineData"]
     m = re.search(r"rate=(\d+)", dato.get("mimeType", ""))
-    tasa = int(m.group(1)) if m else HZ
     crudo = destino.with_suffix(".raw.wav")
     with wave.open(str(crudo), "wb") as w:
         w.setnchannels(1)
         w.setsampwidth(2)
-        w.setframerate(tasa)
+        w.setframerate(int(m.group(1)) if m else HZ)
         w.writeframes(base64.b64decode(dato["data"]))
     a_wav_estandar(crudo, destino, CFG.get("velocidad_voz", 1.0))
+
+
+LIMPIAR = ("silenceremove=start_periods=1:start_threshold=-45dB,areverse,"
+           "silenceremove=start_periods=1:start_threshold=-45dB,areverse,loudnorm=I=-18:TP=-2:LRA=11")
+
+
+def silencios(ruta):
+    """[(inicio, fin)] de los silencios de un wav."""
+    r = subprocess.run(["ffmpeg", "-i", str(ruta), "-af", "silencedetect=noise=-40dB:d=0.2", "-f", "null", "-"],
+                       capture_output=True, text=True)
+    ini = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", r.stderr)]
+    fin = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r.stderr)]
+    return list(zip(ini, fin))
+
+
+def duracion(ruta):
+    with wave.open(str(ruta)) as w:
+        return w.getnframes() / w.getframerate()
+
+
+def grabar_personaje(frs, indices, carpeta):
+    """TODO lo que dice un personaje en UNA sola grabación (mismo tono de principio a fin), cortada en sus fragmentos.
+    Devuelve {índice de fragmento: wav}."""
+    quien = frs[indices[0]]["personaje"]
+    p = PJ[quien]
+    textos = [hablado(frs[i]["texto"]) for i in indices]
+    completo = carpeta / f"voz_{quien}.wav"
+    if len(indices) == 1:
+        voz_gemini(p, f"Lee en voz alta, con {p['estilo']}, este texto:\n\n{textos[0]}", completo)
+        partes = [(0.0, duracion(completo))]
+    else:
+        voz_gemini(p, f"Lee en voz alta, con {p['estilo']}, los siguientes párrafos, en este orden. Entre un párrafo "
+                      f"y el siguiente haz siempre una pausa clara de un segundo:\n\n" + "\n\n".join(textos), completo)
+        dur = duracion(completo)
+        letras = [len(x) for x in textos]
+        candidatos = [((a + b) / 2, b - a) for a, b in silencios(completo) if 0.1 < a and b < dur - 0.1]
+        cortes, previo = [], 0.0
+        for k in range(1, len(indices)):
+            esperado = dur * sum(letras[:k]) / sum(letras)
+            margen = max(3.0, dur * 0.12)
+            validos = [(m, d) for m, d in candidatos if m > previo + 0.5 and abs(m - esperado) <= margen]
+            if not validos:
+                cortes = None
+                break
+            m = max(validos, key=lambda c: c[1] - abs(c[0] - esperado) * 0.15)[0]
+            cortes.append(m)
+            previo = m
+        if cortes is None:
+            # Muy raro: no se distinguen las pausas. Se graba cada fragmento aparte, con la misma voz.
+            log(f"   {quien}: no distingo las pausas; grabo sus fragmentos por separado")
+            salida = {}
+            for n, (i, texto) in enumerate(zip(indices, textos)):
+                bruto = carpeta / f"voz_{quien}_{n:02d}_b.wav"
+                voz_gemini(p, f"Lee en voz alta, con {p['estilo']}, este texto:\n\n{texto}", bruto)
+                trozo = carpeta / f"voz_{quien}_{n:02d}.wav"
+                ffmpeg("-i", bruto, "-af", LIMPIAR, "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", trozo)
+                salida[i] = trozo
+                time.sleep(CFG.get("pausa_tts_segundos", 21))
+            return salida
+        bordes = [0.0] + cortes + [dur]
+        partes = list(zip(bordes[:-1], bordes[1:]))
+    salida = {}
+    for n, (i, (a, b)) in enumerate(zip(indices, partes)):
+        trozo = carpeta / f"voz_{quien}_{n:02d}.wav"
+        ffmpeg("-i", completo, "-ss", f"{a:.3f}", "-to", f"{b:.3f}", "-af", LIMPIAR,
+               "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", trozo)
+        salida[i] = trozo
+    return salida
 
 
 def tts_edge(f, destino):
@@ -405,19 +470,28 @@ def tts_edge(f, destino):
 def generar_audio(frs, carpeta):
     motores = ["gemini"] + (["edge"] if CFG.get("respaldo_edge") else []) if CFG.get("motor_voz") == "gemini" else ["edge"]
     for motor in motores:
-        lotes = lotes_gemini(frs) if motor == "gemini" else [[i] for i in range(len(frs))]
+        if motor == "gemini":
+            try:
+                archivos = {}
+                orden = list(dict.fromkeys(f["personaje"] for f in frs))
+                for j, quien in enumerate(orden):
+                    indices = [i for i, f in enumerate(frs) if f["personaje"] == quien]
+                    log(f"   [gemini] grabación {j + 1}/{len(orden)}: {quien} ({len(indices)} fragmentos)")
+                    if j:
+                        time.sleep(CFG.get("pausa_tts_segundos", 21))
+                    archivos.update(grabar_personaje(frs, indices, carpeta))
+                return motor, [{"archivo": archivos[i].name, "fragmentos": [i]} for i in range(len(frs))]
+            except Exception as e:
+                log(f"   El motor de voz gemini falló: {e}")
+                continue
+        lotes = [[i] for i in range(len(frs))]
         try:
             pistas = []
             for j, lote in enumerate(lotes):
                 destino = carpeta / f"voz_{motor}_{j:02d}.wav"
                 quienes = " + ".join(dict.fromkeys(frs[i]["personaje"] for i in lote))
                 log(f"   [{motor}] petición {j + 1}/{len(lotes)}: {quienes}")
-                if motor == "gemini":
-                    if j:
-                        time.sleep(CFG.get("pausa_tts_segundos", 21))
-                    tts_gemini(frs, lote, destino)
-                else:
-                    tts_edge(frs[lote[0]], destino)
+                tts_edge(frs[lote[0]], destino)
                 pistas.append({"archivo": destino.name, "fragmentos": lote})
             return motor, pistas
         except Exception as e:
@@ -794,6 +868,16 @@ def main():
     log("3/6 Voces")
     motor, pistas = generar_audio(frs, carpeta)
     total = montar_audio(frs, pistas, carpeta)
+    limite = CFG.get("duracion_maxima", 170)
+    if total > limite:  # Shorts: 3 minutos como máximo. Se acelera lo justo (sin cambiar el tono).
+        factor = min(1.3, total / limite)
+        ffmpeg("-i", carpeta / "audio.wav", "-filter:a", f"atempo={factor:.4f}", "-ar", HZ, "-ac", 1,
+               carpeta / "audio_rapido.wav")
+        (carpeta / "audio_rapido.wav").replace(carpeta / "audio.wav")
+        for f in frs:
+            f["inicio"], f["fin"] = f["inicio"] / factor, f["fin"] / factor
+        total /= factor
+        log(f"   Acelerado x{factor:.2f} para que quepa en un Short ({total:.0f} s)")
     log(f"   Motor: {motor} · duración {total:.1f} s" + ("  (más de 3 min: no será Short)" if total > 180 else ""))
 
     log("4/6 Cuadros")
