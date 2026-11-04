@@ -261,7 +261,7 @@ REGLAS:
 1. Divide el texto en fragmentos consecutivos. Copia cada fragmento EXACTAMENTE igual que en el original: no añadas, quites ni cambies ninguna palabra ni signo. Unidos en orden, los fragmentos deben reproducir el texto completo.
 2. Las palabras en estilo directo (entre comillas “ ”) van en un fragmento propio, asignado a quien las dice. Si alguien cita a otro dentro de su discurso (comillas ‘ ’), sigue hablando el mismo personaje. Todo lo demás es del narrador.
 3. Si habla un personaje secundario que no está en la lista, usa hombre, mujer o multitud.
-4. Agrupa el relato en 2 a 4 escenas visuales. En cada fragmento indica su escena (1, 2, ...). Para cada escena da "busqueda": 1 a 3 palabras en inglés para encontrar un cuadro de James Tissot de esa escena (ej.: "good shepherd", "Pharisees", "Jesus teaching", "Peter").{biblioteca}
+4. Agrupa el relato en 3 a 5 escenas visuales (cambia de escena cuando cambie lo que se ve). En cada fragmento indica su escena (1, 2, ...). Para cada escena da "busqueda": 1 a 3 palabras en inglés para encontrar un cuadro de James Tissot de esa escena (ej.: "good shepherd", "Pharisees", "Jesus teaching", "Peter").{biblioteca}
 
 TEXTO:
 {texto}"""
@@ -368,12 +368,12 @@ def tts_gemini(frs, lote, destino):
     voces = list(dict.fromkeys(frs[i]["personaje"] for i in lote))
     if len(voces) == 1:
         p = PJ[voces[0]]
-        texto = f"{p['estilo']}: " + " ".join(hablado(frs[i]["texto"]) for i in lote)
+        texto = f"Lee en voz alta, con {p['estilo']}, este texto:\n\n" + " ".join(hablado(frs[i]["texto"]) for i in lote)
         habla = {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": p["voz_gemini"]}}}
     else:
-        guia = " ".join(f"Voz de {k.capitalize()}: {PJ[k]['estilo']}." for k in voces)
+        guia = " ".join(f"{k.capitalize()} habla con {PJ[k]['estilo']}." for k in voces)
         lineas = "\n".join(f"{frs[i]['personaje'].capitalize()}: {hablado(frs[i]['texto'])}" for i in lote)
-        texto = f"Lee en voz alta esta lectura del Evangelio a dos voces. {guia}\n\n{lineas}"
+        texto = f"Lee en voz alta esta lectura del Evangelio entre {' y '.join(k.capitalize() for k in voces)}. {guia}\n\n{lineas}"
         habla = {"multiSpeakerVoiceConfig": {"speakerVoiceConfigs": [
             {"speaker": k.capitalize(), "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": PJ[k]["voz_gemini"]}}}
             for k in voces]}}
@@ -482,7 +482,7 @@ def elegir_cuadros(escenas, busquedas, carpeta, usados=None):
     for n in escenas:
         titulo = buscar_cuadro(busquedas.get(n, ""), usados)
         nombre = titulo.split(":", 1)[1].replace(" ", "_")
-        url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(nombre) + "?width=1400"
+        url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(nombre) + "?width=2200"
         destino = carpeta / f"cuadro_{n}.img"
         destino.write_bytes(http(url, raw=True)[1])
         cuadros[n] = {"archivo": destino, "titulo": titulo}
@@ -510,38 +510,55 @@ def es_video(p):
     return Path(p).suffix.lower() in (".mp4", ".mov", ".webm")
 
 
-def elegir_visuales(escenas, info, fecha, carpeta):
-    """Prioridad: clip propio del día > clip de la biblioteca elegido por Gemini > cuadro de Tissot."""
+def elegir_visuales(tramos, info, fecha, carpeta):
+    """Por tramo: clip del día > clip elegido por Gemini > imagen devocional (D..) > cuadro clásico."""
     datos = {int(e["numero"]): e for e in info}
-    usados, visuales = set(), {}
-    for n in escenas:
-        e = datos.get(n, {})
-        propio = archivo_clip(f"{fecha}_e{n}", "dias")
+    ruta_cat = RAIZ / "biblioteca" / "catalogo.json"
+    cat = json.loads(ruta_cat.read_text(encoding="utf-8"))["clips"] if ruta_cat.exists() else {}
+    rellenos = [k for k in cat if k.startswith("D") and archivo_clip(k)]
+    random.shuffle(rellenos)
+    usados, visuales = set(), []
+    for b in tramos:
+        n, e = b["escena"], datos.get(b["escena"], {})
+        propio = archivo_clip(f"{fecha}_e{n}", "dias") if b["parte"] == 0 else None
         clip = e.get("clip", "ninguno")
         if propio:
-            visuales[n] = {"archivo": propio, "titulo": f"dias/{propio.name}"}
-            log(f"   Escena {n}: clip del día {propio.name}")
+            v = {"archivo": propio, "titulo": f"dias/{propio.name}"}
         elif clip != "ninguno" and clip not in usados and archivo_clip(clip):
             usados.add(clip)
-            visuales[n] = {"archivo": archivo_clip(clip), "titulo": f"biblioteca/{clip}"}
-            log(f"   Escena {n}: biblioteca {clip}")
+            v = {"archivo": archivo_clip(clip), "titulo": f"biblioteca/{clip}"}
+        elif any(r not in usados for r in rellenos):
+            r = next(r for r in rellenos if r not in usados)
+            usados.add(r)
+            v = {"archivo": archivo_clip(r), "titulo": f"biblioteca/{r}"}
         else:
-            visuales[n] = elegir_cuadros([n], {n: e.get("busqueda", "")}, carpeta, usados)[n]
+            clave = f"{n}_{b['parte']}"
+            v = elegir_cuadros([clave], {clave: e.get("busqueda", "")}, carpeta, usados)[clave]
+        log(f"   Tramo escena {n}.{b['parte']}: {v['titulo']}")
+        visuales.append(v)
     return visuales
 
 
 # ---------- 5. Vídeo ----------
 
 def bloques(frs, total):
+    """Tramos de imagen: uno por escena, partidos para que ninguna imagen dure más de max_segundos_imagen."""
+    maximo = CFG.get("max_segundos_imagen", 16)
     b = []
     for f in frs:
         if not b or b[-1]["escena"] != f["escena"]:
             b.append({"escena": f["escena"], "inicio": f["inicio"]})
     b[0]["inicio"] = 0.0
+    tramos = []
     for i, x in enumerate(b):
         fin = b[i + 1]["inicio"] if i + 1 < len(b) else total
-        x["frames"] = max(1, round(fin * FPS) - round(x["inicio"] * FPS))
-    return b
+        partes = max(1, int(-(-(fin - x["inicio"]) // maximo)))
+        paso = (fin - x["inicio"]) / partes
+        for k in range(partes):
+            ini = x["inicio"] + k * paso
+            tramos.append({"escena": x["escena"], "parte": k, "inicio": ini,
+                           "frames": max(1, round((ini + paso) * FPS) - round(ini * FPS))})
+    return tramos
 
 
 def clip_escena(img, frames, n, carpeta):
@@ -722,6 +739,10 @@ def main():
             log(f"   Torres Amat no disponible ({e}); uso el texto de Vatican News")
     ev.setdefault("fuente_texto", "Vatican News")
     log(f"   {ev['cita']} · {ev['fuente_texto']} · {len(ev['texto'])} caracteres")
+    libro = ev["cita"].split()[0]
+    if libro in CFG.get("narradores", {}):
+        PJ["narrador"] = {**PJ["narrador"], **CFG["narradores"][libro]}
+        log(f"   Narrador: san {libro} (voz {PJ['narrador']['voz_gemini']})")
 
     log("2/6 Guion")
     biblioteca = clips_disponibles()
@@ -742,11 +763,11 @@ def main():
 
     log("4/6 Cuadros")
     bl = bloques(frs, total)
-    cuadros = elegir_visuales(sorted({b["escena"] for b in bl}), g.get("escenas", []), fecha, carpeta)
+    visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta)
 
     log("5/6 Vídeo")
-    clips = [(clip_video if es_video(cuadros[b["escena"]]["archivo"]) else clip_escena)(
-        cuadros[b["escena"]]["archivo"], b["frames"], i, carpeta) for i, b in enumerate(bl)]
+    clips = [(clip_video if es_video(v["archivo"]) else clip_escena)(v["archivo"], b["frames"], i, carpeta)
+             for i, (b, v) in enumerate(zip(bl, visuales))]
     (carpeta / "clips.txt").write_text("".join(f"file '{c.name}'\n" for c in clips))
     subtitulos(frs, ev, fecha, total, carpeta / "subtitulos.ass")
     musica = musica_del_dia(fecha)
@@ -769,7 +790,7 @@ def main():
 
     registro = {"fecha": str(fecha), "modo": a.modo, "cita": ev["cita"], "fuente": ev["url"], "texto_fuente": ev["fuente_texto"],
                 "guion": g.get("origen"), "voces": motor, "peticiones_voz": len(pistas), "musica": musica.name if musica else None, "duracion_s": round(total, 1),
-                "cuadros": {str(k): v["titulo"] for k, v in cuadros.items()},
+                "imagenes": [v["titulo"] for v in visuales],
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"]} for f in frs],
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
