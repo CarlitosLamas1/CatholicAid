@@ -1,0 +1,29 @@
+name: Casting de voces
+
+on:
+  workflow_dispatch:
+    inputs:
+      velocidad:
+        description: "Velocidad de lectura (1.0 = normal)"
+        default: "1.08"
+
+jobs:
+  casting:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+      - name: Generar muestras
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+          VELOCIDAD: ${{ inputs.velocidad }}
+        run: python3 proceso/casting.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: casting
+          path: |
+            casting/*.mp3
+            casting/orden.txt

@@ -5,6 +5,7 @@
     "gemini-3.8-flash-lite"
   ],
   "modelo_voz": "gemini-2.5-flash-preview-tts",
+  "velocidad_voz": 1.08,
   "motor_voz": "gemini",
   "respaldo_edge": false,
   "texto": "torres-amat",
@@ -38,19 +39,19 @@
   "narradores": {
     "Mateo": {
       "voz_gemini": "Sadaltager",
-      "estilo": "voz de anciano sabio y sereno, grave y cálida, ritmo pausado, acento de España"
+      "estilo": "voz de anciano sabio y sereno, grave y cálida, ritmo natural, acento de España"
     },
     "Marcos": {
       "voz_gemini": "Rasalgethi",
-      "estilo": "voz de hombre mayor, clara y directa, con viveza contenida, ritmo sereno, acento de España"
+      "estilo": "voz de hombre mayor, clara y directa, con viveza contenida, ritmo natural, acento de España"
     },
     "Lucas": {
       "voz_gemini": "Schedar",
-      "estilo": "voz de anciano dulce y culto, cálida y delicada como la de un médico bondadoso, ritmo pausado, acento de España"
+      "estilo": "voz de anciano dulce y culto, cálida y delicada como la de un médico bondadoso, ritmo natural, acento de España"
     },
     "Juan": {
       "voz_gemini": "Charon",
-      "estilo": "voz de anciano contemplativo y profundo, muy pausada y llena de ternura, casi un susurro solemne, acento de España"
+      "estilo": "voz de anciano contemplativo y profundo, llena de ternura, casi un susurro solemne, acento de España"
     }
   },
   "personajes": {
@@ -58,7 +59,7 @@
       "nombre": "",
       "descripcion": "el evangelista que narra; todo lo que no es estilo directo",
       "voz_gemini": "Schedar",
-      "estilo": "voz de anciano sereno y cálido, ritmo pausado, acento de España",
+      "estilo": "voz de anciano sereno y cálido, ritmo natural, acento de España",
       "color": "FFFFFF",
       "color_texto": "FFFFFF",
       "alias": [],
@@ -68,7 +69,7 @@
       "nombre": "Jesús",
       "descripcion": "Jesús",
       "voz_gemini": "Alnilam",
-      "estilo": "voz solemne, profunda y serena, llena de ternura y de autoridad, pausada y con pequeñas pausas expresivas, acento de España",
+      "estilo": "voz solemne, profunda y serena, llena de ternura y de autoridad, ritmo natural, acento de España",
       "color": "F5C542",
       "color_texto": "FFE7A3",
       "alias": [

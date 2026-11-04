@@ -350,43 +350,38 @@ def preparar_fragmentos(g, ev):
 
 # ---------- 3. Voces ----------
 
-def a_wav_estandar(origen, destino):
-    ffmpeg("-i", origen, "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", destino)
+def a_wav_estandar(origen, destino, tempo=1.0):
+    filtro = ["-filter:a", f"atempo={tempo}"] if abs(tempo - 1.0) > 0.001 else []
+    ffmpeg("-i", origen, *filtro, "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", destino)
 
 
 def lotes_gemini(frs):
-    """Agrupa fragmentos consecutivos de como mucho 2 personajes: 1 petición de voz por grupo."""
-    maximo = CFG.get("max_caracteres_lote", 2500)
-    lotes, actual, voces, largo = [], [], set(), 0
+    """Una petición por personaje: fragmentos seguidos del mismo personaje van juntos, nunca dos voces a la vez."""
+    lotes = []
     for i, f in enumerate(frs):
-        n = len(hablado(f["texto"]))
-        if actual and (len(voces | {f["personaje"]}) > 2 or largo + n > maximo):
-            lotes.append(actual)
-            actual, voces, largo = [], set(), 0
-        actual.append(i)
-        voces.add(f["personaje"])
-        largo += n
-    if actual:
-        lotes.append(actual)
+        if lotes and frs[lotes[-1][-1]]["personaje"] == f["personaje"]:
+            lotes[-1].append(i)
+        else:
+            lotes.append([i])
     return lotes
 
 
 def tts_gemini(frs, lote, destino):
-    voces = list(dict.fromkeys(frs[i]["personaje"] for i in lote))
-    if len(voces) == 1:
-        p = PJ[voces[0]]
-        texto = f"Lee en voz alta, con {p['estilo']}, este texto:\n\n" + " ".join(hablado(frs[i]["texto"]) for i in lote)
-        habla = {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": p["voz_gemini"]}}}
-    else:
-        guia = " ".join(f"{k.capitalize()} habla con {PJ[k]['estilo']}." for k in voces)
-        lineas = "\n".join(f"{frs[i]['personaje'].capitalize()}: {hablado(frs[i]['texto'])}" for i in lote)
-        texto = f"Lee en voz alta esta lectura del Evangelio entre {' y '.join(k.capitalize() for k in voces)}. {guia}\n\n{lineas}"
-        habla = {"multiSpeakerVoiceConfig": {"speakerVoiceConfigs": [
-            {"speaker": k.capitalize(), "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": PJ[k]["voz_gemini"]}}}
-            for k in voces]}}
+    """Voz de UN solo personaje, siempre con su voz fija. Clave gratuita; si se agota el cupo, la de pago (misma voz)."""
+    p = PJ[frs[lote[0]]["personaje"]]
+    texto = f"Lee en voz alta, con {p['estilo']}, este texto:\n\n" + " ".join(hablado(frs[i]["texto"]) for i in lote)
     cuerpo = {"contents": [{"parts": [{"text": texto}]}],
-              "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": habla}}
-    r = gemini(CFG["modelo_voz"], cuerpo)
+              "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": {
+                  "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": p["voz_gemini"]}}}}}
+    try:
+        r = gemini(CFG["modelo_voz"], cuerpo)
+    except urllib.error.HTTPError as e:
+        pago = os.environ.get("GEMINI_API_KEY_IMAGENES", "").strip()
+        if e.code != 429 or not pago:
+            raise
+        log("   Cupo gratuito agotado: sigo con la clave de pago (misma voz)")
+        os.environ["GEMINI_API_KEY"] = pago
+        r = gemini(CFG["modelo_voz"], cuerpo)
     dato = r["candidates"][0]["content"]["parts"][0]["inlineData"]
     m = re.search(r"rate=(\d+)", dato.get("mimeType", ""))
     tasa = int(m.group(1)) if m else HZ
@@ -396,7 +391,7 @@ def tts_gemini(frs, lote, destino):
         w.setsampwidth(2)
         w.setframerate(tasa)
         w.writeframes(base64.b64decode(dato["data"]))
-    a_wav_estandar(crudo, destino)
+    a_wav_estandar(crudo, destino, CFG.get("velocidad_voz", 1.0))
 
 
 def tts_edge(f, destino):
