@@ -79,5 +79,6 @@ jobs:
           git add episodios/
           if ! git diff --cached --quiet; then
             git commit -q -m "Registro del episodio $(ls -t episodios | head -1)"
+            git pull -q --rebase
             git push -q
           fi
