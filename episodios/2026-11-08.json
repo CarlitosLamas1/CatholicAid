@@ -1,0 +1,49 @@
+{
+  "fecha": "2026-11-08",
+  "modo": "prueba",
+  "cita": "Mateo 25, 1-13",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/08.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-flash-lite-latest",
+  "voces": "gemini",
+  "peticiones_voz": 1,
+  "musica": "JS_Bach_-_Well_Tempered_Clavier_-_Prelude_in_Fugue_No.1_in_C_major.ogg",
+  "duracion_s": 92.6,
+  "cuadros": {
+    "1": "File:Brooklyn Museum - The Foolish Virgins (Les vierges folles) - James Tissot (cropped).jpg"
+  },
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 0.6,
+      "texto": "Lectura del santo evangelio según san Mateo."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.78,
+      "texto": "En aquel tiempo, dijo Jesús a sus discípulos esta parábola:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 8.05,
+      "texto": "“Entonces el reino de los cielos será semejante a diez vírgenes que, tomando sus lámparas, salieron a recibir al esposo. Cinco de ellas eran necias y cinco prudentes. Las necias, al tomar sus lámparas, no llevaron consigo aceite; en cambio, las prudentes llevaron aceite en sus vasijas junto con las lámparas. Como el esposo tardaba en venir, se adormecieron todas y al fin se quedaron dormidas. A medianoche se oyó una voz que gritaba: ‘¡Mirad que viene el esposo, salid a su encuentro!’. Al punto se levantaron todas aquellas vírgenes y prepararon sus lámparas. Entonces las necias dijeron a las prudentes: ‘Dadnos de vuestro aceite, que se nos apagan las lámparas’. Pero las prudentes respondieron: ‘No sea que no baste para nosotras y para vosotras; mejor es que vayáis a los que lo venden y compréis el que os falta’. Mientras iban a comprarlo, llegó el esposo, y las que estaban preparadas entraron con él a las bodas, y se cerró la puerta. Al cabo llegaron también las otras vírgenes, diciendo: ‘¡Señor, Señor, ábrenos!’. Pero él respondió: ‘En verdad os digo que no os conozco’. Así pues, velad, porque no sabéis ni el día ni la hora”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 89.91,
+      "texto": "Palabra del Señor."
+    }
+  ],
+  "generado": "2026-11-04T16:54:30+01:00",
+  "youtube": {
+    "id": "Isw9lZwzh1U",
+    "url": "https://youtu.be/Isw9lZwzh1U",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true
+  }
+}
