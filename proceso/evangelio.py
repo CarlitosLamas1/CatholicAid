@@ -647,6 +647,9 @@ def es_video(p):
     return Path(p).suffix.lower() in (".mp4", ".mov", ".webm")
 
 
+AVISOS = []  # cosas que requieren a Carlos (se mandan por Telegram con el aviso de «vídeo listo»)
+
+
 def generar_imagenes_dia(info, escenas, fecha):
     """Pinta con Nano Banana (API de pago) una imagen por escena y la guarda en biblioteca/dias/.
     Si ya existe (o falla), no hace nada: el proceso sigue con la biblioteca."""
@@ -673,6 +676,10 @@ def generar_imagenes_dia(info, escenas, fecha):
             log(f"   Imagen IA escena {n} ({modelo}): {e['descripcion'][:90]}")
         except Exception as ex:
             log(f"   Imagen IA escena {n} falló ({ex}); se usa la biblioteca")
+            txt = str(ex)
+            if any(k in txt for k in ("429", "402", "RESOURCE_EXHAUSTED", "billing", "credit", "prepay", "quota")):
+                AVISOS.append("Las imágenes de pago fallan por saldo o cuota: recarga el prepago de la API de imágenes.")
+                break
 
 
 def elegir_visuales(tramos, info, fecha, carpeta):
@@ -1073,6 +1080,8 @@ def main():
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"]} for f in frs],
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
+    if AVISOS:
+        registro["avisos"] = sorted(set(AVISOS))
 
     if a.no_subir:
         log("6/6 YouTube: omitido (--no-subir)")

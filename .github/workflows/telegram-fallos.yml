@@ -1,0 +1,40 @@
+name: Avisar de fallos
+
+# Cuando cualquier proceso termina con fallo, manda a Carlos por Telegram la causa en una frase
+# y qué se va a reintentar. Si Telegram falla, no pasa nada.
+on:
+  workflow_run:
+    workflows:
+      - Evangelio diario
+      - Publicar en TikTok
+      - Preparar semana
+      - Parte de la mañana
+      - Enviar informe semanal
+      - Conectar TikTok
+      - Probar imagen
+      - Verificar secretos
+      - Casting de voces
+      - Configurar Telegram
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  avisar:
+    if: github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.conclusion == 'timed_out'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Avisar
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          FALLO_RUN_ID: ${{ github.event.workflow_run.id }}
+          FALLO_WORKFLOW: ${{ github.event.workflow_run.name }}
+          FALLO_EVENTO: ${{ github.event.workflow_run.event }}
+        run: python3 proceso/avisos.py fallo

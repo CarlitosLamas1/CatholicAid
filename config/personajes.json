@@ -270,5 +270,12 @@
   },
   "tiktok": {
     "privacidad": "PUBLIC_TO_EVERYONE"
+  },
+  "avisos": {
+    "_nota": "Recordatorios que se mandan por Telegram cada lunes; borra una línea cuando quede resuelta.",
+    "pendientes": [
+      "Auditoría de YouTube (enviada el 05/11): mira si Google ha respondido en catolicolamas@gmail.com.",
+      "Review de TikTok (enviada el 05/11): mira si TikTok ha respondido en catolicolamas@gmail.com."
+    ]
   }
 }

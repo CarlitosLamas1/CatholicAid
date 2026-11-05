@@ -31,6 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Publicar
+        id: publicar
         run: |
           F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
           if [ ! -f secretos/tiktok.enc ]; then echo "TikTok aún no está conectado."; exit 0; fi
@@ -56,6 +57,7 @@ jobs:
               raise SystemExit("TikTok rechazó el vídeo")
           PY
           gh release delete "tiktok-$F" --yes --cleanup-tag
+          echo "fecha=$F" >> "$GITHUB_OUTPUT"
       - name: Guardar
         if: always()
         run: |
@@ -66,3 +68,11 @@ jobs:
             git commit -q -m "TikTok: publicación del día"
             git pull -q --rebase && git push -q
           fi
+      - name: Avisar por Telegram (publicado en TikTok)
+        if: success() && steps.publicar.outputs.fecha != ''
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+        run: python3 proceso/avisos.py tiktok "${{ steps.publicar.outputs.fecha }}"

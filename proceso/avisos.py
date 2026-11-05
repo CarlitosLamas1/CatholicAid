@@ -264,7 +264,7 @@ def aviso_manana():
         if r.get("youtube") and r.get("modo") == "diario":
             marca = "✅ preparado"
         elif i == 1:
-            marca = "⏳ falta · se genera esta tarde (16:00)"
+            marca = "⏳ falta · se genera esta tarde"
         else:
             marca = "⏳ falta · se genera la víspera"
         lineas.append(f"• {e(fecha_txt(f))}{cita}: {marca}")
@@ -315,7 +315,7 @@ REINTENTOS = {
 
 def log_del_fallo():
     """Devuelve el final del log del job que ha fallado en este run (vía la API de GitHub con gh)."""
-    run = os.environ.get("GITHUB_RUN_ID")
+    run = os.environ.get("FALLO_RUN_ID") or os.environ.get("GITHUB_RUN_ID")
     repo = os.environ.get("GITHUB_REPOSITORY")
     if not run or not repo:
         return ""
@@ -344,7 +344,7 @@ def causa(texto):
 
 def proximo_reintento(nombre, ahora=None):
     horas, plantilla = REINTENTOS.get(nombre, ([], ""))
-    if os.environ.get("GITHUB_EVENT_NAME") != "schedule" or not horas:
+    if (os.environ.get("FALLO_EVENTO") or os.environ.get("GITHUB_EVENT_NAME")) != "schedule" or not horas:
         return "No hay reintento automático: el gestor lo revisará." if horas else ""
     ahora = ahora or dt.datetime.now(dt.timezone.utc)
     for h in sorted(horas):
@@ -355,9 +355,10 @@ def proximo_reintento(nombre, ahora=None):
 
 
 def aviso_fallo():
-    nombre = os.environ.get("GITHUB_WORKFLOW", "Un proceso")
+    nombre = os.environ.get("FALLO_WORKFLOW") or os.environ.get("GITHUB_WORKFLOW", "Un proceso")
+    run = os.environ.get("FALLO_RUN_ID") or os.environ.get("GITHUB_RUN_ID", "")
     url = f"{os.environ.get('GITHUB_SERVER_URL', 'https://github.com')}/{os.environ.get('GITHUB_REPOSITORY', '')}" \
-          f"/actions/runs/{os.environ.get('GITHUB_RUN_ID', '')}"
+          f"/actions/runs/{run}"
     try:
         texto = log_del_fallo()
     except Exception as ex:

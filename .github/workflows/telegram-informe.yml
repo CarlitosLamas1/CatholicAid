@@ -1,0 +1,38 @@
+name: Enviar informe semanal
+
+# Cuando el gestor semanal guarda informes/AAAA-MM-DD.md, se lo manda a Carlos por Telegram.
+on:
+  push:
+    branches: [main]
+    paths: ["informes/*.md"]
+  workflow_dispatch:
+    inputs:
+      informe:
+        description: "Ruta del informe (vacío = el más reciente)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Enviar
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          ANTES: ${{ github.event.before }}
+          ELEGIDO: ${{ inputs.informe }}
+        run: |
+          if [ -n "$ELEGIDO" ]; then LISTA="$ELEGIDO"
+          elif [ "${{ github.event_name }}" = "push" ] && git cat-file -e "$ANTES" 2>/dev/null; then
+            LISTA=$(git diff --name-only --diff-filter=AM "$ANTES" HEAD -- 'informes/*.md')
+          else LISTA=$(ls informes/*.md | sort | tail -1); fi
+          for f in $LISTA; do echo "Enviando $f"; python3 proceso/avisos.py informe "$f"; done
