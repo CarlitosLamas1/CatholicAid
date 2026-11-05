@@ -327,6 +327,62 @@ def guion_reglas(texto):
             "escenas": [{"numero": i + 1, "busqueda": gen[i % len(gen)]} for i in range(n)]}
 
 
+def espacios(t):
+    return " ".join(t.split())
+
+
+def frase_de_reserva(fuente):
+    """Si Gemini falla: la frase más corta (3–12 palabras) de las palabras de Jesús, copiada tal cual."""
+    frases = [espacios(x).strip(" ,;:") for s in fuente for x in re.split(r"(?<=[.?!])\s+", s)]
+    buenas = [x for x in frases if 3 <= len(x.split()) <= 12]
+    return min(buenas, key=len) if buenas else ""
+
+
+def gancho_y_reflexion(frs, ev):
+    """Gemini elige la frase clave (literal, de las palabras de Jesús) y escribe una reflexión breve.
+    La frase se valida: tiene que estar tal cual en el texto. El Evangelio no se toca."""
+    jesus = [hablado(f["texto"]) for f in frs if f["personaje"] == "jesus"]
+    fuente = jesus or [hablado(ev["texto"])]
+    quien = "las palabras de Jesús" if jesus else "el texto"
+    prompt = f"""Eres un sacerdote católico que prepara un vídeo breve con el Evangelio del día ({ev['cita']}).
+
+1. "frase_clave": elige de {quien} (abajo) la frase más significativa y fácil de recordar para mostrarla en grande al
+   principio del vídeo. Cópiala LITERALMENTE, palabra por palabra y con los mismos signos, sin comillas: puede ser una
+   frase entera o una parte con sentido completo, de 3 a 12 palabras.
+2. "reflexion": 1 o 2 frases breves (máximo 35 palabras en total) para meditar después de la lectura; puede terminar
+   con una pregunta. Tono cálido y cercano, de tú, en español de España. Fiel a la doctrina de la Iglesia católica y
+   al sentido de esta lectura. No cites ni inventes palabras de Jesús, no uses comillas ni emojis, no hables de
+   política ni de temas polémicos.
+
+{quien.upper()}:
+{chr(10).join(fuente)}
+
+LECTURA COMPLETA (contexto):
+{hablado(ev['texto'])}"""
+    esquema = {"type": "OBJECT", "properties": {"frase_clave": {"type": "STRING"}, "reflexion": {"type": "STRING"}},
+               "required": ["frase_clave", "reflexion"]}
+    base = [espacios(s) for s in fuente]
+    for modelo in modelos_texto():
+        try:
+            r = gemini(modelo, {"contents": [{"parts": [{"text": prompt}]}],
+                                "generationConfig": {"responseMimeType": "application/json",
+                                                     "responseSchema": esquema, "temperature": 0.4}})
+            partes = r["candidates"][0]["content"]["parts"]
+            d = json.loads(next(p["text"] for p in reversed(partes) if "text" in p))
+            frase = espacios(hablado(d.get("frase_clave", ""))).strip(" ,;:")
+            reflexion = espacios(hablado(d.get("reflexion", "")))
+            if not (frase and 2 <= len(frase.split()) <= 14 and any(frase in s for s in base)):
+                log(f"   {modelo}: la frase clave no es literal ({frase[:60]}); se descarta")
+                continue
+            if not reflexion or len(reflexion.split()) > 45:
+                log(f"   {modelo}: reflexión vacía o demasiado larga; se descarta")
+                continue
+            return frase, reflexion
+        except Exception as e:
+            log(f"   {modelo}: gancho/reflexión falló ({e})")
+    return frase_de_reserva(fuente), ""
+
+
 def preparar_fragmentos(g, ev):
     frs = []
     for f in g["fragmentos"]:
@@ -510,6 +566,10 @@ def montar_audio(frs, pistas, carpeta):
         out.setframerate(HZ)
         out.writeframes(b"\0\0" * inicio)
         for pista in pistas:
+            if any(frs[i].get("reflexion") for i in pista["fragmentos"]):  # respiro antes de la reflexión
+                extra = int(HZ * 0.9)
+                out.writeframes(b"\0\0" * extra)
+                t += extra / HZ
             with wave.open(str(carpeta / pista["archivo"])) as w:
                 n = w.getnframes()
                 out.writeframes(w.readframes(n))
@@ -717,10 +777,16 @@ def trocear(texto, maximo):
     return trozos
 
 
-def subtitulos(frs, ev, fecha, total, ruta):
-    eventos = [("Cabecera", 0, total,
+def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0):
+    eventos = [("Cabecera", gancho, total,
                 "{\\fs38}Evangelio del día · " + f"{DIAS[fecha.weekday()]} {fecha.day} de {MESES[fecha.month - 1]}"
                 + "\\N{\\fs56}" + ev["cita"])]
+    if frase and gancho:
+        # Gancho minimalista: velo oscuro muy suave sobre la imagen y la frase en serif fina, centrada.
+        eventos.append(("Velo", 0, gancho, "{\\an7\\pos(0,0)\\p1\\fad(0,350)}"
+                        f"m 0 0 l {W} 0 {W} {H} 0 {H}" + "{\\p0}"))
+        limpio = frase.replace("{", "(").replace("}", ")")
+        eventos.append(("Gancho", 0, gancho, "{\\fad(250,350)\\blur3}“" + limpio + "”"))
     for f in frs:
         p = PJ[f["personaje"]]
         limpio = hablado(f["texto"]).replace("{", "(").replace("}", ")")
@@ -730,10 +796,12 @@ def subtitulos(frs, ev, fecha, total, ruta):
         nombre = ""
         if p.get("nombre"):
             nombre = "{\\fs40\\c" + color_ass(p["color"]) + "}" + p["nombre"].upper() + "\\N"
+        estilo = "{\\fs60\\c" + color_ass(p.get("color_texto", "FFFFFF")) + "}"
+        if f.get("reflexion"):
+            nombre, estilo = "", "{\\fs56\\i1\\c" + color_ass("F3E6C4") + "}"
         for tr in trozos:
             d = dur * len(tr) / largo
-            eventos.append(("Texto", t, t + d,
-                            nombre + "{\\fs60\\c" + color_ass(p.get("color_texto", "FFFFFF")) + "}" + tr))
+            eventos.append(("Texto", t, t + d, nombre + estilo + tr))
             t += d
     cabecera = (
         "[Script Info]\nScriptType: v4.00+\n" f"PlayResX: {W}\nPlayResY: {H}\n"
@@ -744,7 +812,11 @@ def subtitulos(frs, ev, fecha, total, ruta):
         "Style: Texto,DejaVu Sans,60,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,5,3,8,"
         "110,110,1185,1\n"
         "Style: Cabecera,DejaVu Sans,44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,4,2,8,"
-        "60,60,120,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
+        "60,60,120,1\n"
+        "Style: Gancho,DejaVu Serif,76,&H00FFFFFF,&H00FFFFFF,&H60000000,&HA0000000,0,1,0,0,100,100,1,0,1,1.5,0,5,"
+        "130,130,0,1\n"
+        "Style: Velo,DejaVu Sans,10,&H9A000000,&H9A000000,&HFF000000,&HFF000000,0,0,0,0,100,100,0,0,1,0,0,7,"
+        "0,0,0,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
     cuerpo = "".join(f"Dialogue: 0,{ts(a)},{ts(b)},{s},,0,0,0,,{x}\n" for s, a, b, x in eventos)
     ruta.write_text(cabecera + cuerpo, encoding="utf-8")
 
@@ -768,20 +840,83 @@ def musica_del_dia(fecha):
     return ruta
 
 
+def medir(ruta, extra=""):
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(ruta), "-af",
+                        f"loudnorm=I=-14:TP=-1.5:LRA=11{extra}:print_format=json", "-f", "null", "-"],
+                       capture_output=True, text=True, check=True)
+    return json.loads(r.stderr[r.stderr.rindex("{"):r.stderr.rindex("}") + 1])
+
+
+def normalizar_volumen(origen, destino):
+    """Audio final a -14 LUFS (estándar de YouTube/TikTok), en dos pasadas y con pico real máximo de -1,5 dB."""
+    m = medir(origen)
+    medidas = ":".join(f"measured_{k}={m['input_' + k]}" for k in ("i", "tp", "lra", "thresh"))
+    ffmpeg("-i", origen, "-af", f"loudnorm=I=-14:TP=-1.5:LRA=11:{medidas}:offset={m['target_offset']}:linear=true,"
+           "aresample=48000", "-ar", 48000, "-ac", 2, "-c:a", "pcm_s16le", destino)
+    final = float(medir(destino)["input_i"])
+    log(f"   Volumen: {float(m['input_i']):.1f} → {final:.1f} LUFS")
+    return round(final, 1)
+
+
 # ---------- 6. YouTube ----------
 
-def subir_youtube(video, ev, fecha, modo):
-    tok = http("https://oauth2.googleapis.com/token", urllib.parse.urlencode({
+YT = "https://www.googleapis.com/youtube/v3/"
+LISTAS = {"Mateo": "Evangelio según san Mateo", "Marcos": "Evangelio según san Marcos",
+          "Lucas": "Evangelio según san Lucas", "Juan": "Evangelio según san Juan"}
+
+
+def token_youtube():
+    r = http("https://oauth2.googleapis.com/token", urllib.parse.urlencode({
         "client_id": os.environ["YT_CLIENT_ID"].strip(),
         "client_secret": os.environ["YT_CLIENT_SECRET"].strip(),
         "refresh_token": os.environ["YT_REFRESH_TOKEN"].strip(),
-        "grant_type": "refresh_token"}).encode())["access_token"]
+        "grant_type": "refresh_token"}).encode())
+    log(f"   Permisos de YouTube: {r.get('scope', '?')}")
+    return r["access_token"]
+
+
+def lista_evangelista(tok, libro, vid):
+    """Añade el vídeo a la lista del evangelista (la crea si no existe). Si falla, no impide la publicación."""
+    titulo = LISTAS.get(libro)
+    if not titulo:
+        return None
+    h = {"Authorization": f"Bearer {tok}"}
+    try:
+        lista, pagina = None, ""
+        while lista is None:
+            d = http(YT + "playlists?part=snippet&mine=true&maxResults=50" + (f"&pageToken={pagina}" if pagina else ""),
+                     headers=h)
+            lista = next((p["id"] for p in d.get("items", []) if p["snippet"]["title"] == titulo), None)
+            pagina = d.get("nextPageToken")
+            if not pagina:
+                break
+        if not lista:
+            lista = http(YT + "playlists?part=snippet,status", {
+                "snippet": {"title": titulo, "defaultLanguage": "es",
+                            "description": f"El Evangelio del día según san {libro}, leído con varias voces. "
+                                           "Un vídeo nuevo cada mañana. #EvangelioDelDia"},
+                "status": {"privacyStatus": "public"}}, h, method="POST")["id"]
+            log(f"   Lista creada: {titulo}")
+        http(YT + "playlistItems?part=snippet", {"snippet": {
+            "playlistId": lista, "resourceId": {"kind": "youtube#video", "videoId": vid}}}, h, method="POST")
+        log(f"   Añadido a la lista «{titulo}»")
+        return {"id": lista, "titulo": titulo, "url": f"https://www.youtube.com/playlist?list={lista}"}
+    except urllib.error.HTTPError as e:
+        motivo = e.read().decode(errors="replace")[:400]
+        falta = e.code == 403 and "insufficient" in motivo.lower()
+        log(f"   Lista «{titulo}»: " + ("FALTA EL PERMISO de YouTube para gestionar listas" if falta
+                                       else f"error {e.code}: {motivo}"))
+        return {"titulo": titulo, "error": "falta permiso" if falta else f"{e.code}"}
+
+
+def subir_youtube(video, ev, fecha, modo, tok):
     fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
     titulo = f"Evangelio del día · {fecha_txt} · {ev['cita']}"
     if len(titulo) <= 90:
         titulo += " #shorts"
     descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
                    f"Evangelio del {DIAS[fecha.weekday()]} {fecha_txt} de {fecha.year}, leído con varias voces.\n\n"
+                   + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
                    f"📖 Texto: {ev.get('fuente_texto', 'Vatican News')}. Calendario litúrgico: Vatican News.\n"
                    "🎨 Imágenes: escenas generadas con IA y cuadros de James Tissot (dominio público)\n"
                    "🎙️ Voces generadas con inteligencia artificial.\n\n"
@@ -863,13 +998,20 @@ def main():
         g = guion_reglas(ev["texto"])
     frs = preparar_fragmentos(g, ev)
     busquedas = {int(e["numero"]): e["busqueda"] for e in g.get("escenas", [])}
+    frase, reflexion = gancho_y_reflexion(frs, ev)
+    log(f"   Frase clave: {frase or '(ninguna)'}")
+    log(f"   Reflexión: {reflexion or '(ninguna)'}")
+    if reflexion:
+        ev["reflexion"] = reflexion
+        frs.append({"personaje": "narrador", "texto": reflexion, "escena": frs[-1]["escena"], "reflexion": True})
     for f in frs:
         log(f"   [{f['escena']}] {f['personaje']}: {f['texto'][:80]}")
 
     log("3/6 Voces")
     motor, pistas = generar_audio(frs, carpeta)
     total = montar_audio(frs, pistas, carpeta)
-    limite = CFG.get("duracion_maxima", 170)
+    gancho = float(CFG.get("gancho_segundos", 2.0)) if frase else 0.0
+    limite = CFG.get("duracion_maxima", 170) - gancho
     if total > limite:  # Shorts: 3 minutos como máximo. Se acelera lo justo (sin cambiar el tono).
         factor = min(1.3, total / limite)
         ffmpeg("-i", carpeta / "audio.wav", "-filter:a", f"atempo={factor:.4f}", "-ar", HZ, "-ac", 1,
@@ -879,6 +1021,17 @@ def main():
             f["inicio"], f["fin"] = f["inicio"] / factor, f["fin"] / factor
         total /= factor
         log(f"   Acelerado x{factor:.2f} para que quepa en un Short ({total:.0f} s)")
+    if gancho:  # la lectura empieza cuando termina el gancho
+        with wave.open(str(carpeta / "audio.wav")) as w:
+            datos = w.readframes(w.getnframes())
+        with wave.open(str(carpeta / "audio.wav"), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(HZ)
+            w.writeframes(b"\0\0" * int(HZ * gancho) + datos)
+        for f in frs:
+            f["inicio"], f["fin"] = f["inicio"] + gancho, f["fin"] + gancho
+        total += gancho
     log(f"   Motor: {motor} · duración {total:.1f} s" + ("  (más de 3 min: no será Short)" if total > 180 else ""))
 
     log("4/6 Cuadros")
@@ -890,20 +1043,23 @@ def main():
     clips = [(clip_video if es_video(v["archivo"]) else clip_escena)(v["archivo"], b["frames"], i, carpeta)
              for i, (b, v) in enumerate(zip(bl, visuales))]
     (carpeta / "clips.txt").write_text("".join(f"file '{c.name}'\n" for c in clips))
-    subtitulos(frs, ev, fecha, total, carpeta / "subtitulos.ass")
+    subtitulos(frs, ev, fecha, total, carpeta / "subtitulos.ass", frase, gancho)
     musica = musica_del_dia(fecha)
-    entradas = ["-f", "concat", "-safe", "0", "-i", "clips.txt", "-i", "audio.wav"]
-    voz = "[1:a]aresample=48000,aformat=channel_layouts=stereo"
+    entradas = ["-i", "audio.wav"]
+    voz = "[0:a]aresample=48000,aformat=channel_layouts=stereo"
     if musica:
         log(f"   Música: {musica.name}")
         vol = CFG.get("volumen_musica", 0.10)
-        filtro = (f"{voz}[v];[2:a]aresample=48000,aformat=channel_layouts=stereo,volume={vol},"
+        filtro = (f"{voz}[v];[1:a]aresample=48000,aformat=channel_layouts=stereo,volume={vol},"
                   f"atrim=0:{total:.2f},afade=t=in:st=0:d=2,afade=t=out:st={max(0.0, total - 3):.2f}:d=3[m];"
                   "[v][m]amix=inputs=2:duration=first:normalize=0[a]")
         entradas += ["-i", musica]
     else:
         filtro = f"{voz}[a]"
-    ffmpeg(*entradas, "-filter_complex", filtro + ";[0:v]ass=subtitulos.ass[vid]", "-map", "[vid]", "-map", "[a]",
+    ffmpeg(*entradas, "-filter_complex", filtro, "-map", "[a]", "-c:a", "pcm_s16le", "mezcla.wav", cwd=carpeta)
+    lufs = normalizar_volumen(carpeta / "mezcla.wav", carpeta / "final.wav")
+    ffmpeg("-f", "concat", "-safe", "0", "-i", "clips.txt", "-i", "final.wav",
+           "-filter_complex", "[0:v]ass=subtitulos.ass[vid]", "-map", "[vid]", "-map", "1:a",
            "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p",
            "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", "video.mp4", cwd=carpeta)
     video = carpeta / "video.mp4"
@@ -912,6 +1068,7 @@ def main():
     registro = {"fecha": str(fecha), "modo": a.modo, "cita": ev["cita"], "fuente": ev["url"], "texto_fuente": ev["fuente_texto"],
                 "guion": g.get("origen"), "voces": motor, "peticiones_voz": len(pistas), "musica": musica.name if musica else None, "duracion_s": round(total, 1),
                 "imagenes": [v["titulo"] for v in visuales],
+                "frase_clave": frase, "reflexion": reflexion, "lufs": lufs,
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"]} for f in frs],
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
@@ -921,12 +1078,16 @@ def main():
     else:
         log("6/6 YouTube")
         try:
-            vid, estado = subir_youtube(video, ev, fecha, a.modo)
+            tok = token_youtube()
+            vid, estado = subir_youtube(video, ev, fecha, a.modo, tok)
         except urllib.error.HTTPError as e:
             log(f"   Error de YouTube {e.code}: {e.read().decode(errors='replace')[:600]}")
             raise
         registro["youtube"] = {"id": vid, "url": f"https://youtu.be/{vid}", **estado}
         log(f"   Subido: https://youtu.be/{vid} ({estado['privacyStatus']})")
+        lista = lista_evangelista(tok, libro, vid)
+        if lista:
+            registro["youtube"]["lista"] = lista
 
     # TikTok no permite programar: se deja el texto preparado y el vídeo se publica a las 7:00 (tiktok-publicar.yml).
     fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
