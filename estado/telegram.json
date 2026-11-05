@@ -2,5 +2,9 @@
   "imagenes": {},
   "imagenes_hoy": {
     "2026-11-05": 1
+  },
+  "confirmar": {
+    "accion": "no_publicar",
+    "fecha": "2026-11-08"
   }
 }
