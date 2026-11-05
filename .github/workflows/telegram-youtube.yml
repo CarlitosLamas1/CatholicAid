@@ -1,0 +1,40 @@
+name: "Telegram: publicado en YouTube"
+
+# Avisa a Carlos cuando el vídeo de hoy ya es público en YouTube (una sola vez por día).
+# Varios intentos por la mañana porque los horarios de GitHub a veces se retrasan.
+on:
+  schedule:
+    - cron: "20 6-11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-youtube
+  cancel-in-progress: false
+
+jobs:
+  avisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Avisar
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python3 proceso/avisos.py youtube
+      - name: Guardar
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add episodios/
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Telegram: aviso de YouTube enviado"
+            git pull -q --rebase && git push -q
+          fi

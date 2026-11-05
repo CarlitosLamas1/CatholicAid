@@ -8,11 +8,6 @@
     "gemini-3.5-flash",
     "gemini-3-flash-preview"
   ],
-  "modelos_bot": [
-    "gemini-3.5-flash-lite",
-    "gemini-3.1-flash-lite",
-    "gemini-flash-lite-latest"
-  ],
   "modelo_voz": "gemini-2.5-flash-preview-tts",
   "velocidad_voz": 1.15,
   "motor_voz": "gemini",
@@ -27,8 +22,7 @@
   "imagenes_ia": {
     "activo": true,
     "modelo": "gemini-2.5-flash-image",
-    "max_por_video": 5,
-    "max_telegram_dia": 10
+    "max_por_video": 5
   },
   "volumen_musica": 0.1,
   "musica": [
@@ -280,12 +274,5 @@
   },
   "tiktok": {
     "privacidad": "PUBLIC_TO_EVERYONE"
-  },
-  "avisos": {
-    "_nota": "Recordatorios que se mandan por Telegram cada lunes; borra una línea cuando quede resuelta.",
-    "pendientes": [
-      "Auditoría de YouTube (enviada el 05/11): mira si Google ha respondido en catolicolamas@gmail.com.",
-      "Review de TikTok (enviada el 05/11): mira si TikTok ha respondido en catolicolamas@gmail.com."
-    ]
   }
 }

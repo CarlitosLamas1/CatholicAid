@@ -650,7 +650,6 @@ def es_video(p):
     return Path(p).suffix.lower() in (".mp4", ".mov", ".webm")
 
 
-RETOQUE = {}  # retoques pedidos por Carlos desde Telegram (retoques/AAAA-MM-DD.json): frase_clave, reflexion, musica, estilo
 AVISOS = []  # cosas que requieren a Carlos (se mandan por Telegram con el aviso de «vídeo listo»)
 
 
@@ -675,7 +674,7 @@ def generar_imagenes_dia(info, escenas, fecha):
                 if (RAIZ / "personajes" / f"{k}.png").exists()]
         destino = RAIZ / "biblioteca" / "dias" / f"{fecha}_e{n}.png"
         try:
-            modelo = imagenes.generar(e["descripcion"], destino, refs, RETOQUE.get("estilo") or e.get("estilo", "oleo"))
+            modelo = imagenes.generar(e["descripcion"], destino, refs, e.get("estilo", "oleo"))
             hechas += 1
             log(f"   Imagen IA escena {n} ({modelo}): {e['descripcion'][:90]}")
         except Exception as ex:
@@ -860,8 +859,6 @@ def musica_del_dia(fecha):
     if not pistas:
         return None
     nombre = pistas[fecha.toordinal() % len(pistas)].replace(" ", "_")
-    if RETOQUE.get("musica") in [m.replace(" ", "_") for m in pistas]:
-        nombre = RETOQUE["musica"]
     ruta = RAIZ / "musica" / nombre
     if not ruta.exists():
         try:
@@ -1002,21 +999,10 @@ def main():
              else dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
     previo = RAIZ / "episodios" / f"{fecha}.json"
     hecho = json.loads(previo.read_text(encoding="utf-8")) if previo.exists() else {}
-    try:  # pausa pedida por Carlos desde Telegram (/pausa N): los procesos automáticos no generan nada
-        pausa = json.loads((RAIZ / "estado" / "telegram.json").read_text(encoding="utf-8")).get("pausa_hasta", "")
-    except Exception:
-        pausa = ""
-    if a.si_falta and str(fecha) <= pausa:
-        log(f"En pausa hasta el {pausa} (Telegram): no se genera el {fecha}.")
-        return
     if a.si_falta and hecho.get("modo") == "diario" and (
             "youtube" in hecho or hecho.get("revision") in ("pendiente", "ok") or hecho.get("no_publicar")):
         log(f"El vídeo del {fecha} ya está hecho ({hecho.get('revision') or 'subido'}); nada que hacer.")
         return
-    ruta_retoque = RAIZ / "retoques" / f"{fecha}.json"
-    if ruta_retoque.exists():
-        RETOQUE.update(json.loads(ruta_retoque.read_text(encoding="utf-8")))
-        log(f"   Retoques de Carlos: {', '.join(RETOQUE)}")
     carpeta = RAIZ / "salida" / fecha.isoformat()
     shutil.rmtree(carpeta, ignore_errors=True)
     carpeta.mkdir(parents=True)
@@ -1049,16 +1035,6 @@ def main():
     frs = preparar_fragmentos(g, ev)
     busquedas = {int(e["numero"]): e["busqueda"] for e in g.get("escenas", [])}
     frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
-    if RETOQUE.get("frase_clave"):
-        propia = espacios(hablado(RETOQUE["frase_clave"])).strip(" ,;:")
-        if propia and any(propia in espacios(hablado(f["texto"])) for f in frs):
-            frase = propia
-            log("   Frase clave elegida por Carlos")
-        else:
-            AVISOS.append(f"La frase «{propia}» no está tal cual en el Evangelio de ese día; he usado «{frase}».")
-    if RETOQUE.get("reflexion"):
-        reflexion = espacios(RETOQUE["reflexion"])
-        log("   Reflexión escrita por Carlos")
     log(f"   Frase clave: {frase or '(ninguna)'}")
     log(f"   Reflexión: {reflexion or '(ninguna)'}")
     if reflexion:
@@ -1136,8 +1112,6 @@ def main():
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
     if AVISOS:
         registro["avisos"] = sorted(set(AVISOS))
-    if RETOQUE:
-        registro["retoques"] = RETOQUE
     for k in ("rehechos", "descartados"):  # historial de versiones anteriores del mismo día
         if k in hecho:
             registro[k] = hecho[k]

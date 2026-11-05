@@ -28,8 +28,6 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
       TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
-      TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TG_CHAT: ${{ vars.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
       - name: Publicar
@@ -44,8 +42,6 @@ jobs:
           fi
           mkdir -p t && gh release download "tiktok-$F" -D t -p video.mp4
           gh release view "tiktok-$F" --json body -q .body > t/texto.txt
-          # 📲 El vídeo a Carlos por Telegram para reenviarlo (nunca bloquea)
-          TELEGRAM_BOT_TOKEN="$TG_TOKEN" TELEGRAM_CHAT_ID="$TG_CHAT" python3 proceso/avisos.py video "$F" t/video.mp4 || true
           python3 - "$F" <<'PY'
           import json, sys
           from pathlib import Path
