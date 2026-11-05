@@ -87,17 +87,6 @@ jobs:
           retention-days: 30
           if-no-files-found: ignore
 
-      - name: Dejar el vídeo listo para TikTok (se publica a las 7:00)
-        if: success() && (github.event_name == 'schedule' || inputs.modo == 'diario')
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          D=$(ls -d salida/*/ 2>/dev/null | head -1)
-          if [ -z "$D" ] || [ ! -f "$D/video.mp4" ]; then echo "Nada nuevo para TikTok"; exit 0; fi
-          F=$(basename "$D")
-          gh release delete "tiktok-$F" --yes --cleanup-tag 2>/dev/null || true
-          gh release create "tiktok-$F" "$D/video.mp4" --title "TikTok $F" --notes-file "$D/tiktok.txt" --prerelease
-
       - name: Guardar registro del episodio
         if: success()
         run: |
@@ -109,6 +98,17 @@ jobs:
             git pull -q --rebase
             git push -q
           fi
+
+      - name: Dejar el vídeo listo (al crearse, arranca el revisor en la nube; TikTok a las 7:00 si da el OK)
+        if: success() && (github.event_name == 'schedule' || inputs.modo == 'diario')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          D=$(ls -d salida/*/ 2>/dev/null | head -1)
+          if [ -z "$D" ] || [ ! -f "$D/video.mp4" ]; then echo "Nada nuevo para TikTok"; exit 0; fi
+          F=$(basename "$D")
+          gh release delete "tiktok-$F" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "tiktok-$F" "$D/video.mp4" --title "TikTok $F" --notes-file "$D/tiktok.txt" --prerelease
 
       - name: Avisar por Telegram (vídeo listo)
         if: success()
