@@ -76,5 +76,17 @@
   ],
   "generado": "2026-11-05T22:33:38+01:00",
   "rehechos": 1,
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "V506vpsFex4",
+    "url": "https://youtu.be/V506vpsFex4",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-06T06:00:00Z",
+    "lista": {
+      "titulo": "Evangelio según san Lucas",
+      "error": "falta permiso"
+    }
+  }
 }
