@@ -1,24 +1,22 @@
 {
   "fecha": "2026-11-06",
-  "ok": false,
+  "ok": true,
   "por": "revisor",
-  "generado": "2026-11-05T19:00:06+01:00",
-  "revisado": "2026-11-05T19:02:10+01:00",
-  "motivos": [
-    "Audio anómalo: el fragmento «En aquel tiempo, decía Jesús a sus discípulos:» dura 5,4 s a solo 6,8 letras/s (posible silencio largo o lectura muy lenta)."
-  ],
+  "generado": "2026-11-05T22:33:38+01:00",
+  "revisado": "2026-11-05T22:35:08+01:00",
+  "motivos": [],
   "avisos": [
-    "El fragmento «Palabra del Señor.» va a 3,3 letras/s (4,5 s, bajo el umbral de 5 s, pero lento).",
-    "El registro lista imágenes dias/2026-11-06_e1/e2/e3.png pero los archivos son .jpg (e4 sí es .png); revisar la extensión que usa el montaje."
+    "La imagen del último plano (e4) es PNG y la de la escena 2 muestra a un anciano leyendo, no al administrador; es mejorable pero apropiada.",
+    "El fragmento «Palabra del Señor.» va a 4,5 caracteres/s por ser corto (normal, incluye pausas)."
   ],
   "puntos": {
     "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 16, 1-8 coincide con citas.json",
-    "voces": "✅ toda la parábola es de Jesús; narrador en introducción y cierre",
-    "frase_clave": "✅ literal, de Jesús, 11 palabras",
-    "reflexion": "✅ cálida, doctrinalmente correcta, ~30 palabras, relacionada con la lectura",
-    "tecnica": "✅ duracion 100 s; lufs -14.0",
-    "audio": "❌ más lento: fragmento 1 (5,4 s, 6,8 l/s); más lento no marcado: fragmento 6 (3,3 l/s, 4,5 s); más rápido: fragmento 2 (12,4 l/s)",
-    "imagenes": "✅ 4 imágenes del día devocionales y sin defectos graves; el resto de biblioteca",
+    "voces": "✅ toda la parábola va a jesus, narrador en la introducción",
+    "frase_clave": "✅ literal, de Jesús, 10 palabras",
+    "reflexion": "✅ 32 palabras, cálida y acorde con la lectura",
+    "tecnica": "✅ 92,4 s; -14,0 LUFS",
+    "audio": "✅ más lento: fragmento 0 (4,7 s, 9,3 c/s) y 6 (4,0 s, 4,5 c/s, corto); más rápido: fragmento 5 (17,8 c/s)",
+    "imagenes": "✅ 4 imágenes del día devocionales, sin defectos graves",
     "metadatos": "✅ fecha, cita y título (san Lucas) coherentes"
   }
 }
