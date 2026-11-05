@@ -6,7 +6,8 @@ Eres el **gestor** del canal de YouTube **CatolicAid** (cuenta catolicolamas@gma
 Cada día, un Short vertical con el **Evangelio del día** leído con varias voces (narrador según el evangelista, Jesús, María, apóstoles…), imágenes devocionales (óleo luminoso o acuarela), música clásica suave y subtítulos (Jesús en dorado).
 
 ## Funcionamiento automático (todo en la nube, sin el ordenador de Carlos)
-- **Cada tarde** (GitHub Actions, `.github/workflows/evangelio-diario.yml`, 15:00 UTC + reintentos a las 17, 19, 20 y 21 UTC): genera el vídeo de **mañana** y lo sube a YouTube programado a las 07:00 (Madrid). Si ya está subido, los reintentos no hacen nada (`--si-falta`).
+- **Cada tarde** (GitHub Actions, `.github/workflows/evangelio-diario.yml`, 15:00 UTC + reintentos a las 17, 19, 20 y 21 UTC): genera el vídeo de **mañana** SIN subirlo: guarda el registro (`"revision": "pendiente"`) y deja el vídeo en la release `tiktok-AAAA-MM-DD`. Si ya está hecho, los reintentos no hacen nada (`--si-falta`). El bot de Telegram relanza la tirada si el cron de GitHub no llega (van con horas de retraso).
+- **Publicación condicionada al revisor** (todo en la nube): al crearse la release arranca la rutina «CatholicAid · Revisor diario» (https://claude.ai/code/routines/trig_01JbNjeXNy18mJZzMphbRTdN; disparo por evento `release` de GitHub y además a las 20:30, 22:30, 01:30 y 04:30 UTC). Revisa fidelidad, voces, frase clave, reflexión, duración/volumen, imágenes y metadatos, y escribe `revisiones/AAAA-MM-DD.json` (`ok`, `motivos`, `avisos`, `puntos`, `generado`). Ese push dispara «Publicar revisado» (`publicar-revisado.yml` + `proceso/publicar.py`): con OK sube a YouTube programado a las 07:00 (+ lista); sin OK rehace el vídeo una vez y, si vuelve a fallar, no se publica (`no_publicar`) y avisa por Telegram. TikTok (`tiktok-publicar.yml`) solo publica con OK y sin `no_publicar`. Carlos puede forzar con 👍 en Telegram (`"por": "Carlos"`). La revisión solo vale para la versión del vídeo con el mismo `generado`.
 - **Cada mañana 06:00 UTC** (`tiktok-publicar.yml`, reintento 08:00): publica en TikTok el vídeo que la tarde anterior quedó como release `tiktok-AAAA-MM-DD` (TikTok no permite programar). El permiso de TikTok está cifrado en `secretos/tiktok.enc` con `TIKTOK_CLIENT_SECRET` y se renueva solo. Reconectar: workflow «Conectar TikTok» + página https://carlitoslamas1.github.io/CatholicAid/tiktok.html.
 - **Cada sábado 12:00 UTC** (`preparar-semana.yml`): guarda en `biblia/citas.json` las citas de los próximos días y el Torres Amat necesario.
 - **Cada domingo 17:00 UTC** (rutina de Claude en la nube «CatholicAid · Gestor semanal», https://claude.ai/code/routines/trig_01DuGF5Ed1n51CatmqDQy96f): revisa los textos Torres Amat de la semana siguiente y escribe un informe en `informes/AAAA-MM-DD.md`.
@@ -40,7 +41,7 @@ Proceso (`proceso/evangelio.py`):
    - **Gancho** (`gancho_segundos`, 2 s): antes de la lectura, la frase clave en grande (serif fina, velo suave). La elige Gemini de las palabras de Jesús y se valida que sea **literal**; si no, se usa la frase más corta de Jesús.
    - **Reflexión final**: tras «Palabra del Señor», 1–2 frases o una pregunta (Gemini, voz del narrador, subtítulo en cursiva). Se guarda en el registro (`reflexion`) y en la descripción de YouTube. No forma parte del Evangelio.
    - **Audio** normalizado a **-14 LUFS** (dos pasadas, pico -1,5 dB); el valor medido queda en `lufs`.
-6. **YouTube**: se sube en privado (programado en modo diario) y se añade a la lista «Evangelio según san Mateo/Marcos/Lucas/Juan» (se crea si no existe). **Pendiente**: el token actual solo tiene `youtube.upload` + `youtube.readonly`; las listas necesitan el permiso `youtube`. Carlos lo está revisando (la auditoría declaró solo esos dos permisos). Sin él, el vídeo se sube igual y se salta la lista. Registro en `episodios/AAAA-MM-DD.json` (`frase_clave`, `reflexion`, `lufs`, `youtube.lista`).
+6. **YouTube**: en modo diario lo sube «Publicar revisado» tras el OK del revisor (en prueba, `evangelio.py` directamente), en privado y programado y se añade a la lista «Evangelio según san Mateo/Marcos/Lucas/Juan» (se crea si no existe). **Pendiente**: el token actual solo tiene `youtube.upload` + `youtube.readonly`; las listas necesitan el permiso `youtube`. Carlos lo está revisando (la auditoría declaró solo esos dos permisos). Sin él, el vídeo se sube igual y se salta la lista. Registro en `episodios/AAAA-MM-DD.json` (`frase_clave`, `reflexion`, `lufs`, `youtube.lista`).
 
 Ajustes en `config/personajes.json` (voces, narradores, estilos, modelo de imagen, música). Herramienta de imágenes suelta: `proceso/imagenes.py`; prueba rápida: workflow «Probar imagen».
 
@@ -58,7 +59,7 @@ Fiel al sentido del Torres Amat; ortografía y vocabulario actuales; sin glosas 
 
 ## Subagentes
 - **productor**: cambia o arregla el proceso y lanza pruebas.
-- **revisor**: revisa un episodio (texto fiel, voces, duración, imágenes, metadatos).
+- **revisor**: revisa un episodio (texto fiel, voces, duración, imágenes, metadatos). La revisión diaria automática la hace la rutina en la nube con los mismos criterios.
 
 ## Reglas
 - Nunca cambies el texto del Evangelio.
