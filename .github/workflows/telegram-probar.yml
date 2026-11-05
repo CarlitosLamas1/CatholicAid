@@ -7,7 +7,7 @@ on:
       aviso:
         description: "Qué aviso probar"
         type: choice
-        options: [tiktok, accion, prueba]
+        options: [tiktok, accion, prueba, botones]
         default: tiktok
       fecha:
         description: "Fecha del episodio AAAA-MM-DD (vacío = hoy)"
@@ -31,5 +31,6 @@ jobs:
           case "${{ inputs.aviso }}" in
             tiktok) python3 proceso/avisos.py tiktok "$F" ;;
             accion) python3 proceso/avisos.py accion "(Prueba) Así te llegará algo que requiera tu acción." ;;
+            botones) python3 -c "import sys; sys.path.insert(0, 'proceso'); import avisos; avisos.enviar('🧪 <b>Prueba de botones</b>\nAsí llegará el aviso ✅. Pulsa cualquiera: no cambia nada y te responderé en 5–15 minutos.', botones=[[('👍 Publicar', 'prueba|Publicar'), ('⛔ No publicar', 'prueba|No publicar')], [('🎨 Otras imágenes', 'prueba|Otras imágenes'), ('🎙️ Otra lectura', 'prueba|Otra lectura')]])" ;;
             *) python3 proceso/avisos.py prueba ;;
           esac

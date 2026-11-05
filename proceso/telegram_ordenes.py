@@ -245,6 +245,8 @@ def responder_boton(cb):
     except Exception:
         pass
     accion, _, fecha = dato.partition("|")
+    if accion == "prueba":
+        return f"✅ Botón «{e(fecha)}» recibido: los botones funcionan. (Era una prueba: no he cambiado nada.)"
     if accion == "ok":
         return f"👍 Perfecto: el vídeo del {e(fecha_txt(fecha))} sale a las 7:00."
     if accion == "no":
