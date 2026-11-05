@@ -43,20 +43,48 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Paquetes guardados en la caché oficial de GitHub: si el servidor de paquetes de Ubuntu se cuelga
+      # (pasa a menudo), se instalan desde la caché. Se renueva sola cuando GitHub actualiza su sistema.
+      - name: Versión del sistema
+        id: sistema
+        run: echo "version=${ImageOS:-ubuntu}-${ImageVersion:-0}" >> "$GITHUB_OUTPUT"
+
+      - name: Recuperar paquetes de la caché
+        id: cache-apt
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/paquetes
+          key: apt-ffmpeg-${{ steps.sistema.outputs.version }}-v1
+
       - name: Instalar herramientas
+        id: instalar
         timeout-minutes: 20
         run: |
-          # A veces el servidor de paquetes se cuelga: 3 intentos de 5 minutos como máximo.
-          for i in 1 2 3; do
-            if timeout 300 sudo apt-get update -qq && \
-               timeout 300 sudo apt-get install -y -qq -o Acquire::Retries=3 ffmpeg fonts-dejavu-core fonts-dejavu-extra > /dev/null; then
-              break
-            fi
-            echo "Instalación lenta o fallida (intento $i); reintento"
-            [ $i = 3 ] && exit 1
-            sleep 20
-          done
+          if [ -n "$(ls ~/paquetes/*.deb 2>/dev/null)" ] && sudo dpkg -i ~/paquetes/*.deb > /dev/null 2>&1 \
+             && ffmpeg -hide_banner -filters 2>/dev/null | grep -q " ass "; then
+            echo "Instalado desde la caché"
+          else
+            for i in 1 2 3; do
+              if timeout 300 sudo apt-get update -qq && \
+                 timeout 300 sudo apt-get install -y -qq -o Acquire::Retries=3 -o APT::Keep-Downloaded-Packages=true ffmpeg fonts-dejavu-core fonts-dejavu-extra > /dev/null; then
+                break
+              fi
+              echo "Instalación lenta o fallida (intento $i); reintento"
+              [ $i = 3 ] && exit 1
+              sleep 20
+            done
+            mkdir -p ~/paquetes && cp /var/cache/apt/archives/*.deb ~/paquetes/ 2>/dev/null || true
+            echo "nuevos=$(ls ~/paquetes/*.deb 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+          fi
           pip install -q --timeout 60 edge-tts pillow
+
+      - name: Guardar paquetes en la caché
+        if: steps.cache-apt.outputs.cache-hit != 'true' && steps.instalar.outputs.nuevos > 0
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: ~/paquetes
+          key: apt-ffmpeg-${{ steps.sistema.outputs.version }}-v1
 
       - name: Producir vídeo
         env:
