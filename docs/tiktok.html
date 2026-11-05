@@ -45,7 +45,7 @@
       if (!k) return;
       location.href = "https://www.tiktok.com/v2/auth/authorize/?" + new URLSearchParams({
         client_key: k, scope: "user.info.basic,video.upload,video.publish", response_type: "code",
-        redirect_uri: "https://carlitoslamas1.github.io/CatholicAid/tiktok.html", state: "catolicaid"});
+        redirect_uri: "https://carlitoslamas1.github.io/CatholicAid/tiktok.html", state: "catolicaid", disable_auto_auth: "1"});
     };
   } else {
     estado.textContent = error ? "TikTok ha devuelto un error: " + error : "No hay ningún código en esta dirección.";
