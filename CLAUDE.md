@@ -28,14 +28,14 @@ Bot **@CatolicAid_bot**; token en el secreto `TELEGRAM_BOT_TOKEN`, chat de Carlo
 
 Proceso (`proceso/evangelio.py`):
 1. **Texto**: cita del día de Vatican News; texto de **Torres Amat (1836, dominio público)**, versión revisada de `biblia/revisada/` si existe, si no el original con ortografía actualizada (`biblia/torres-amat/`).
-2. **Guion**: Gemini reparte el texto entre personajes (se valida que quede idéntico) y describe 3–5 escenas visuales.
+2. **Guion**: Gemini reparte el texto entre personajes (se valida que quede idéntico) y describe 3–5 escenas visuales. En modo diario, si Gemini falla **no se publica** con el reparto por reglas (se equivoca con quién habla) salvo en el último intento (21 UTC).
 3. **Voces**: Gemini TTS con la clave gratuita `GEMINI_API_KEY`. Cada personaje tiene SIEMPRE la misma voz; el narrador depende del evangelista (`narradores`). Sin respaldo: si falla, no se publica con otras voces y se reintenta más tarde.
 4. **Imágenes**: Nano Banana por la API (clave de pago `GEMINI_API_KEY_IMAGENES`, prepago sin recarga automática) pinta una imagen por escena con los retratos de `personajes/` como referencia y la guarda en `biblioteca/dias/AAAA-MM-DD_eN.png`. Prioridad al montar: imagen del día → biblioteca (`biblioteca/clips/`, elegida por Gemini) → devocionales D01–D10 → cuadro clásico (Bloch, Hofmann, Tissot). Ninguna imagen dura más de 16 s.
-5. **Vídeo** 1080×1920 (FFmpeg) + música de Wikimedia Commons (`musica/`, dominio público).
+5. **Vídeo** 1080×1920 (FFmpeg) + música de Wikimedia Commons (`musica/`, dominio público). Zoom lento calculado con Pillow a precisión subpíxel (`zoom_imagen`, 8 %), sin tembleque (antes zoompan temblaba).
    - **Gancho** (`gancho_segundos`, 2 s): antes de la lectura, la frase clave en grande (serif fina, velo suave). La elige Gemini de las palabras de Jesús y se valida que sea **literal**; si no, se usa la frase más corta de Jesús.
    - **Reflexión final**: tras «Palabra del Señor», 1–2 frases o una pregunta (Gemini, voz del narrador, subtítulo en cursiva). Se guarda en el registro (`reflexion`) y en la descripción de YouTube. No forma parte del Evangelio.
    - **Audio** normalizado a **-14 LUFS** (dos pasadas, pico -1,5 dB); el valor medido queda en `lufs`.
-6. **YouTube**: se sube en privado (programado en modo diario) y se añade a la lista «Evangelio según san Mateo/Marcos/Lucas/Juan» (se crea si no existe). Registro en `episodios/AAAA-MM-DD.json` (`frase_clave`, `reflexion`, `lufs`, `youtube.lista`).
+6. **YouTube**: se sube en privado (programado en modo diario) y se añade a la lista «Evangelio según san Mateo/Marcos/Lucas/Juan» (se crea si no existe). **Pendiente**: el token actual solo tiene `youtube.upload` + `youtube.readonly`; las listas necesitan el permiso `youtube`. Carlos lo está revisando (la auditoría declaró solo esos dos permisos). Sin él, el vídeo se sube igual y se salta la lista. Registro en `episodios/AAAA-MM-DD.json` (`frase_clave`, `reflexion`, `lufs`, `youtube.lista`).
 
 Ajustes en `config/personajes.json` (voces, narradores, estilos, modelo de imagen, música). Herramienta de imágenes suelta: `proceso/imagenes.py`; prueba rápida: workflow «Probar imagen».
 
