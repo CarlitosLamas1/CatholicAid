@@ -47,7 +47,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-dejavu-core fonts-dejavu-extra > /dev/null
-          pip install -q edge-tts
+          pip install -q edge-tts pillow
 
       - name: Producir vídeo
         env:

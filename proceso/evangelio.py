@@ -303,9 +303,12 @@ def hablante(narracion):
     mejor, pos = "jesus", -1
     for k, v in PJ.items():
         for a in v.get("alias", []):
-            i = narracion.rfind(a)
-            if i > pos:
-                mejor, pos = k, i
+            for m in re.finditer(re.escape(a), narracion):
+                antes = narracion[:m.start()].rstrip().lower()
+                if re.search(r"\b(a|al|a los|a las|a sus|a su|con|de)$", antes):
+                    continue  # es a quien se habla, no quien habla
+                if m.start() > pos:
+                    mejor, pos = k, m.start()
     return mejor
 
 
@@ -734,17 +737,38 @@ def bloques(frs, total):
 
 
 def clip_escena(img, frames, n, carpeta):
+    """Zoom lento y suave (acercar o alejar, alternando). Cada fotograma se calcula con precisión subpíxel
+    (Pillow), así la imagen no «tiembla» como con zoompan, que redondea a píxeles enteros."""
+    from PIL import Image
+    zoom = CFG.get("zoom_imagen", 0.08)
+    mw, mh = round(W * (1 + zoom)), round(H * (1 + zoom))
     marco = carpeta / f"marco_{n}.png"
     ffmpeg("-i", img, "-vf",
-           f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},"
+           f"scale={mw}:{mh}:force_original_aspect_ratio=increase:flags=lanczos,crop={mw}:{mh},"
            "eq=saturation=1.08:brightness=0.02,vignette=PI/5", "-frames:v", 1, marco)
+    base = Image.open(marco).convert("RGB")
     dur = frames / FPS
-    z = f"1+0.10*on/{frames}" if n % 2 == 0 else f"1.10-0.10*on/{frames}"
     salida = carpeta / f"clip_{n:02d}.mp4"
-    ffmpeg("-loop", 1, "-framerate", FPS, "-i", marco, "-vf",
-           f"scale={W * 2}:{H * 2}:flags=lanczos,zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
-           f":d=1:s={W}x{H}:fps={FPS},fade=t=in:st=0:d=0.3,fade=t=out:st={max(0.0, dur - 0.3):.2f}:d=0.3",
-           "-frames:v", frames, "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", salida)
+    proc = subprocess.Popen(
+        ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
+         "-r", str(FPS), "-i", "-", "-vf",
+         f"fade=t=in:st=0:d=0.3,fade=t=out:st={max(0.0, dur - 0.3):.2f}:d=0.3",
+         "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", str(salida)],
+        stdin=subprocess.PIPE)
+    for k in range(frames):
+        avance = k / max(1, frames - 1)
+        avance = avance * avance * (3 - 2 * avance) * 0.5 + avance * 0.5  # arranque y final suaves
+        if n % 2:
+            avance = 1 - avance
+        escala = (1 + zoom) / (1 + zoom * avance)  # píxeles de origen por píxel de salida
+        a = escala
+        c = mw / 2 - a * W / 2
+        f = mh / 2 - a * H / 2
+        cuadro = base.transform((W, H), Image.AFFINE, (a, 0, c, 0, a, f), resample=Image.BICUBIC)
+        proc.stdin.write(cuadro.tobytes())
+    proc.stdin.close()
+    if proc.wait():
+        raise RuntimeError(f"FFmpeg falló al montar la escena {n}")
     return salida
 
 
@@ -1001,6 +1025,9 @@ def main():
     biblioteca = clips_disponibles()
     log(f"   Biblioteca: {len(biblioteca)} clips disponibles")
     g = guion_gemini(ev["texto"], biblioteca)
+    if not g and a.modo == "diario" and dt.datetime.now(dt.timezone.utc).hour < 21:
+        raise RuntimeError("Gemini no ha podido repartir las voces: no publico con un reparto dudoso. "
+                           "Se reintenta en la próxima tirada (el último intento, a las 21 UTC, usa reglas).")
     if not g:
         log("   Gemini no disponible o no fiel: uso reglas por comillas")
         g = guion_reglas(ev["texto"])
