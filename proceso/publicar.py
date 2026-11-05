@@ -93,7 +93,8 @@ def main():
     sh("gh", "release", "download", f"tiktok-{fecha}", "-D", tmp, "-p", "video.mp4")
     video = tmp / "video.mp4"
     ev = {"cita": reg["cita"], "titulo": reg.get("titulo") or reg["fragmentos"][0]["texto"],
-          "fuente_texto": reg.get("texto_fuente", "Vatican News"), "reflexion": reg.get("reflexion", "")}
+          "fuente_texto": reg.get("texto_fuente", "Vatican News"), "reflexion": reg.get("reflexion", ""),
+          "frase_clave": reg.get("frase_clave", "")}
     tok = ev_mod.token_youtube()
     vid, estado = ev_mod.subir_youtube(video, ev, dt.date.fromisoformat(fecha), "diario", tok)
     reg["youtube"] = {"id": vid, "url": f"https://youtu.be/{vid}", **estado}

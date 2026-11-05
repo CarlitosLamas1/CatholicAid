@@ -263,7 +263,7 @@ REGLAS:
 3. Si habla un personaje secundario que no está en la lista, usa hombre, mujer o multitud.
 4. Agrupa el relato en 3 a 5 escenas visuales (cambia de escena cuando cambie lo que se ve). En cada fragmento indica su escena (1, 2, ...). Para cada escena da:
    - "busqueda": 1 a 3 palabras en inglés para encontrar un cuadro clásico de esa escena (ej.: "good shepherd", "Pharisees").
-   - "descripcion": en inglés, 1 o 2 frases que describan la imagen a pintar: quién aparece, qué hace, dónde y con qué emoción. Debe mostrar lo que narra el Evangelio en ese momento, de forma bella, tierna e íntima (nunca violenta).
+   - "descripcion": en inglés, 1 o 2 frases que describan la imagen a pintar: quién aparece, qué hace, dónde y con qué emoción. Debe mostrar lo que narra el Evangelio en ese momento, de forma bella, tierna e íntima (nunca violenta). Muestra exactamente a los personajes y la acción de esa escena: si Jesús cuenta una parábola, pinta la escena de la parábola con sus personajes (p. ej. el administrador ante los deudores, el sembrador en el campo), nunca a alguien ajeno al relato ni a una persona leyendo.
    - "personajes": claves de los personajes que se ven en la imagen (por ejemplo ["jesus"]).
    - "estilo": "oleo" para escenas de interior, noche o recogimiento; "acuarela" para escenas al aire libre y luminosas.{biblioteca}
 
@@ -714,6 +714,10 @@ def elegir_visuales(tramos, info, fecha, carpeta):
     usados, visuales = set(), []
     for b in tramos:
         n, e = b["escena"], datos.get(b["escena"], {})
+        if b.get("oscuro") and visuales:  # reflexión: la última imagen, oscurecida
+            visuales.append(dict(visuales[-1]))
+            log(f"   Tramo reflexión: {visuales[-1]['titulo']} (oscurecida)")
+            continue
         propio = archivo_clip(f"{fecha}_e{n}", "dias") if b["parte"] == 0 else None
         clip = e.get("clip", "ninguno")
         if propio:
@@ -740,8 +744,9 @@ def bloques(frs, total):
     maximo = CFG.get("max_segundos_imagen", 16)
     b = []
     for f in frs:
-        if not b or b[-1]["escena"] != f["escena"]:
-            b.append({"escena": f["escena"], "inicio": f["inicio"]})
+        oscuro = bool(f.get("reflexion"))  # la reflexión (y el cierre) van sobre la imagen oscurecida
+        if not b or b[-1]["escena"] != f["escena"] or b[-1]["oscuro"] != oscuro:
+            b.append({"escena": f["escena"], "inicio": f["inicio"], "oscuro": oscuro})
     b[0]["inicio"] = 0.0
     tramos = []
     for i, x in enumerate(b):
@@ -750,12 +755,15 @@ def bloques(frs, total):
         paso = (fin - x["inicio"]) / partes
         for k in range(partes):
             ini = x["inicio"] + k * paso
-            tramos.append({"escena": x["escena"], "parte": k, "inicio": ini,
+            tramos.append({"escena": x["escena"], "parte": k, "inicio": ini, "oscuro": x["oscuro"],
                            "frames": max(1, round((ini + paso) * FPS) - round(ini * FPS))})
     return tramos
 
 
-def clip_escena(img, frames, n, carpeta):
+OSCURO = "eq=brightness=-0.14:saturation=0.55,gblur=sigma=6,"
+
+
+def clip_escena(img, frames, n, carpeta, oscuro=False):
     """Zoom lento y suave (acercar o alejar, alternando). Cada fotograma se calcula con precisión subpíxel
     (Pillow), así la imagen no «tiembla» como con zoompan, que redondea a píxeles enteros."""
     from PIL import Image
@@ -764,7 +772,7 @@ def clip_escena(img, frames, n, carpeta):
     marco = carpeta / f"marco_{n}.png"
     ffmpeg("-i", img, "-vf",
            f"scale={mw}:{mh}:force_original_aspect_ratio=increase:flags=lanczos,crop={mw}:{mh},"
-           "eq=saturation=1.08:brightness=0.02,vignette=PI/5", "-frames:v", 1, marco)
+           + (OSCURO if oscuro else "") + "eq=saturation=1.08:brightness=0.02,vignette=PI/5", "-frames:v", 1, marco)
     base = Image.open(marco).convert("RGB")
     dur = frames / FPS
     salida = carpeta / f"clip_{n:02d}.mp4"
@@ -791,13 +799,13 @@ def clip_escena(img, frames, n, carpeta):
     return salida
 
 
-def clip_video(origen, frames, n, carpeta):
+def clip_video(origen, frames, n, carpeta, oscuro=False):
     """Clip de la biblioteca: cámara lenta, ida y vuelta (sin cortes) y relleno vertical 9:16."""
     dur = frames / FPS
     base = carpeta / f"base_{n:02d}.mp4"
     ffmpeg("-i", origen, "-an", "-filter_complex",
            f"[0:v]setpts=1.5*PTS,fps={FPS},scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,"
-           f"crop={W}:{H},eq=saturation=1.05,vignette=PI/5,split[f][r0];[r0]reverse[r];[f][r]concat=n=2:v=1:a=0,format=yuv420p[v]",
+           f"crop={W}:{H}," + (OSCURO if oscuro else "") + "eq=saturation=1.05,vignette=PI/5,split[f][r0];[r0]reverse[r];[f][r]concat=n=2:v=1:a=0,format=yuv420p[v]",
            "-map", "[v]", "-c:v", "libx264", "-preset", "veryfast", base)
     salida = carpeta / f"clip_{n:02d}.mp4"
     ffmpeg("-stream_loop", -1, "-i", base, "-vf",
@@ -828,8 +836,8 @@ def trocear(texto, maximo):
     return trozos
 
 
-def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0):
-    eventos = [("Cabecera", gancho, total,
+def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
+    eventos = [("Cabecera", gancho, total - cierre,
                 "{\\fs38}Evangelio del día · " + f"{DIAS[fecha.weekday()]} {fecha.day} de {MESES[fecha.month - 1]}"
                 + "\\N{\\fs56}" + ev["cita"])]
     if frase and gancho:
@@ -838,6 +846,10 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0):
                         f"m 0 0 l {W} 0 {W} {H} 0 {H}" + "{\\p0}"))
         limpio = frase.replace("{", "(").replace("}", ")")
         eventos.append(("Gancho", 0, gancho, "{\\fad(250,350)\\blur3}“" + limpio + "”"))
+    if cierre:
+        # Cierre minimalista sobre la imagen oscurecida: invitación a seguir el canal.
+        eventos.append(("Gancho", total - cierre, total, "{\\fad(300,400)\\blur2\\fs64}Síguenos para escuchar\\N"
+                        "el Evangelio cada día\\N{\\fs40\\i0\\c" + color_ass("F5C542") + "}CatolicAid"))
     for f in frs:
         p = PJ[f["personaje"]]
         limpio = hablado(f["texto"]).replace("{", "(").replace("}", ")")
@@ -963,7 +975,18 @@ def lista_evangelista(tok, libro, vid):
 def subir_youtube(video, ev, fecha, modo, tok):
     fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
     titulo = f"Evangelio del día · {fecha_txt} · {ev['cita']}"
-    if len(titulo) <= 90:
+    frase = (ev.get("frase_clave") or "").strip(" .,;:")
+    if frase:  # «“Frase” | Evangelio del día 6 de noviembre (Lucas 16, 1-8)», recortando la frase si no cabe
+        frase = frase[0].upper() + frase[1:]
+        corto = f"{fecha.day} {MESES[fecha.month - 1][:3]}"
+        opciones = [f" | Evangelio del día {fecha_txt} ({ev['cita']})", f" | Evangelio {corto} · {ev['cita']}",
+                    f" | Evangelio · {ev['cita']}"]
+        resto = next((r for r in opciones if len(frase) + 2 + len(r) <= 100), opciones[-1])
+        hueco = 100 - len(resto) - 2
+        if len(frase) > hueco:
+            frase = frase[:hueco - 1].rsplit(" ", 1)[0] + "…"
+        titulo = f"“{frase}”{resto}"
+    elif len(titulo) <= 90:
         titulo += " #shorts"
     descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
                    f"Evangelio del {DIAS[fecha.weekday()]} {fecha_txt} de {fecha.year}, leído con varias voces.\n\n"
@@ -971,7 +994,7 @@ def subir_youtube(video, ev, fecha, modo, tok):
                    f"📖 Texto: {ev.get('fuente_texto', 'Vatican News')}. Calendario litúrgico: Vatican News.\n"
                    "🎨 Imágenes: escenas generadas con IA y cuadros de James Tissot (dominio público)\n"
                    "🎙️ Voces generadas con inteligencia artificial.\n\n"
-                   "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico")
+                   "#Shorts #EvangelioDelDia #Evangelio #PalabraDeDios #Catolico")
     estado = {"privacyStatus": "private", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}
     if modo == "diario":
         hora = dt.datetime.combine(fecha, dt.time(CFG.get("hora_publicacion", 7)), MADRID)
@@ -1059,6 +1082,7 @@ def main():
     if reflexion:
         ev["reflexion"] = reflexion
         frs.append({"personaje": "narrador", "texto": reflexion, "escena": frs[-1]["escena"], "reflexion": True})
+    ev["frase_clave"] = frase
     for f in frs:
         log(f"   [{f['escena']}] {f['personaje']}: {f['texto'][:80]}")
 
@@ -1066,7 +1090,8 @@ def main():
     motor, pistas = generar_audio(frs, carpeta)
     total = montar_audio(frs, pistas, carpeta)
     gancho = float(CFG.get("gancho_segundos", 2.0)) if frase else 0.0
-    limite = CFG.get("duracion_maxima", 170) - gancho
+    cierre = float(CFG.get("cierre_segundos", 0))
+    limite = CFG.get("duracion_maxima", 170) - gancho - cierre
     if total > limite:  # Shorts: 3 minutos como máximo. Se acelera lo justo (sin cambiar el tono).
         factor = min(1.3, total / limite)
         ffmpeg("-i", carpeta / "audio.wav", "-filter:a", f"atempo={factor:.4f}", "-ar", HZ, "-ac", 1,
@@ -1087,6 +1112,15 @@ def main():
         for f in frs:
             f["inicio"], f["fin"] = f["inicio"] + gancho, f["fin"] + gancho
         total += gancho
+    if cierre:  # unos segundos más al final, solo con música, para el cierre
+        with wave.open(str(carpeta / "audio.wav")) as w:
+            datos = w.readframes(w.getnframes())
+        with wave.open(str(carpeta / "audio.wav"), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(HZ)
+            w.writeframes(datos + b"\0\0" * int(HZ * cierre))
+        total += cierre
     log(f"   Motor: {motor} · duración {total:.1f} s" + ("  (más de 3 min: no será Short)" if total > 180 else ""))
 
     log("4/6 Cuadros")
@@ -1095,10 +1129,10 @@ def main():
     visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta)
 
     log("5/6 Vídeo")
-    clips = [(clip_video if es_video(v["archivo"]) else clip_escena)(v["archivo"], b["frames"], i, carpeta)
+    clips = [(clip_video if es_video(v["archivo"]) else clip_escena)(v["archivo"], b["frames"], i, carpeta, b.get("oscuro", False))
              for i, (b, v) in enumerate(zip(bl, visuales))]
     (carpeta / "clips.txt").write_text("".join(f"file '{c.name}'\n" for c in clips))
-    subtitulos(frs, ev, fecha, total, carpeta / "subtitulos.ass", frase, gancho)
+    subtitulos(frs, ev, fecha, total, carpeta / "subtitulos.ass", frase, gancho, cierre)
     musica = musica_del_dia(fecha)
     entradas = ["-i", "audio.wav"]
     voz = "[0:a]aresample=48000,aformat=channel_layouts=stereo"
@@ -1159,7 +1193,7 @@ def main():
     # TikTok no permite programar: se deja el texto preparado y el vídeo se publica a las 7:00 (tiktok-publicar.yml).
     fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
     (carpeta / "tiktok.txt").write_text(
-        f"Evangelio del día · {fecha_txt} · {ev['cita']} 🙏\n\n{ev['titulo']}\n"
+        f"Evangelio del día · {fecha_txt} · {ev['cita']} 🙏\n\n" + (f"«{frase}»\n\n" if frase else "") + f"{ev['titulo']}\n"
         "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
         "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion", encoding="utf-8")
 

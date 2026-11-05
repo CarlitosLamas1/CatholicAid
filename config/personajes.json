@@ -18,7 +18,8 @@
   "caracteres_por_subtitulo": 46,
   "hora_publicacion": 7,
   "max_segundos_imagen": 16,
-  "gancho_segundos": 2.0,
+  "gancho_segundos": 2.8,
+  "cierre_segundos": 2.5,
   "imagenes_ia": {
     "activo": true,
     "modelo": "gemini-2.5-flash-image",
