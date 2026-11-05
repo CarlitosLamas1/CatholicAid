@@ -1,0 +1,32 @@
+name: Reloj
+
+# Lanza lo que falte (vídeo de mañana, publicación revisada, TikTok de las 7:00) cuando los horarios de
+# GitHub se retrasan. Lo despierta cada hora la rutina «CatholicAid · Revisor diario» (en la nube, puntual)
+# subiendo una marca a la rama «reloj»; el cron de abajo es solo una red más. Nunca duplica tiradas.
+on:
+  push:
+    branches: [reloj]
+  schedule:
+    - cron: "45 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: reloj
+  cancel-in-progress: false
+
+jobs:
+  reloj:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Lanzar lo que falte
+        run: python3 proceso/reloj.py
