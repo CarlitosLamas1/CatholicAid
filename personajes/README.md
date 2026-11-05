@@ -5,7 +5,7 @@ Aquí guardamos un **retrato de referencia** de cada personaje. Sirven como "mod
 ## Cómo crearlos (una sola vez)
 1. En la app de Gemini, pide una imagen con el prompt del personaje (más abajo). Repite hasta que te guste de verdad: este rostro será el de siempre.
 2. Descárgala y renómbrala con la **clave** del personaje: `jesus.png`, `maria.png`, `magdalena.png`, `pedro.png`, `juan.png`, `tomas.png`, `bautista.png`, `apostol.png`, `fariseos.png`.
-3. Súbela aquí: **Add file → Upload files** en https://github.com/CarlitosLamas1/CatholicAid/tree/main/personajes
+3. **Lo más fácil:** mándasela al bot de Telegram con el nombre del personaje en el pie (p. ej. «Jesús»). O súbela aquí: **Add file → Upload files** en https://github.com/CarlitosLamas1/CatholicAid/tree/main/personajes
 
 ## Cómo usarlos
 Cuando generes una escena (prompts en `biblioteca/README.md`), **adjunta en Gemini o Veo el retrato** del personaje que aparece y añade al principio del prompt:

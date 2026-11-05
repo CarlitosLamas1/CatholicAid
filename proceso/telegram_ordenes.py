@@ -30,6 +30,7 @@ AYUDA = ("🤖 <b>Lo que puedes pedirme</b>\n"
          "/pausa 3: no publica durante 3 días (desde mañana)\n"
          "/seguir: quita la pausa\n"
          "/ver 12: te mando el vídeo del día 12 (o /ver mañana)\n"
+         "📷 Mándame una foto con el nombre del personaje (p. ej. «Jesús») y la pongo como su nuevo modelo.\n"
          "En el aviso ✅ tienes botones para publicar, no publicar o rehacerlo.\n"
          "⏱️ Leo tus mensajes cada 5–15 minutos.")
 
@@ -230,6 +231,112 @@ def ver(arg):
     return f"No hay vídeo del {e(fecha_txt(f))} todavía."
 
 
+# ---------- Fotos (retratos de personajes) ----------
+
+def _sin_acentos(t):
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFD", t.lower()) if unicodedata.category(c) != "Mn")
+
+
+def personajes():
+    return avisos.config().get("personajes", {})
+
+
+def personaje_en(texto):
+    """Busca en el pie de foto el nombre de un personaje («nuevo Jesús» -> jesus)."""
+    t = _sin_acentos(texto or "")
+    candidatos = []
+    for clave, d in personajes().items():
+        for nombre in {clave, d.get("nombre", "")}:
+            if nombre:
+                candidatos.append((_sin_acentos(nombre), clave))
+    for nombre, clave in sorted(candidatos, key=lambda x: -len(x[0])):
+        if re.search(rf"\b{re.escape(nombre)}\b", t):
+            return clave
+    return None
+
+
+def descargar_foto(file_id, destino):
+    ruta = avisos._api("getFile", {"file_id": file_id})["file_path"]
+    token = avisos.os.environ["TELEGRAM_BOT_TOKEN"].strip()
+    with urllib.request.urlopen(f"https://api.telegram.org/file/bot{token}/{ruta}", timeout=120) as r:
+        Path(destino).write_bytes(r.read())
+    return destino
+
+
+def a_png(origen, destino, lado=1536):
+    try:
+        from PIL import Image
+    except ImportError:  # solo se instala cuando llega una foto
+        carpeta = Path(tempfile.gettempdir()) / "py-pillow"
+        base = [sys.executable, "-m", "pip", "install", "-q", "--target", str(carpeta), "pillow"]
+        if subprocess.run(base + ["--break-system-packages"], capture_output=True, timeout=240).returncode != 0:
+            subprocess.run(base, check=True, capture_output=True, timeout=240)
+        sys.path.insert(0, str(carpeta))
+        from PIL import Image
+    im = Image.open(origen).convert("RGB")
+    im.thumbnail((lado, lado))
+    im.save(destino, "PNG", optimize=True)
+    return im.size
+
+
+def aplicar_foto(file_id, clave):
+    tmp = Path(tempfile.mkdtemp()) / "foto"
+    descargar_foto(file_id, tmp)
+    if clave == "guardar":
+        destino = RAIZ / "entrada" / "telegram" / f"{dt.datetime.now(MADRID):%Y-%m-%d_%H%M%S}.jpg"
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_bytes(tmp.read_bytes())
+        guardar_git("Telegram: foto recibida", "entrada/")
+        return (f"📁 Foto guardada en <code>{e(destino.relative_to(RAIZ))}</code>. "
+                "Dile al gestor qué quieres hacer con ella.")
+    nombre = personajes().get(clave, {}).get("nombre", clave)
+    destino = RAIZ / "personajes" / f"{clave}.png"
+    aviso = ""
+    if destino.exists():
+        copia = RAIZ / "personajes" / "anteriores" / f"{clave}_{dt.datetime.now(MADRID):%Y-%m-%d_%H%M}.png"
+        copia.parent.mkdir(parents=True, exist_ok=True)
+        destino.replace(copia)
+        aviso = f"\nEl anterior queda guardado en <code>{e(copia.relative_to(RAIZ))}</code> por si quieres volver a él."
+    ancho, alto = a_png(tmp, destino)
+    guardar_git(f"Telegram: nuevo retrato de {nombre}", "personajes/")
+    pequeno = "\n⚠️ Es bastante pequeña; si tienes una más grande, mándala como archivo." if max(ancho, alto) < 700 else ""
+    return (f"🖼️ <b>Nuevo modelo de {e(nombre)}</b> guardado ({ancho}×{alto}).\n"
+            "Desde el próximo vídeo las imágenes nuevas lo usarán como referencia "
+            f"(las ya pintadas no cambian).{aviso}{pequeno}")
+
+
+def recibir_foto(msg):
+    if msg.get("photo"):
+        file_id = msg["photo"][-1]["file_id"]  # la de más resolución
+    else:
+        file_id = msg["document"]["file_id"]
+    clave = personaje_en(msg.get("caption", ""))
+    if clave:
+        return aplicar_foto(file_id, clave)
+    est = leer_estado()
+    est["foto_pendiente"] = {"file_id": file_id, "recibida": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
+    escribir_estado(est)
+    guardar_git("Telegram: foto pendiente", "estado/")
+    claves = list(personajes())
+    filas = [[(personajes()[k].get("nombre", k), f"pj|{k}") for k in claves[i:i + 3]] for i in range(0, len(claves), 3)]
+    filas.append([("📁 Solo guardarla", "pj|guardar"), ("✖️ Nada", "pj|cancelar")])
+    enviar("📷 Foto recibida. ¿De quién es el nuevo modelo?", botones=filas)
+    return None
+
+
+def elegir_personaje(clave):
+    est = leer_estado()
+    pendiente = est.pop("foto_pendiente", None)
+    escribir_estado(est)
+    guardar_git("Telegram: foto atendida", "estado/")
+    if clave == "cancelar":
+        return "👌 No hago nada con la foto."
+    if not pendiente:
+        return "No tengo ninguna foto pendiente: mándamela otra vez."
+    return aplicar_foto(pendiente["file_id"], clave)
+
+
 # ---------- Bucle ----------
 
 def responder_boton(cb):
@@ -245,6 +352,8 @@ def responder_boton(cb):
     except Exception:
         pass
     accion, _, fecha = dato.partition("|")
+    if accion == "pj":
+        return elegir_personaje(fecha)
     if accion == "prueba":
         return f"✅ Botón «{e(fecha)}» recibido: los botones funcionan. (Era una prueba: no he cambiado nada.)"
     if accion == "ok":
@@ -290,8 +399,16 @@ def main():
             continue
         entrada = cb.get("data") if cb else (msg or {}).get("text", "")
         log(f"orden: {entrada}")
+        es_foto = bool(msg and (msg.get("photo") or str(msg.get("document", {}).get("mime_type", "")).startswith("image/")))
+        if es_foto:
+            entrada = "foto " + msg.get("caption", "")
         try:
-            r = responder_boton(cb) if cb else responder_texto(entrada or "")
+            if cb:
+                r = responder_boton(cb)
+            elif es_foto:
+                r = recibir_foto(msg)
+            else:
+                r = responder_texto(entrada or "")
         except Exception as ex:
             log(f"falló «{entrada}»: {ex}")
             r = f"⚠️ No he podido hacer «{e(entrada)}»: {e(str(ex)[:200])}. El gestor lo revisará."
