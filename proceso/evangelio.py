@@ -1009,8 +1009,9 @@ def main():
     if a.si_falta and str(fecha) <= pausa:
         log(f"En pausa hasta el {pausa} (Telegram): no se genera el {fecha}.")
         return
-    if a.si_falta and "youtube" in hecho and hecho.get("modo") == "diario":
-        log(f"El vídeo del {fecha} ya está subido; nada que hacer.")
+    if a.si_falta and hecho.get("modo") == "diario" and (
+            "youtube" in hecho or hecho.get("revision") in ("pendiente", "ok") or hecho.get("no_publicar")):
+        log(f"El vídeo del {fecha} ya está hecho ({hecho.get('revision') or 'subido'}); nada que hacer.")
         return
     ruta_retoque = RAIZ / "retoques" / f"{fecha}.json"
     if ruta_retoque.exists():
@@ -1128,6 +1129,7 @@ def main():
                 "guion": g.get("origen"), "voces": motor, "peticiones_voz": len(pistas), "musica": musica.name if musica else None, "duracion_s": round(total, 1),
                 "imagenes": [v["titulo"] for v in visuales],
                 "frase_clave": frase, "reflexion": reflexion, "lufs": lufs,
+                "titulo": ev["titulo"], "texto_evangelio": ev["texto"],
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"]} for f in frs],
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
@@ -1135,8 +1137,16 @@ def main():
         registro["avisos"] = sorted(set(AVISOS))
     if RETOQUE:
         registro["retoques"] = RETOQUE
+    for k in ("rehechos", "descartados"):  # historial de versiones anteriores del mismo día
+        if k in hecho:
+            registro[k] = hecho[k]
 
-    if a.no_subir:
+    if a.modo == "diario":
+        # Publicación condicionada: el revisor (rutina en la nube) revisa el episodio y, si da el OK,
+        # «Publicar revisado» lo sube a YouTube programado y TikTok lo publica a las 7:00.
+        registro["revision"] = "pendiente"
+        log("6/6 YouTube: pendiente de la revisión (se sube cuando el revisor dé el OK)")
+    elif a.no_subir:
         log("6/6 YouTube: omitido (--no-subir)")
     else:
         log("6/6 YouTube")

@@ -1,0 +1,65 @@
+name: Publicar revisado
+
+# Se activa cuando el revisor (rutina de Claude en la nube) sube su veredicto a revisiones/AAAA-MM-DD.json,
+# o a mano / desde el bot de Telegram (👍 Publicar) con la fecha.
+# OK -> sube a YouTube programado a las 07:00 y deja TikTok listo. No OK -> rehace una vez; si no, no se publica.
+on:
+  push:
+    branches: [main]
+    paths: ["revisiones/**"]
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha AAAA-MM-DD"
+        required: true
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: publicar-revisado
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Fechas revisadas
+        id: fechas
+        run: |
+          if [ -n "${{ inputs.fecha }}" ]; then
+            F="${{ inputs.fecha }}"
+          else
+            F=$(git diff --name-only HEAD~1 HEAD -- revisiones/ | sed -n 's#^revisiones/\([0-9-]*\)\.json$#\1#p' | tr '\n' ' ')
+          fi
+          echo "Fechas: $F"
+          echo "lista=$F" >> "$GITHUB_OUTPUT"
+
+      - name: Publicar
+        if: steps.fechas.outputs.lista != ''
+        run: |
+          for F in ${{ steps.fechas.outputs.lista }}; do python3 proceso/publicar.py "$F"; done
+
+      - name: Guardar registro
+        if: always()
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add episodios/
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Publicar revisado: ${{ steps.fechas.outputs.lista }}"
+            git pull -q --rebase && git push -q
+          fi

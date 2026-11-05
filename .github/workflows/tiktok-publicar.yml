@@ -38,6 +38,10 @@ jobs:
           F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
           if [ ! -f secretos/tiktok.enc ]; then echo "TikTok aún no está conectado."; exit 0; fi
           if ! gh release view "tiktok-$F" >/dev/null 2>&1; then echo "No hay vídeo preparado para $F (ya publicado o no generado)."; exit 0; fi
+          # Solo con el OK del revisor (o de Carlos) y si no se ha pedido no publicar.
+          if ! python3 -c "import json,sys; r=json.load(open(f'revisiones/$F.json')); g=json.load(open(f'episodios/$F.json')); sys.exit(0 if r.get('ok') and not g.get('no_publicar') else 1)" 2>/dev/null; then
+            echo "El vídeo de $F no tiene el OK del revisor (o está marcado para no publicar): no se publica."; exit 0
+          fi
           mkdir -p t && gh release download "tiktok-$F" -D t -p video.mp4
           gh release view "tiktok-$F" --json body -q .body > t/texto.txt
           # 📲 El vídeo a Carlos por Telegram para reenviarlo (nunca bloquea)
