@@ -19,6 +19,10 @@ Bot **@CatolicAid_bot**; token en el secreto `TELEGRAM_BOT_TOKEN`, chat de Carlo
 - 📊 «Enviar informe semanal» (`telegram-informe.yml`): se activa al subir `informes/*.md`.
 - ❌ «Avisar de fallos» (`telegram-fallos.yml`, `workflow_run` de todos los workflows: si creas uno nuevo, añádelo a la lista): lee el log, da la causa en una frase (`CAUSAS`) y el próximo reintento (`REINTENTOS`); si la causa requiere a Carlos (permiso caducado, clave inválida), además 🔔.
 - «Configurar Telegram»: obtiene el chat_id con getUpdates y manda una prueba; GitHub no deja a ese workflow guardar la variable, así que la guarda el gestor con `gh variable set TELEGRAM_CHAT_ID`. «Probar avisos»: manda un aviso de ejemplo sin publicar nada.
+- **Interactivo** («Telegram: órdenes», `telegram-ordenes.yml` + `proceso/telegram_ordenes.py`, cada 5 min; respuesta en 5–15 min). Solo obedece al chat de Carlos y confirma cada mensaje antes de actuar.
+  - Botones del ✅ (solo modo diario y vídeo futuro): 👍 Publicar (nada) · ⛔ No publicar (borra la release de TikTok, intenta desprogramar YouTube, `no_publicar` en el registro) · 🎨 Otras imágenes (borra `biblioteca/dias/FECHA_e*.png` y rehace) · 🎙️ Otra lectura (rehace guion y voces). Al rehacer, el vídeo anterior pasa a `descartados` en el registro.
+  - Comandos: /estado, /reintentar (mañana), /pausa N (guarda `pausa_hasta` en `estado/telegram.json`; `evangelio.py --si-falta` no genera esos días), /seguir, /ver D (manda el vídeo si sigue en la release de TikTok; si no, el enlace), /ayuda. Menú: `avisos.py comandos` (lo pone «Configurar Telegram»).
+  - Límite: el permiso de YouTube es solo `youtube.upload` + `readonly`, así que no puede desprogramar ni borrar vídeos (ni gestionar listas). Si algún día se reautoriza con el permiso `youtube`, funcionará solo.
 - Límites: el saldo de imágenes no se puede consultar (solo se avisa cuando empiezan a fallar) y no se lee el correo de Carlos (por eso el recordatorio de los lunes).
 
 Proceso (`proceso/evangelio.py`):
