@@ -18,7 +18,8 @@
   "imagenes_ia": {
     "activo": true,
     "modelo": "gemini-2.5-flash-image",
-    "max_por_video": 5
+    "max_por_video": 5,
+    "max_telegram_dia": 10
   },
   "volumen_musica": 0.1,
   "musica": [

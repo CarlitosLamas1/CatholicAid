@@ -30,6 +30,9 @@ AYUDA = ("🤖 <b>Lo que puedes pedirme</b>\n"
          "/pausa 3: no publica durante 3 días (desde mañana)\n"
          "/seguir: quita la pausa\n"
          "/ver 12: te mando el vídeo del día 12 (o /ver mañana)\n"
+         "/imagen Jesús calmando la tempestad: la pinto y, si te gusta, va a la biblioteca\n"
+         "/retocar: cambiar frase, reflexión, música o estilo del vídeo de mañana\n"
+         "💬 También puedes escribirme normal o mandarme una nota de voz («no publiques el domingo»).\n"
          "📷 Mándame una foto con el nombre del personaje (p. ej. «Jesús») y la pongo como su nuevo modelo.\n"
          "En el aviso ✅ tienes botones para publicar, no publicar o rehacerlo.\n"
          "⏱️ Leo tus mensajes cada 5–15 minutos.")
@@ -46,7 +49,7 @@ def sh(*args, check=True):
 def guardar_git(mensaje, *rutas):
     sh("git", "config", "user.name", "gestor-catholicaid")
     sh("git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
-    sh("git", "add", "-A", *rutas)
+    sh("git", "add", "-A", *rutas, "estado/")
     if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
         return
     sh("git", "commit", "-q", "-m", mensaje)
@@ -337,6 +340,394 @@ def elegir_personaje(clave):
     return aplicar_foto(pendiente["file_id"], clave)
 
 
+# ---------- Gemini (texto, gratis) ----------
+
+GEMINI = "https://generativelanguage.googleapis.com/v1beta/models/"
+
+
+def gemini_json(partes, esquema, temperatura=0.2):
+    clave = avisos.os.environ.get("GEMINI_API_KEY", "").strip()
+    if not clave:
+        raise RuntimeError("falta GEMINI_API_KEY")
+    ultimo = None
+    for modelo in avisos.config().get("modelos_texto", ["gemini-2.5-flash"]):
+        cuerpo = json.dumps({"contents": [{"parts": partes}],
+                             "generationConfig": {"responseMimeType": "application/json", "responseSchema": esquema,
+                                                  "temperature": temperatura}}).encode()
+        req = urllib.request.Request(f"{GEMINI}{modelo}:generateContent", data=cuerpo,
+                                     headers={"Content-Type": "application/json", "x-goog-api-key": clave})
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                res = json.loads(r.read())
+            texto = next(p["text"] for p in reversed(res["candidates"][0]["content"]["parts"]) if "text" in p)
+            return json.loads(texto)
+        except Exception as ex:
+            ultimo = ex
+            log(f"Gemini {modelo} no respondió ({ex})")
+    raise RuntimeError(f"Gemini no disponible ({ultimo})")
+
+
+# ---------- Retoques ----------
+
+def ruta_retoque(fecha):
+    return RAIZ / "retoques" / f"{fecha}.json"
+
+
+def leer_retoque(fecha):
+    try:
+        return json.loads(ruta_retoque(fecha).read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def escribir_retoque(fecha, d):
+    ruta_retoque(fecha).parent.mkdir(exist_ok=True)
+    ruta_retoque(fecha).write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def pistas():
+    return [m.replace(" ", "_") for m in avisos.config().get("musica", [])]
+
+
+def nombre_pista(nombre):
+    for clave, txt in (("Satie", "Gymnopédie (Satie)"), ("Debussy", "Claro de luna (Debussy)"),
+                       ("Bach", "Preludio en do (Bach)")):
+        if clave in nombre:
+            return txt
+    return nombre.rsplit(".", 1)[0].replace("_", " ")[:28]
+
+
+def _plano(t):
+    """Texto en minúsculas, sin acentos ni signos, con el mapa de posiciones al original."""
+    import unicodedata
+    salida, mapa = [], []
+    for i, c in enumerate(t):
+        base = "".join(x for x in unicodedata.normalize("NFD", c.lower()) if unicodedata.category(x) != "Mn")
+        if base.isalnum():
+            salida.append(base)
+            mapa.append(i)
+        elif salida and salida[-1] != " ":
+            salida.append(" ")
+            mapa.append(i)
+    return "".join(salida), mapa
+
+
+def frase_literal(frase, fecha):
+    """Busca la frase de Carlos en el Evangelio de ese día (sin importar tildes ni signos) y devuelve el texto
+    tal cual aparece. None si no está. Si aún no hay vídeo, la deja como está (el proceso la valida)."""
+    reg = episodio(fecha)
+    textos = [f["texto"] for f in reg.get("fragmentos", []) if f["texto"] != reg.get("reflexion")]
+    if not textos:
+        return frase.strip()
+    buscada = _plano(frase)[0].strip()
+    if len(buscada.split()) < 2:
+        return None
+    for t in textos:
+        plano, mapa = _plano(t)
+        i = plano.find(buscada)
+        if i >= 0:
+            literal = t[mapa[i]:mapa[i + len(buscada) - 1] + 1]
+            return literal.strip(" “”‘’\"'«»,;:")
+    return None
+
+
+def menu_retoque(fecha):
+    r = leer_retoque(fecha)
+    reg = episodio(fecha)
+    actual = [f"💬 Frase: «{e(r.get('frase_clave') or reg.get('frase_clave') or '—')}»",
+              f"🕊️ Reflexión: {e(r.get('reflexion') or reg.get('reflexion') or '—')}"]
+    if r.get("musica"):
+        actual.append(f"🎵 Música: {e(nombre_pista(r['musica']))}")
+    if r.get("estilo"):
+        actual.append(f"🖌️ Estilo: {e(r['estilo'])}")
+    filas = [[("💬 Cambiar frase", f"rf|{fecha}"), ("🕊️ Cambiar reflexión", f"rr|{fecha}")],
+             [(f"🎵 {nombre_pista(m)}", f"rm|{fecha}|{i}") for i, m in enumerate(pistas())],
+             [("🖼️ Todo en óleo", f"re|{fecha}|oleo"), ("🎨 Todo en acuarela", f"re|{fecha}|acuarela")],
+             [("✅ Rehacer ya con los cambios", f"rh|{fecha}"), ("✖️ Nada", "rx|")]]
+    enviar(f"✏️ <b>Retocar el vídeo del {e(fecha_txt(fecha))}</b>\n" + "\n".join(actual)
+           + "\n\nEl texto del Evangelio no se toca nunca.", botones=filas)
+    return None
+
+
+def esperar_texto(tipo, fecha):
+    est = leer_estado()
+    est["esperando"] = {"tipo": tipo, "fecha": str(fecha)}
+    escribir_estado(est)
+    guardar_git("Telegram: esperando texto", "estado/")
+    if tipo == "frase":
+        return ("💬 Escríbeme la frase del gancho. Tiene que estar <b>tal cual</b> en el Evangelio de ese día "
+                "(da igual tildes o mayúsculas).")
+    return "🕊️ Escríbeme la reflexión final (1 o 2 frases; la leerá el narrador)."
+
+
+def guardar_retoque(fecha, campo, valor):
+    fecha = str(fecha)
+    if campo == "frase_clave":
+        literal = frase_literal(valor, fecha)
+        if not literal:
+            return (f"❌ «{e(valor)}» no está tal cual en el Evangelio del {e(fecha_txt(fecha))}. "
+                    "Cópiala del texto y mándamela otra vez.")
+        valor = literal
+    if campo == "reflexion" and len(valor.split()) > 60:
+        return "❌ La reflexión es muy larga: déjala en 1 o 2 frases (máximo unas 60 palabras)."
+    r = leer_retoque(fecha)
+    r[campo] = valor
+    if campo == "estilo":
+        r["_imagenes_nuevas"] = True
+    escribir_retoque(fecha, r)
+    guardar_git(f"Telegram: retoque del {fecha} ({campo})", "retoques/")
+    nombres = {"frase_clave": f"💬 Frase: «{e(valor)}»", "reflexion": f"🕊️ Reflexión: {e(valor)}",
+               "musica": f"🎵 Música: {e(nombre_pista(valor))}", "estilo": f"🖌️ Estilo: {e(valor)}"}
+    texto = f"✍️ Guardado para el {e(fecha_txt(fecha))}.\n{nombres[campo]}"
+    if episodio(fecha).get("youtube") and dt.date.fromisoformat(fecha) > hoy():
+        enviar(texto + "\n\nEl vídeo ya está hecho. ¿Lo rehago ya con este cambio?",
+               botones=[[("✅ Rehacer ya", f"rh|{fecha}"), ("✏️ Otro retoque", f"ret|{fecha}")]])
+        return None
+    return texto + "\nSe aplicará cuando se genere el vídeo."
+
+
+def rehacer_con_retoques(fecha):
+    r = leer_retoque(fecha)
+    nuevas = bool(r.pop("_imagenes_nuevas", False))
+    if nuevas:
+        escribir_retoque(fecha, r)
+    return rehacer(fecha, imagenes=nuevas)
+
+
+# ---------- Imágenes a petición (Nano Banana, de pago) ----------
+
+def a_jpg(origen, destino):
+    a_png(origen, destino.with_suffix(".tmp.png"), lado=2048)
+    from PIL import Image
+    Image.open(destino.with_suffix(".tmp.png")).convert("RGB").save(destino, "JPEG", quality=90)
+    destino.with_suffix(".tmp.png").unlink()
+
+
+def plan_imagen(peticion):
+    cat = json.loads((RAIZ / "biblioteca" / "catalogo.json").read_text(encoding="utf-8"))
+    con_retrato = [k for k in personajes() if (RAIZ / "personajes" / f"{k}.png").exists()]
+    prompt = f"""Carlos, del canal católico CatolicAid (Evangelio del día), pide una imagen: «{peticion}».
+Prepara la petición para el modelo de imágenes:
+- "escena": descripción visual en INGLÉS, concreta y rica (personajes, acción, lugar, luz, composición vertical),
+  fiel al Evangelio y a la tradición católica, respetuosa y devocional. Sin texto en la imagen.
+  Si aparece Jesús, descríbelo así: {cat.get('jesus', '')}
+- "estilo": "oleo" o "acuarela" (si Carlos no lo dice: oleo para interior, noche o recogimiento; acuarela para exterior luminoso).
+- "personajes": claves de los que aparecen y tienen retrato de referencia, de entre: {', '.join(con_retrato)}.
+- "titulo": título corto en español. "descripcion": en español, para qué escenas sirve (para elegirla después).
+Si la petición no es apropiada para un canal católico, pon "escena" vacía y explica el motivo en "titulo"."""
+    esquema = {"type": "OBJECT", "properties": {
+        "escena": {"type": "STRING"}, "estilo": {"type": "STRING", "enum": ["oleo", "acuarela"]},
+        "personajes": {"type": "ARRAY", "items": {"type": "STRING"}},
+        "titulo": {"type": "STRING"}, "descripcion": {"type": "STRING"}},
+        "required": ["escena", "estilo", "personajes", "titulo", "descripcion"]}
+    plan = gemini_json([{"text": prompt}], esquema, 0.6)
+    plan["personajes"] = [k for k in plan.get("personajes", []) if k in con_retrato]
+    plan["peticion"] = peticion
+    return plan
+
+
+def pedir_imagen(peticion):
+    if limite_imagenes():
+        return limite_imagenes()
+    plan = plan_imagen(peticion)
+    if not plan.get("escena"):
+        return f"🙏 No voy a pintar eso: {e(plan.get('titulo', ''))}"
+    return generar_y_mandar(plan)
+
+
+def limite_imagenes():
+    limite = avisos.config().get("imagenes_ia", {}).get("max_telegram_dia", 10)
+    if leer_estado().get("imagenes_hoy", {}).get(str(hoy()), 0) >= limite:
+        return f"🛑 Hoy ya he pintado {limite} imágenes por Telegram (cuestan saldo). Mañana más."
+    return None
+
+
+def generar_y_mandar(plan):
+    if limite_imagenes():
+        return limite_imagenes()
+    sys.path.insert(0, str(RAIZ / "proceso"))
+    import imagenes
+    modelo = avisos.config().get("imagenes_ia", {}).get("modelo")
+    if modelo:
+        imagenes.PREFERIDOS = [modelo]
+    ident = dt.datetime.now(MADRID).strftime("%m%d%H%M%S")
+    tmp = Path(tempfile.mkdtemp()) / "imagen"
+    refs = [(k.capitalize(), RAIZ / "personajes" / f"{k}.png") for k in plan["personajes"]]
+    imagenes.generar(plan["escena"], tmp, refs, plan["estilo"])
+    destino = RAIZ / "entrada" / "imagenes" / f"{ident}.jpg"
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    a_jpg(tmp, destino)
+    est = leer_estado()
+    est.setdefault("imagenes", {})[ident] = plan
+    cuenta = est.setdefault("imagenes_hoy", {})
+    est["imagenes_hoy"] = {str(hoy()): cuenta.get(str(hoy()), 0) + 1}
+    escribir_estado(est)
+    guardar_git("Telegram: imagen pedida por Carlos", "entrada/", "estado/")
+    avisos._api("sendPhoto", {"chat_id": avisos.chat_id(), "parse_mode": "HTML",
+                              "caption": f"🎨 <b>{e(plan['titulo'])}</b> ({e(plan['estilo'])})",
+                              "reply_markup": avisos.teclado([[("📚 A la biblioteca", f"ib|{ident}"),
+                                                               ("🔁 Otra versión", f"io|{ident}")],
+                                                              [("✖️ Descartar", f"ix|{ident}")]])},
+                ("photo", destino))
+    return None
+
+
+def imagen_a_biblioteca(ident):
+    est = leer_estado()
+    plan = est.get("imagenes", {}).pop(ident, None)
+    origen = RAIZ / "entrada" / "imagenes" / f"{ident}.jpg"
+    if not plan or not origen.exists():
+        return "Esa imagen ya no está pendiente."
+    ruta_cat = RAIZ / "biblioteca" / "catalogo.json"
+    cat = json.loads(ruta_cat.read_text(encoding="utf-8"))
+    nums = [int(k[1:]) for k in cat["clips"] if re.fullmatch(r"T\d+", k)]
+    clave = f"T{(max(nums) + 1) if nums else 1:02d}"
+    origen.replace(RAIZ / "biblioteca" / "clips" / f"{clave}.jpg")
+    cat["clips"][clave] = {"titulo": plan["titulo"], "descripcion": plan["descripcion"], "estilo": plan["estilo"],
+                           "personajes": plan["personajes"], "prompt_imagen": plan["escena"],
+                           "origen": f"Telegram: «{plan.get('peticion', '')}»"}
+    ruta_cat.write_text(json.dumps(cat, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    escribir_estado(est)
+    guardar_git(f"Telegram: imagen {clave} a la biblioteca", "biblioteca/", "entrada/", "estado/")
+    return (f"📚 Añadida a la biblioteca como <b>{clave}</b>: «{e(plan['titulo'])}». "
+            "Se usará en los vídeos cuya escena encaje.")
+
+
+def descartar_imagen(ident):
+    est = leer_estado()
+    est.get("imagenes", {}).pop(ident, None)
+    escribir_estado(est)
+    (RAIZ / "entrada" / "imagenes" / f"{ident}.jpg").unlink(missing_ok=True)
+    guardar_git("Telegram: imagen descartada", "entrada/", "estado/")
+    return "🗑️ Descartada."
+
+
+def otra_version(ident):
+    plan = leer_estado().get("imagenes", {}).get(ident)
+    if not plan:
+        return "Esa imagen ya no está pendiente."
+    return generar_y_mandar(plan)
+
+
+# ---------- Lenguaje natural y notas de voz ----------
+
+ACCIONES = ["estado", "reintentar", "pausa", "seguir", "ver", "no_publicar", "rehacer_imagenes", "rehacer_lectura",
+            "frase", "reflexion", "musica", "estilo", "retocar", "imagen", "ayuda", "conversar"]
+CONFIRMAR = {"reintentar", "pausa", "no_publicar", "rehacer_imagenes", "rehacer_lectura"}
+
+
+def interpretar(texto=None, audio=None):
+    manana = hoy() + dt.timedelta(days=1)
+    prompt = f"""Eres el asistente del canal católico CatolicAid (un vídeo diario con el Evangelio del día, que se genera
+la tarde anterior y se publica a las 7:00 en YouTube y TikTok). Hoy es {fecha_txt(hoy())} ({hoy()}); mañana es {manana}.
+Convierte el mensaje de Carlos, el dueño, en UNA acción:
+- estado: qué hay preparado / cómo va. - reintentar: volver a generar el vídeo de mañana.
+- pausa: no publicar durante "dias" días. - seguir: quitar la pausa. - ver: mandarle el vídeo de "fecha".
+- no_publicar: no publicar el vídeo de "fecha". - rehacer_imagenes / rehacer_lectura: rehacer el vídeo de "fecha"
+  con otras imágenes / con otras voces.
+- frase: poner como frase del gancho inicial "texto" (debe ser una frase del Evangelio de ese día; copia lo que dice Carlos).
+- reflexion: poner como reflexión final "texto" (si Carlos solo da una idea, redáctala en 1–2 frases cálidas, de tú).
+- musica: elegir la "pista" (una de: {', '.join(nombre_pista(m) for m in pistas())}). - estilo: "estilo" oleo o acuarela.
+- retocar: quiere retocar el vídeo de "fecha" sin decir qué. - imagen: quiere que pintes una imagen; "texto" = lo que quiere ver.
+- ayuda: pregunta qué puedes hacer. - conversar: saluda o pregunta algo general; contesta en "respuesta" (breve, cálida, sin inventar datos).
+Reglas: "fecha" en formato AAAA-MM-DD; si se refiere a un vídeo y no dice día, usa mañana ({manana}). El texto del
+Evangelio NO se puede cambiar nunca: si lo pide, usa conversar y explícalo. Si es un audio, pon en "transcripcion" lo que dice."""
+    partes = [{"text": prompt}]
+    if audio:
+        partes.append({"inlineData": {"mimeType": audio[1], "data": __import__("base64").b64encode(audio[0]).decode()}})
+    else:
+        partes.append({"text": f"MENSAJE DE CARLOS: {texto}"})
+    esquema = {"type": "OBJECT", "properties": {
+        "accion": {"type": "STRING", "enum": ACCIONES}, "fecha": {"type": "STRING"}, "dias": {"type": "INTEGER"},
+        "texto": {"type": "STRING"}, "pista": {"type": "STRING"}, "estilo": {"type": "STRING"},
+        "respuesta": {"type": "STRING"}, "transcripcion": {"type": "STRING"}}, "required": ["accion"]}
+    return gemini_json(partes, esquema)
+
+
+def describir(a):
+    f = a.get("fecha") or str(hoy() + dt.timedelta(days=1))
+    return {"reintentar": "volver a generar el vídeo de mañana",
+            "pausa": f"no publicar nada durante {a.get('dias') or 1} día(s)",
+            "no_publicar": f"no publicar el vídeo del {fecha_txt(f)}",
+            "rehacer_imagenes": f"rehacer el vídeo del {fecha_txt(f)} con imágenes nuevas",
+            "rehacer_lectura": f"rehacer el vídeo del {fecha_txt(f)} con otra lectura"}.get(a["accion"], a["accion"])
+
+
+def ejecutar(a):
+    acc = a.get("accion", "ayuda")
+    f = a.get("fecha") or str(hoy() + dt.timedelta(days=1))
+    try:
+        dt.date.fromisoformat(f)
+    except ValueError:
+        f = str(hoy() + dt.timedelta(days=1))
+    if acc == "estado":
+        return estado()
+    if acc == "reintentar":
+        return reintentar()
+    if acc == "pausa":
+        return pausa(max(1, min(int(a.get("dias") or 1), 30)))
+    if acc == "seguir":
+        return seguir()
+    if acc == "ver":
+        return ver(f)
+    if acc == "no_publicar":
+        r = no_publicar(f)
+        guardar_git(f"Telegram: no publicar el {f}", "episodios/")
+        return r
+    if acc in ("rehacer_imagenes", "rehacer_lectura"):
+        return rehacer(f, imagenes=acc == "rehacer_imagenes")
+    if acc == "frase":
+        return guardar_retoque(f, "frase_clave", a.get("texto", "")) if a.get("texto") else esperar_texto("frase", f)
+    if acc == "reflexion":
+        return guardar_retoque(f, "reflexion", a.get("texto", "")) if a.get("texto") else esperar_texto("reflexion", f)
+    if acc == "musica":
+        elegida = next((m for m in pistas() if a.get("pista") and (a["pista"].lower() in nombre_pista(m).lower()
+                                                                    or nombre_pista(m).lower() in a["pista"].lower())), None)
+        return guardar_retoque(f, "musica", elegida) if elegida else menu_retoque(f)
+    if acc == "estilo" and a.get("estilo") in ("oleo", "acuarela"):
+        return guardar_retoque(f, "estilo", a["estilo"])
+    if acc in ("retocar", "estilo", "musica"):
+        return menu_retoque(f)
+    if acc == "imagen":
+        return pedir_imagen(a.get("texto") or "una imagen devocional de Jesús")
+    if acc == "conversar" and a.get("respuesta"):
+        return e(a["respuesta"])
+    return AYUDA
+
+
+def lenguaje_natural(texto=None, audio=None):
+    try:
+        a = interpretar(texto, audio)
+    except Exception as ex:
+        log(f"no entendí el mensaje ({ex})")
+        return ("No he podido entenderte ahora mismo (Gemini no responde). Prueba con una orden:\n\n" + AYUDA)
+    log(f"interpretado: {a}")
+    eco = f"🎙️ «{e(a['transcripcion'])}»\n\n" if audio and a.get("transcripcion") else ""
+    if a.get("accion") in CONFIRMAR:
+        est = leer_estado()
+        est["confirmar"] = a
+        escribir_estado(est)
+        guardar_git("Telegram: pendiente de confirmar", "estado/")
+        enviar(f"{eco}¿Quieres que vaya a <b>{e(describir(a))}</b>?", botones=[[("✅ Sí", "cf|si"), ("✖️ No", "cf|no")]])
+        return None
+    r = ejecutar(a)
+    if r:
+        return eco + r
+    if eco:
+        enviar(eco.strip())
+    return None
+
+
+def confirmar(respuesta):
+    est = leer_estado()
+    a = est.pop("confirmar", None)
+    escribir_estado(est)
+    guardar_git("Telegram: confirmación atendida", "estado/")
+    if respuesta != "si" or not a:
+        return "👌 No hago nada."
+    return ejecutar(a)
+
+
 # ---------- Bucle ----------
 
 def responder_boton(cb):
@@ -345,13 +736,15 @@ def responder_boton(cb):
         avisos._api("answerCallbackQuery", {"callback_query_id": cb["id"], "text": "Recibido"})
     except Exception:
         pass  # si han pasado unos minutos, Telegram ya no lo acepta; no importa
+    accion, _, resto = dato.partition("|")
     msg = cb.get("message", {})
-    try:
-        avisos._api("editMessageReplyMarkup", {"chat_id": msg["chat"]["id"], "message_id": msg["message_id"],
-                                               "reply_markup": json.dumps({"inline_keyboard": []})})
-    except Exception:
-        pass
-    accion, _, fecha = dato.partition("|")
+    if accion != "io":  # «otra versión» deja la imagen anterior con sus botones
+        try:
+            avisos._api("editMessageReplyMarkup", {"chat_id": msg["chat"]["id"], "message_id": msg["message_id"],
+                                                   "reply_markup": json.dumps({"inline_keyboard": []})})
+        except Exception:
+            pass
+    fecha, _, extra = resto.partition("|")
     if accion == "pj":
         return elegir_personaje(fecha)
     if accion == "prueba":
@@ -359,16 +752,47 @@ def responder_boton(cb):
     if accion == "ok":
         return f"👍 Perfecto: el vídeo del {e(fecha_txt(fecha))} sale a las 7:00."
     if accion == "no":
-        r = no_publicar(fecha)
-        guardar_git(f"Telegram: no publicar el {fecha}", "episodios/")
-        return r
+        return ejecutar({"accion": "no_publicar", "fecha": fecha})
     if accion in ("img", "voz"):
         return rehacer(fecha, imagenes=accion == "img")
+    if accion == "ret":
+        return menu_retoque(fecha)
+    if accion == "rf":
+        return esperar_texto("frase", fecha)
+    if accion == "rr":
+        return esperar_texto("reflexion", fecha)
+    if accion == "rm":
+        return guardar_retoque(fecha, "musica", pistas()[int(extra)])
+    if accion == "re":
+        return guardar_retoque(fecha, "estilo", extra)
+    if accion == "rh":
+        return rehacer_con_retoques(fecha)
+    if accion == "rx":
+        return "👌 Sin cambios."
+    if accion == "ib":
+        return imagen_a_biblioteca(fecha)
+    if accion == "io":
+        return otra_version(fecha)
+    if accion == "ix":
+        return descartar_imagen(fecha)
+    if accion == "cf":
+        return confirmar(fecha)
     return "No reconozco ese botón."
 
 
 def responder_texto(texto):
-    orden, _, arg = texto.strip().partition(" ")
+    texto = texto.strip()
+    est = leer_estado()
+    espera = est.pop("esperando", None)
+    if espera:
+        escribir_estado(est)
+        if not texto.startswith("/"):
+            campo = "frase_clave" if espera["tipo"] == "frase" else "reflexion"
+            return guardar_retoque(espera["fecha"], campo, texto)
+        guardar_git("Telegram: espera cancelada", "estado/")
+    if not texto.startswith("/"):
+        return lenguaje_natural(texto=texto)
+    orden, _, arg = texto.partition(" ")
     orden = orden.lower().split("@")[0]
     if orden == "/estado":
         return estado()
@@ -381,6 +805,11 @@ def responder_texto(texto):
         return seguir()
     if orden == "/ver":
         return ver(arg)
+    if orden == "/imagen":
+        return pedir_imagen(arg) if arg.strip() else "Dime qué quieres ver: /imagen Jesús calmando la tempestad"
+    if orden == "/retocar":
+        return menu_retoque(interpretar_dia(arg) or hoy() + dt.timedelta(days=1)) if arg.strip() \
+            else menu_retoque(hoy() + dt.timedelta(days=1))
     return AYUDA
 
 
@@ -397,16 +826,24 @@ def main():
         if chat != yo:
             log(f"ignoro un mensaje de otro chat ({chat})")
             continue
-        entrada = cb.get("data") if cb else (msg or {}).get("text", "")
-        log(f"orden: {entrada}")
-        es_foto = bool(msg and (msg.get("photo") or str(msg.get("document", {}).get("mime_type", "")).startswith("image/")))
+        msg = msg or {}
+        entrada = cb.get("data") if cb else msg.get("text", "")
+        es_foto = bool(msg.get("photo") or str(msg.get("document", {}).get("mime_type", "")).startswith("image/"))
+        audio = msg.get("voice") or msg.get("audio")
         if es_foto:
             entrada = "foto " + msg.get("caption", "")
+        elif audio:
+            entrada = "nota de voz"
+        log(f"orden: {entrada}")
         try:
             if cb:
                 r = responder_boton(cb)
             elif es_foto:
                 r = recibir_foto(msg)
+            elif audio:
+                tmp = Path(tempfile.mkdtemp()) / "audio"
+                descargar_foto(audio["file_id"], tmp)
+                r = lenguaje_natural(audio=(tmp.read_bytes(), audio.get("mime_type", "audio/ogg")))
             else:
                 r = responder_texto(entrada or "")
         except Exception as ex:

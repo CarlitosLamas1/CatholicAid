@@ -7,15 +7,20 @@ on:
       aviso:
         description: "Qué aviso probar"
         type: choice
-        options: [tiktok, accion, prueba, botones]
+        options: [tiktok, accion, prueba, botones, mensaje]
         default: tiktok
+      texto:
+        description: "Para «mensaje»: lo que escribiría Carlos (se procesa como si lo mandara él)"
+        required: false
+        default: ""
       fecha:
         description: "Fecha del episodio AAAA-MM-DD (vacío = hoy)"
         required: false
         default: ""
 
 permissions:
-  contents: read
+  contents: write
+  actions: write
 
 jobs:
   probar:
@@ -24,6 +29,10 @@ jobs:
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+      GH_TOKEN: ${{ github.token }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+      TEXTO: ${{ inputs.texto }}
     steps:
       - uses: actions/checkout@v4
       - run: |
@@ -32,5 +41,6 @@ jobs:
             tiktok) python3 proceso/avisos.py tiktok "$F" ;;
             accion) python3 proceso/avisos.py accion "(Prueba) Así te llegará algo que requiera tu acción." ;;
             botones) python3 -c "import sys; sys.path.insert(0, 'proceso'); import avisos; avisos.enviar('🧪 <b>Prueba de botones</b>\nAsí llegará el aviso ✅. Pulsa cualquiera: no cambia nada y te responderé en 5–15 minutos.', botones=[[('👍 Publicar', 'prueba|Publicar'), ('⛔ No publicar', 'prueba|No publicar')], [('🎨 Otras imágenes', 'prueba|Otras imágenes'), ('🎙️ Otra lectura', 'prueba|Otra lectura')]])" ;;
+            mensaje) python3 -c "import os, sys; sys.path.insert(0, 'proceso'); import telegram_ordenes as t, avisos; r = t.responder_texto(os.environ['TEXTO']); print('respuesta:', r); r and avisos.enviar('🧪 (prueba del gestor: «' + avisos.e(os.environ['TEXTO']) + '»)\\n' + r)" ;;
             *) python3 proceso/avisos.py prueba ;;
           esac

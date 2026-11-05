@@ -69,7 +69,7 @@ def _api(metodo, datos=None, archivo=None):
         req = urllib.request.Request(url, data=cuerpo, headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
     else:
         req = urllib.request.Request(url, data=urllib.parse.urlencode(datos or {}).encode())
-    with urllib.request.urlopen(req, timeout=30) as r:
+    with urllib.request.urlopen(req, timeout=180 if archivo else 30) as r:
         res = json.loads(r.read())
     if not res.get("ok"):
         raise RuntimeError(res.get("description", "Telegram no aceptó el mensaje"))
@@ -225,8 +225,33 @@ def aviso_listo():
     if reg.get("modo") == "diario" and yt.get("id") and dt.date.fromisoformat(reg["fecha"]) > hoy:
         f = reg["fecha"]
         botones = [[("👍 Publicar", f"ok|{f}"), ("⛔ No publicar", f"no|{f}")],
-                   [("🎨 Otras imágenes", f"img|{f}"), ("🎙️ Otra lectura", f"voz|{f}")]]
+                   [("🎨 Otras imágenes", f"img|{f}"), ("🎙️ Otra lectura", f"voz|{f}")],
+                   [("✏️ Retocar (frase, reflexión, música, estilo)", f"ret|{f}")]]
     enviar("\n".join(lineas), foto, botones)
+
+
+def aviso_video(fecha, ruta):
+    """📲 El vídeo del día en el móvil de Carlos, listo para reenviar (una sola vez por día)."""
+    reg = episodio(fecha)
+    if reg.get("telegram_video"):
+        log("el vídeo de hoy ya se mandó")
+        return
+    ruta = Path(ruta)
+    texto = f"📖 <b>Evangelio del día</b> · {e(fecha_txt(fecha))}\n{e(reg.get('cita', ''))} 🙏"
+    if reg.get("reflexion"):
+        texto += f"\n\n🕊️ {e(reg['reflexion'])}"
+    try:
+        if ruta.stat().st_size > 49_000_000:
+            raise RuntimeError("pesa más de 50 MB (límite de Telegram)")
+        _api("sendVideo", {"chat_id": chat_id(), "caption": texto, "parse_mode": "HTML",
+                           "supports_streaming": "true"}, ("video", ruta))
+        log("vídeo enviado")
+    except Exception as ex:
+        log(f"no pude mandar el vídeo ({ex})")
+        enviar(texto + f"\n\n(No he podido mandarte el vídeo: {e(ex)})")
+    if reg:
+        reg["telegram_video"] = True
+        (RAIZ / "episodios" / f"{fecha}.json").write_text(json.dumps(reg, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def aviso_tiktok(fecha):
@@ -444,6 +469,8 @@ def main():
                 {"command": "pausa", "description": "No publicar N días (/pausa 3)"},
                 {"command": "seguir", "description": "Quitar la pausa"},
                 {"command": "ver", "description": "Ver el vídeo de un día (/ver 12)"},
+                {"command": "imagen", "description": "Pintar una imagen (/imagen Jesús en el lago)"},
+                {"command": "retocar", "description": "Frase, reflexión, música o estilo de mañana"},
                 {"command": "ayuda", "description": "Qué puedo hacer"}])})
             log("menú de comandos puesto")
         elif orden == "prueba":  # el único que sí falla si Telegram no responde (para «Configurar Telegram»)
@@ -451,6 +478,8 @@ def main():
                    "de los vídeos, las publicaciones, los fallos y lo que necesite de ti. 🙏") else 1)
         elif orden == "listo":
             aviso_listo()
+        elif orden == "video":
+            aviso_video(sys.argv[2], sys.argv[3])
         elif orden == "tiktok":
             aviso_tiktok(sys.argv[2])
         elif orden == "manana":
