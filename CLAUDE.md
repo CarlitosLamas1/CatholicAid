@@ -31,7 +31,8 @@ Proceso (`proceso/evangelio.py`):
 5. **Vídeo** 1080×1920 (FFmpeg) + música de Wikimedia Commons (`musica/`, dominio público). Zoom lento calculado con Pillow a precisión subpíxel (`zoom_imagen`, 8 %), sin tembleque (antes zoompan temblaba).
    - **Gancho** (`gancho_segundos`, 2,8 s): antes de la lectura, la frase clave en grande (serif fina, velo suave). La elige Gemini de las palabras de Jesús y se valida que sea **literal**; si no, se usa la frase más corta de Jesús.
    - **Reflexión final**: tras «Palabra del Señor», 1–2 frases o una pregunta (Gemini, voz del narrador, subtítulo en cursiva). Va sobre la última imagen oscurecida y desenfocada (tramo propio), para separarla visualmente del Evangelio. Se guarda en el registro (`reflexion`) y en la descripción de YouTube. No forma parte del Evangelio.
-   - **Cierre** (`cierre_segundos`, 2,5 s): solo música, sobre la imagen oscurecida: «Síguenos para escuchar el Evangelio cada día · CatolicAid».
+   - **Evangelistas** (`personajes/evangelistas/{mateo,marcos,lucas,juan}.jpg`, óleos hechos por Carlos con su animal: ángel, león, toro, águila): su imagen sale mientras el narrador anuncia «Lectura del santo evangelio según san…» (justo después del gancho) y en el cierre.
+   - **Cierre** (`cierre_segundos`, 2,5 s): solo música, sobre el evangelista apenas oscurecido, texto arriba: «Síguenos para escuchar el Evangelio cada día · CatolicAid». La reflexión NO va sobre el evangelista (parecería suya), sino sobre la última escena oscurecida.
    - **Título de YouTube**: «“Frase clave” | Evangelio del día D de mes (cita)»; si no cabe en 100 caracteres se acorta la fecha y, en último caso, la frase. La frase también encabeza el texto de TikTok.
    - Las escenas que describe Gemini deben mostrar a los personajes y la acción de esa escena (en las parábolas, los de la parábola).
    - **Audio** normalizado a **-14 LUFS** (dos pasadas, pico -1,5 dB); el valor medido queda en `lufs`.
@@ -67,7 +68,7 @@ Fiel al sentido del Torres Amat; ortografía y vocabulario actuales; sin glosas 
 - [x] App OAuth de Google Cloud «En producción», nombre «CatolicAid», con web, privacidad y condiciones (05/11/2026).
 - [x] Auditoría de YouTube ENVIADA el 05/11/2026 (proyecto 182262579737, nombre de app «CatolicAid», cuota por defecto). Esperar respuesta de Google en catolicolamas@gmail.com (1–4 semanas). Si piden aclaraciones, preparar respuesta; documentos en auditoria/youtube.md y en Descargas/CatolicAid_auditoria_YouTube. Mientras tanto, los vídeos subidos por la API pueden quedar privados: Carlos los publica a mano en YouTube Studio.
 - [ ] Vigilar el saldo de prepago de imágenes (aviso en el informe semanal).
-- [ ] Pintar 4 imágenes de los evangelistas (Mateo, Marcos, Lucas, Juan escribiendo su Evangelio) para el fondo del cierre, y usarlas allí según el evangelista del día. Carlos de acuerdo (05/11/2026); esperar a que quite el tope de gasto de Gemini.
+- [x] Imágenes de los 4 evangelistas (06/11/2026), al anunciar la lectura y en el cierre.
 - [x] Voces fijas elegidas por casting (ver `_voces` en config); una sola grabación por personaje.
 - [x] TikTok conectado (Sandbox: publica en «solo yo»). App review ENVIADA el 05/11/2026 (demo en Descargas/CatolicAid_TikTok_review). Al aprobarla: Carlos cambia TIKTOK_CLIENT_KEY/SECRET por los de Production y autoriza una vez en https://carlitoslamas1.github.io/CatholicAid/tiktok.html; el gestor canjea el código con el workflow «Conectar TikTok». Mientras tanto la cuenta @catolicaid debe seguir en privado (si es pública, TikTok bloquea las publicaciones de apps no aprobadas).
 - [x] Prueba completa 05/11/2026 OK (YouTube + TikTok). Horarios fijados.
