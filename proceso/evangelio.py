@@ -1131,7 +1131,8 @@ def main():
                 "frase_clave": frase, "reflexion": reflexion, "lufs": lufs,
                 "titulo": ev["titulo"], "texto_evangelio": ev["texto"],
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
-                                "inicio": round(f["inicio"], 2), "texto": f["texto"]} for f in frs],
+                                "inicio": round(f["inicio"], 2), "texto": f["texto"],
+                                **({"reflexion": True} if f.get("reflexion") else {})} for f in frs],
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
     if AVISOS:
         registro["avisos"] = sorted(set(AVISOS))
