@@ -22,7 +22,10 @@ Proceso (`proceso/evangelio.py`):
 Ajustes en `config/personajes.json` (voces, narradores, estilos, modelo de imagen, música). Herramienta de imágenes suelta: `proceso/imagenes.py`; prueba rápida: workflow «Probar imagen».
 
 ## Secretos (GitHub → Settings → Secrets → Actions)
-`GEMINI_API_KEY` (gratis: texto y voces), `GEMINI_API_KEY_IMAGENES` (pago: imágenes), `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`. Nunca pidas que se peguen en el chat. Comprobación: workflow «Verificar secretos».
+`GEMINI_API_KEY` (gratis: texto y voces), `GEMINI_API_KEY_IMAGENES` (pago: imágenes), `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`, `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET` (ahora las de Sandbox). Nunca pidas que se peguen en el chat. Comprobación: workflow «Verificar secretos».
+
+## Web del proyecto
+GitHub Pages desde `docs/`: https://carlitoslamas1.github.io/CatholicAid/ (inicio, `privacidad.html`, `condiciones.html`, `tiktok.html` para autorizar TikTok, verificación de TikTok `tiktok*.txt`, icono `icono-cara.png`). Google y TikTok la usan en sus revisiones: no la borres ni cambies las URL.
 
 ## Herramientas
 El Mac de Carlos tiene git y `gh` (Homebrew, `/opt/homebrew/bin`), con sesión de CarlitosLamas1. Usa `gh workflow run`, `gh run watch`, `gh run view --log`. No sondees la API sin autenticar (límite de 60 consultas/hora).
@@ -43,9 +46,14 @@ Fiel al sentido del Torres Amat; ortografía y vocabulario actuales; sin glosas 
 - [x] Secretos, canal, voces fijas por personaje, narrador por evangelista, música, Torres Amat revisado.
 - [x] Imágenes automáticas con Nano Banana (Flash) y retratos de referencia.
 - [x] Publicación diaria automática con reintentos y gestor semanal en la nube.
-- [ ] **Una vez (Carlos):** confirmar que la app OAuth de Google Cloud está «En producción» (si no, el token de YouTube caduca a los 7 días).
+- [x] App OAuth de Google Cloud «En producción», nombre «CatolicAid», con web, privacidad y condiciones (05/11/2026).
 - [x] Auditoría de YouTube ENVIADA el 05/11/2026 (proyecto 182262579737, nombre de app «CatolicAid», cuota por defecto). Esperar respuesta de Google en catolicolamas@gmail.com (1–4 semanas). Si piden aclaraciones, preparar respuesta; documentos en auditoria/youtube.md y en Descargas/CatolicAid_auditoria_YouTube. Mientras tanto, los vídeos subidos por la API pueden quedar privados: Carlos los publica a mano en YouTube Studio.
 - [ ] Vigilar el saldo de prepago de imágenes (aviso en el informe semanal).
 - [x] Voces fijas elegidas por casting (ver `_voces` en config); una sola grabación por personaje.
 - [x] TikTok conectado (Sandbox: publica en «solo yo»). App review ENVIADA el 05/11/2026 (demo en Descargas/CatolicAid_TikTok_review). Al aprobarla: Carlos cambia TIKTOK_CLIENT_KEY/SECRET por los de Production y autoriza una vez en https://carlitoslamas1.github.io/CatholicAid/tiktok.html; el gestor canjea el código con el workflow «Conectar TikTok». Mientras tanto la cuenta @catolicaid debe seguir en privado (si es pública, TikTok bloquea las publicaciones de apps no aprobadas).
 - [x] Prueba completa 05/11/2026 OK (YouTube + TikTok). Horarios fijados.
+
+## Al retomar (próximos pasos)
+1. Comprobar que el vídeo del 06/11 se generó (run de «Evangelio diario» del 05/11 tarde) y se publicó en YouTube a las 07:00 y en TikTok («solo yo»). Si en YouTube quedó privado, recordar a Carlos que lo publique en Studio.
+2. Esperar las respuestas de la auditoría de YouTube y de la review de TikTok; ayudar a Carlos a contestar si piden algo.
+3. Cuando TikTok apruebe: cambiar secretos por los de Production y reconectar una vez.
