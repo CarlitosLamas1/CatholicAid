@@ -4,6 +4,7 @@
   1. 🎬 Vídeo listo: te manda el vídeo para que lo veas, y cuándo y dónde se publicará.
   2. ✅/⛔ Revisión: si se sube a YouTube o no (lo manda proceso/publicar.py).
   3. 📺/🎵 Publicado: cuando ya es público en YouTube y cuando se publica en TikTok.
+  4. ❌ Fallo: si falla la creación del vídeo, y cuándo se vuelve a intentar.
 
 Regla de oro: un aviso NUNCA rompe la producción. Todo error se captura y el programa sale con 0.
 
@@ -11,6 +12,7 @@ Uso:
   python3 proceso/avisos.py listo              -> 🎬 vídeo listo (lee salida/*/ y episodios/)
   python3 proceso/avisos.py youtube            -> 📺 si el vídeo de hoy ya es público (una sola vez)
   python3 proceso/avisos.py tiktok <fecha>     -> 🎵 publicado en TikTok
+  python3 proceso/avisos.py fallo [fecha] [url] -> ❌ falló la creación del vídeo y cuándo se reintenta
   python3 proceso/avisos.py prueba             -> mensaje de prueba (falla si Telegram no responde)
 
 Necesita TELEGRAM_BOT_TOKEN (secreto) y TELEGRAM_CHAT_ID (variable del repo).
@@ -173,6 +175,22 @@ def aviso_tiktok(fecha):
     enviar(f"🎵 <b>Publicado en TikTok</b> · {e(fecha_txt(fecha))}{nota}\n📖 {e(reg.get('cita', ''))}\n🔗 {TIKTOK_PERFIL}")
 
 
+REINTENTOS_UTC = [15, 17, 19, 20, 21]  # horas de «Evangelio diario» (.github/workflows/evangelio-diario.yml)
+
+
+def aviso_fallo(fecha="", enlace=""):
+    ahora = dt.datetime.now(dt.timezone.utc)
+    fecha = fecha or str(dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
+    siguiente = next((h for h in REINTENTOS_UTC if h > ahora.hour), None)
+    if siguiente is not None:
+        hora = ahora.replace(hour=siguiente, minute=0).astimezone(MADRID).strftime("%H:%M")
+        cuando = f"🔁 Se vuelve a intentar solo a las {hora}."
+    else:
+        cuando = "⚠️ Hoy ya no quedan intentos automáticos: el gestor lo revisará."
+    enviar(f"❌ <b>No se ha podido crear el vídeo</b> del {e(fecha_txt(fecha))}.\n{cuando}"
+           + (f"\n🔗 {e(enlace)}" if enlace else ""))
+
+
 def main():
     orden = sys.argv[1] if len(sys.argv) > 1 else ""
     try:
@@ -189,6 +207,8 @@ def main():
             aviso_listo()
         elif orden == "youtube":
             aviso_youtube()
+        elif orden == "fallo":
+            aviso_fallo(*sys.argv[2:4])
         elif orden == "tiktok":
             aviso_tiktok(sys.argv[2])
         else:

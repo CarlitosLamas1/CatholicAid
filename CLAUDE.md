@@ -12,11 +12,12 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 - **Cada sábado 12:00 UTC** (`preparar-semana.yml`): guarda en `biblia/citas.json` las citas de los próximos días y el Torres Amat necesario.
 - **Cada domingo 17:00 UTC** (rutina de Claude en la nube «CatholicAid · Gestor semanal», https://claude.ai/code/routines/trig_01DuGF5Ed1n51CatmqDQy96f): revisa los textos Torres Amat de la semana siguiente y escribe un informe en `informes/AAAA-MM-DD.md`.
 
-## Avisos por Telegram (`proceso/avisos.py`) · SOLO esto (decisión de Carlos, 05/11/2026: nada de extras)
+## Avisos por Telegram (`proceso/avisos.py`) · SOLO esto (decisión de Carlos, 05/11/2026: nada de extras salvo el aviso de fallo)
 Bot **@CatolicAid_bot**; token en el secreto `TELEGRAM_BOT_TOKEN`, chat de Carlos en la variable del repo `TELEGRAM_CHAT_ID` (1116384184). El bot solo avisa (no escucha ni tiene órdenes). Un aviso **nunca** bloquea: el módulo captura todo y sale con 0.
 1. 🎬 **Vídeo listo** (último paso de «Evangelio diario»): manda el vídeo a Carlos para que lo vea, con cuándo (fecha, 7:00) y dónde (YouTube y TikTok, si el revisor lo aprueba).
 2. ✅/⛔ **Revisión**: `proceso/publicar.py` avisa si se sube a YouTube o si no se publica.
 3. 📺 **Publicado en YouTube** («Telegram: publicado en YouTube», `telegram-youtube.yml`, intentos a las 6–11 UTC; una sola vez: `telegram_youtube` en el registro) y 🎵 **Publicado en TikTok** (último paso de «Publicar en TikTok»).
+4. ❌ **Fallo al crear el vídeo** (último paso de «Evangelio diario», solo si falla): qué día y a qué hora se reintenta solo (`REINTENTOS_UTC` en avisos.py; mantenlo igual que los cron).
 «Configurar Telegram» obtiene el chat_id (getUpdates), quita el menú de órdenes y manda una prueba; la variable la guarda el gestor con `gh variable set TELEGRAM_CHAT_ID` (GitHub no deja al workflow). No añadas más avisos ni funciones al bot sin que Carlos lo pida.
 
 Proceso (`proceso/evangelio.py`):
