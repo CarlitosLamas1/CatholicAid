@@ -203,6 +203,8 @@ def aviso_listo():
     if yt.get("url"):
         cuando = "se publica a las 07:00" if yt.get("publishAt") else f"queda {yt.get('privacyStatus', 'privado')}"
         lineas.append(f"▶️ {e(yt['url'])} ({cuando})")
+    elif reg.get("modo") == "diario":
+        lineas.append("🔎 Ahora lo revisa el agente revisor; si da el OK, se sube a YouTube para las 7:00.")
     else:
         lineas.append("▶️ No se ha subido a YouTube (prueba sin subir)")
     if reg.get("modo") == "prueba":
@@ -222,7 +224,7 @@ def aviso_listo():
         log(f"sin fotograma ({ex})")
     botones = None
     hoy = dt.datetime.now(MADRID).date()
-    if reg.get("modo") == "diario" and yt.get("id") and dt.date.fromisoformat(reg["fecha"]) > hoy:
+    if reg.get("modo") == "diario" and dt.date.fromisoformat(reg["fecha"]) > hoy:
         f = reg["fecha"]
         botones = [[("👍 Publicar", f"ok|{f}"), ("⛔ No publicar", f"no|{f}")],
                    [("🎨 Otras imágenes", f"img|{f}"), ("🎙️ Otra lectura", f"voz|{f}")],
@@ -303,6 +305,14 @@ def aviso_manana():
         enviar(f"🔔 {a}")
 
 
+def revision(fecha):
+    """revisiones/AAAA-MM-DD.json del agente revisor ({} si aún no hay)."""
+    try:
+        return json.loads((RAIZ / "revisiones" / f"{fecha}.json").read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
 def pausa_hasta():
     try:
         return json.loads((RAIZ / "estado" / "telegram.json").read_text(encoding="utf-8")).get("pausa_hasta", "")
@@ -327,7 +337,11 @@ def proximos_dias(hoy):
         elif r.get("no_publicar"):
             marca = "⛔ no se publica"
         elif r.get("youtube") and r.get("modo") == "diario":
-            marca = "✅ preparado"
+            marca = "✅ revisado y programado"
+        elif r.get("modo") == "diario":
+            rev = revision(f)
+            marca = ("✅ revisado (OK)" if rev.get("ok") else
+                     "❌ el revisor no lo aprobó" if rev else "🔎 hecho, pendiente de revisión")
         elif i == 1:
             marca = "⏳ falta · se genera esta tarde"
         else:

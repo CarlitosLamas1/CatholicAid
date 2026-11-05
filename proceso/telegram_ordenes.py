@@ -119,6 +119,23 @@ def no_publicar(fecha, motivo="Carlos pidió no publicarlo"):
     return "\n".join(partes)
 
 
+def aprobar(fecha):
+    """👍 de Carlos: cuenta como revisión OK y lanza la publicación (los push del bot no disparan workflows)."""
+    reg = episodio(fecha)
+    if reg.get("youtube"):
+        return f"👍 Perfecto: el vídeo del {e(fecha_txt(fecha))} ya está programado para las 7:00."
+    rev = RAIZ / "revisiones" / f"{fecha}.json"
+    rev.parent.mkdir(exist_ok=True)
+    rev.write_text(json.dumps({"ok": True, "por": "Carlos", "motivos": []}, ensure_ascii=False, indent=2) + "\n",
+                   encoding="utf-8")
+    guardar_git(f"Telegram: Carlos aprueba el {fecha}", "revisiones/")
+    lanzado = subprocess.run(["gh", "workflow", "run", "publicar-revisado.yml", "-f", f"fecha={fecha}"],
+                             capture_output=True).returncode == 0
+    if lanzado:
+        return f"👍 Aprobado por ti: subo el vídeo del {e(fecha_txt(fecha))} a YouTube para las 7:00. Te aviso al terminar."
+    return f"👍 Aprobado por ti: el vídeo del {e(fecha_txt(fecha))} se publicará a su hora."
+
+
 def rehacer(fecha, imagenes):
     if dt.date.fromisoformat(str(fecha)) <= hoy():
         return f"Ese vídeo ({e(fecha_txt(fecha))}) ya está publicado o publicándose; no lo rehago."
@@ -134,7 +151,8 @@ def rehacer(fecha, imagenes):
         reg.pop("no_publicar", None)
         guardar_episodio(fecha, reg)
     quitar_tiktok(fecha)
-    rutas = ["episodios/"]
+    (RAIZ / "revisiones" / f"{fecha}.json").unlink(missing_ok=True)  # el vídeo nuevo necesita su propia revisión
+    rutas = ["episodios/", "revisiones/"]
     if imagenes:
         for p in (RAIZ / "biblioteca" / "dias").glob(f"{fecha}_e*.png"):
             p.unlink()
@@ -154,7 +172,7 @@ def pausa(dias):
     notas = []
     for i in range(1, dias + 1):
         f = hoy() + dt.timedelta(days=i)
-        if episodio(f).get("youtube") or subprocess.run(["gh", "release", "view", f"tiktok-{f}"],
+        if episodio(f).get("youtube") or episodio(f).get("modo") == "diario" or subprocess.run(["gh", "release", "view", f"tiktok-{f}"],
                                                          capture_output=True).returncode == 0:
             notas.append(no_publicar(f, "pausa"))
     guardar_git("Telegram: pausa", "estado/", "episodios/")
@@ -190,7 +208,7 @@ def reintentar():
     f = hoy() + dt.timedelta(days=1)
     if avisos.pausa_hasta() >= str(f):
         return "Mañana está en pausa. Usa /seguir primero."
-    if episodio(f).get("youtube"):
+    if episodio(f).get("youtube") or episodio(f).get("modo") == "diario":
         return rehacer(f, imagenes=False)
     sh("gh", "workflow", "run", "evangelio-diario.yml", "-f", f"fecha={f}", "-f", "modo=diario")
     return f"🔁 Generando el vídeo del {e(fecha_txt(f))}. Te aviso cuando esté (unos 15 minutos)."
@@ -494,7 +512,7 @@ def guardar_retoque(fecha, campo, valor):
     nombres = {"frase_clave": f"💬 Frase: «{e(valor)}»", "reflexion": f"🕊️ Reflexión: {e(valor)}",
                "musica": f"🎵 Música: {e(nombre_pista(valor))}", "estilo": f"🖌️ Estilo: {e(valor)}"}
     texto = f"✍️ Guardado para el {e(fecha_txt(fecha))}.\n{nombres[campo]}"
-    if episodio(fecha).get("youtube") and dt.date.fromisoformat(fecha) > hoy():
+    if episodio(fecha).get("modo") == "diario" and dt.date.fromisoformat(fecha) > hoy():
         enviar(texto + "\n\nEl vídeo ya está hecho. ¿Lo rehago ya con este cambio?",
                botones=[[("✅ Rehacer ya", f"rh|{fecha}"), ("✏️ Otro retoque", f"ret|{fecha}")]])
         return None
@@ -765,7 +783,7 @@ def responder_boton(cb):
     if accion == "prueba":
         return f"✅ Botón «{e(fecha)}» recibido: los botones funcionan. (Era una prueba: no he cambiado nada.)"
     if accion == "ok":
-        return f"👍 Perfecto: el vídeo del {e(fecha_txt(fecha))} sale a las 7:00."
+        return aprobar(fecha)
     if accion == "no":
         return ejecutar({"accion": "no_publicar", "fecha": fecha})
     if accion in ("img", "voz"):
@@ -872,6 +890,45 @@ def atender(updates):
             enviar(r)
 
 
+# ---------- Vigilante de horarios (los cron de GitHub pueden llegar horas tarde) ----------
+
+def runs_desde(workflow, desde):
+    """¿Hay algún run de ese workflow creado después de «desde» (UTC) o todavía en marcha?"""
+    lista = json.loads(sh("gh", "run", "list", "-w", workflow, "-L", "15", "--json", "createdAt,status"))
+    for r in lista:
+        creado = dt.datetime.fromisoformat(r["createdAt"].replace("Z", "+00:00"))
+        if creado >= desde or r["status"] in ("queued", "in_progress", "waiting", "pending"):
+            return True
+    return False
+
+
+def vigilar(ahora=None):
+    ahora = ahora or dt.datetime.now(dt.timezone.utc)
+    local = ahora.astimezone(MADRID)
+    hoy_l = local.date()
+    # 🎵 TikTok: a partir de las 07:05 de Madrid (hasta las 12:00), si hay vídeo de hoy y no se ha intentado.
+    if dt.time(7, 5) <= local.time() <= dt.time(12, 0):
+        desde = dt.datetime.combine(hoy_l, dt.time(6, 55), MADRID).astimezone(dt.timezone.utc)
+        if subprocess.run(["gh", "release", "view", f"tiktok-{hoy_l}"], capture_output=True).returncode == 0 \
+                and not runs_desde("tiktok-publicar.yml", desde):
+            sh("gh", "workflow", "run", "tiktok-publicar.yml")
+            log("vigilante: lanzado Publicar en TikTok")
+            enviar("⏰ GitHub no lanzó a su hora la publicación en TikTok; la he lanzado yo.")
+    # 🎬 Vídeo de mañana: ventanas 15:30, 17:30 y 19:30 UTC (30 min después de cada cron).
+    manana = hoy_l + dt.timedelta(days=1)
+    reg = episodio(manana)
+    if reg.get("modo") == "diario" or avisos.pausa_hasta() >= str(manana):
+        return
+    for h in (19, 17, 15):
+        ventana = ahora.replace(hour=h, minute=30, second=0, microsecond=0)
+        if ahora >= ventana:
+            if not runs_desde("evangelio-diario.yml", ventana - dt.timedelta(minutes=30)):
+                sh("gh", "workflow", "run", "evangelio-diario.yml", "-f", "modo=diario")
+                log(f"vigilante: lanzado Evangelio diario ({h}:30 UTC)")
+                enviar(f"⏰ GitHub no lanzó a su hora el vídeo de mañana ({e(fecha_txt(manana))}); lo he lanzado yo.")
+            return
+
+
 def main(minutos=0):
     """minutos=0: atiende lo pendiente y termina. minutos>0: se queda escuchando (respuesta en segundos) hasta
     agotar el tiempo o hasta que cambie el código del bot; luego el workflow lanza el relevo."""
@@ -896,7 +953,16 @@ def main(minutos=0):
         if __import__("time").time() > fin:
             log("tiempo agotado: paso el relevo")
             return
-        if not updates and int(__import__("time").time()) % 600 < 55 and actualizar_repo():
+        if not updates and int(__import__("time").time()) % 300 < 55:  # cada ~5 min
+            try:
+                actualizar_repo_y_codigo = actualizar_repo()
+                vigilar()
+            except Exception as ex:
+                log(f"vigilante: {ex}")
+                actualizar_repo_y_codigo = False
+        else:
+            actualizar_repo_y_codigo = False
+        if actualizar_repo_y_codigo:
             log("ha cambiado el código del bot: paso el relevo para usar la versión nueva")
             return
 
