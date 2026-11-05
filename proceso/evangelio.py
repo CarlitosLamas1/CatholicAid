@@ -338,9 +338,10 @@ def frase_de_reserva(fuente):
     return min(buenas, key=len) if buenas else ""
 
 
-def gancho_y_reflexion(frs, ev):
+def gancho_y_reflexion(frs, ev, fiable=True):
     """Gemini elige la frase clave (literal, de las palabras de Jesús) y escribe una reflexión breve.
-    La frase se valida: tiene que estar tal cual en el texto. El Evangelio no se toca."""
+    La frase se valida: tiene que estar tal cual en el texto. El Evangelio no se toca.
+    fiable=False (reparto por reglas): no se sabe con certeza quién habla, así que sin Gemini no hay gancho."""
     jesus = [hablado(f["texto"]) for f in frs if f["personaje"] == "jesus"]
     fuente = jesus or [hablado(ev["texto"])]
     quien = "las palabras de Jesús" if jesus else "el texto"
@@ -380,7 +381,7 @@ LECTURA COMPLETA (contexto):
             return frase, reflexion
         except Exception as e:
             log(f"   {modelo}: gancho/reflexión falló ({e})")
-    return frase_de_reserva(fuente), ""
+    return (frase_de_reserva(fuente) if fiable else ""), ""
 
 
 def preparar_fragmentos(g, ev):
@@ -998,7 +999,7 @@ def main():
         g = guion_reglas(ev["texto"])
     frs = preparar_fragmentos(g, ev)
     busquedas = {int(e["numero"]): e["busqueda"] for e in g.get("escenas", [])}
-    frase, reflexion = gancho_y_reflexion(frs, ev)
+    frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
     log(f"   Frase clave: {frase or '(ninguna)'}")
     log(f"   Reflexión: {reflexion or '(ninguna)'}")
     if reflexion:

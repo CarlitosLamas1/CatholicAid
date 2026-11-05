@@ -17,7 +17,10 @@ Proceso (`proceso/evangelio.py`):
 3. **Voces**: Gemini TTS con la clave gratuita `GEMINI_API_KEY`. Cada personaje tiene SIEMPRE la misma voz; el narrador depende del evangelista (`narradores`). Sin respaldo: si falla, no se publica con otras voces y se reintenta más tarde.
 4. **Imágenes**: Nano Banana por la API (clave de pago `GEMINI_API_KEY_IMAGENES`, prepago sin recarga automática) pinta una imagen por escena con los retratos de `personajes/` como referencia y la guarda en `biblioteca/dias/AAAA-MM-DD_eN.png`. Prioridad al montar: imagen del día → biblioteca (`biblioteca/clips/`, elegida por Gemini) → devocionales D01–D10 → cuadro clásico (Bloch, Hofmann, Tissot). Ninguna imagen dura más de 16 s.
 5. **Vídeo** 1080×1920 (FFmpeg) + música de Wikimedia Commons (`musica/`, dominio público).
-6. **YouTube**: se sube en privado (programado en modo diario). Registro en `episodios/AAAA-MM-DD.json`.
+   - **Gancho** (`gancho_segundos`, 2 s): antes de la lectura, la frase clave en grande (serif fina, velo suave). La elige Gemini de las palabras de Jesús y se valida que sea **literal**; si no, se usa la frase más corta de Jesús.
+   - **Reflexión final**: tras «Palabra del Señor», 1–2 frases o una pregunta (Gemini, voz del narrador, subtítulo en cursiva). Se guarda en el registro (`reflexion`) y en la descripción de YouTube. No forma parte del Evangelio.
+   - **Audio** normalizado a **-14 LUFS** (dos pasadas, pico -1,5 dB); el valor medido queda en `lufs`.
+6. **YouTube**: se sube en privado (programado en modo diario) y se añade a la lista «Evangelio según san Mateo/Marcos/Lucas/Juan» (se crea si no existe). Registro en `episodios/AAAA-MM-DD.json` (`frase_clave`, `reflexion`, `lufs`, `youtube.lista`).
 
 Ajustes en `config/personajes.json` (voces, narradores, estilos, modelo de imagen, música). Herramienta de imágenes suelta: `proceso/imagenes.py`; prueba rápida: workflow «Probar imagen».
 
