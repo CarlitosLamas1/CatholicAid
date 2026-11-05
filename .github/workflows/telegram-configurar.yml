@@ -1,0 +1,51 @@
+name: Configurar Telegram
+
+# Lee el último mensaje que Carlos escribió al bot (getUpdates), obtiene su chat_id,
+# lo guarda como variable del repo TELEGRAM_CHAT_ID y manda un mensaje de prueba.
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  configurar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Obtener chat_id
+        id: chat
+        shell: python
+        run: |
+          import json, os, urllib.request
+          t = os.environ["TELEGRAM_BOT_TOKEN"].strip()
+          if not t:
+              raise SystemExit("Falta el secreto TELEGRAM_BOT_TOKEN")
+          with urllib.request.urlopen(f"https://api.telegram.org/bot{t}/getMe", timeout=30) as r:
+              print("Bot:", "@" + json.loads(r.read())["result"]["username"])
+          with urllib.request.urlopen(f"https://api.telegram.org/bot{t}/getUpdates", timeout=30) as r:
+              res = json.loads(r.read())["result"]
+          chats = [u[k]["chat"] for u in res for k in ("message", "edited_message") if k in u]
+          chats = [c for c in chats if c.get("type") == "private"]
+          if not chats:
+              raise SystemExit("No encuentro ningún mensaje: escribe «hola» al bot y vuelve a lanzar este workflow.")
+          c = chats[-1]
+          print("Chat:", c.get("first_name", ""), c["id"])
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"id={c['id']}\n")
+      - name: Guardar como variable del repo
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CHAT: ${{ steps.chat.outputs.id }}
+        run: |
+          if gh variable set TELEGRAM_CHAT_ID --body "$CHAT" 2>/dev/null; then
+            echo "Variable TELEGRAM_CHAT_ID guardada."
+          else
+            echo "::warning::GitHub no deja a este proceso guardar variables. El gestor la guarda con: gh variable set TELEGRAM_CHAT_ID --body $CHAT"
+          fi
+      - name: Mensaje de prueba
+        env:
+          TELEGRAM_CHAT_ID: ${{ steps.chat.outputs.id }}
+        run: python3 proceso/avisos.py prueba
