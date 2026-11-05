@@ -1,57 +1,78 @@
 {
   "fecha": "2026-11-06",
-  "modo": "prueba",
+  "modo": "diario",
   "cita": "Lucas 16, 1-8",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/06.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
-  "guion": "reglas",
+  "guion": "gemini-3.6-flash",
   "voces": "gemini",
-  "peticiones_voz": 5,
+  "peticiones_voz": 7,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 98.1,
+  "duracion_s": 170.0,
   "imagenes": [
     "dias/2026-11-06_e1.png",
-    "biblioteca/D01",
-    "biblioteca/D03",
+    "biblioteca/D04",
     "biblioteca/D10",
-    "biblioteca/D06",
+    "biblioteca/D05",
+    "dias/2026-11-06_e2.png",
+    "biblioteca/D08",
+    "dias/2026-11-06_e3.png",
+    "biblioteca/D01",
     "biblioteca/D07",
-    "biblioteca/D08"
+    "biblioteca/D02",
+    "biblioteca/D03",
+    "biblioteca/D09"
   ],
-  "frase_clave": "Dame cuenta de tu administración",
-  "reflexion": "Dios nos confía sus bienes para hacer el bien a los demás con generosidad. ¿Cómo empleas tu tiempo y tus talentos hoy?",
+  "frase_clave": "¿Qué es esto que oigo de ti?",
+  "reflexion": "Dios te invita a emplear el talento y la astucia para hacer el bien en el mundo. ¿Pones la misma pasión en las cosas del Cielo que en tus proyectos personales?",
   "lufs": -14.0,
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, decía Jesús a sus discípulos: “Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’. Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’. Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”.",
   "fragmentos": [
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 2.6,
+      "inicio": 2.57,
       "texto": "Lectura del santo evangelio según san Lucas."
     },
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 8.12,
+      "inicio": 23.59,
       "texto": "En aquel tiempo, decía Jesús a sus discípulos:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 13.28,
-      "texto": "“Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’. Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’. Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”."
+      "inicio": 46.85,
+      "texto": "“Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 62.68,
+      "texto": "Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 86.9,
+      "texto": "Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’. Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”."
     },
     {
       "personaje": "narrador",
-      "escena": 1,
-      "inicio": 83.28,
+      "escena": 3,
+      "inicio": 102.08,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
-      "escena": 1,
-      "inicio": 87.42,
-      "texto": "Dios nos confía sus bienes para hacer el bien a los demás con generosidad. ¿Cómo empleas tu tiempo y tus talentos hoy?"
+      "escena": 3,
+      "inicio": 111.9,
+      "texto": "Dios te invita a emplear el talento y la astucia para hacer el bien en el mundo. ¿Pones la misma pasión en las cosas del Cielo que en tus proyectos personales?",
+      "reflexion": true
     }
   ],
-  "generado": "2026-11-05T16:41:20+01:00"
+  "generado": "2026-11-05T18:34:47+01:00",
+  "revision": "pendiente"
 }
