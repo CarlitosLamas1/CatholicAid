@@ -7,7 +7,7 @@ on:
       aviso:
         description: "Qué aviso probar"
         type: choice
-        options: [tiktok, accion, prueba, botones, mensaje]
+        options: [tiktok, accion, prueba, botones, mensaje, gemini]
         default: tiktok
       texto:
         description: "Para «mensaje»: lo que escribiría Carlos (se procesa como si lo mandara él)"
@@ -42,5 +42,6 @@ jobs:
             accion) python3 proceso/avisos.py accion "(Prueba) Así te llegará algo que requiera tu acción." ;;
             botones) python3 -c "import sys; sys.path.insert(0, 'proceso'); import avisos; avisos.enviar('🧪 <b>Prueba de botones</b>\nAsí llegará el aviso ✅. Pulsa cualquiera: no cambia nada y te responderé en 5–15 minutos.', botones=[[('👍 Publicar', 'prueba|Publicar'), ('⛔ No publicar', 'prueba|No publicar')], [('🎨 Otras imágenes', 'prueba|Otras imágenes'), ('🎙️ Otra lectura', 'prueba|Otra lectura')]])" ;;
             mensaje) python3 -c "import os, sys; sys.path.insert(0, 'proceso'); import telegram_ordenes as t, avisos; r = t.responder_texto(os.environ['TEXTO']); print('respuesta:', r); r and avisos.enviar('🧪 (prueba del gestor: «' + avisos.e(os.environ['TEXTO']) + '»)\\n' + r)" ;;
+            gemini) python3 -c "import sys; sys.path.insert(0, 'proceso'); import telegram_ordenes as t; print('GEMINI_OK', t.gemini_json([{'text': 'Responde ok=true'}], {'type': 'OBJECT', 'properties': {'ok': {'type': 'BOOLEAN'}}}))" ;;
             *) python3 proceso/avisos.py prueba ;;
           esac
