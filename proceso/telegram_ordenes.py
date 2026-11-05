@@ -368,18 +368,8 @@ def gemini_json(partes, esquema, temperatura=0.2):
     if not clave:
         raise RuntimeError("falta GEMINI_API_KEY")
     ultimo = None
-    preferidos = avisos.config().get("modelos_texto", ["gemini-2.5-flash"])
-    try:  # como el proceso principal: los preferidos que existan + otros «flash» disponibles
-        req = urllib.request.Request("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200",
-                                     headers={"x-goog-api-key": clave})
-        with urllib.request.urlopen(req, timeout=30) as r:
-            nombres = [m["name"].split("/")[-1] for m in json.loads(r.read()).get("models", [])
-                       if "generateContent" in m.get("supportedGenerationMethods", [])]
-        extra = sorted((n for n in nombres if "flash" in n and n not in preferidos
-                        and not re.search(r"tts|image|live|audio|embed|exp", n)), reverse=True)
-        modelos = [m for m in preferidos if m in nombres] + extra[:3]
-    except Exception:
-        modelos = preferidos
+    # Modelos propios del bot («lite»): así no gasta la cuota diaria de los modelos del vídeo.
+    modelos = avisos.config().get("modelos_bot") or ["gemini-flash-lite-latest"]
     for modelo in [m for m in modelos for _ in (0, 1)]:  # cada modelo, dos intentos
         cuerpo = json.dumps({"contents": [{"parts": partes}],
                              "generationConfig": {"responseMimeType": "application/json", "responseSchema": esquema,
