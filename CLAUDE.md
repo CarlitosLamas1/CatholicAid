@@ -44,7 +44,7 @@ Fiel al sentido del Torres Amat; ortografía y vocabulario actuales; sin glosas 
 - [x] Imágenes automáticas con Nano Banana (Flash) y retratos de referencia.
 - [x] Publicación diaria automática con reintentos y gestor semanal en la nube.
 - [ ] **Una vez (Carlos):** confirmar que la app OAuth de Google Cloud está «En producción» (si no, el token de YouTube caduca a los 7 días).
-- [ ] **Una vez (Carlos):** enviar la auditoría de la API de YouTube (el gestor prepara páginas de inicio/privacidad y el texto). Hasta que la aprueben, los vídeos quedan privados y hay que publicarlos a mano.
+- [ ] Auditoría de YouTube: Carlos decidió NO enviarla (05/11/2026). Comprobar el 06/11 a las 07:00 si el vídeo programado se publica solo; si queda privado, recordárselo (formulario y documentos preparados en auditoria/youtube.md).
 - [ ] Vigilar el saldo de prepago de imágenes (aviso en el informe semanal).
 - [x] Voces fijas elegidas por casting (ver `_voces` en config); una sola grabación por personaje.
 - [x] TikTok conectado (Sandbox: publica en «solo yo»). Pendiente: enviar la App review de TikTok (textos en el historial del gestor) y, al aprobarla, reconectar con las claves de Production.
