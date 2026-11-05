@@ -126,7 +126,7 @@ def aprobar(fecha):
         return f"👍 Perfecto: el vídeo del {e(fecha_txt(fecha))} ya está programado para las 7:00."
     rev = RAIZ / "revisiones" / f"{fecha}.json"
     rev.parent.mkdir(exist_ok=True)
-    rev.write_text(json.dumps({"ok": True, "por": "Carlos", "motivos": []}, ensure_ascii=False, indent=2) + "\n",
+    rev.write_text(json.dumps({"ok": True, "por": "Carlos", "motivos": [], "generado": reg.get("generado")}, ensure_ascii=False, indent=2) + "\n",
                    encoding="utf-8")
     guardar_git(f"Telegram: Carlos aprueba el {fecha}", "revisiones/")
     lanzado = subprocess.run(["gh", "workflow", "run", "publicar-revisado.yml", "-f", f"fecha={fecha}"],
