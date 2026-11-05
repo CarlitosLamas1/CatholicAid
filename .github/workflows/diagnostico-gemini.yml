@@ -1,0 +1,35 @@
+name: Diagnóstico Gemini
+
+# Prueba con una petición mínima qué modelos de texto de Gemini responden ahora con la clave gratuita
+# y cuál es su límite gratuito (no gasta la clave de pago).
+on: workflow_dispatch
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probar modelos
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        shell: python
+        run: |
+          import json, os, re, urllib.request, urllib.error
+          G = "https://generativelanguage.googleapis.com/v1beta/models"
+          H = {"Content-Type": "application/json", "x-goog-api-key": os.environ["GEMINI_API_KEY"].strip()}
+          with urllib.request.urlopen(urllib.request.Request(G + "?pageSize=200", headers=H), timeout=60) as r:
+              modelos = [m["name"].split("/")[-1] for m in json.loads(r.read())["models"]
+                         if "generateContent" in m.get("supportedGenerationMethods", [])]
+          texto = [m for m in modelos if re.search(r"flash|pro|gemma", m) and not re.search(r"tts|image|live|audio|embed", m)]
+          print("Modelos de texto:", ", ".join(texto))
+          cuerpo = json.dumps({"contents": [{"parts": [{"text": "Responde solo: OK"}]}]}).encode()
+          for m in texto:
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(f"{G}/{m}:generateContent", cuerpo, H), timeout=60) as r:
+                      print(f"✅ {m}: responde")
+              except urllib.error.HTTPError as e:
+                  t = e.read().decode(errors="replace")
+                  lim = re.findall(r"metric: [^,]*?(\w+), limit: (\d+)", t)
+                  print(f"❌ {m}: {e.code} {lim[:2] if lim else t[:120]}")
+              except Exception as e:
+                  print(f"❌ {m}: {e}")
