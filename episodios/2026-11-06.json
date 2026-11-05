@@ -4,58 +4,57 @@
   "cita": "Lucas 16, 1-8",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/06.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
-  "guion": "gemini-flash-lite-latest",
+  "guion": "reglas",
   "voces": "gemini",
-  "peticiones_voz": 1,
+  "peticiones_voz": 4,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 93.4,
+  "duracion_s": 75.5,
   "imagenes": [
     "dias/2026-11-06_e1.png",
-    "biblioteca/G07",
-    "biblioteca/D10",
-    "biblioteca/D03",
+    "biblioteca/D02",
+    "biblioteca/D06",
     "biblioteca/D09",
-    "dias/2026-11-06_e2.png",
-    "biblioteca/D02"
+    "biblioteca/D08"
   ],
+  "frase_clave": "Él respondió: Cien cargas de trigo.",
+  "reflexion": "",
+  "lufs": -14.0,
   "fragmentos": [
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 0.6,
+      "inicio": 2.6,
       "texto": "Lectura del santo evangelio según san Lucas."
     },
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 4.31,
+      "inicio": 6.85,
       "texto": "En aquel tiempo, decía Jesús a sus discípulos:"
     },
     {
-      "personaje": "jesus",
+      "personaje": "apostol",
       "escena": 1,
-      "inicio": 8.19,
-      "texto": "“Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’. Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’."
+      "inicio": 10.51,
+      "texto": "“Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’. Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’. Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”."
     },
     {
       "personaje": "narrador",
-      "escena": 2,
-      "inicio": 76.75,
-      "texto": "Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 2,
-      "inicio": 90.49,
+      "escena": 1,
+      "inicio": 72.84,
       "texto": "Palabra del Señor."
     }
   ],
-  "generado": "2026-11-04T23:13:20+01:00",
+  "generado": "2026-11-05T15:15:42+01:00",
   "youtube": {
-    "id": "K-NKERWPRIg",
-    "url": "https://youtu.be/K-NKERWPRIg",
+    "id": "RvAYCD-j_WY",
+    "url": "https://youtu.be/RvAYCD-j_WY",
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true
+    "containsSyntheticMedia": true,
+    "lista": {
+      "titulo": "Evangelio según san Lucas",
+      "error": "falta permiso"
+    }
   }
 }
