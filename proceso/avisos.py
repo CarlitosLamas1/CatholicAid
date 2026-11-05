@@ -65,7 +65,7 @@ def _api(metodo, datos=None, archivo=None):
             cuerpo += (f"--{limite}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n").encode()
         campo, ruta = archivo
         cuerpo += (f"--{limite}\r\nContent-Disposition: form-data; name=\"{campo}\"; filename=\"{Path(ruta).name}\"\r\n"
-                   "Content-Type: image/jpeg\r\n\r\n").encode() + Path(ruta).read_bytes() + f"\r\n--{limite}--\r\n".encode()
+                   f"Content-Type: {'video/mp4' if str(ruta).endswith('.mp4') else 'image/jpeg'}\r\n\r\n").encode() + Path(ruta).read_bytes() + f"\r\n--{limite}--\r\n".encode()
         req = urllib.request.Request(url, data=cuerpo, headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
     else:
         req = urllib.request.Request(url, data=urllib.parse.urlencode(datos or {}).encode())
@@ -83,10 +83,17 @@ def chat_id():
     return c
 
 
-def enviar(texto, foto=None):
+def teclado(botones):
+    """botones: filas de (texto, dato) -> reply_markup de Telegram."""
+    return json.dumps({"inline_keyboard": [[{"text": t, "callback_data": d} for t, d in fila] for fila in botones]})
+
+
+def enviar(texto, foto=None, botones=None):
     """Envía un mensaje (HTML). Nunca lanza excepciones: devuelve True/False."""
     try:
         base = {"chat_id": chat_id(), "parse_mode": "HTML"}
+        if botones:
+            base["reply_markup"] = teclado(botones)
         if foto and Path(foto).exists() and len(texto) <= 1024:
             try:
                 _api("sendPhoto", {**base, "caption": texto}, ("photo", foto))
@@ -94,8 +101,12 @@ def enviar(texto, foto=None):
                 return True
             except Exception as ex:
                 log(f"la imagen no se pudo enviar ({ex}); mando solo el texto")
-        for trozo in trocear(texto, 4000):
-            _api("sendMessage", {**base, "text": trozo, "disable_web_page_preview": "true"})
+        trozos = trocear(texto, 4000)
+        for i, trozo in enumerate(trozos):
+            datos = {**base, "text": trozo, "disable_web_page_preview": "true"}
+            if i < len(trozos) - 1:
+                datos.pop("reply_markup", None)
+            _api("sendMessage", datos)
         log("enviado")
         return True
     except Exception as ex:
@@ -209,7 +220,13 @@ def aviso_listo():
                          Path(tempfile.gettempdir()) / "fotograma.jpg")
     except Exception as ex:
         log(f"sin fotograma ({ex})")
-    enviar("\n".join(lineas), foto)
+    botones = None
+    hoy = dt.datetime.now(MADRID).date()
+    if reg.get("modo") == "diario" and yt.get("id") and dt.date.fromisoformat(reg["fecha"]) > hoy:
+        f = reg["fecha"]
+        botones = [[("👍 Publicar", f"ok|{f}"), ("⛔ No publicar", f"no|{f}")],
+                   [("🎨 Otras imágenes", f"img|{f}"), ("🎙️ Otra lectura", f"voz|{f}")]]
+    enviar("\n".join(lineas), foto, botones)
 
 
 def aviso_tiktok(fecha):
@@ -228,7 +245,9 @@ def aviso_manana():
     reg = episodio(hoy)
     yt = reg.get("youtube", {})
     acciones = []
-    if yt.get("id"):
+    if reg.get("no_publicar") or str(hoy) <= pausa_hasta():
+        pass  # Carlos pidió no publicarlo
+    elif yt.get("id"):
         try:
             st = estado_youtube(yt["id"], token_youtube())
             if st and st.get("privacyStatus") == "public":
@@ -249,7 +268,24 @@ def aviso_manana():
     else:
         acciones.append(f"No hay vídeo de hoy ({e(fecha_txt(hoy))}) en YouTube.")
 
-    # 📅 Próximos 3 días
+    enviar(proximos_dias(hoy))
+
+    # 🔔 Pendientes (los lunes se recuerdan las respuestas que se esperan)
+    if hoy.weekday() == 0:
+        for p in config().get("avisos", {}).get("pendientes", []):
+            acciones.append(e(p))
+    for a in acciones:
+        enviar(f"🔔 {a}")
+
+
+def pausa_hasta():
+    try:
+        return json.loads((RAIZ / "estado" / "telegram.json").read_text(encoding="utf-8")).get("pausa_hasta", "")
+    except Exception:
+        return ""
+
+
+def proximos_dias(hoy):
     citas = {}
     try:
         citas = json.loads((RAIZ / "biblia" / "citas.json").read_text(encoding="utf-8"))
@@ -261,21 +297,18 @@ def aviso_manana():
         r = episodio(f)
         cita = r.get("cita") or citas.get(str(f), "")
         cita = f" · {e(cita)}" if cita else ""
-        if r.get("youtube") and r.get("modo") == "diario":
+        if str(f) <= pausa_hasta():
+            marca = "⏸️ en pausa"
+        elif r.get("no_publicar"):
+            marca = "⛔ no se publica"
+        elif r.get("youtube") and r.get("modo") == "diario":
             marca = "✅ preparado"
         elif i == 1:
             marca = "⏳ falta · se genera esta tarde"
         else:
             marca = "⏳ falta · se genera la víspera"
         lineas.append(f"• {e(fecha_txt(f))}{cita}: {marca}")
-    enviar("\n".join(lineas))
-
-    # 🔔 Pendientes (los lunes se recuerdan las respuestas que se esperan)
-    if hoy.weekday() == 0:
-        for p in config().get("avisos", {}).get("pendientes", []):
-            acciones.append(e(p))
-    for a in acciones:
-        enviar(f"🔔 {a}")
+    return "\n".join(lineas)
 
 
 def aviso_informe(ruta):
@@ -402,7 +435,16 @@ def aviso_fallo():
 def main():
     orden = sys.argv[1] if len(sys.argv) > 1 else ""
     try:
-        if orden == "prueba":  # el único que sí falla si Telegram no responde (para «Configurar Telegram»)
+        if orden == "comandos":  # menú «/» del bot
+            _api("setMyCommands", {"commands": json.dumps([
+                {"command": "estado", "description": "Qué hay preparado"},
+                {"command": "reintentar", "description": "Rehacer el vídeo de mañana"},
+                {"command": "pausa", "description": "No publicar N días (/pausa 3)"},
+                {"command": "seguir", "description": "Quitar la pausa"},
+                {"command": "ver", "description": "Ver el vídeo de un día (/ver 12)"},
+                {"command": "ayuda", "description": "Qué puedo hacer"}])})
+            log("menú de comandos puesto")
+        elif orden == "prueba":  # el único que sí falla si Telegram no responde (para «Configurar Telegram»)
             sys.exit(0 if enviar("👋 <b>¡Hola, Carlos!</b> Soy el gestor de CatolicAid. A partir de ahora te avisaré aquí "
                    "de los vídeos, las publicaciones, los fallos y lo que necesite de ti. 🙏") else 1)
         elif orden == "listo":

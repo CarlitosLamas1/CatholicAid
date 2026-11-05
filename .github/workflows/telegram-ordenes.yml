@@ -1,0 +1,32 @@
+name: "Telegram: órdenes"
+
+# Cada 5 minutos lee lo que Carlos ha pulsado o escrito al bot (botones del aviso ✅ y comandos
+# /estado, /reintentar, /pausa, /seguir, /ver) y lo hace. GitHub puede retrasar este horario unos minutos.
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: telegram-ordenes
+  cancel-in-progress: false
+
+jobs:
+  ordenes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Atender órdenes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python3 proceso/telegram_ordenes.py

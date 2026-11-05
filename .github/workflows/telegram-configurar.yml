@@ -48,4 +48,6 @@ jobs:
       - name: Mensaje de prueba
         env:
           TELEGRAM_CHAT_ID: ${{ steps.chat.outputs.id }}
-        run: python3 proceso/avisos.py prueba
+        run: |
+          python3 proceso/avisos.py comandos
+          python3 proceso/avisos.py prueba

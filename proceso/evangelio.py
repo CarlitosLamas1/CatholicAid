@@ -999,6 +999,13 @@ def main():
              else dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
     previo = RAIZ / "episodios" / f"{fecha}.json"
     hecho = json.loads(previo.read_text(encoding="utf-8")) if previo.exists() else {}
+    try:  # pausa pedida por Carlos desde Telegram (/pausa N): los procesos automáticos no generan nada
+        pausa = json.loads((RAIZ / "estado" / "telegram.json").read_text(encoding="utf-8")).get("pausa_hasta", "")
+    except Exception:
+        pausa = ""
+    if a.si_falta and str(fecha) <= pausa:
+        log(f"En pausa hasta el {pausa} (Telegram): no se genera el {fecha}.")
+        return
     if a.si_falta and "youtube" in hecho and hecho.get("modo") == "diario":
         log(f"El vídeo del {fecha} ya está subido; nada que hacer.")
         return
