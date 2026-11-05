@@ -562,7 +562,16 @@ Si la petición no es apropiada para un canal católico, pon "escena" vacía y e
 def pedir_imagen(peticion):
     if limite_imagenes():
         return limite_imagenes()
-    plan = plan_imagen(peticion)
+    try:
+        plan = plan_imagen(peticion)
+    except Exception as ex:  # Gemini saturado: la petición de Carlos va tal cual a Nano Banana
+        log(f"sin prompt de Gemini ({ex}); uso la petición tal cual")
+        quien = [k for k in personajes() if (RAIZ / "personajes" / f"{k}.png").exists()
+                 and personaje_en(peticion) == k or (k == "jesus" and "jes" in _sin_acentos(peticion))]
+        plan = {"escena": f"{peticion}. Escena del Evangelio, devocional y respetuosa.",
+                "estilo": "acuarela" if "acuarela" in _sin_acentos(peticion) else "oleo",
+                "personajes": sorted(set(quien)), "titulo": peticion[:60], "descripcion": peticion,
+                "peticion": peticion}
     if not plan.get("escena"):
         return f"🙏 No voy a pintar eso: {e(plan.get('titulo', ''))}"
     return generar_y_mandar(plan)
