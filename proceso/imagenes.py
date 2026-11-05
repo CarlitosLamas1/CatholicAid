@@ -71,6 +71,21 @@ def _referencia(ruta):
         return {"inlineData": {"mimeType": tipo, "data": base64.b64encode(datos).decode()}}
 
 
+def guardar(datos, destino):
+    """Guarda la imagen. Si el destino es .jpg, la convierte a JPG calidad 90 (unas 6 veces menos que PNG,
+    sin diferencia visible en el vídeo); si no hay Pillow, guarda los bytes tal cual (FFmpeg los lee igual)."""
+    destino = Path(destino)
+    if destino.suffix.lower() in (".jpg", ".jpeg"):
+        try:
+            import io
+            from PIL import Image
+            Image.open(io.BytesIO(datos)).convert("RGB").save(destino, "JPEG", quality=90, optimize=True)
+            return
+        except Exception:
+            pass
+    destino.write_bytes(datos)
+
+
 def generar(escena, destino, referencias=(), estilo="oleo", intentos=3):
     """Genera una imagen vertical para la escena. referencias: [(nombre, ruta)] p. ej. [("Jesus", "personajes/jesus.png")]."""
     partes = []
@@ -87,7 +102,7 @@ def generar(escena, destino, referencias=(), estilo="oleo", intentos=3):
             r = _http(f"{API}models/{m}:generateContent", cuerpo)
             for p in r.get("candidates", [{}])[0].get("content", {}).get("parts", []):
                 if "inlineData" in p:
-                    Path(destino).write_bytes(base64.b64decode(p["inlineData"]["data"]))
+                    guardar(base64.b64decode(p["inlineData"]["data"]), destino)
                     return m
             raise RuntimeError(f"sin imagen en la respuesta: {str(r)[:300]}")
         except urllib.error.HTTPError as e:

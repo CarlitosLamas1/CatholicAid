@@ -21,10 +21,10 @@ Para cada una, mejor **imagen**: la app de Gemini deja hacer muchas al día. Los
 1. Si aparece Jesús (o María), **adjunta su retrato** de `personajes/` y empieza el prompt con:
    `Use the attached image as the exact reference for this character's face, hair and clothing.`
 2. Copia el prompt y genera. Repite hasta que te emocione.
-3. Renombra el archivo con su código: `D01.png` o `G08.png` (o `.mp4` si es vídeo).
+3. Renombra el archivo con su código: `D01.jpg` o `G08.jpg` (mejor JPG; también vale PNG) (o `.mp4` si es vídeo).
 4. Súbelo a https://github.com/CarlitosLamas1/CatholicAid/tree/main/biblioteca/clips con **Add file → Upload files → Commit changes**.
 
-**Para un día concreto** (opcional): súbelo a `biblioteca/dias/` con el nombre `AAAA-MM-DD_eN` (por ejemplo `2026-11-08_e1.png`).
+**Para un día concreto** (opcional): súbelo a `biblioteca/dias/` con el nombre `AAAA-MM-DD_eN` (por ejemplo `2026-11-08_e1.jpg`).
 
 ## Prompts
 

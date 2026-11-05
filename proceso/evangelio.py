@@ -650,7 +650,7 @@ def elegir_cuadros(escenas, busquedas, carpeta, usados=None):
 
 
 def archivo_clip(nombre, carpeta="clips"):
-    for ext in (".mp4", ".mov", ".webm", ".png", ".jpg", ".jpeg", ".webp"):
+    for ext in (".mp4", ".mov", ".webm", ".jpg", ".jpeg", ".png", ".webp"):
         p = RAIZ / "biblioteca" / carpeta / f"{nombre}{ext}"
         if p.exists() and p.stat().st_size > 10_000:  # ignora archivos vacíos o rotos
             return p
@@ -691,7 +691,7 @@ def generar_imagenes_dia(info, escenas, fecha):
             break
         refs = [(k.capitalize(), RAIZ / "personajes" / f"{k}.png") for k in e.get("personajes", [])
                 if (RAIZ / "personajes" / f"{k}.png").exists()]
-        destino = RAIZ / "biblioteca" / "dias" / f"{fecha}_e{n}.png"
+        destino = RAIZ / "biblioteca" / "dias" / f"{fecha}_e{n}.jpg"
         try:
             modelo = imagenes.generar(e["descripcion"], destino, refs, e.get("estilo", "oleo"))
             hechas += 1
