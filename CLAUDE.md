@@ -11,6 +11,16 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 - **Cada sábado 12:00 UTC** (`preparar-semana.yml`): guarda en `biblia/citas.json` las citas de los próximos días y el Torres Amat necesario.
 - **Cada domingo 17:00 UTC** (rutina de Claude en la nube «CatholicAid · Gestor semanal», https://claude.ai/code/routines/trig_01DuGF5Ed1n51CatmqDQy96f): revisa los textos Torres Amat de la semana siguiente y escribe un informe en `informes/AAAA-MM-DD.md`.
 
+## Avisos por Telegram (`proceso/avisos.py`)
+Bot **@CatolicAid_bot**; token en el secreto `TELEGRAM_BOT_TOKEN`, chat de Carlos en la variable del repo `TELEGRAM_CHAT_ID` (1116384184). Un aviso **nunca** bloquea: el módulo captura todo y sale con 0, y los pasos llevan `continue-on-error`.
+- ✅ Vídeo listo (último paso de «Evangelio diario»): fecha, cita, duración, voces, frase clave, enlace de YouTube y un fotograma. Añade 🔔 si no se pintó ninguna imagen nueva o hay `avisos` en el registro (saldo de imágenes).
+- 🎵 Publicado en TikTok (último paso de «Publicar en TikTok»).
+- 📺/📅/🔔 «Parte de la mañana» (`telegram-manana.yml`, 06:30 UTC): si el vídeo de hoy ya es público en YouTube (si sigue privado, 🔔 publicar en Studio), próximos 3 días, y los lunes los recordatorios de `avisos.pendientes` en `config/personajes.json` (borra la línea cuando se resuelva).
+- 📊 «Enviar informe semanal» (`telegram-informe.yml`): se activa al subir `informes/*.md`.
+- ❌ «Avisar de fallos» (`telegram-fallos.yml`, `workflow_run` de todos los workflows: si creas uno nuevo, añádelo a la lista): lee el log, da la causa en una frase (`CAUSAS`) y el próximo reintento (`REINTENTOS`); si la causa requiere a Carlos (permiso caducado, clave inválida), además 🔔.
+- «Configurar Telegram»: obtiene el chat_id con getUpdates y manda una prueba; GitHub no deja a ese workflow guardar la variable, así que la guarda el gestor con `gh variable set TELEGRAM_CHAT_ID`. «Probar avisos»: manda un aviso de ejemplo sin publicar nada.
+- Límites: el saldo de imágenes no se puede consultar (solo se avisa cuando empiezan a fallar) y no se lee el correo de Carlos (por eso el recordatorio de los lunes).
+
 Proceso (`proceso/evangelio.py`):
 1. **Texto**: cita del día de Vatican News; texto de **Torres Amat (1836, dominio público)**, versión revisada de `biblia/revisada/` si existe, si no el original con ortografía actualizada (`biblia/torres-amat/`).
 2. **Guion**: Gemini reparte el texto entre personajes (se valida que quede idéntico) y describe 3–5 escenas visuales.
@@ -25,7 +35,7 @@ Proceso (`proceso/evangelio.py`):
 Ajustes en `config/personajes.json` (voces, narradores, estilos, modelo de imagen, música). Herramienta de imágenes suelta: `proceso/imagenes.py`; prueba rápida: workflow «Probar imagen».
 
 ## Secretos (GitHub → Settings → Secrets → Actions)
-`GEMINI_API_KEY` (gratis: texto y voces), `GEMINI_API_KEY_IMAGENES` (pago: imágenes), `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`, `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET` (ahora las de Sandbox). Nunca pidas que se peguen en el chat. Comprobación: workflow «Verificar secretos».
+`GEMINI_API_KEY` (gratis: texto y voces), `GEMINI_API_KEY_IMAGENES` (pago: imágenes), `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`, `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET` (ahora las de Sandbox), `TELEGRAM_BOT_TOKEN`. Variable (no secreta): `TELEGRAM_CHAT_ID`. Nunca pidas que se peguen en el chat. Comprobación: workflow «Verificar secretos».
 
 ## Web del proyecto
 GitHub Pages desde `docs/`: https://carlitoslamas1.github.io/CatholicAid/ (inicio, `privacidad.html`, `condiciones.html`, `tiktok.html` para autorizar TikTok, verificación de TikTok `tiktok*.txt`, icono `icono-cara.png`). Google y TikTok la usan en sus revisiones: no la borres ni cambies las URL.
@@ -55,6 +65,7 @@ Fiel al sentido del Torres Amat; ortografía y vocabulario actuales; sin glosas 
 - [x] Voces fijas elegidas por casting (ver `_voces` en config); una sola grabación por personaje.
 - [x] TikTok conectado (Sandbox: publica en «solo yo»). App review ENVIADA el 05/11/2026 (demo en Descargas/CatolicAid_TikTok_review). Al aprobarla: Carlos cambia TIKTOK_CLIENT_KEY/SECRET por los de Production y autoriza una vez en https://carlitoslamas1.github.io/CatholicAid/tiktok.html; el gestor canjea el código con el workflow «Conectar TikTok». Mientras tanto la cuenta @catolicaid debe seguir en privado (si es pública, TikTok bloquea las publicaciones de apps no aprobadas).
 - [x] Prueba completa 05/11/2026 OK (YouTube + TikTok). Horarios fijados.
+- [x] Avisos por Telegram (05/11/2026), probados de punta a punta.
 
 ## Al retomar (próximos pasos)
 1. Comprobar que el vídeo del 06/11 se generó (run de «Evangelio diario» del 05/11 tarde) y se publicó en YouTube a las 07:00 y en TikTok («solo yo»). Si en YouTube quedó privado, recordar a Carlos que lo publique en Studio.
