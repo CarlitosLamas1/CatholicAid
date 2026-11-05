@@ -13,6 +13,7 @@ jobs:
     timeout-minutes: 5
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      CHAT_GUARDADO: ${{ vars.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
       - name: Obtener chat_id
@@ -29,6 +30,8 @@ jobs:
               res = json.loads(r.read())["result"]
           chats = [u[k]["chat"] for u in res for k in ("message", "edited_message") if k in u]
           chats = [c for c in chats if c.get("type") == "private"]
+          if not chats and os.environ.get("CHAT_GUARDADO", "").strip():
+              chats = [{"id": int(os.environ["CHAT_GUARDADO"]), "first_name": "(ya guardado)"}]
           if not chats:
               raise SystemExit("No encuentro ningún mensaje: escribe «hola» al bot y vuelve a lanzar este workflow.")
           c = chats[-1]
