@@ -44,7 +44,7 @@ Fiel al sentido del Torres Amat; ortografía y vocabulario actuales; sin glosas 
 - [x] Imágenes automáticas con Nano Banana (Flash) y retratos de referencia.
 - [x] Publicación diaria automática con reintentos y gestor semanal en la nube.
 - [ ] **Una vez (Carlos):** confirmar que la app OAuth de Google Cloud está «En producción» (si no, el token de YouTube caduca a los 7 días).
-- [ ] Auditoría de YouTube: Carlos decidió NO enviarla (05/11/2026). Comprobar el 06/11 a las 07:00 si el vídeo programado se publica solo; si queda privado, recordárselo (formulario y documentos preparados en auditoria/youtube.md).
+- [x] Auditoría de YouTube ENVIADA el 05/11/2026 (proyecto 182262579737, nombre de app «CatolicAid», cuota por defecto). Esperar respuesta de Google en catolicolamas@gmail.com (1–4 semanas). Si piden aclaraciones, preparar respuesta; documentos en auditoria/youtube.md y en Descargas/CatolicAid_auditoria_YouTube. Mientras tanto, los vídeos subidos por la API pueden quedar privados: Carlos los publica a mano en YouTube Studio.
 - [ ] Vigilar el saldo de prepago de imágenes (aviso en el informe semanal).
 - [x] Voces fijas elegidas por casting (ver `_voces` en config); una sola grabación por personaje.
 - [x] TikTok conectado (Sandbox: publica en «solo yo»). Pendiente: enviar la App review de TikTok (textos en el historial del gestor) y, al aprobarla, reconectar con las claves de Production.
