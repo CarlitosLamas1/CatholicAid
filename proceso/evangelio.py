@@ -814,7 +814,7 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0):
         "110,110,1185,1\n"
         "Style: Cabecera,DejaVu Sans,44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,4,2,8,"
         "60,60,120,1\n"
-        "Style: Gancho,DejaVu Serif,76,&H00FFFFFF,&H00FFFFFF,&H60000000,&HA0000000,0,1,0,0,100,100,1,0,1,1.5,0,5,"
+        "Style: Gancho,DejaVu Serif,86,&H00FFFFFF,&H00FFFFFF,&H60000000,&HA0000000,0,1,0,0,100,100,1,0,1,1.5,0,5,"
         "130,130,0,1\n"
         "Style: Velo,DejaVu Sans,10,&H9A000000,&H9A000000,&HFF000000,&HFF000000,0,0,0,0,100,100,0,0,1,0,0,7,"
         "0,0,0,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
