@@ -8,18 +8,18 @@
   "voces": "gemini",
   "peticiones_voz": 8,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 100.0,
+  "duracion_s": 92.4,
   "imagenes": [
-    "dias/2026-11-06_e1.png",
+    "dias/2026-11-06_e1.jpg",
     "biblioteca/D04",
-    "dias/2026-11-06_e2.png",
-    "dias/2026-11-06_e3.png",
+    "dias/2026-11-06_e2.jpg",
+    "dias/2026-11-06_e3.jpg",
     "biblioteca/G07",
     "dias/2026-11-06_e4.png",
     "biblioteca/D10"
   ],
   "frase_clave": "los hijos de este mundo son en sus asuntos más sagaces",
-  "reflexion": "Pon toda tu creatividad y esfuerzo al servicio del bien y de Dios. Si los afanes del mundo mueven tanto empeño, ¿cuánta pasión estás poniendo tú en ganar el cielo?",
+  "reflexion": "Jesús te invita a poner el mismo ingenio que usas para tus negocios en las cosas del cielo. ¿Buscas con creatividad y empeño el bien de tu alma y de los demás?",
   "lufs": -14.0,
   "titulo": "Lectura del santo evangelio según san Lucas.",
   "texto_evangelio": "En aquel tiempo, decía Jesús a sus discípulos: “Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’. Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’. Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”.",
@@ -33,48 +33,48 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 7.25,
+      "inicio": 7.31,
       "texto": "En aquel tiempo, decía Jesús a sus discípulos:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 12.68,
+      "inicio": 12.13,
       "texto": "“Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’."
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 28.31,
+      "inicio": 28.19,
       "texto": "Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 44.29,
+      "inicio": 43.9,
       "texto": "Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’."
     },
     {
       "personaje": "jesus",
       "escena": 4,
-      "inicio": 71.45,
+      "inicio": 66.02,
       "texto": "Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 82.14,
+      "inicio": 75.25,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 86.69,
-      "texto": "Pon toda tu creatividad y esfuerzo al servicio del bien y de Dios. Si los afanes del mundo mueven tanto empeño, ¿cuánta pasión estás poniendo tú en ganar el cielo?",
+      "inicio": 79.24,
+      "texto": "Jesús te invita a poner el mismo ingenio que usas para tus negocios en las cosas del cielo. ¿Buscas con creatividad y empeño el bien de tu alma y de los demás?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-05T19:00:06+01:00",
-  "revision": "rechazada",
-  "rehechos": 1
+  "generado": "2026-11-05T22:33:38+01:00",
+  "rehechos": 1,
+  "revision": "pendiente"
 }
