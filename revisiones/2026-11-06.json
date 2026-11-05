@@ -1,0 +1,24 @@
+{
+  "fecha": "2026-11-06",
+  "ok": false,
+  "por": "revisor",
+  "generado": "2026-11-05T19:00:06+01:00",
+  "revisado": "2026-11-05T19:02:10+01:00",
+  "motivos": [
+    "Audio anómalo: el fragmento «En aquel tiempo, decía Jesús a sus discípulos:» dura 5,4 s a solo 6,8 letras/s (posible silencio largo o lectura muy lenta)."
+  ],
+  "avisos": [
+    "El fragmento «Palabra del Señor.» va a 3,3 letras/s (4,5 s, bajo el umbral de 5 s, pero lento).",
+    "El registro lista imágenes dias/2026-11-06_e1/e2/e3.png pero los archivos son .jpg (e4 sí es .png); revisar la extensión que usa el montaje."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 16, 1-8 coincide con citas.json",
+    "voces": "✅ toda la parábola es de Jesús; narrador en introducción y cierre",
+    "frase_clave": "✅ literal, de Jesús, 11 palabras",
+    "reflexion": "✅ cálida, doctrinalmente correcta, ~30 palabras, relacionada con la lectura",
+    "tecnica": "✅ duracion 100 s; lufs -14.0",
+    "audio": "❌ más lento: fragmento 1 (5,4 s, 6,8 l/s); más lento no marcado: fragmento 6 (3,3 l/s, 4,5 s); más rápido: fragmento 2 (12,4 l/s)",
+    "imagenes": "✅ 4 imágenes del día devocionales y sin defectos graves; el resto de biblioteca",
+    "metadatos": "✅ fecha, cita y título (san Lucas) coherentes"
+  }
+}
