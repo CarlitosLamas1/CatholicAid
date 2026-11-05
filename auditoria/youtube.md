@@ -10,7 +10,7 @@ Web del proyecto (ya publicada):
 ---
 
 ## Paso 1 · Completar la pantalla de consentimiento (5 min)
-En https://console.cloud.google.com, con **catolicolamas@gmail.com**, en el proyecto de la app **CatolicAid Publisher**:
+En https://console.cloud.google.com, con **catolicolamas@gmail.com**, en el proyecto de la app **CatolicAid**:
 
 1. **Google Auth Platform → Branding (Desarrollo de la marca):**
    - Página principal de la aplicación: `https://carlitoslamas1.github.io/CatholicAid/`
@@ -34,7 +34,7 @@ Elige **«I would like to request an audit / quota extension»** (auditoría) y 
 | Organization website | https://carlitoslamas1.github.io/CatholicAid/ |
 | Organization address / country | (tu dirección) · Spain |
 | Google Cloud project number | (el número del paso 1.3) |
-| API client name | CatolicAid Publisher |
+| API client name | CatolicAid |
 | Is the API client available to the public? | **No — internal use only** |
 | Who uses it? | Only the owner, for the owner's own channel |
 | YouTube channel(s) | https://www.youtube.com/channel/UCeQ2e1rojxsa9UyrHWcVEVA |
@@ -45,7 +45,7 @@ Elige **«I would like to request an audit / quota extension»** (auditoría) y 
 
 **Description of the use case (pégalo tal cual):**
 
-> CatolicAid is a non-profit Catholic project that publishes one short video per day on its own YouTube channel with the Gospel of the day, read with several voices over devotional paintings. CatolicAid Publisher is an internal, server-side tool (a scheduled GitHub Actions job) that prepares each video and uploads it to our own channel using videos.insert, setting status.publishAt to schedule it for 07:00 Europe/Madrid and status.containsSyntheticMedia = true, because voices and some images are AI-generated. It also reads our own channel's basic data (channels.list, mine=true) to confirm the upload. The tool is used only by the channel owner, authorized once via OAuth; it is not offered to other users, does not access any third-party account, and does not store or share any YouTube user data. We request the audit so that uploaded videos are not locked as private, since the project is unverified.
+> CatolicAid is a non-profit Catholic project that publishes one short video per day on its own YouTube channel with the Gospel of the day, read with several voices over devotional paintings. CatolicAid is an internal, server-side tool (a scheduled GitHub Actions job) that prepares each video and uploads it to our own channel using videos.insert, setting status.publishAt to schedule it for 07:00 Europe/Madrid and status.containsSyntheticMedia = true, because voices and some images are AI-generated. It also reads our own channel's basic data (channels.list, mine=true) to confirm the upload. The tool is used only by the channel owner, authorized once via OAuth; it is not offered to other users, does not access any third-party account, and does not store or share any YouTube user data. We request the audit so that uploaded videos are not locked as private, since the project is unverified.
 
 **How do you use YouTube API data?**
 
