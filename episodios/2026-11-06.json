@@ -6,18 +6,20 @@
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
   "guion": "reglas",
   "voces": "gemini",
-  "peticiones_voz": 4,
+  "peticiones_voz": 5,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 75.5,
+  "duracion_s": 98.1,
   "imagenes": [
     "dias/2026-11-06_e1.png",
-    "biblioteca/D02",
+    "biblioteca/D01",
+    "biblioteca/D03",
+    "biblioteca/D10",
     "biblioteca/D06",
-    "biblioteca/D09",
+    "biblioteca/D07",
     "biblioteca/D08"
   ],
-  "frase_clave": "Él respondió: Cien cargas de trigo.",
-  "reflexion": "",
+  "frase_clave": "Dame cuenta de tu administración",
+  "reflexion": "Dios nos confía sus bienes para hacer el bien a los demás con generosidad. ¿Cómo empleas tu tiempo y tus talentos hoy?",
   "lufs": -14.0,
   "fragmentos": [
     {
@@ -29,32 +31,27 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 6.85,
+      "inicio": 8.12,
       "texto": "En aquel tiempo, decía Jesús a sus discípulos:"
     },
     {
-      "personaje": "apostol",
+      "personaje": "jesus",
       "escena": 1,
-      "inicio": 10.51,
+      "inicio": 13.28,
       "texto": "“Había un hombre rico que tenía un administrador, y le llegó la noticia de que este le estaba malgastando sus bienes. Lo llamó y le dijo: ‘¿Qué es esto que oigo de ti? Dame cuenta de tu administración, porque en adelante no cuidarás de mi hacienda’. Entonces el administrador se dijo: ‘¿Qué haré, ahora que mi amo me quita la administración? Para cavar no tengo fuerzas; mendigar me da vergüenza. Ya sé lo que haré para que, cuando me quiten la administración, haya quien me reciba en su casa’. Llamó entonces uno a uno a los deudores de su amo y dijo al primero: ‘¿Cuánto debes a mi amo?’. Él respondió: ‘Cien barriles de aceite’. Y le dijo: ‘Toma tu recibo, siéntate enseguida y escribe cincuenta’. Después dijo a otro: ‘Y tú, ¿cuánto debes?’. Él respondió: ‘Cien cargas de trigo’. Y le dijo: ‘Toma tu recibo y escribe ochenta’. Y el amo alabó a aquel administrador injusto por haber obrado con sagacidad; porque los hijos de este mundo son en sus asuntos más sagaces que los hijos de la luz”."
     },
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 72.84,
+      "inicio": 83.28,
       "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 87.42,
+      "texto": "Dios nos confía sus bienes para hacer el bien a los demás con generosidad. ¿Cómo empleas tu tiempo y tus talentos hoy?"
     }
   ],
-  "generado": "2026-11-05T15:15:42+01:00",
-  "youtube": {
-    "id": "RvAYCD-j_WY",
-    "url": "https://youtu.be/RvAYCD-j_WY",
-    "privacyStatus": "private",
-    "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true,
-    "lista": {
-      "titulo": "Evangelio según san Lucas",
-      "error": "falta permiso"
-    }
-  }
+  "generado": "2026-11-05T16:41:20+01:00"
 }
