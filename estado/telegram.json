@@ -1,0 +1,17 @@
+{
+  "imagenes": {
+    "1105180630": {
+      "escena": "Jesús bendiciendo a unos niños junto al lago de Galilea, en acuarela. Escena del Evangelio, devocional y respetuosa.",
+      "estilo": "acuarela",
+      "personajes": [
+        "jesus"
+      ],
+      "titulo": "Jesús bendiciendo a unos niños junto al lago de Galilea, en ",
+      "descripcion": "Jesús bendiciendo a unos niños junto al lago de Galilea, en acuarela",
+      "peticion": "Jesús bendiciendo a unos niños junto al lago de Galilea, en acuarela"
+    }
+  },
+  "imagenes_hoy": {
+    "2026-11-05": 1
+  }
+}
