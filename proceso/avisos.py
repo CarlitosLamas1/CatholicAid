@@ -299,7 +299,7 @@ CAUSAS = [
     (r"RESOURCE_EXHAUSTED|\b429\b", "Gemini ha agotado la cuota gratuita (texto o voces) por ahora.", False),
     (r"API_KEY_INVALID|API key not valid|PERMISSION_DENIED", "La clave de Gemini no es válida o ha caducado.", True),
     (r"vaticannews", "No se pudo leer la cita del día en Vatican News.", False),
-    (r"falta TELEGRAM|TELEGRAM_BOT_TOKEN", "Falta configurar Telegram.", True),
+    (r"falta (el secreto )?TELEGRAM", "Falta configurar Telegram.", True),
     (r"CalledProcessError.*ffmpeg|ffmpeg.*returned non-zero", "Falló el montaje del vídeo (FFmpeg).", False),
     (r"timed out|TimeoutError|timeout-minutes|has exceeded the maximum execution time", "Un servicio tardó demasiado en responder.", False),
     (r"\b50[0234]\b|Service Unavailable|Internal Server Error", "Un servicio externo dio un error temporal.", False),
@@ -324,21 +324,45 @@ def log_del_fallo():
     malos = [j for j in jobs if j.get("conclusion") in ("failure", "timed_out", "cancelled")]
     if not malos:
         return ""
-    r = subprocess.run(["gh", "api", f"repos/{repo}/actions/jobs/{malos[0]['id']}/logs"],
-                       capture_output=True, text=True, timeout=60)
-    lineas = [re.sub(r"^\S+Z\s", "", l) for l in r.stdout.splitlines()]
+    lineas = [re.sub(r"^\S+Z\s", "", l) for l in descargar_log(repo, malos[0]["id"]).splitlines()]
+    lineas = [re.sub(r"\x1b\[[0-9;]*m", "", l) for l in lineas if "\x1b[36;1m" not in l]  # sin el código del paso
     return "\n".join(lineas[-80:])
 
 
+class _SinRedireccion(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *a, **k):
+        return None
+
+
+def descargar_log(repo, job):
+    """La API responde con una redirección a un enlace temporal; se sigue sin enviar el token."""
+    token = os.environ.get("GH_TOKEN", "").strip()
+    req = urllib.request.Request(f"https://api.github.com/repos/{repo}/actions/jobs/{job}/logs",
+                                 headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})
+    try:
+        with urllib.request.build_opener(_SinRedireccion).open(req, timeout=60) as r:
+            return r.read().decode(errors="replace")
+    except urllib.error.HTTPError as ex:
+        if ex.code not in (301, 302, 303, 307, 308):
+            raise
+        destino = ex.headers["Location"]
+    with urllib.request.urlopen(destino, timeout=60) as r:
+        return r.read().decode(errors="replace")
+
+
 def causa(texto):
+    # Solo se mira lo anterior al primer «Process completed with exit code» (el paso que falló)
+    corte = texto.find("##[error]Process completed")
+    texto = texto[:corte] if corte > 0 else texto
+    lineas = [l.strip() for l in texto.splitlines() if l.strip() and not l.startswith("##[")]
+    final = "\n".join(lineas[-40:])
     for patron, frase, accion in CAUSAS:
-        if re.search(patron, texto, re.I):
+        if re.search(patron, final, re.I):
             return frase, accion
-    errores = [l.strip() for l in texto.splitlines()
-               if re.search(r"Error|error|SystemExit|falló|Exception", l) and "##[error]Process completed" not in l]
-    if errores:
-        ultima = re.sub(r"^##\[error\]", "", errores[-1])
-        return f"Error: {ultima[:160]}", False
+    errores = [l for l in lineas[-15:] if re.search(r"Error|SystemExit|falló|Exception|No encuentro|No hay", l)]
+    ultima = (errores or lineas[-1:] or [""])[-1]
+    if ultima:
+        return ultima[:200], False
     return "No he podido identificar la causa (mira el enlace).", False
 
 

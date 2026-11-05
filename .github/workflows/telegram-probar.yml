@@ -1,0 +1,35 @@
+name: Probar avisos
+
+# Manda por Telegram un aviso de ejemplo con datos reales, sin publicar nada.
+on:
+  workflow_dispatch:
+    inputs:
+      aviso:
+        description: "Qué aviso probar"
+        type: choice
+        options: [tiktok, accion, prueba]
+        default: tiktok
+      fecha:
+        description: "Fecha del episodio AAAA-MM-DD (vacío = hoy)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
+          case "${{ inputs.aviso }}" in
+            tiktok) python3 proceso/avisos.py tiktok "$F" ;;
+            accion) python3 proceso/avisos.py accion "(Prueba) Así te llegará algo que requiera tu acción." ;;
+            *) python3 proceso/avisos.py prueba ;;
+          esac
