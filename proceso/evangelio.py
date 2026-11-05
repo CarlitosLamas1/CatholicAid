@@ -704,7 +704,7 @@ def generar_imagenes_dia(info, escenas, fecha):
                 break
 
 
-def elegir_visuales(tramos, info, fecha, carpeta):
+def elegir_visuales(tramos, info, fecha, carpeta, retrato=None):
     """Por tramo: clip del día > clip elegido por Gemini > imagen devocional (D..) > cuadro clásico."""
     datos = {int(e["numero"]): e for e in info}
     ruta_cat = RAIZ / "biblioteca" / "catalogo.json"
@@ -714,9 +714,15 @@ def elegir_visuales(tramos, info, fecha, carpeta):
     usados, visuales = set(), []
     for b in tramos:
         n, e = b["escena"], datos.get(b["escena"], {})
-        if b.get("oscuro") and visuales:  # reflexión: la última imagen, oscurecida
-            visuales.append(dict(visuales[-1]))
-            log(f"   Tramo reflexión: {visuales[-1]['titulo']} (oscurecida)")
+        tipo = b.get("tipo", "escena")
+        if tipo in ("evangelista", "cierre") and retrato:  # el evangelista del día, pintado una vez
+            visuales.append({"archivo": retrato, "titulo": f"evangelistas/{retrato.name}"})
+            log(f"   Tramo {tipo}: {visuales[-1]['titulo']}")
+            continue
+        if tipo in ("reflexion", "cierre") and visuales:  # la última escena, oscurecida
+            previa = next((v for v in reversed(visuales) if not v["titulo"].startswith("evangelistas/")), visuales[-1])
+            visuales.append(dict(previa))
+            log(f"   Tramo {tipo}: {previa['titulo']} (oscurecida)")
             continue
         propio = archivo_clip(f"{fecha}_e{n}", "dias") if b["parte"] == 0 else None
         clip = e.get("clip", "ninguno")
@@ -739,15 +745,22 @@ def elegir_visuales(tramos, info, fecha, carpeta):
 
 # ---------- 5. Vídeo ----------
 
-def bloques(frs, total):
+def bloques(frs, total, gancho=0.0, cierre=0.0, evangelista=False):
     """Tramos de imagen: uno por escena, partidos para que ninguna imagen dure más de max_segundos_imagen."""
     maximo = CFG.get("max_segundos_imagen", 16)
     b = []
-    for f in frs:
-        oscuro = bool(f.get("reflexion"))  # la reflexión (y el cierre) van sobre la imagen oscurecida
-        if not b or b[-1]["escena"] != f["escena"] or b[-1]["oscuro"] != oscuro:
-            b.append({"escena": f["escena"], "inicio": f["inicio"], "oscuro": oscuro})
+    for i, f in enumerate(frs):
+        # Tramos especiales: el evangelista mientras anuncia la lectura (primer fragmento) y la reflexión,
+        # que va sobre la última escena oscurecida para separarla del Evangelio.
+        tipo = "reflexion" if f.get("reflexion") else ("evangelista" if i == 0 and evangelista else "escena")
+        if not b or b[-1]["escena"] != f["escena"] or b[-1]["tipo"] != tipo:
+            b.append({"escena": f["escena"], "inicio": f["inicio"], "tipo": tipo})
+    if b[0]["tipo"] == "evangelista" and gancho:  # el gancho, sobre la primera escena; luego el evangelista
+        b[0]["inicio"] = gancho
+        b.insert(0, {"escena": frs[0]["escena"], "inicio": 0.0, "tipo": "escena"})
     b[0]["inicio"] = 0.0
+    if cierre:
+        b.append({"escena": frs[-1]["escena"], "inicio": total - cierre, "tipo": "cierre"})
     tramos = []
     for i, x in enumerate(b):
         fin = b[i + 1]["inicio"] if i + 1 < len(b) else total
@@ -755,15 +768,16 @@ def bloques(frs, total):
         paso = (fin - x["inicio"]) / partes
         for k in range(partes):
             ini = x["inicio"] + k * paso
-            tramos.append({"escena": x["escena"], "parte": k, "inicio": ini, "oscuro": x["oscuro"],
+            tramos.append({"escena": x["escena"], "parte": k, "inicio": ini, "tipo": x["tipo"],
                            "frames": max(1, round((ini + paso) * FPS) - round(ini * FPS))})
     return tramos
 
 
-OSCURO = "eq=brightness=-0.14:saturation=0.55,gblur=sigma=6,"
+FILTROS = {"reflexion": "eq=brightness=-0.14:saturation=0.55,gblur=sigma=6,",  # oscurecida y desenfocada
+           "cierre": "eq=brightness=-0.08:saturation=0.9,"}  # apenas oscurecida, para leer el texto
 
 
-def clip_escena(img, frames, n, carpeta, oscuro=False):
+def clip_escena(img, frames, n, carpeta, tipo="escena"):
     """Zoom lento y suave (acercar o alejar, alternando). Cada fotograma se calcula con precisión subpíxel
     (Pillow), así la imagen no «tiembla» como con zoompan, que redondea a píxeles enteros."""
     from PIL import Image
@@ -772,7 +786,7 @@ def clip_escena(img, frames, n, carpeta, oscuro=False):
     marco = carpeta / f"marco_{n}.png"
     ffmpeg("-i", img, "-vf",
            f"scale={mw}:{mh}:force_original_aspect_ratio=increase:flags=lanczos,crop={mw}:{mh},"
-           + (OSCURO if oscuro else "") + "eq=saturation=1.08:brightness=0.02,vignette=PI/5", "-frames:v", 1, marco)
+           + FILTROS.get(tipo, "") + "eq=saturation=1.08:brightness=0.02,vignette=PI/5", "-frames:v", 1, marco)
     base = Image.open(marco).convert("RGB")
     dur = frames / FPS
     salida = carpeta / f"clip_{n:02d}.mp4"
@@ -799,13 +813,13 @@ def clip_escena(img, frames, n, carpeta, oscuro=False):
     return salida
 
 
-def clip_video(origen, frames, n, carpeta, oscuro=False):
+def clip_video(origen, frames, n, carpeta, tipo="escena"):
     """Clip de la biblioteca: cámara lenta, ida y vuelta (sin cortes) y relleno vertical 9:16."""
     dur = frames / FPS
     base = carpeta / f"base_{n:02d}.mp4"
     ffmpeg("-i", origen, "-an", "-filter_complex",
            f"[0:v]setpts=1.5*PTS,fps={FPS},scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,"
-           f"crop={W}:{H}," + (OSCURO if oscuro else "") + "eq=saturation=1.05,vignette=PI/5,split[f][r0];[r0]reverse[r];[f][r]concat=n=2:v=1:a=0,format=yuv420p[v]",
+           f"crop={W}:{H}," + FILTROS.get(tipo, "") + "eq=saturation=1.05,vignette=PI/5,split[f][r0];[r0]reverse[r];[f][r]concat=n=2:v=1:a=0,format=yuv420p[v]",
            "-map", "[v]", "-c:v", "libx264", "-preset", "veryfast", base)
     salida = carpeta / f"clip_{n:02d}.mp4"
     ffmpeg("-stream_loop", -1, "-i", base, "-vf",
@@ -847,8 +861,8 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
         limpio = frase.replace("{", "(").replace("}", ")")
         eventos.append(("Gancho", 0, gancho, "{\\fad(250,350)\\blur3}“" + limpio + "”"))
     if cierre:
-        # Cierre minimalista sobre la imagen oscurecida: invitación a seguir el canal.
-        eventos.append(("Gancho", total - cierre, total, "{\\fad(300,400)\\blur2\\fs64}Síguenos para escuchar\\N"
+        # Cierre minimalista sobre el evangelista (o la escena oscurecida), arriba, en la pared despejada.
+        eventos.append(("Gancho", total - cierre, total, "{\\an8\\pos(540,430)\\fad(300,400)\\blur2\\fs64}Síguenos para escuchar\\N"
                         "el Evangelio cada día\\N{\\fs40\\i0\\c" + color_ass("F5C542") + "}CatolicAid"))
     for f in frs:
         p = PJ[f["personaje"]]
@@ -1124,12 +1138,14 @@ def main():
     log(f"   Motor: {motor} · duración {total:.1f} s" + ("  (más de 3 min: no será Short)" if total > 180 else ""))
 
     log("4/6 Cuadros")
-    bl = bloques(frs, total)
+    retrato = RAIZ / "personajes" / "evangelistas" / f"{libro.lower()}.jpg"
+    retrato = retrato if retrato.exists() else None
+    bl = bloques(frs, total, gancho, cierre, bool(retrato))
     generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha)
-    visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta)
+    visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta, retrato)
 
     log("5/6 Vídeo")
-    clips = [(clip_video if es_video(v["archivo"]) else clip_escena)(v["archivo"], b["frames"], i, carpeta, b.get("oscuro", False))
+    clips = [(clip_video if es_video(v["archivo"]) else clip_escena)(v["archivo"], b["frames"], i, carpeta, b.get("tipo", "escena"))
              for i, (b, v) in enumerate(zip(bl, visuales))]
     (carpeta / "clips.txt").write_text("".join(f"file '{c.name}'\n" for c in clips))
     subtitulos(frs, ev, fecha, total, carpeta / "subtitulos.ass", frase, gancho, cierre)
