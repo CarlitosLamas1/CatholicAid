@@ -337,7 +337,7 @@ def espacios(t):
 def frase_de_reserva(fuente):
     """Si Gemini falla: la frase más corta (3–12 palabras) de las palabras de Jesús, copiada tal cual."""
     frases = [espacios(x).strip(" ,;:") for s in fuente for x in re.split(r"(?<=[.?!])\s+", s)]
-    buenas = [x for x in frases if 3 <= len(x.split()) <= 12]
+    buenas = [x for x in frases if 3 <= len(x.split()) <= 12 and "…" not in x]
     return min(buenas, key=len) if buenas else ""
 
 
@@ -347,12 +347,16 @@ def gancho_y_reflexion(frs, ev, fiable=True):
     fiable=False (reparto por reglas): no se sabe con certeza quién habla, así que sin Gemini no hay gancho."""
     jesus = [hablado(f["texto"]) for f in frs if f["personaje"] == "jesus"]
     fuente = jesus or [hablado(ev["texto"])]
+    propias = [espacios(hablado(re.sub(r"‘[^’]*’", " … ", f["texto"]))) for f in frs if f["personaje"] == "jesus"]
+    if sum(len(re.findall(r"\w+", x)) for x in propias) >= 8:
+        fuente = propias  # lo que dice Jesús con su voz, no los personajes de sus parábolas
     quien = "las palabras de Jesús" if jesus else "el texto"
     prompt = f"""Eres un sacerdote católico que prepara un vídeo breve con el Evangelio del día ({ev['cita']}).
 
 1. "frase_clave": elige de {quien} (abajo) la frase más significativa y fácil de recordar para mostrarla en grande al
    principio del vídeo. Cópiala LITERALMENTE, palabra por palabra y con los mismos signos, sin comillas: puede ser una
-   frase entera o una parte con sentido completo, de 3 a 12 palabras.
+   frase entera o una parte con sentido completo, de 3 a 12 palabras. Prefiere una enseñanza o promesa de Jesús
+   (no una pregunta suelta ni una frase de transición) y no cojas nada que contenga «…».
 2. "reflexion": 1 o 2 frases breves (máximo 35 palabras en total) para meditar después de la lectura; puede terminar
    con una pregunta. Tono cálido y cercano, de tú, en español de España. Fiel a la doctrina de la Iglesia católica y
    al sentido de esta lectura. No cites ni inventes palabras de Jesús, no uses comillas ni emojis, no hables de
@@ -375,7 +379,7 @@ LECTURA COMPLETA (contexto):
             d = json.loads(next(p["text"] for p in reversed(partes) if "text" in p))
             frase = espacios(hablado(d.get("frase_clave", ""))).strip(" ,;:")
             reflexion = espacios(hablado(d.get("reflexion", "")))
-            if not (frase and 2 <= len(frase.split()) <= 14 and any(frase in s for s in base)):
+            if not (frase and "…" not in frase and 2 <= len(frase.split()) <= 14 and any(frase in s for s in base)):
                 log(f"   {modelo}: la frase clave no es literal ({frase[:60]}); se descarta")
                 continue
             if not reflexion or len(reflexion.split()) > 45:
@@ -469,6 +473,20 @@ def duracion(ruta):
         return w.getnframes() / w.getframerate()
 
 
+def voz_comprobada(p, prompt, destino, letras):
+    """Graba y comprueba que la duración es razonable para el texto (≈15 letras por segundo). A veces Gemini
+    devuelve un audio anómalo (silencios enormes, texto repetido o leído a medias): entonces se graba otra vez."""
+    esperado = letras / 15.0
+    for intento in range(3):
+        voz_gemini(p, prompt, destino)
+        dur = duracion(destino)
+        if esperado * 0.55 - 1 <= dur <= esperado * 1.6 + 3:
+            return
+        log(f"   Audio anómalo: {dur:.1f} s para {letras} letras (esperado ~{esperado:.0f} s); grabo otra vez")
+        time.sleep(CFG.get("pausa_tts_segundos", 21))
+    raise RuntimeError(f"Gemini devuelve audios anómalos ({dur:.0f} s para ~{esperado:.0f} s); no se publica así")
+
+
 def grabar_personaje(frs, indices, carpeta):
     """TODO lo que dice un personaje en UNA sola grabación (mismo tono de principio a fin), cortada en sus fragmentos.
     Devuelve {índice de fragmento: wav}."""
@@ -477,11 +495,12 @@ def grabar_personaje(frs, indices, carpeta):
     textos = [hablado(frs[i]["texto"]) for i in indices]
     completo = carpeta / f"voz_{quien}.wav"
     if len(indices) == 1:
-        voz_gemini(p, f"Lee en voz alta, con {p['estilo']}, este texto:\n\n{textos[0]}", completo)
+        voz_comprobada(p, f"Lee en voz alta, con {p['estilo']}, este texto:\n\n{textos[0]}", completo, len(textos[0]))
         partes = [(0.0, duracion(completo))]
     else:
-        voz_gemini(p, f"Lee en voz alta, con {p['estilo']}, los siguientes párrafos, en este orden. Entre un párrafo "
-                      f"y el siguiente haz siempre una pausa clara de un segundo:\n\n" + "\n\n".join(textos), completo)
+        voz_comprobada(p, f"Lee en voz alta, con {p['estilo']}, los siguientes párrafos, en este orden. Entre un párrafo "
+                          f"y el siguiente haz siempre una pausa clara de un segundo:\n\n" + "\n\n".join(textos), completo,
+                       sum(len(x) for x in textos) + 15 * (len(textos) - 1))
         dur = duracion(completo)
         letras = [len(x) for x in textos]
         candidatos = [((a + b) / 2, b - a) for a, b in silencios(completo) if 0.1 < a and b < dur - 0.1]
@@ -502,7 +521,7 @@ def grabar_personaje(frs, indices, carpeta):
             salida = {}
             for n, (i, texto) in enumerate(zip(indices, textos)):
                 bruto = carpeta / f"voz_{quien}_{n:02d}_b.wav"
-                voz_gemini(p, f"Lee en voz alta, con {p['estilo']}, este texto:\n\n{texto}", bruto)
+                voz_comprobada(p, f"Lee en voz alta, con {p['estilo']}, este texto:\n\n{texto}", bruto, len(texto))
                 trozo = carpeta / f"voz_{quien}_{n:02d}.wav"
                 ffmpeg("-i", bruto, "-af", LIMPIAR, "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", trozo)
                 salida[i] = trozo
