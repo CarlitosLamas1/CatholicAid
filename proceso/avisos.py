@@ -82,6 +82,19 @@ def chat_id():
     return c
 
 
+def copia_ligera(video):
+    """Telegram no acepta vídeos de más de 50 MB enviados por un bot: copia a 720p solo para Carlos."""
+    import subprocess
+    import tempfile
+    destino = Path(tempfile.gettempdir()) / "video_telegram.mp4"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video), "-vf", "scale=720:-2",
+                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "26", "-c:a", "aac", "-b:a", "128k",
+                    "-movflags", "+faststart", str(destino)], check=True, timeout=600)
+    if destino.stat().st_size > 49_000_000:
+        raise RuntimeError("ni la copia ligera baja de 50 MB")
+    return destino
+
+
 def enviar(texto, video=None):
     """Envía un mensaje (HTML), con el vídeo si se da. Nunca lanza excepciones: devuelve True/False."""
     try:
@@ -89,7 +102,7 @@ def enviar(texto, video=None):
         if video and Path(video).exists():
             try:
                 if Path(video).stat().st_size > 49_000_000:
-                    raise RuntimeError("el vídeo pesa más de 50 MB (límite de Telegram)")
+                    video = copia_ligera(video)
                 _api("sendVideo", {**base, "caption": texto[:1024], "supports_streaming": "true"}, ("video", video))
                 log("enviado (con vídeo)")
                 return True
@@ -138,6 +151,7 @@ def aviso_listo():
     if reg.get("modo") == "diario":
         lineas.append(f"📅 Se publicará el {e(fecha_txt(reg['fecha']))} a las {hora_publicacion()}:00 en "
                       "<b>YouTube</b> y <b>TikTok</b>, si el revisor automático lo aprueba.")
+        lineas.append(f"🔗 También aquí: https://github.com/CarlitosLamas1/CatholicAid/releases/tag/tiktok-{reg['fecha']}")
     else:
         lineas.append("🧪 Es una prueba: no se publica.")
     enviar("\n".join(lineas), carpeta / "video.mp4")
