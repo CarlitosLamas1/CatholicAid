@@ -828,12 +828,16 @@ def responder_texto(texto):
     return AYUDA
 
 
-def main():
+def actualizar_repo():
+    """Trae lo último del repo (registros, estado). Devuelve True si ha cambiado el código del bot."""
+    antes = sh("git", "rev-parse", "HEAD").strip()
+    subprocess.run(["git", "pull", "-q", "--rebase"], capture_output=True, timeout=120)
+    cambios = sh("git", "diff", "--name-only", antes, "HEAD", check=False)
+    return any(x in cambios for x in ("proceso/telegram_ordenes.py", "proceso/avisos.py"))
+
+
+def atender(updates):
     yo = avisos.chat_id()
-    updates = avisos._api("getUpdates", {"timeout": 0, "allowed_updates": json.dumps(["message", "callback_query"])})
-    if not updates:
-        log("sin mensajes nuevos")
-        return
     for u in updates:
         avisos._api("getUpdates", {"offset": u["update_id"] + 1, "timeout": 0})  # confirmar antes de actuar
         cb, msg = u.get("callback_query"), u.get("message")
@@ -868,8 +872,37 @@ def main():
             enviar(r)
 
 
+def main(minutos=0):
+    """minutos=0: atiende lo pendiente y termina. minutos>0: se queda escuchando (respuesta en segundos) hasta
+    agotar el tiempo o hasta que cambie el código del bot; luego el workflow lanza el relevo."""
+    fin = __import__("time").time() + minutos * 60
+    tipos = json.dumps(["message", "callback_query"])
+    while True:
+        espera = 50 if minutos else 0
+        try:
+            updates = avisos._api("getUpdates", {"timeout": espera, "allowed_updates": tipos}, espera=espera)
+        except Exception as ex:
+            log(f"Telegram no responde ({ex})")
+            updates = []
+            __import__("time").sleep(20 if minutos else 0)
+        if updates:
+            if minutos:
+                actualizar_repo()
+            atender(updates)
+        if not minutos:
+            if not updates:
+                log("sin mensajes nuevos")
+            return
+        if __import__("time").time() > fin:
+            log("tiempo agotado: paso el relevo")
+            return
+        if not updates and int(__import__("time").time()) % 600 < 55 and actualizar_repo():
+            log("ha cambiado el código del bot: paso el relevo para usar la versión nueva")
+            return
+
+
 if __name__ == "__main__":
     try:
-        main()
+        main(int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[1] == "--escuchar" else 0)
     except Exception as ex:  # nunca bloquear nada
         log(f"órdenes no procesadas ({type(ex).__name__}: {ex})")

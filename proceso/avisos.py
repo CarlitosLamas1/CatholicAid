@@ -53,7 +53,7 @@ def fecha_txt(f):
 
 # ---------- Telegram ----------
 
-def _api(metodo, datos=None, archivo=None):
+def _api(metodo, datos=None, archivo=None, espera=0):
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if not token:
         raise RuntimeError("falta TELEGRAM_BOT_TOKEN")
@@ -69,7 +69,7 @@ def _api(metodo, datos=None, archivo=None):
         req = urllib.request.Request(url, data=cuerpo, headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
     else:
         req = urllib.request.Request(url, data=urllib.parse.urlencode(datos or {}).encode())
-    with urllib.request.urlopen(req, timeout=180 if archivo else 30) as r:
+    with urllib.request.urlopen(req, timeout=180 if archivo else 30 + espera) as r:
         res = json.loads(r.read())
     if not res.get("ok"):
         raise RuntimeError(res.get("description", "Telegram no aceptó el mensaje"))

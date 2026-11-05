@@ -1,10 +1,11 @@
 name: "Telegram: órdenes"
 
-# Cada 5 minutos lee lo que Carlos ha pulsado o escrito al bot (botones del aviso ✅ y comandos
-# /estado, /reintentar, /pausa, /seguir, /ver) y lo hace. GitHub puede retrasar este horario unos minutos.
+# El bot se queda escuchando a Carlos (botones, comandos, texto, notas de voz y fotos) y responde en segundos.
+# Cada relevo dura ~5,5 h y al terminar lanza el siguiente (los horarios de GitHub pueden retrasarse horas;
+# el cron solo sirve de red por si la cadena se rompe). Solo hay uno a la vez (concurrency).
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -16,12 +17,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  ordenes:
+  escuchar:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 345
     steps:
       - uses: actions/checkout@v4
-      - name: Atender órdenes
+      - name: Hora de inicio
+        run: echo "INICIO=$(date +%s)" >> "$GITHUB_ENV"
+      - name: Escuchar a Carlos
         env:
           GH_TOKEN: ${{ github.token }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -31,4 +34,11 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
-        run: python3 proceso/telegram_ordenes.py
+        run: python3 proceso/telegram_ordenes.py --escuchar 330
+      - name: Lanzar el relevo
+        if: success() || failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Solo si ha durado más de 10 min: si algo falla al arrancar, no se relanza en bucle (lo recoge el cron).
+          if [ $(( $(date +%s) - INICIO )) -gt 600 ]; then gh workflow run telegram-ordenes.yml; else echo "Duró poco: sin relevo"; fi
