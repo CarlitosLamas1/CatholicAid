@@ -1,8 +1,17 @@
 {
   "_voces": "Voces elegidas por Carlos en el casting (4/11/2026): Jesús = Enceladus, María = Gacrux; narradores: Lucas = Charon, Mateo = Iapetus, Marcos = Schedar, Juan = Achird (compartida con el apóstol Juan, misma persona). Ninguna otra voz se repite. No cambiar sin que Carlos lo pida.",
+  "_modelos": "Cada modelo tiene su propia cuota gratuita (unas 20 peticiones al día los flash). El vídeo usa modelos_texto en orden; el bot de Telegram usa modelos_bot (lite) para no gastar la cuota del vídeo. Los omni y pro no tienen cuota gratuita. Diagnóstico: workflow «Diagnóstico Gemini».",
   "modelos_texto": [
     "gemini-3.8-flash",
-    "gemini-3.8-flash-lite"
+    "gemini-3.7-flash",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+    "gemini-3-flash-preview"
+  ],
+  "modelos_bot": [
+    "gemini-3.5-flash-lite",
+    "gemini-3.1-flash-lite",
+    "gemini-flash-lite-latest"
   ],
   "modelo_voz": "gemini-2.5-flash-preview-tts",
   "velocidad_voz": 1.15,

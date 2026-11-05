@@ -93,8 +93,8 @@ def modelos_texto():
     except Exception as e:
         log(f"   No pude listar modelos: {e}")
         return preferidos
-    extra = sorted((n for n in nombres if "flash" in n and n not in preferidos
-                    and not re.search(r"tts|image|live|audio|embed|exp", n)), reverse=True)
+    extra = sorted((n for n in nombres if "flash" in n and n not in preferidos  # omni/pro: sin cuota gratuita
+                    and not re.search(r"tts|image|live|audio|embed|exp|omni|pro|lite", n)), reverse=True)
     return [m for m in preferidos if m in nombres] + extra[:3]
 
 
