@@ -325,6 +325,8 @@ def aviso_informe(ruta):
 
 # Causas conocidas: (patrón en el log, frase para Carlos, requiere acción de Carlos)
 CAUSAS = [
+    (r"no publico con un reparto dudoso", "Gemini está saturado y no ha podido repartir las voces; "
+                                          "no se publica para no equivocarse con quién habla.", False),
     (r"invalid_grant", "El permiso de YouTube ha caducado o se ha revocado.", True),
     (r"quotaExceeded|uploadLimitExceeded|dailyLimitExceeded", "YouTube no deja subir más hoy (límite de cuota).", False),
     (r"TikTok no da acceso", "El permiso de TikTok ha caducado: hay que reconectarlo una vez.", True),
@@ -401,8 +403,8 @@ def causa(texto):
 
 def proximo_reintento(nombre, ahora=None):
     horas, plantilla = REINTENTOS.get(nombre, ([], ""))
-    if (os.environ.get("FALLO_EVENTO") or os.environ.get("GITHUB_EVENT_NAME")) != "schedule" or not horas:
-        return "No hay reintento automático: el gestor lo revisará." if horas else ""
+    if not horas:  # los reintentos son tiradas programadas: ocurren aunque el fallo fuera de un lanzamiento manual
+        return ""
     ahora = ahora or dt.datetime.now(dt.timezone.utc)
     for h in sorted(horas):
         if h > ahora.hour:
