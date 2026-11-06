@@ -94,5 +94,6 @@
     "publish_id": "v_pub_file~v2-1.7704970771491391510",
     "estado": "PUBLISH_COMPLETE",
     "privacidad": "SELF_ONLY"
-  }
+  },
+  "telegram_youtube": true
 }
