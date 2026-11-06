@@ -20,6 +20,14 @@
   "max_segundos_imagen": 16,
   "gancho_segundos": 2.8,
   "cierre_segundos": 2.5,
+  "fondos_reflexion": [
+    "D10",
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05"
+  ],
   "imagenes_ia": {
     "activo": true,
     "modelo": "gemini-2.5-flash-image",

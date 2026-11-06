@@ -1,0 +1,55 @@
+name: Pintar fondos de reflexión
+
+# Pinta (una vez) los fondos SIN PERSONAS sobre los que va la reflexión final, para no atribuírsela a nadie.
+# Los guarda en biblioteca/clips/R0N.jpg y los anota en biblioteca/catalogo.json. Si ya existen, no los repite.
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  pintar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q pillow
+      - name: Pintar
+        shell: python
+        run: |
+          import json, subprocess
+          from pathlib import Path
+          sin = " Absolutely no people, no human figures, no faces, no silhouettes."
+          fondos = {
+              "R01": ("oleo", "An oil lamp burning softly beside an open parchment scroll on a rough wooden table in a quiet stone room, warm golden glow, peaceful and prayerful."),
+              "R02": ("oleo", "The Sea of Galilee at dawn, calm mirror-like water, an empty wooden fishing boat resting on the pebble shore, soft golden light over the hills."),
+              "R03": ("oleo", "An ancient olive grove on a Galilean hillside at sunset, gentle rays of golden light streaming through the silver-green branches."),
+              "R04": ("acuarela", "A golden wheat field ready for harvest swaying under a gentle evening sky with warm peach clouds."),
+              "R05": ("acuarela", "A simple stone path winding through wildflowers toward distant hills under a calm, luminous sky."),
+          }
+          cat_ruta = Path("biblioteca/catalogo.json")
+          cat = json.loads(cat_ruta.read_text(encoding="utf-8"))
+          for clave, (estilo, escena) in fondos.items():
+              destino = Path(f"biblioteca/clips/{clave}.jpg")
+              if destino.exists():
+                  print(clave, "ya existe"); continue
+              subprocess.run(["python3", "proceso/imagenes.py", escena + sin, str(destino), "--estilo", estilo], check=True)
+              cat["clips"][clave] = {"titulo": "Fondo de reflexión", "descripcion": "Fondo de reflexión sin personas: " + escena,
+                                     "estilo": estilo, "personajes": [], "prompt_imagen": escena + sin}
+              print(clave, "pintado")
+          cat_ruta.write_text(json.dumps(cat, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+      - name: Guardar
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add biblioteca/
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Biblioteca: fondos sin personas para la reflexión"
+            git pull -q --rebase && git push -q
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fondos
+          path: biblioteca/clips/R0*.jpg

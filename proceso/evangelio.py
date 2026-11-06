@@ -662,7 +662,7 @@ def clips_disponibles():
     if not ruta.exists():
         return {}
     cat = json.loads(ruta.read_text(encoding="utf-8"))["clips"]
-    return {k: v["descripcion"] for k, v in cat.items() if archivo_clip(k)}
+    return {k: v["descripcion"] for k, v in cat.items() if archivo_clip(k) and not k.startswith("R")}  # R: solo reflexión
 
 
 def es_video(p):
@@ -719,6 +719,13 @@ def elegir_visuales(tramos, info, fecha, carpeta, retrato=None):
             visuales.append({"archivo": retrato, "titulo": f"evangelistas/{retrato.name}"})
             log(f"   Tramo {tipo}: {visuales[-1]['titulo']}")
             continue
+        if tipo == "reflexion":  # fondo SIN personas (no atribuir la reflexión a nadie), rotando por días
+            fondos = [k for k in CFG.get("fondos_reflexion", []) if archivo_clip(k)]
+            if fondos:
+                k = fondos[dt.date.fromisoformat(str(fecha)).toordinal() % len(fondos)]
+                visuales.append({"archivo": archivo_clip(k), "titulo": f"biblioteca/{k}"})
+                log(f"   Tramo reflexión: biblioteca/{k} (sin personas, oscurecida)")
+                continue
         if tipo in ("reflexion", "cierre") and visuales:  # la última escena, oscurecida
             previa = next((v for v in reversed(visuales) if not v["titulo"].startswith("evangelistas/")), visuales[-1])
             visuales.append(dict(previa))
