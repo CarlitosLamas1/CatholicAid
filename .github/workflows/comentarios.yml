@@ -1,0 +1,44 @@
+name: Comentarios
+
+# Responde comentarios de YouTube con ritmo humano (como mucho uno por pasada) y manda a Carlos los delicados.
+# Lo lanza el «Reloj» cada hora; simular=true solo escribe lo que respondería.
+on:
+  workflow_dispatch:
+    inputs:
+      simular:
+        description: "Solo simular (no publica nada ni avisa)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comentarios
+  cancel-in-progress: false
+
+jobs:
+  responder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Responder
+        run: python3 proceso/comentarios.py ${{ inputs.simular && '--simular' || '' }}
+      - name: Guardar estado
+        if: always() && !inputs.simular
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add estado/comentarios.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Comentarios: estado"
+            git pull -q --rebase && git push -q
+          fi

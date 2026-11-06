@@ -283,5 +283,21 @@
   },
   "tiktok": {
     "privacidad": "PUBLIC_TO_EVERYONE"
+  },
+  "comentarios": {
+    "_nota": "Respuestas en YouTube con ritmo humano (proceso/comentarios.py). Como mucho una por pasada horaria; los delicados van a Carlos por Telegram.",
+    "activo": true,
+    "max_dia": 6,
+    "min_minutos_entre": 75,
+    "max_minutos_entre": 200,
+    "espera_min_minutos": 60,
+    "espera_max_minutos": 300,
+    "desde_hora": 9,
+    "hasta_hora": 2,
+    "modelos": [
+      "gemini-3.5-flash-lite",
+      "gemini-3.1-flash-lite",
+      "gemini-flash-lite-latest"
+    ]
   }
 }

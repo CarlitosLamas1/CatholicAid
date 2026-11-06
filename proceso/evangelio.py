@@ -949,11 +949,17 @@ LISTAS = {"Mateo": "Evangelio según san Mateo", "Marcos": "Evangelio según san
           "Lucas": "Evangelio según san Lucas", "Juan": "Evangelio según san Juan"}
 
 
+def refresh_youtube():
+    """El permiso reconectado (secretos/youtube.enc, con listas y comentarios) si existe; si no, el de siempre."""
+    import youtube_conectar
+    return youtube_conectar.guardado() or os.environ["YT_REFRESH_TOKEN"].strip()
+
+
 def token_youtube():
     r = http("https://oauth2.googleapis.com/token", urllib.parse.urlencode({
         "client_id": os.environ["YT_CLIENT_ID"].strip(),
         "client_secret": os.environ["YT_CLIENT_SECRET"].strip(),
-        "refresh_token": os.environ["YT_REFRESH_TOKEN"].strip(),
+        "refresh_token": refresh_youtube(),
         "grant_type": "refresh_token"}).encode())
     log(f"   Permisos de YouTube: {r.get('scope', '?')}")
     return r["access_token"]

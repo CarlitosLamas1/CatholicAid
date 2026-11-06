@@ -1,0 +1,46 @@
+name: Conectar YouTube
+
+# 1) Sin código: prepara el enlace para autorizar (artefacto «enlace-youtube»).
+# 2) Con código (o la dirección entera de la página a la que vuelve Google): guarda el permiso cifrado
+#    en secretos/youtube.enc y comprueba que ya se pueden gestionar listas y comentarios.
+on:
+  workflow_dispatch:
+    inputs:
+      codigo:
+        description: "Código o dirección que devuelve Google tras autorizar (vacío = dame el enlace)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  conectar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      CODIGO: ${{ inputs.codigo }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enlace o canje
+        run: |
+          if [ -z "$CODIGO" ]; then
+            python3 proceso/youtube_conectar.py url
+          else
+            python3 proceso/youtube_conectar.py canjear "$CODIGO"
+            python3 proceso/youtube_conectar.py comprobar
+            git config user.name "gestor-catholicaid"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add secretos/youtube.enc
+            git commit -q -m "YouTube reconectado (permiso cifrado)"
+            git pull -q --rebase && git push -q
+          fi
+      - uses: actions/upload-artifact@v4
+        if: inputs.codigo == ''
+        with:
+          name: enlace-youtube
+          path: youtube-url.txt
+          retention-days: 1

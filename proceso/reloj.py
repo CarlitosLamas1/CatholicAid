@@ -6,6 +6,7 @@ Los horarios de GitHub (cron) pueden llegar horas tarde o no llegar. Este script
 1. Vídeo de mañana (16:00–23:59 Madrid): si no hay registro diario hecho, o el último intento falló o fue rechazado.
 2. «Publicar revisado»: si hay veredicto del revisor que aún no se ha aplicado.
 3. TikTok (desde hora_publicacion de config, durante 12 h): si el vídeo de hoy tiene el OK y sigue preparado sin publicar.
+4. «Comentarios» cada hora (responde como mucho uno, con ritmo humano).
 Nunca duplica: no lanza nada que esté en marcha o se haya lanzado hace poco. Necesita GH_TOKEN.
 """
 import datetime as dt
@@ -57,6 +58,10 @@ def main():
     ahora = dt.datetime.now(MADRID)
     hoy, manana = ahora.date(), ahora.date() + dt.timedelta(days=1)
     log(f"Reloj: {ahora:%Y-%m-%d %H:%M} (Madrid)")
+    try:
+        comentarios(runs)
+    except Exception as e:  # nunca impide lo demás
+        log(f"Comentarios: no se pudo lanzar ({e})")
 
     # 1. Vídeo de mañana
     reg = leer(f"episodios/{manana}.json")
@@ -92,6 +97,12 @@ def main():
                 lanzar("tiktok-publicar.yml", fecha=str(hoy))
         else:
             log(f"TikTok: nada que hacer (preparado={preparado}, ok={bool(rev.get('ok'))}).")
+
+
+def comentarios(runs):
+    """4. Respuestas a comentarios: una pasada cada hora (el propio script decide si toca responder)."""
+    if not reciente(runs, "Comentarios", 40):
+        lanzar("comentarios.yml")
 
 
 if __name__ == "__main__":
