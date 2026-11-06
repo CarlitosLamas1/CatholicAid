@@ -182,6 +182,45 @@ def cargar_libro(libro):
     return datos
 
 
+# ---------- 1c. World English Bible, edición católica (dominio público) · canal en inglés ----------
+
+WEB_URL = "https://eBible.org/Scriptures/eng-web-c_vpl.zip"  # «World English Bible (Catholic)», eBible.org
+LIBROS_WEB = {"Mateo": "MAT", "Marcos": "MRK", "Lucas": "LUK", "Juan": "JHN"}
+LIBROS_EN = {"Mateo": "Matthew", "Marcos": "Mark", "Lucas": "Luke", "Juan": "John"}
+
+
+def cargar_web(libro):
+    """Evangelio de la World English Bible (Catholic) desde eBible.org; se guarda en biblia/web/<libro>.json."""
+    ruta = RAIZ / "biblia" / "web" / f"{libro.lower()}.json"
+    if ruta.exists():
+        return json.loads(ruta.read_text(encoding="utf-8"))
+    import io
+    import zipfile
+    log(f"   Descargando la World English Bible (Catholic) de {WEB_URL}")
+    z = zipfile.ZipFile(io.BytesIO(http(WEB_URL, raw=True, timeout=300)[1]))
+    lineas = "\n".join(z.read(n).decode("utf-8-sig", "replace") for n in z.namelist() if n.lower().endswith(".txt"))
+    for nombre, codigo in LIBROS_WEB.items():
+        datos = {}
+        for m in re.finditer(rf"^{codigo} (\d+):(\d+) (.*)$", lineas, re.M):
+            texto = re.sub(r"\s+", " ", m.group(3).replace("¶", " ")).strip()
+            datos.setdefault(m.group(1), {})[m.group(2)] = texto
+        if datos:
+            destino = RAIZ / "biblia" / "web" / f"{nombre.lower()}.json"
+            destino.parent.mkdir(parents=True, exist_ok=True)
+            destino.write_text(json.dumps(datos, ensure_ascii=False, indent=1), encoding="utf-8")
+    if not ruta.exists():
+        raise RuntimeError(f"No encuentro {libro} en la World English Bible")
+    return json.loads(ruta.read_text(encoding="utf-8"))
+
+
+def cita_en(cita):
+    """'Lucas 16, 1-8' -> 'Luke 16:1-8' · 'Juan 20, 1-2. 11-18' -> 'John 20:1-2, 11-18'"""
+    libro, resto = cita.split(None, 1)
+    resto = re.sub(r"(\d+),\s*(\d)", r"\1:\2", resto)
+    resto = re.sub(r"\.\s*", ", ", resto).strip(", ")
+    return f"{LIBROS_EN.get(libro, libro)} {resto}"
+
+
 def versiculos(cita, datos):
     """'Lucas 15, 1-10' / 'Juan 20, 1-2. 11-18' / 'Mateo 26, 14-27, 66' -> [(cap, ver), ...]"""
     resto = re.sub(r"^\s*[1-3]?\s?\w+\s+", "", cita).replace("—", "-").replace("–", "-")
@@ -207,10 +246,27 @@ def versiculos(cita, datos):
     return lista
 
 
+NOMBRES_EN = {"Jesus", "Peter", "Simon", "John", "Mary", "God", "Jerusalem", "Galilee", "Herod", "Pilate", "I",
+              "Martha", "Thomas", "Philip", "Andrew", "James", "Judas", "Zacchaeus", "Lazarus", "Elizabeth"}
+
+
 def texto_torres_amat(cita):
+    return texto_biblia(cita, cargar_libro, RAIZ / "biblia" / "revisada", ortografia, "En aquel tiempo,", NOMBRES,
+                        "Torres Amat (1836)")
+
+
+def texto_web(cita):
+    """Canal en inglés: la misma cita (en español) con el texto de la World English Bible (Catholic)."""
+    texto, fuente = texto_biblia(cita, cargar_web, RAIZ / "biblia" / "web" / "revisada", lambda t: t,
+                                 "At that time,", NOMBRES_EN, "World English Bible, Catholic Edition (public domain)")
+    return texto, fuente.replace("versión revisada por CatholicAid", "revised by CatolicAid").replace(
+        "revisión parcial", "partly revised").replace("ortografía actualizada", "original text")
+
+
+def texto_biblia(cita, cargar, carpeta_rev, arreglar, inicio_defecto, nombres, nombre):
     libro = cita.split()[0]
-    datos = cargar_libro(libro)
-    ruta_rev = RAIZ / "biblia" / "revisada" / f"{libro.lower()}.json"
+    datos = cargar(libro)
+    ruta_rev = carpeta_rev / f"{libro.lower()}.json"
     rev = json.loads(ruta_rev.read_text(encoding="utf-8")) if ruta_rev.exists() else {}
     vs = versiculos(cita, datos)
     partes, faltan, revisados = [], [], 0
@@ -221,7 +277,7 @@ def texto_torres_amat(cita):
             partes.append(r)
             revisados += 1
         elif o:
-            partes.append(ortografia(o))
+            partes.append(arreglar(o))
         else:
             faltan.append(f"{c},{v}")
     if not vs or faltan:
@@ -229,18 +285,18 @@ def texto_torres_amat(cita):
     texto = " ".join(partes)
     inicio = rev.get("_inicios", {}).get(f"{vs[0][0]}:{vs[0][1]}")
     if inicio is None:
-        inicio = "" if vs[0] == (1, 1) else "En aquel tiempo,"
+        inicio = "" if vs[0] == (1, 1) else inicio_defecto
     if inicio:
         primera = texto.split()[0].strip("¿¡“«")
-        if inicio.endswith(",") and primera not in NOMBRES:
+        if inicio.endswith(",") and primera not in nombres:
             texto = texto[0].lower() + texto[1:]
         texto = f"{inicio} {texto}"
     if revisados == len(vs):
-        fuente = "Torres Amat (1836), versión revisada por CatholicAid"
+        fuente = f"{nombre}, versión revisada por CatholicAid"
     elif revisados:
-        fuente = "Torres Amat (1836), revisión parcial"
+        fuente = f"{nombre}, revisión parcial"
     else:
-        fuente = "Torres Amat (1836), ortografía actualizada"
+        fuente = f"{nombre}, ortografía actualizada"
     return texto, fuente
 
 
