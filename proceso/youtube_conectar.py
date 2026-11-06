@@ -34,12 +34,14 @@ def _openssl(args, entrada):
     return r.stdout
 
 
-def guardado():
-    """Refresh token guardado (cifrado), o None."""
-    if not FICHERO.exists() or not os.environ.get("YT_CLIENT_SECRET", "").strip():
+def guardado(canal=None):
+    """Refresh token guardado (cifrado), o None. canal: «es» (por defecto, el de CANAL) o «en»."""
+    canal = canal or CANAL
+    fichero = RAIZ / "secretos" / ("youtube.enc" if canal == "es" else f"youtube-{canal}.enc")
+    if not fichero.exists() or not os.environ.get("YT_CLIENT_SECRET", "").strip():
         return None
     try:
-        return json.loads(_openssl(["-d"], FICHERO.read_bytes())).get("refresh_token")
+        return json.loads(_openssl(["-d"], fichero.read_bytes())).get("refresh_token")
     except Exception:
         return None
 
