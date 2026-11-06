@@ -1,26 +1,28 @@
 {
   "fecha": "2026-11-07",
-  "modo": "prueba",
+  "modo": "diario",
   "cita": "Lucas 16, 9-15",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/07.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
-  "guion": "gemini-3-flash-preview",
+  "guion": "gemini-3.8-flash",
   "voces": "gemini",
   "peticiones_voz": 7,
   "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
-  "duracion_s": 85.8,
+  "duracion_s": 84.8,
   "imagenes": [
     "dias/2026-11-07_e1.jpg",
-    "biblioteca/D04",
-    "biblioteca/D03",
-    "biblioteca/D06",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-07_e1.jpg",
+    "biblioteca/D01",
+    "biblioteca/D05",
     "dias/2026-11-07_e2.jpg",
     "dias/2026-11-07_e3.jpg",
-    "dias/2026-11-07_e3.jpg"
+    "dias/2026-11-07_e3.jpg",
+    "evangelistas/lucas.jpg"
   ],
   "frase_clave": "No podéis servir a Dios y a las riquezas.",
-  "reflexion": "Busca siempre la fidelidad en lo pequeño y no te dejes esclavizar por el dinero. ¿Sabes que Dios conoce tu corazón y te ama profundamente?",
-  "lufs": -13.9,
+  "reflexion": "Pon tu corazón en Dios y no en las cosas materiales, usando lo que tienes para hacer el bien a los demás. ¿Dónde tienes puesta hoy tu verdadera confianza?",
+  "lufs": -13.7,
   "titulo": "Lectura del santo evangelio según san Lucas.",
   "texto_evangelio": "En aquel tiempo, dijo Jesús a sus discípulos: “Así os digo yo: ganaos amigos con las riquezas injustas, para que, cuando muráis, seáis recibidos en las moradas eternas. Quien es fiel en lo poco, también lo es en lo mucho; y quien es injusto en lo poco, también lo es en lo mucho. Si no habéis sido fieles en las riquezas injustas, ¿quién os confiará las verdaderas? Y si no fuisteis fieles en lo ajeno, ¿quién os dará lo que es vuestro? Ningún criado puede servir a dos amos, porque o aborrecerá a uno y amará al otro, o se apegará al primero y no hará caso del segundo. No podéis servir a Dios y a las riquezas”. Estaban oyendo todo esto los fariseos, que eran amigos del dinero, y se burlaban de él. Pero Jesús les dijo: “Vosotros os hacéis pasar por justos delante de los hombres, pero Dios conoce vuestros corazones; porque lo que los hombres tienen por grande es abominable a los ojos de Dios”.",
   "fragmentos": [
@@ -33,40 +35,41 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 7.35,
+      "inicio": 7.71,
       "texto": "En aquel tiempo, dijo Jesús a sus discípulos:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 11.2,
+      "inicio": 11.22,
       "texto": "“Así os digo yo: ganaos amigos con las riquezas injustas, para que, cuando muráis, seáis recibidos en las moradas eternas. Quien es fiel en lo poco, también lo es en lo mucho; y quien es injusto en lo poco, también lo es en lo mucho. Si no habéis sido fieles en las riquezas injustas, ¿quién os confiará las verdaderas? Y si no fuisteis fieles en lo ajeno, ¿quién os dará lo que es vuestro? Ningún criado puede servir a dos amos, porque o aborrecerá a uno y amará al otro, o se apegará al primero y no hará caso del segundo. No podéis servir a Dios y a las riquezas”."
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 50.45,
+      "inicio": 49.73,
       "texto": "Estaban oyendo todo esto los fariseos, que eran amigos del dinero, y se burlaban de él. Pero Jesús les dijo:"
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 58.27,
+      "inicio": 57.71,
       "texto": "“Vosotros os hacéis pasar por justos delante de los hombres, pero Dios conoce vuestros corazones; porque lo que los hombres tienen por grande es abominable a los ojos de Dios”."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 68.56,
+      "inicio": 68.46,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 71.07,
-      "texto": "Busca siempre la fidelidad en lo pequeño y no te dejes esclavizar por el dinero. ¿Sabes que Dios conoce tu corazón y te ama profundamente?",
+      "inicio": 71.84,
+      "texto": "Pon tu corazón en Dios y no en las cosas materiales, usando lo que tienes para hacer el bien a los demás. ¿Dónde tienes puesta hoy tu verdadera confianza?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-05T23:19:15+01:00"
+  "generado": "2026-11-06T01:13:02+01:00",
+  "revision": "pendiente"
 }
