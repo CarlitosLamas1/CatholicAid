@@ -1,26 +1,41 @@
 {
   "vistos": {
     "UgxJo-bQIpQQnogSW454AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "responder",
       "publicado": "2026-11-06T05:22:35+00:00",
       "desde": "2026-11-06T12:13:31.300376+01:00",
-      "listo": "2026-11-06T08:30:35+00:00"
+      "listo": "2026-11-06T08:30:35+00:00",
+      "motivo": "alabanza sencilla",
+      "respuesta": "Gloria a Él por siempre. Gracias por acompañarnos con el Evangelio de hoy, ¡que Dios te bendiga! 🙏",
+      "por": "claude"
     },
     "UgyUCiX9w402T697J3J4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-06T03:27:47+00:00",
       "desde": "2026-11-06T12:13:31.300376+01:00",
-      "listo": "2026-11-06T06:44:47+00:00"
+      "listo": "2026-11-06T06:44:47+00:00",
+      "motivo": "solo «Amén»",
+      "respuesta": "",
+      "por": "claude"
     },
     "Ugzb53V_6nlVYUQEckd4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "responder",
       "publicado": "2026-11-05T02:34:16+00:00",
       "desde": "2026-11-06T12:13:31.300376+01:00",
-      "listo": "2026-11-05T04:37:16+00:00"
+      "listo": "2026-11-05T04:37:16+00:00",
+      "motivo": "alabanza sencilla",
+      "respuesta": "Gracias por estar ahí cada día. Que la Palabra de Jesús te acompañe y te bendiga.",
+      "por": "claude"
     }
   },
-  "respondidos": [],
-  "recientes": [],
+  "respondidos": [
+    "Ugzb53V_6nlVYUQEckd4AaABAg"
+  ],
+  "recientes": [
+    "Gracias por estar ahí cada día. Que la Palabra de Jesús te acompañe y te bendiga."
+  ],
   "dia": "2026-11-06",
-  "hoy": 0
+  "hoy": 1,
+  "ultima": "2026-11-06T13:44:25.887575+01:00",
+  "proxima": "2026-11-06T16:45:25.887592+01:00"
 }
