@@ -122,17 +122,24 @@ def subir(video, texto, privacidad="PUBLIC_TO_EVERYONE"):
     opciones = info.get("privacy_level_options", [])
     if privacidad not in opciones:
         privacidad = "SELF_ONLY" if "SELF_ONLY" in opciones else (opciones[0] if opciones else "SELF_ONLY")
-    tam = Path(video).stat().st_size
+    contenido = Path(video).read_bytes()
+    tam = len(contenido)
+    # TikTok: un solo envío solo hasta 64 MB; si no, trozos de 10 MB (el último se queda con el resto).
+    trozo = tam if tam <= 60_000_000 else 10_000_000
+    n = max(1, tam // trozo)
     datos = _api("post/publish/video/init/", token, {
         "post_info": {"title": texto[:2200], "privacy_level": privacidad, "disable_duet": False,
                       "disable_stitch": False, "disable_comment": False, "video_cover_timestamp_ms": 3000,
                       "is_aigc": True},
-        "source_info": {"source": "FILE_UPLOAD", "video_size": tam, "chunk_size": tam, "total_chunk_count": 1}})
-    req = urllib.request.Request(datos["upload_url"], data=Path(video).read_bytes(), method="PUT",
-                                 headers={"Content-Type": "video/mp4", "Content-Length": str(tam),
-                                          "Content-Range": f"bytes 0-{tam - 1}/{tam}"})
-    with urllib.request.urlopen(req, timeout=600):
-        pass
+        "source_info": {"source": "FILE_UPLOAD", "video_size": tam, "chunk_size": trozo, "total_chunk_count": n}})
+    for i in range(n):
+        ini = i * trozo
+        fin = tam if i == n - 1 else ini + trozo
+        req = urllib.request.Request(datos["upload_url"], data=contenido[ini:fin], method="PUT",
+                                     headers={"Content-Type": "video/mp4", "Content-Length": str(fin - ini),
+                                              "Content-Range": f"bytes {ini}-{fin - 1}/{tam}"})
+        with urllib.request.urlopen(req, timeout=600):
+            pass
     estado = "PROCESSING"
     for _ in range(30):
         time.sleep(10)
