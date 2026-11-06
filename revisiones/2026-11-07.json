@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-07",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-06T01:13:02+01:00",
+  "revisado": "2026-11-06T01:32:54+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita coincide con citas.json (Lucas 16, 9-15)",
+    "voces": "✅ Palabras de Jesús (dos fragmentos) en jesus; narración en narrador",
+    "frase_clave": "✅ «No podéis servir a Dios y a las riquezas.» literal y de Jesús",
+    "reflexion": "✅ 29 palabras, cálida y acorde con la lectura",
+    "tecnica": "✅ 84,8 s; -13,7 LUFS",
+    "audio": "✅ Más lento: «Palabra del Señor.» 5,3 car/s (3,4 s, normal por pausas); más rápido: fragmento de Jesús 4, 16,4 car/s",
+    "imagenes": "✅ Tres imágenes del día devocionales, coherentes, sin defectos graves",
+    "metadatos": "✅ Fecha, cita y título (san Lucas) coherentes"
+  }
+}
