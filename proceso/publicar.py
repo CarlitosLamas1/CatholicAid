@@ -87,6 +87,10 @@ def main():
     reg["revision"] = "ok"
     if reg.get("youtube", {}).get("id"):
         log(f"El {fecha} ya está subido a YouTube ({reg['youtube']['url']}).")
+        if not reg["youtube"].get("lista", {}).get("id"):  # completa la lista si faltó (p. ej. sin permiso entonces)
+            lista = ev_mod.lista_evangelista(ev_mod.token_youtube(), reg["cita"].split()[0], reg["youtube"]["id"])
+            if lista:
+                reg["youtube"]["lista"] = lista
         guardar(ruta_reg, reg)
         return
     tmp = Path(tempfile.mkdtemp())
