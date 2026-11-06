@@ -171,7 +171,24 @@ def avisar_delicado(x, motivo):
                   f"«{avisos.e(x['texto'][:500])}» — {avisos.e(x['autor'])}\n🔗 {avisos.e(enlace)}")
 
 
+def ver_respuestas():
+    """Comprueba en YouTube las respuestas del canal a los comentarios respondidos (visibles o retenidas)."""
+    est = leer_estado()
+    h = {"Authorization": f"Bearer {ev.token_youtube()}"}
+    for cid in est["respondidos"][-10:]:
+        d = ev.http(YT + "comments?" + urllib.parse.urlencode({"part": "snippet", "parentId": cid, "maxResults": 50}), headers=h)
+        mias = [x["snippet"] for x in d.get("items", []) if x["snippet"].get("authorChannelId", {}).get("value") == CANAL]
+        hilo = ev.http(YT + "commentThreads?" + urllib.parse.urlencode({"part": "snippet", "id": cid}), headers=h)
+        video = (hilo.get("items") or [{}])[0].get("snippet", {}).get("videoId", "?")
+        for m in mias:
+            log(f"{cid} · vídeo {video} · {m.get('moderationStatus', 'publicado')} · {m.get('publishedAt')} · «{m.get('textOriginal')}»")
+        if not mias:
+            log(f"{cid} · vídeo {video} · ¡no aparece la respuesta del canal!")
+
+
 def main():
+    if "--ver" in sys.argv:
+        return ver_respuestas()
     simular = "--simular" in sys.argv
     c = cfg()
     if not c["activo"]:

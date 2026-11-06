@@ -9,6 +9,10 @@ on:
         description: "Solo simular (no publica nada ni avisa)"
         type: boolean
         default: false
+      ver:
+        description: "Solo comprobar en YouTube las respuestas ya publicadas"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -31,9 +35,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Responder
-        run: python3 proceso/comentarios.py ${{ inputs.simular && '--simular' || '' }}
+        run: python3 proceso/comentarios.py ${{ inputs.simular && '--simular' || '' }} ${{ inputs.ver && '--ver' || '' }}
       - name: Guardar estado
-        if: always() && !inputs.simular
+        if: always() && !inputs.simular && !inputs.ver
         run: |
           git config user.name "gestor-catholicaid"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
