@@ -71,5 +71,17 @@
     }
   ],
   "generado": "2026-11-06T01:13:02+01:00",
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "8gSf39b9nnc",
+    "url": "https://youtu.be/8gSf39b9nnc",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-07T06:00:00Z",
+    "lista": {
+      "titulo": "Evangelio según san Lucas",
+      "error": "falta permiso"
+    }
+  }
 }
