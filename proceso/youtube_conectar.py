@@ -57,7 +57,7 @@ def url():
     return "https://accounts.google.com/o/oauth2/v2/auth?" + urllib.parse.urlencode({
         "client_id": os.environ["YT_CLIENT_ID"].strip(), "redirect_uri": REDIRECT, "response_type": "code",
         "scope": " ".join(ALCANCES), "access_type": "offline", "prompt": "consent",
-        "include_granted_scopes": "true", "login_hint": "catolicolamas@gmail.com"})
+        "include_granted_scopes": "true"})  # sin login_hint: se elige la cuenta que gestiona el canal
 
 
 def canjear(codigo):
