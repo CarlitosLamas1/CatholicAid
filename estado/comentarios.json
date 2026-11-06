@@ -28,10 +28,13 @@
       "por": "claude"
     },
     "UgxH0qjA7NJLdqun5vZ4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "responder",
       "publicado": "2026-11-06T17:03:35+00:00",
       "desde": "2026-11-06T18:33:23.684428+01:00",
-      "listo": "2026-11-06T19:49:35+00:00"
+      "listo": "2026-11-06T19:49:35+00:00",
+      "motivo": "alabanza sencilla",
+      "respuesta": "Amén. Que Jesús te bendiga hoy y siempre; gracias por escuchar el Evangelio con nosotros.",
+      "por": "claude"
     }
   },
   "respondidos": [
