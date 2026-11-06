@@ -16,9 +16,25 @@
   "pausa_tts_segundos": 21,
   "pausa_entre_voces": 0.35,
   "caracteres_por_subtitulo": 46,
+  "karaoke": {
+    "_nota": "Subtítulos karaoke: se resalta la palabra que se lee. Tiempos: la duración real de cada audio repartida por longitud de palabra. Si se nota desfase: alineador = whisper (faster-whisper en CPU; hay que añadirlo al workflow).",
+    "activo": true,
+    "alineador": "longitud",
+    "resalte": {
+      "jesus": "F5C542"
+    },
+    "resalte_otros": "FFE6A6",
+    "resalte_reflexion": "FFFFFF"
+  },
   "hora_publicacion": 1,
+  "hora_publicacion_en": 1,
   "max_segundos_imagen": 16,
   "gancho_segundos": 2.8,
+  "_gancho_ab": "Prueba A/B del gancho (desde la rama mejoras-ingles): días pares e impares con distinta duración. Si se quita gancho_ab, se usa gancho_segundos. Cómo compararlo: docs/gancho-ab.md.",
+  "gancho_ab": {
+    "par": 2.8,
+    "impar": 1.5
+  },
   "cierre_segundos": 2.5,
   "fondos_reflexion": [
     "D10",
@@ -299,5 +315,173 @@
       "gemini-3.1-flash-lite",
       "gemini-flash-lite-latest"
     ]
+  },
+  "en": {
+    "_nota": "Canal CatolicAid English (proceso/evangelio.py --idioma en). Mismas voces de Gemini que en español (una fija por personaje) salvo que se elijan otras en el casting en inglés; acento por defecto: americano neutro (pendiente de que Carlos elija americano o británico). Solo clave gratuita (pago_voz=false). Estreno: publicar_programado=false -> se sube en PRIVADO sin programar hasta que Carlos lo apruebe.",
+    "activo": true,
+    "publicar_programado": false,
+    "pago_voz": false,
+    "_acento": "Acento de TODAS las voces en inglés. Por defecto americano neutro; para británico: \"clear neutral British accent\".",
+    "acento": "clear neutral American accent",
+    "narradores": {
+      "Mateo": {
+        "estilo": "the voice of a wise and serene old man, deep and warm, natural pace, {acento}"
+      },
+      "Marcos": {
+        "estilo": "the voice of an older man, clear and direct, with restrained liveliness, natural pace, {acento}"
+      },
+      "Lucas": {
+        "estilo": "the voice of a gentle and cultured old man, warm and delicate like a kind physician, natural pace, {acento}"
+      },
+      "Juan": {
+        "estilo": "the voice of a contemplative and profound old man, warm and full of tenderness, natural pace, {acento}"
+      }
+    },
+    "personajes": {
+      "narrador": {
+        "estilo": "the voice of a serene and warm old man, natural pace, {acento}",
+        "voz_edge": "en-US-ChristopherNeural"
+      },
+      "jesus": {
+        "nombre": "Jesus",
+        "estilo": "the voice of an adult man, warm, harmonious and tender, full of love and serene authority, natural pace, {acento}",
+        "alias": [
+          "Jesus",
+          "the Lord",
+          "Teacher",
+          "Master"
+        ],
+        "voz_edge": "en-US-GuyNeural"
+      },
+      "maria": {
+        "nombre": "Mary",
+        "estilo": "the voice of a young woman, sweet, humble and luminous, full of peace, natural pace, {acento}",
+        "alias": [
+          "his mother",
+          "the mother of Jesus"
+        ],
+        "voz_edge": "en-US-JennyNeural"
+      },
+      "magdalena": {
+        "nombre": "Mary Magdalene",
+        "estilo": "the voice of a young woman, sincere, moved and grateful, {acento}",
+        "alias": [
+          "Magdalene"
+        ],
+        "voz_edge": "en-US-AriaNeural"
+      },
+      "marta": {
+        "nombre": "Martha",
+        "estilo": "the voice of an adult woman, firm, practical and affectionate, {acento}",
+        "alias": [
+          "Martha"
+        ],
+        "voz_edge": "en-US-AriaNeural"
+      },
+      "isabel": {
+        "nombre": "Elizabeth",
+        "estilo": "the voice of an old woman, warm and full of serene joy, {acento}",
+        "alias": [
+          "Elizabeth"
+        ],
+        "voz_edge": "en-US-JennyNeural"
+      },
+      "mujer": {
+        "estilo": "the voice of an adult woman, natural and expressive, {acento}",
+        "alias": [
+          "woman"
+        ],
+        "voz_edge": "en-US-AriaNeural"
+      },
+      "pedro": {
+        "nombre": "Peter",
+        "estilo": "the voice of a mature fisherman, deep and somewhat rough, frank, impulsive and passionate, {acento}",
+        "alias": [
+          "Peter",
+          "Simon"
+        ],
+        "voz_edge": "en-US-EricNeural"
+      },
+      "juan": {
+        "nombre": "John",
+        "estilo": "the voice of a young man, soft, close and affectionate, {acento}",
+        "alias": [],
+        "voz_edge": "en-US-EricNeural"
+      },
+      "tomas": {
+        "nombre": "Thomas",
+        "estilo": "the voice of a middle-aged man, thoughtful, somewhat skeptical but sincere, {acento}",
+        "alias": [
+          "Thomas"
+        ],
+        "voz_edge": "en-US-EricNeural"
+      },
+      "judas": {
+        "nombre": "Judas",
+        "estilo": "the voice of a man, tense, low and halting, {acento}",
+        "alias": [
+          "Judas Iscariot",
+          "Judas"
+        ],
+        "voz_edge": "en-US-EricNeural"
+      },
+      "apostol": {
+        "nombre": "Disciple",
+        "estilo": "the voice of a simple adult man, natural and close, {acento}",
+        "alias": [
+          "Philip",
+          "Andrew",
+          "James",
+          "Nathanael",
+          "disciples",
+          "disciple",
+          "apostles"
+        ],
+        "voz_edge": "en-US-EricNeural"
+      },
+      "bautista": {
+        "nombre": "John the Baptist",
+        "estilo": "the voice of a prophet, strong, firm and passionate, resounding in the desert, {acento}",
+        "alias": [
+          "Baptist"
+        ],
+        "voz_edge": "en-US-EricNeural"
+      },
+      "fariseos": {
+        "nombre": "Pharisees",
+        "estilo": "the voice of an educated man, dry, distrustful and somewhat haughty, {acento}",
+        "alias": [
+          "Pharisees",
+          "scribes",
+          "Sadducees",
+          "priests",
+          "teachers of the law",
+          "lawyers",
+          "Pharisee"
+        ],
+        "voz_edge": "en-US-EricNeural"
+      },
+      "hombre": {
+        "estilo": "the voice of an adult man, natural and expressive, {acento}",
+        "alias": [
+          "man",
+          "angel",
+          "centurion",
+          "Jews"
+        ],
+        "voz_edge": "en-US-EricNeural"
+      },
+      "multitud": {
+        "nombre": "The people",
+        "estilo": "an energetic, popular voice, like many people speaking, {acento}",
+        "alias": [
+          "people",
+          "crowd",
+          "multitude",
+          "lepers"
+        ],
+        "voz_edge": "en-US-EricNeural"
+      }
+    }
   }
 }

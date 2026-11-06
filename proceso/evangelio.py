@@ -71,11 +71,15 @@ def aplicar_idioma(idioma):
     if idioma == "es":
         return
     o = CFG.get(idioma, {})
+    acento = o.get("acento", "clear neutral American accent")
     for k, v in o.get("personajes", {}).items():
         if k in PJ:
             PJ[k] = {**PJ[k], **v}
     for k, v in o.get("narradores", {}).items():
         CFG["narradores"][k] = {**CFG["narradores"].get(k, {}), **v}
+    for d in list(PJ.values()) + list(CFG["narradores"].values()):
+        if "estilo" in d:
+            d["estilo"] = d["estilo"].replace("{acento}", acento)
     CFG["hora_publicacion"] = CFG.get(f"hora_publicacion_{idioma}", CFG.get("hora_publicacion", 7))
 
 
@@ -439,7 +443,7 @@ def hablante(narracion):
         for a in v.get("alias", []):
             for m in re.finditer(re.escape(a), narracion):
                 antes = narracion[:m.start()].rstrip().lower()
-                if re.search(r"\b(a|al|a los|a las|a sus|a su|con|de)$", antes):
+                if re.search(r"\b(a|al|a los|a las|a sus|a su|con|de|to|to the|to his|with|of)$", antes):
                     continue  # es a quien se habla, no quien habla
                 if m.start() > pos:
                     mejor, pos = k, m.start()
@@ -1099,6 +1103,8 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
             continue
         # Karaoke: la palabra que se lee, resaltada (Jesús en su dorado; los demás, un tono suave).
         resalte = kar.get("resalte", {}).get(f["personaje"], kar.get("resalte_otros", "FFE6A6"))
+        if f.get("reflexion"):
+            resalte = kar.get("resalte_reflexion", "FFFFFF")
         palabras = [w for tr in trozos for w in tr.split()]
         tiempos = tiempos_palabras(f, palabras)
         k = 0
@@ -1482,36 +1488,122 @@ def resumen(r):
         fh.write("\n".join(lineas) + "\n")
 
 
+def evangelio_ingles(fecha):
+    """Canal en inglés: la MISMA cita que el español (registro del día > biblia/citas.json > Vatican News),
+    con el texto de la World English Bible (Catholic). Si falta algún versículo, falla (nunca otro texto)."""
+    es = RAIZ / "episodios" / f"{fecha}.json"
+    reg_es = json.loads(es.read_text(encoding="utf-8")) if es.exists() else {}
+    ruta = RAIZ / "biblia" / "citas.json"
+    citas = json.loads(ruta.read_text(encoding="utf-8")) if ruta.exists() else {}
+    cita = (reg_es.get("cita") if reg_es.get("modo") == "diario" else None) or citas.get(str(fecha))
+    if not cita:
+        cita = obtener_evangelio(fecha)["cita"]
+    elif citas.get(str(fecha)) and reg_es.get("cita") and citas[str(fecha)] != reg_es["cita"]:
+        log(f"   Aviso: citas.json dice {citas[str(fecha)]} y el vídeo en español {reg_es['cita']}; sigo al español")
+    texto, fuente = texto_web(cita)
+    libro = cita.split()[0]
+    return {"url": f"https://www.vaticannews.va/es/evangelio-de-hoy/{fecha:%Y/%m/%d}.html",
+            "titulo": f"A reading from the holy Gospel according to {LIBROS_EN.get(libro, libro)}.",
+            "cita": cita_en(cita), "cita_es": cita, "libro": libro, "texto": texto, "fuente_texto": fuente}
+
+
+def escenas_del_espanol(fecha):
+    """Las escenas del vídeo en español del mismo día, para que el inglés use sus imágenes (no se pinta nada)."""
+    es = RAIZ / "episodios" / f"{fecha}.json"
+    reg = json.loads(es.read_text(encoding="utf-8")) if es.exists() else {}
+    escenas = reg.get("escenas") or []
+    hechas = sorted(int(m.group(1)) for p in (RAIZ / "biblioteca" / "dias").glob(f"{fecha}_e*.*")
+                    if (m := re.search(r"_e(\d+)\.", p.name)))
+    if not escenas and not hechas:
+        return ""
+    if escenas:
+        lista = "\n".join(f"   {e['numero']}: {e.get('descripcion') or e.get('busqueda', '')}" for e in escenas)
+        return (f"\n6. IMPORTANTE: usa EXACTAMENTE estas {len(escenas)} escenas, numeradas igual y en este orden, "
+                f"y asigna cada fragmento a la escena que muestra lo que narra:\n{lista}")
+    return (f"\n6. IMPORTANTE: agrupa el relato en EXACTAMENTE {max(hechas)} escenas, numeradas 1 a {max(hechas)} "
+            "en el orden del relato.")
+
+
+def aviso_sin_cupo(fecha, idioma, modo, error):
+    """Inglés: si no se ha podido hacer por falta de cupo de Gemini, se deja constancia en el registro."""
+    ruta = RAIZ / "episodios" / f"{fecha}{SUFIJO[idioma]}.json"
+    previo = json.loads(ruta.read_text(encoding="utf-8")) if ruta.exists() else {}
+    if previo.get("revision") or previo.get("youtube"):
+        return  # nunca se pisa un vídeo hecho
+    previo.update({"fecha": str(fecha), "idioma": idioma, "modo": modo, "estado": "fallido",
+                   "error": str(error)[:300], "cupo_agotado": sorted(CUPO_AGOTADO),
+                   "intento": dt.datetime.now(MADRID).isoformat(timespec="seconds")})
+    if CUPO_AGOTADO:
+        previo["avisos"] = sorted(set(previo.get("avisos", []) + [
+            "Falta cupo gratuito de Gemini (" + ", ".join(sorted(CUPO_AGOTADO)) + "): se reintenta más tarde."]))
+    ruta.parent.mkdir(exist_ok=True)
+    ruta.write_text(json.dumps(previo, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def gancho_del_dia(fecha):
+    """Prueba A/B del gancho: días pares e impares con distinta duración (config gancho_ab)."""
+    ab = CFG.get("gancho_ab")
+    if ab:
+        return float(ab["par"] if fecha.day % 2 == 0 else ab["impar"])
+    return float(CFG.get("gancho_segundos", 2.0))
+
+
 def main():
+    global CACHE
     ap = argparse.ArgumentParser()
     ap.add_argument("--fecha", default="")
     ap.add_argument("--modo", choices=["prueba", "diario"], default="prueba")
+    ap.add_argument("--idioma", choices=["es", "en"], default="es")
     ap.add_argument("--no-subir", action="store_true")
     ap.add_argument("--si-falta", action="store_true", help="no hace nada si ese día ya está subido (reintentos)")
+    ap.add_argument("--cache", default="", help="carpeta de caché (guion, frase y voces ya hechas no se repiten)")
     a = ap.parse_args()
+    idioma = a.idioma
+    aplicar_idioma(idioma)
+    suf = SUFIJO[idioma]
+    if a.cache:
+        CACHE = Path(a.cache)
+    if idioma != "es" and not CFG.get(idioma, {}).get("pago_voz"):
+        os.environ.pop("GEMINI_API_KEY_IMAGENES", None)  # inglés: solo la clave gratuita (ni voces ni imágenes de pago)
+    if os.environ.get("SIN_PAGO", "").strip().lower() in ("1", "true", "si", "sí"):
+        os.environ.pop("GEMINI_API_KEY_IMAGENES", None)  # pruebas: nada de pago
     fecha = (dt.date.fromisoformat(a.fecha.strip()) if a.fecha.strip()
              else dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
-    previo = RAIZ / "episodios" / f"{fecha}.json"
+    previo = RAIZ / "episodios" / f"{fecha}{suf}.json"
     hecho = json.loads(previo.read_text(encoding="utf-8")) if previo.exists() else {}
     if a.si_falta and hecho.get("modo") == "diario" and (
             "youtube" in hecho or hecho.get("revision") in ("pendiente", "ok") or hecho.get("no_publicar")):
-        log(f"El vídeo del {fecha} ya está hecho ({hecho.get('revision') or 'subido'}); nada que hacer.")
+        log(f"El vídeo del {fecha}{suf} ya está hecho ({hecho.get('revision') or 'subido'}); nada que hacer.")
         return
-    carpeta = RAIZ / "salida" / fecha.isoformat()
+    if CACHE:
+        CACHE = CACHE / f"{fecha}{suf}"
+    carpeta = RAIZ / "salida" / f"{fecha.isoformat()}{suf}"
     shutil.rmtree(carpeta, ignore_errors=True)
     carpeta.mkdir(parents=True)
-    log(f"== Evangelio del {fecha} (modo {a.modo}) ==")
+    log(f"== Evangelio del {fecha} (modo {a.modo}, idioma {idioma}) ==")
+    try:
+        producir(a, fecha, idioma, suf, carpeta, hecho)
+    except Exception as e:
+        if idioma != "es":
+            aviso_sin_cupo(fecha, idioma, a.modo, e)
+        raise
 
+
+def producir(a, fecha, idioma, suf, carpeta, hecho):
     log("1/6 Evangelio")
-    ev = obtener_evangelio(fecha)
-    if CFG.get("texto") == "torres-amat":
-        try:
-            ev["texto"], ev["fuente_texto"] = texto_torres_amat(ev["cita"])
-        except Exception as e:
-            log(f"   Torres Amat no disponible ({e}); uso el texto de Vatican News")
-    ev.setdefault("fuente_texto", "Vatican News")
+    if idioma == "en":
+        ev = evangelio_ingles(fecha)
+        libro = ev["libro"]
+    else:
+        ev = obtener_evangelio(fecha)
+        if CFG.get("texto") == "torres-amat":
+            try:
+                ev["texto"], ev["fuente_texto"] = texto_torres_amat(ev["cita"])
+            except Exception as e:
+                log(f"   Torres Amat no disponible ({e}); uso el texto de Vatican News")
+        ev.setdefault("fuente_texto", "Vatican News")
+        libro = ev["cita"].split()[0]
     log(f"   {ev['cita']} · {ev['fuente_texto']} · {len(ev['texto'])} caracteres")
-    libro = ev["cita"].split()[0]
     if libro in CFG.get("narradores", {}):
         PJ["narrador"] = {**PJ["narrador"], **CFG["narradores"][libro]}
         log(f"   Narrador: san {libro} (voz {PJ['narrador']['voz_gemini']})")
@@ -1519,7 +1611,7 @@ def main():
     log("2/6 Guion")
     biblioteca = clips_disponibles()
     log(f"   Biblioteca: {len(biblioteca)} clips disponibles")
-    g = guion_gemini(ev["texto"], biblioteca)
+    g = guion_gemini(ev["texto"], biblioteca, escenas_del_espanol(fecha) if idioma != "es" else "")
     if not g and a.modo == "diario" and dt.datetime.now(dt.timezone.utc).hour < 21:
         raise RuntimeError("Gemini no ha podido repartir las voces: no publico con un reparto dudoso. "
                            "Se reintenta en la próxima tirada (el último intento, a las 21 UTC, usa reglas).")
@@ -1527,7 +1619,6 @@ def main():
         log("   Gemini no disponible o no fiel: uso reglas por comillas")
         g = guion_reglas(ev["texto"])
     frs = preparar_fragmentos(g, ev)
-    busquedas = {int(e["numero"]): e["busqueda"] for e in g.get("escenas", [])}
     frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
     log(f"   Frase clave: {frase or '(ninguna)'}")
     log(f"   Reflexión: {reflexion or '(ninguna)'}")
@@ -1541,7 +1632,7 @@ def main():
     log("3/6 Voces")
     motor, pistas = generar_audio(frs, carpeta)
     total = montar_audio(frs, pistas, carpeta)
-    gancho = float(CFG.get("gancho_segundos", 2.0)) if frase else 0.0
+    gancho = gancho_del_dia(fecha) if frase else 0.0
     cierre = float(CFG.get("cierre_segundos", 0))
     limite = CFG.get("duracion_maxima", 170) - gancho - cierre
     if total > limite:  # Shorts: 3 minutos como máximo. Se acelera lo justo (sin cambiar el tono).
@@ -1579,7 +1670,8 @@ def main():
     retrato = RAIZ / "personajes" / "evangelistas" / f"{libro.lower()}.jpg"
     retrato = retrato if retrato.exists() else None
     bl = bloques(frs, total, gancho, cierre, bool(retrato))
-    generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha)
+    if idioma == "es":  # el inglés reutiliza las imágenes del día del español: no se pinta nada
+        generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha)
     visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta, retrato)
 
     log("5/6 Vídeo")
@@ -1607,16 +1699,33 @@ def main():
            "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", "video.mp4", cwd=carpeta)
     video = carpeta / "video.mp4"
     log(f"   video.mp4 · {video.stat().st_size / 1e6:.1f} MB")
+    mini = None
+    try:  # miniatura (YouTube 1280×720) y versión vertical (TikTok 1080×1920); si falla, se sigue sin ella
+        img = imagen_miniatura(frs, frase, visuales, bl)
+        if img:
+            mini = miniatura(img, frase, carpeta / "miniatura.jpg")
+            miniatura(img, frase, carpeta / "miniatura_vertical.jpg", (1080, 1920))
+            log(f"   Miniatura: {Path(img).name}")
+    except Exception as e:
+        log(f"   Miniatura no creada ({e})")
 
     registro = {"fecha": str(fecha), "modo": a.modo, "cita": ev["cita"], "fuente": ev["url"], "texto_fuente": ev["fuente_texto"],
                 "guion": g.get("origen"), "voces": motor, "peticiones_voz": len(pistas), "musica": musica.name if musica else None, "duracion_s": round(total, 1),
                 "imagenes": [v["titulo"] for v in visuales],
                 "frase_clave": frase, "reflexion": reflexion, "lufs": lufs,
+                "gancho_segundos": gancho, "subtitulos_karaoke": bool(CFG.get("karaoke", {}).get("activo")),
+                "miniatura": Path(mini).name if mini else None,
+                "escenas": [{k: e.get(k) for k in ("numero", "descripcion", "busqueda", "personajes")}
+                            for e in g.get("escenas", [])],
                 "titulo": ev["titulo"], "texto_evangelio": ev["texto"],
                 "fragmentos": [{"personaje": f["personaje"], "escena": f["escena"],
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"],
                                 **({"reflexion": True} if f.get("reflexion") else {})} for f in frs],
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
+    if idioma != "es":
+        registro.update({"idioma": idioma, "libro": libro, "cita_es": ev["cita_es"]})
+    if CUPO_AGOTADO:
+        registro["cupo_agotado"] = sorted(CUPO_AGOTADO)
     if AVISOS:
         registro["avisos"] = sorted(set(AVISOS))
     for k in ("rehechos", "descartados"):  # historial de versiones anteriores del mismo día
@@ -1633,28 +1742,29 @@ def main():
     else:
         log("6/6 YouTube")
         try:
-            tok = token_youtube()
-            vid, estado = subir_youtube(video, ev, fecha, a.modo, tok)
+            tok = token_youtube(idioma)
+            vid, estado = subir_youtube(video, ev, fecha, a.modo, tok, idioma)
         except urllib.error.HTTPError as e:
             log(f"   Error de YouTube {e.code}: {e.read().decode(errors='replace')[:600]}")
             raise
         registro["youtube"] = {"id": vid, "url": f"https://youtu.be/{vid}", **estado}
         log(f"   Subido: https://youtu.be/{vid} ({estado['privacyStatus']})")
-        lista = lista_evangelista(tok, libro, vid)
-        if lista:
-            registro["youtube"]["lista"] = lista
+        publicar_extras(tok, vid, registro, fecha, mini, idioma)
 
-    # TikTok no permite programar: se deja el texto preparado y el vídeo se publica a la hora_publicacion (tiktok-publicar.yml / Reloj).
-    fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
-    (carpeta / "tiktok.txt").write_text(
-        f"Evangelio del día · {fecha_txt} · {ev['cita']} 🙏\n\n" + (f"«{frase}»\n\n" if frase else "") + f"{ev['titulo']}\n"
-        "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
-        "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion", encoding="utf-8")
+    if idioma == "es":
+        # TikTok no permite programar: se deja el texto preparado y el vídeo se publica a la hora_publicacion (tiktok-publicar.yml / Reloj).
+        fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
+        (carpeta / "tiktok.txt").write_text(
+            f"Evangelio del día · {fecha_txt} · {ev['cita']} 🙏\n\n" + (f"«{frase}»\n\n" if frase else "") + f"{ev['titulo']}\n"
+            "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
+            "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion", encoding="utf-8")
+    else:  # TikTok en inglés: fuera de alcance; la nota solo sirve de descripción de la release
+        (carpeta / "tiktok.txt").write_text(f"Gospel of the day · {ev['cita']} (CatolicAid English)\n", encoding="utf-8")
 
     texto = json.dumps(registro, ensure_ascii=False, indent=2)
     (carpeta / "guion.json").write_text(texto, encoding="utf-8")
     (RAIZ / "episodios").mkdir(exist_ok=True)
-    (RAIZ / "episodios" / f"{fecha}.json").write_text(texto, encoding="utf-8")
+    (RAIZ / "episodios" / f"{fecha}{suf}.json").write_text(texto, encoding="utf-8")
     resumen(registro)
     log("LISTO")
 
