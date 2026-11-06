@@ -27,7 +27,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Enlace o canje
         run: |
-          if [ -z "$CODIGO" ]; then
+          if [ "$CODIGO" = "estado" ]; then
+            python3 proceso/youtube_conectar.py estado; exit 0
+          elif [ -z "$CODIGO" ]; then
             python3 proceso/youtube_conectar.py url
           else
             python3 proceso/youtube_conectar.py canjear "$CODIGO"

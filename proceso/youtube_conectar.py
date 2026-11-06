@@ -94,5 +94,19 @@ if __name__ == "__main__":
         canjear(sys.argv[2])
     elif orden == "comprobar":
         comprobar()
+    elif orden == "estado":  # estado real de los últimos vídeos subidos (público, privado, bloqueado...)
+        tok = _token({"refresh_token": guardado() or os.environ["YT_REFRESH_TOKEN"].strip(), "grant_type": "refresh_token"})
+        h = {"Authorization": f"Bearer {tok['access_token']}"}
+        ids = []
+        for ruta in sorted((RAIZ / "episodios").glob("*.json"))[-8:]:
+            vid = json.loads(ruta.read_text(encoding="utf-8")).get("youtube", {}).get("id")
+            if vid:
+                ids.append((ruta.stem, vid))
+        q = urllib.parse.urlencode({"part": "status,snippet", "id": ",".join(v for _, v in ids)})
+        with urllib.request.urlopen(urllib.request.Request("https://www.googleapis.com/youtube/v3/videos?" + q, headers=h)) as r:
+            datos = {i["id"]: i for i in json.loads(r.read())["items"]}
+        for fecha, vid in ids:
+            st = datos.get(vid, {}).get("status", {})
+            print(fecha, vid, json.dumps(st, ensure_ascii=False))
     else:
         print(__doc__)
