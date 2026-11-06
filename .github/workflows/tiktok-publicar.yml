@@ -1,11 +1,12 @@
 name: Publicar en TikTok
 
 # Cada mañana publica en TikTok el vídeo del día que dejó preparado «Evangelio diario» la tarde anterior.
-# 06:00 UTC = 7:00 en España en invierno (8:00 en verano). El segundo horario es un reintento.
+# 00:00 UTC = 1:00 en España en invierno (2:00 en verano), según hora_publicacion. El segundo es un reintento.
+# Los cron de GitHub se retrasan: el Reloj lo lanza igualmente desde la hora de publicación.
 on:
   schedule:
-    - cron: "0 6 * * *"
-    - cron: "0 8 * * *"
+    - cron: "0 0 * * *"
+    - cron: "0 2 * * *"
   workflow_dispatch:
     inputs:
       fecha:

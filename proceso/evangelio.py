@@ -1194,7 +1194,7 @@ def main():
 
     if a.modo == "diario":
         # Publicación condicionada: el revisor (rutina en la nube) revisa el episodio y, si da el OK,
-        # «Publicar revisado» lo sube a YouTube programado y TikTok lo publica a las 7:00.
+        # «Publicar revisado» lo sube a YouTube programado y TikTok lo publica a la hora_publicacion (config).
         registro["revision"] = "pendiente"
         log("6/6 YouTube: pendiente de la revisión (se sube cuando el revisor dé el OK)")
     elif a.no_subir:
@@ -1213,7 +1213,7 @@ def main():
         if lista:
             registro["youtube"]["lista"] = lista
 
-    # TikTok no permite programar: se deja el texto preparado y el vídeo se publica a las 7:00 (tiktok-publicar.yml).
+    # TikTok no permite programar: se deja el texto preparado y el vídeo se publica a la hora_publicacion (tiktok-publicar.yml / Reloj).
     fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
     (carpeta / "tiktok.txt").write_text(
         f"Evangelio del día · {fecha_txt} · {ev['cita']} 🙏\n\n" + (f"«{frase}»\n\n" if frase else "") + f"{ev['titulo']}\n"

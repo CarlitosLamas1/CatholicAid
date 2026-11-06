@@ -5,7 +5,7 @@ Los horarios de GitHub (cron) pueden llegar horas tarde o no llegar. Este script
 («Reloj», lo despierta la rutina del revisor en la nube, que sí es puntual) y lanza lo que falte:
 1. Vídeo de mañana (16:00–23:59 Madrid): si no hay registro diario hecho, o el último intento falló o fue rechazado.
 2. «Publicar revisado»: si hay veredicto del revisor que aún no se ha aplicado.
-3. TikTok (07:00–13:00 Madrid): si el vídeo de hoy tiene el OK y sigue preparado sin publicar.
+3. TikTok (desde hora_publicacion de config, durante 12 h): si el vídeo de hoy tiene el OK y sigue preparado sin publicar.
 Nunca duplica: no lanza nada que esté en marcha o se haya lanzado hace poco. Necesita GH_TOKEN.
 """
 import datetime as dt
@@ -81,7 +81,8 @@ def main():
             lanzar("publicar-revisado.yml", fecha=str(f))
 
     # 3. TikTok de hoy
-    if 7 <= ahora.hour < 13:
+    hora = int(json.loads(open('config/personajes.json', encoding='utf-8').read()).get('hora_publicacion', 7))
+    if hora <= ahora.hour < hora + 12:
         reg, rev = leer(f"episodios/{hoy}.json"), leer(f"revisiones/{hoy}.json")
         preparado = subprocess.run(["gh", "release", "view", f"tiktok-{hoy}"], capture_output=True).returncode == 0
         if preparado and rev.get("ok") and not reg.get("no_publicar"):

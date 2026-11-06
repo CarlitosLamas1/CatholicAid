@@ -4,8 +4,8 @@
 Uso: python3 proceso/publicar.py AAAA-MM-DD
 
 Lee la revisión del día (revisiones/AAAA-MM-DD.json, la escribe la rutina «Revisor diario» o Carlos con 👍):
-- OK  -> sube a YouTube el vídeo de la release tiktok-AAAA-MM-DD, programado a las 07:00 (Madrid), y lo añade
-         a la lista del evangelista. TikTok lo publica a las 7:00 (tiktok-publicar.yml) porque hay OK.
+- OK  -> sube a YouTube el vídeo de la release tiktok-AAAA-MM-DD, programado a la hora_publicacion (Madrid, config), y lo añade
+         a la lista del evangelista. TikTok lo publica a esa hora (tiktok-publicar.yml / Reloj) porque hay OK.
 - No OK -> la primera vez rehace el vídeo (evangelio-diario) para que el revisor lo vuelva a mirar;
            la segunda, no se publica (no_publicar en el registro, se borra la release) y se avisa a Carlos.
 Si el registro tiene «no_publicar» (⛔ o /pausa), no se publica nada aunque haya OK.
@@ -103,10 +103,11 @@ def main():
         reg["youtube"]["lista"] = lista
     guardar(ruta_reg, reg)
     log(f"Subido: https://youtu.be/{vid} ({estado['privacyStatus']})")
-    cuando_yt = "programado a las 07:00" if estado.get("publishAt") else f"queda {estado['privacyStatus']}"
+    hora = f"{int(ev_mod.CFG.get('hora_publicacion', 7)):02d}:00"
+    cuando_yt = f"programado a las {hora}" if estado.get("publishAt") else f"queda {estado['privacyStatus']}"
     nota = "" if rev.get("por") == "Carlos" else "\n🔎 Revisado por el revisor: todo correcto."
     avisos.enviar(f"✅ Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a YouTube ({cuando_yt}): "
-                  f"{avisos.e(reg['youtube']['url'])}\n🎵 TikTok se publica a las 7:00.{nota}")
+                  f"{avisos.e(reg['youtube']['url'])}\n🎵 TikTok se publica a las {hora}.{nota}")
 
 
 if __name__ == "__main__":

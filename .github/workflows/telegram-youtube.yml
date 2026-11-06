@@ -4,7 +4,7 @@ name: "Telegram: publicado en YouTube"
 # Varios intentos por la mañana porque los horarios de GitHub a veces se retrasan.
 on:
   schedule:
-    - cron: "20 6-11 * * *"
+    - cron: "20 0-11 * * *"
   workflow_dispatch:
 
 permissions:
