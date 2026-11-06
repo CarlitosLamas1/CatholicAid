@@ -6,6 +6,12 @@ name: Conectar YouTube
 on:
   workflow_dispatch:
     inputs:
+      canal:
+        description: "Canal: es (CatolicAid, por defecto) o en (canal en inglés)"
+        required: false
+        default: "es"
+        type: choice
+        options: [es, en]
       codigo:
         description: "Código o dirección que devuelve Google tras autorizar (vacío = dame el enlace)"
         required: false
@@ -23,6 +29,7 @@ jobs:
       YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
       CODIGO: ${{ inputs.codigo }}
+      CANAL: ${{ inputs.canal }}
     steps:
       - uses: actions/checkout@v4
       - name: Enlace o canje
@@ -36,13 +43,13 @@ jobs:
             python3 proceso/youtube_conectar.py comprobar
             git config user.name "gestor-catholicaid"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add secretos/youtube.enc
+            git add secretos/youtube*.enc
             git commit -q -m "YouTube reconectado (permiso cifrado)"
             git pull -q --rebase && git push -q
           fi
       - uses: actions/upload-artifact@v4
         if: inputs.codigo == ''
         with:
-          name: enlace-youtube
+          name: enlace-youtube-${{ inputs.canal }}
           path: youtube-url.txt
           retention-days: 1

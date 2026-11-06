@@ -19,7 +19,9 @@ import urllib.request
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-FICHERO = RAIZ / "secretos" / "youtube.enc"
+# CANAL=en guarda/lee el permiso del canal en inglés (secretos/youtube-en.enc) sin tocar el del español.
+CANAL = os.environ.get("CANAL", "es").strip() or "es"
+FICHERO = RAIZ / "secretos" / ("youtube.enc" if CANAL == "es" else f"youtube-{CANAL}.enc")
 REDIRECT = "http://localhost"
 ALCANCES = ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.readonly",
             "https://www.googleapis.com/auth/youtube.force-ssl"]
@@ -73,8 +75,16 @@ def canjear(codigo):
     print("Permisos concedidos:", res.get("scope"))
 
 
+def _refresh():
+    """Permiso del canal elegido. El español puede caer al secreto de siempre; los demás canales, nunca."""
+    r = guardado() or (os.environ["YT_REFRESH_TOKEN"].strip() if CANAL == "es" else None)
+    if not r:
+        raise SystemExit(f"No hay permiso guardado para el canal «{CANAL}»")
+    return r
+
+
 def comprobar():
-    tok = _token({"refresh_token": guardado() or os.environ["YT_REFRESH_TOKEN"].strip(), "grant_type": "refresh_token"})
+    tok = _token({"refresh_token": _refresh(), "grant_type": "refresh_token"})
     req = urllib.request.Request("https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true",
                                  headers={"Authorization": f"Bearer {tok['access_token']}"})
     with urllib.request.urlopen(req, timeout=60) as r:
@@ -95,7 +105,7 @@ if __name__ == "__main__":
     elif orden == "comprobar":
         comprobar()
     elif orden == "estado":  # estado real de los últimos vídeos subidos (público, privado, bloqueado...)
-        tok = _token({"refresh_token": guardado() or os.environ["YT_REFRESH_TOKEN"].strip(), "grant_type": "refresh_token"})
+        tok = _token({"refresh_token": _refresh(), "grant_type": "refresh_token"})
         h = {"Authorization": f"Bearer {tok['access_token']}"}
         ids = []
         for ruta in sorted((RAIZ / "episodios").glob("*.json"))[-8:]:
