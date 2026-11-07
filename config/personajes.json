@@ -55,11 +55,19 @@
     "max_por_video": 5
   },
   "volumen_musica": 0.1,
+  "_musica": "Solo grabaciones libres comprobadas en Wikimedia Commons (07/11/2026). QUITADA la de Bach «Well Tempered Clavier, Preludio n.º 1»: Content ID la identificó como la grabación de Wanda Landowska y bloqueó en todo el mundo el vídeo en inglés del 08/11. Antes de añadir una pista: comprobar intérprete y licencia (no grabaciones comerciales históricas) y poner su crédito en creditos_musica (CC BY obliga a citarla).",
   "musica": [
     "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg",
     "Clair de lune (Claude Debussy) Suite bergamasque.ogg",
-    "JS Bach - Well Tempered Clavier - Prelude in Fugue No.1 in C major.ogg"
+    "Schubert - Piano Sonata No. 13 in A major, D664 - II. Andante (Paul Pitman).flac",
+    "Gymnopédie no.3.ogg"
   ],
+  "creditos_musica": {
+    "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg": "Satie, Gymnopédie n.º 1 · Musopen (dominio público) · Wikimedia Commons",
+    "Clair de lune (Claude Debussy) Suite bergamasque.ogg": "Debussy, Clair de lune · Laurens Goedhart (CC BY 3.0) · Wikimedia Commons",
+    "Schubert - Piano Sonata No. 13 in A major, D664 - II. Andante (Paul Pitman).flac": "Schubert, Sonata D 664, Andante · Paul Pitman / Musopen (dominio público) · Wikimedia Commons",
+    "Gymnopédie no.3.ogg": "Satie, Gymnopédie n.º 3 · Teknopazzo (CC0) · Wikimedia Commons"
+  },
   "pintores": [
     "Carl Heinrich Bloch",
     "Heinrich Hofmann",

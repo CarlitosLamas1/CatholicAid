@@ -109,7 +109,7 @@ def main():
     video = tmp / "video.mp4"
     ev = {"cita": reg["cita"], "titulo": reg.get("titulo") or reg["fragmentos"][0]["texto"],
           "fuente_texto": reg.get("texto_fuente", "Vatican News"), "reflexion": reg.get("reflexion", ""),
-          "frase_clave": reg.get("frase_clave", "")}
+          "frase_clave": reg.get("frase_clave", ""), "musica": reg.get("musica", "")}
     tok = ev_mod.token_youtube(idioma)
     vid, estado = ev_mod.subir_youtube(video, ev, dt.date.fromisoformat(fecha), "diario", tok, idioma)
     reg["youtube"] = {"id": vid, "url": f"https://youtu.be/{vid}", **estado}

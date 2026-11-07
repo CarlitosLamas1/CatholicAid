@@ -1529,6 +1529,12 @@ def subir_miniatura(tok, vid, ruta):
         return f"error: {e}"[:200]
 
 
+def credito_musica(ev):
+    """Crédito de la grabación usada (obligatorio en las CC BY). ev["musica"]: nombre del archivo (con _ o espacios)."""
+    nombre = (ev.get("musica") or "").replace("_", " ")
+    return next((v for k, v in CFG.get("creditos_musica", {}).items() if k.replace("_", " ") == nombre), "")
+
+
 def titulo_youtube(ev, fecha, idioma="es"):
     frase = (ev.get("frase_clave") or "").strip(" .,;:")
     if idioma == "en":
@@ -1565,7 +1571,8 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
                        + (f"🕊️ To meditate: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
                        f"📖 Text: {ev.get('fuente_texto', 'World English Bible')}. Liturgical calendar: Vatican News.\n"
                        "🎨 Images: scenes generated with AI and classic paintings (public domain).\n"
-                       "🎙️ Voices generated with artificial intelligence.\n\n"
+                       "🎙️ Voices generated with artificial intelligence.\n"
+                       + (f"🎵 Music: {credito_musica(ev)}\n" if credito_musica(ev) else "") + "\n"
                        "#Shorts #GospelOfTheDay #DailyGospel #Gospel #Catholic #WordOfGod")
         etiquetas = ["gospel of the day", "daily gospel", "gospel", "catholic", "word of God", "bible",
                      ev["cita"].split()[0]]
@@ -1576,7 +1583,8 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
                        + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
                        f"📖 Texto: {ev.get('fuente_texto', 'Vatican News')}. Calendario litúrgico: Vatican News.\n"
                        "🎨 Imágenes: escenas generadas con IA y pinturas clásicas (dominio público)\n"
-                       "🎙️ Voces generadas con inteligencia artificial.\n\n"
+                       "🎙️ Voces generadas con inteligencia artificial.\n"
+                       + (f"🎵 Música: {credito_musica(ev)}\n" if credito_musica(ev) else "") + "\n"
                        "#Shorts #EvangelioDelDia #Evangelio #PalabraDeDios #Catolico")
         etiquetas = ["evangelio del día", "evangelio", "católico", "palabra de Dios", ev["cita"].split()[0]]
     estado = {"privacyStatus": "private", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}
@@ -2012,6 +2020,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     else:  # TikTok en inglés: fuera de alcance; la nota solo sirve de descripción de la release
         (carpeta / "tiktok.txt").write_text(f"Gospel of the day · {ev['cita']} (CatolicAid English)\n", encoding="utf-8")
 
+    ev["musica"] = musica.name if musica else ""
     # Metadatos de YouTube tal como se subirían (para revisarlos también en las pruebas, sin subir nada)
     try:
         (carpeta / "metadatos.json").write_text(json.dumps(metadatos_youtube(ev, fecha, a.modo, idioma),
