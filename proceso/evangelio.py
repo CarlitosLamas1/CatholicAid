@@ -1575,7 +1575,7 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
                        f"Evangelio del {DIAS[fecha.weekday()]} {fecha_txt} de {fecha.year}, leído con varias voces.\n\n"
                        + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
                        f"📖 Texto: {ev.get('fuente_texto', 'Vatican News')}. Calendario litúrgico: Vatican News.\n"
-                       "🎨 Imágenes: escenas generadas con IA y cuadros de James Tissot (dominio público)\n"
+                       "🎨 Imágenes: escenas generadas con IA y pinturas clásicas (dominio público)\n"
                        "🎙️ Voces generadas con inteligencia artificial.\n\n"
                        "#Shorts #EvangelioDelDia #Evangelio #PalabraDeDios #Catolico")
         etiquetas = ["evangelio del día", "evangelio", "católico", "palabra de Dios", ev["cita"].split()[0]]
@@ -1586,6 +1586,8 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
                                                                else "hora_publicacion", CFG.get("hora_publicacion", 7)))), MADRID)
         if hora > dt.datetime.now(MADRID) + dt.timedelta(minutes=30):
             estado["publishAt"] = hora.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        elif idioma != "es" and fecha >= dt.datetime.now(MADRID).date():
+            estado["privacyStatus"] = "public"  # inglés que llega tarde (su hora ya pasó, mismo día): se publica ya
     return {"snippet": {"title": titulo[:100], "description": descripcion[:4900], "categoryId": "22",
                         "tags": etiquetas, "defaultLanguage": idioma, "defaultAudioLanguage": idioma},
             "status": estado}

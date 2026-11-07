@@ -1,6 +1,6 @@
 {
   "fecha": "2026-11-07",
-  "modo": "prueba",
+  "modo": "diario",
   "cita": "Luke 16:9-15",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/07.html",
   "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
@@ -115,5 +115,6 @@
   "cita_es": "Lucas 16, 9-15",
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
-  ]
+  ],
+  "revision": "pendiente"
 }
