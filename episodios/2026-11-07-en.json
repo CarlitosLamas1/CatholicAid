@@ -116,5 +116,22 @@
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
   ],
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "E8tMXs8YUuo",
+    "url": "https://youtu.be/E8tMXs8YUuo",
+    "privacyStatus": "public",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "lista": {
+      "titulo": "Gospel according to St. Luke",
+      "error": "409"
+    },
+    "lista_liturgica": {
+      "id": "PLLWkUaN0V-24",
+      "titulo": "Daily Gospel · Ordinary Time",
+      "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
+    },
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+  }
 }
