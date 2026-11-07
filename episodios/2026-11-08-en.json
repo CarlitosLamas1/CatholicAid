@@ -1,0 +1,9 @@
+{
+  "fecha": "2026-11-08",
+  "idioma": "en",
+  "modo": "prueba",
+  "estado": "fallido",
+  "error": "No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.",
+  "cupo_agotado": [],
+  "intento": "2026-11-07T01:33:46+01:00"
+}
