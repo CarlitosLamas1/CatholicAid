@@ -1,0 +1,104 @@
+{
+  "fecha": "2026-11-10",
+  "modo": "prueba",
+  "cita": "Lucas 17, 7-10",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/10.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "edge",
+  "peticiones_voz": 7,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 65.5,
+  "imagenes": [
+    "biblioteca/D04",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D06",
+    "biblioteca/D07",
+    "biblioteca/D01",
+    "biblioteca/D02",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R04",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Así también vosotros, cuando hayáis hecho todo lo que se os ha mandado, decid",
+  "reflexion": "Servir al Señor y a los demás es un regalo, no un motivo de orgullo. Pide hoy la gracia de amar con humildad, entregándote de corazón sin buscar aplausos ni recompensas.",
+  "lufs": -13.9,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A humble servant plows the earth and herds sheep in the open field, wearily returning towards home as the afternoon light fades.",
+      "busqueda": "plowing field",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Inside a warm rustic room, an obedient servant girded with an apron attentively prepares dinner and serves his master seated at the wooden table.",
+      "busqueda": "serving master",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus speaks tenderly and earnestly to His gathered apostles, gesturing with outstretched hands as He teaches them the beauty of humble service.",
+      "busqueda": "teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, dijo el Señor: “¿Quién hay entre vosotros que, teniendo un criado que labra o pastorea, cuando vuelve del campo le diga: ‘Ven enseguida y siéntate a la mesa’? ¿No le dirá más bien: ‘Prepárame la cena, cíñete y sírveme mientras yo como y bebo, y después comerás y beberás tú’? ¿Acaso el amo se tendrá por obligado con ese criado porque hizo lo que le mandó? No, por cierto. Así también vosotros, cuando hayáis hecho todo lo que se os ha mandado, decid: ‘Somos siervos inútiles; no hemos hecho más que lo que teníamos obligación de hacer’”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.61,
+      "texto": "En aquel tiempo, dijo el Señor:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 11.06,
+      "texto": "“¿Quién hay entre vosotros que, teniendo un criado que labra o pastorea, cuando vuelve del campo le diga: ‘Ven enseguida y siéntate a la mesa’?"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 20.27,
+      "texto": "¿No le dirá más bien: ‘Prepárame la cena, cíñete y sírveme mientras yo como y bebo, y después comerás y beberás tú’?"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 28.49,
+      "texto": "¿Acaso el amo se tendrá por obligado con ese criado porque hizo lo que le mandó? No, por cierto. Así también vosotros, cuando hayáis hecho todo lo que se os ha mandado, decid: ‘Somos siervos inútiles; no hemos hecho más que lo que teníamos obligación de hacer’”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 46.72,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 50.18,
+      "texto": "Servir al Señor y a los demás es un regalo, no un motivo de orgullo. Pide hoy la gracia de amar con humildad, entregándote de corazón sin buscar aplausos ni recompensas.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-07T09:57:51+01:00"
+}
