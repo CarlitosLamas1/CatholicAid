@@ -503,7 +503,7 @@ def espacios(t):
     return " ".join(t.split())
 
 
-INICIOS_DEBILES = {"no", "sí", "si", "pero", "y", "e", "o", "porque", "pues", "entonces", "así", "ahora", "ay", "oh",
+INICIOS_DEBILES = {"no", "sí", "si", "pero", "mas", "y", "e", "o", "porque", "pues", "entonces", "así", "ahora", "ay", "oh",
                    "yes", "but", "and", "or", "for", "so", "then", "now", "nay", "truly"}
 
 
@@ -517,12 +517,61 @@ def frase_valida(frase, pregunta=True):
     return pregunta or not frase.rstrip().endswith("?")
 
 
-def frase_de_reserva(fuente):
-    """Si Gemini falla: la frase AUTOSUFICIENTE más corta de las palabras de Jesús (5–12 palabras, que no sea una
-    pregunta ni empiece con una muletilla), copiada tal cual."""
-    frases = [espacios(x).strip(" ,;:") for s in fuente for x in re.split(r"(?<=[.?!;:])\s+", s)]
-    buenas = [x for x in frases if 5 <= len(x.split()) <= 12 and frase_valida(x, pregunta=False)]
-    return min(buenas, key=len) if buenas else ""
+CITA = r"‘(.*?)’(?!\w)"  # cita dentro del discurso (’ seguido de letra es un apóstrofo inglés, no un cierre)
+ENSENANZA = re.compile(r"\b(os digo|te digo|en verdad|bienaventurad\w*|así también vosotros|amad|velad|vigilad|"
+                       r"decid|venid|seguidme|no temáis|creed|perdonad|pedid|buscad|llamad|i tell you|most certainly|"
+                       r"blessed|even so you|watch|love|come|follow|believe|forgive|ask|seek|knock|don’t be afraid)\b",
+                       re.I)
+NARRACION = re.compile(r"^(había|hubo|un hombre|una mujer|cierto|entonces|mientras|cuando|mas|five|ten|then|while|when|"
+                       r"there was|a certain|now|afterward)\b", re.I)
+MANDA_DECIR = re.compile(r"(decid|di|diréis|dirás|say|tell them|you shall say)\s*[:,]?\s*$", re.I)
+
+
+def frase_de_reserva(frs, texto=""):
+    """Si Gemini falla: una frase de Jesús que se entienda sola, NUNCA vacía ni cortada (copiada tal cual).
+    Prefiere enseñanzas y mandatos («os digo», imperativos, «así también vosotros…», y lo que Jesús manda decir a los
+    oyentes: «Somos siervos inútiles») frente a la narración de una parábola. Por escalones: cláusula de 4–12 palabras
+    (3 si es lo que Jesús manda decir) → 3 palabras → la frase completa de Jesús más corta."""
+    piezas = []  # (texto, es_lo_que_manda_decir)
+    for f in frs:
+        if f["personaje"] != "jesus":
+            continue
+        for m in re.finditer(CITA, f["texto"]):
+            if MANDA_DECIR.search(f["texto"][:m.start()]):
+                piezas.append((m.group(1), True))
+        piezas.append((re.sub(CITA, " … ", f["texto"]), False))
+    if not piezas and texto:
+        piezas = [(texto, False)]
+    candidatas = []
+    for pieza, mandada in piezas:
+        trozos = re.split(r"((?<=[.?!;:])\s+|\s*…\s*)", pieza)  # «…» = cita quitada: corta ahí
+        for k, x in enumerate(trozos[::2]):
+            sep = trozos[2 * k + 1] if 2 * k + 1 < len(trozos) else ""
+            anuncia = x.rstrip().endswith(":") or "…" in sep  # introduce una cita («…, saying,»): se queda a medias
+            x = espacios(hablado(x)).strip(" ,;:")
+            ws = x.split() if re.search(r"\w", x) else []  # palabras reales (don’t cuenta como una)
+            if not ws or "…" in x or anuncia:
+                continue
+            nota = 3 * bool(mandada or ENSENANZA.search(x)) - 3 * bool(NARRACION.search(x)) + (k == 0 and mandada)
+            nota -= x[0].islower() + 2 * x.endswith("?")
+            candidatas.append((x, len(ws), nota, mandada))
+
+    def mejor(lista):
+        return max(lista, key=lambda c: (c[2], -abs(c[1] - 8)))[0] if lista else ""
+
+    debiles = INICIOS_DEBILES
+    escalon1 = [c for c in candidatas if (3 if c[3] else 4) <= c[1] <= 12 and not c[0].endswith("?")
+                and not (c[0].split()[0].lower().strip(",") in debiles and c[1] < 7)]
+    escalon2 = [c for c in candidatas if c[1] == 3 and not c[0].endswith("?")
+                and c[0].split()[0].lower().strip(",") not in debiles]
+    largas = [c for c in candidatas if 13 <= c[1] <= 20 and c[2] > 0 and not c[0].endswith("?")]
+    buenas = [c for c in escalon1 if c[2] >= 0]
+    frase = mejor(buenas) or mejor(largas) or mejor(escalon1) or mejor(escalon2)  # enseñanza larga antes que narración
+    if frase:
+        return frase
+    completas = [espacios(hablado(x)).strip(" ,;:") for p, _ in piezas for x in re.split(r"(?<=[.?!])\s+", p)
+                 if "…" not in x and re.search(r"\w", x)]
+    return min(completas, key=len) if completas else ""
 
 
 def gancho_y_reflexion(frs, ev, fiable=True):
@@ -531,7 +580,7 @@ def gancho_y_reflexion(frs, ev, fiable=True):
     fiable=False (reparto por reglas): no se sabe con certeza quién habla, así que sin Gemini no hay gancho."""
     jesus = [hablado(f["texto"]) for f in frs if f["personaje"] == "jesus"]
     fuente = jesus or [hablado(ev["texto"])]
-    propias = [espacios(hablado(re.sub(r"‘[^’]*’", " … ", f["texto"]))) for f in frs if f["personaje"] == "jesus"]
+    propias = [espacios(hablado(re.sub(CITA, " … ", f["texto"]))) for f in frs if f["personaje"] == "jesus"]
     if sum(len(re.findall(r"\w+", x)) for x in propias) >= 8:
         fuente = propias  # lo que dice Jesús con su voz, no los personajes de sus parábolas
     quien = "las palabras de Jesús" if jesus else "el texto"
@@ -541,7 +590,8 @@ def gancho_y_reflexion(frs, ev, fiable=True):
    principio del vídeo. Cópiala LITERALMENTE, palabra por palabra y con los mismos signos, sin comillas: puede ser una
    frase entera o una parte con sentido completo que se entienda sola (con su verbo), de 4 a 12 palabras. Prefiere una enseñanza o promesa de Jesús
    (no una pregunta suelta, ni una frase de transición, ni una frase que solo describe un detalle del relato o de la
-   parábola y no se entiende fuera de él) y no cojas nada que contenga «…».
+   parábola y no se entiende fuera de él) y no cojas nada que contenga «…». MUY IMPORTANTE: tiene que entenderse
+   sola, sin ningún contexto, por alguien que no ha oído la lectura.
 2. "reflexion": 1 o 2 frases breves (máximo 35 palabras en total) para meditar después de la lectura; puede terminar
    con una pregunta. Tono cálido y cercano, de tú, en español de España. Fiel a la doctrina de la Iglesia católica y
    al sentido de esta lectura. No cites ni inventes palabras de Jesús, no uses comillas ni emojis, no hables de
@@ -560,7 +610,8 @@ LECTURA COMPLETA (contexto):
    beginning of the video. Copy it LITERALLY, word for word and with the same punctuation, without quotation marks:
    it can be a whole sentence or a part with complete meaning that stands on its own (with its verb), 4 to 12 words. Prefer a teaching or promise of Jesus
    (not a lone question, nor a transition phrase, nor a sentence that only describes a detail of the story or parable
-   and makes no sense out of context) and do not take anything containing «…».
+   and makes no sense out of context) and do not take anything containing «…». VERY IMPORTANT: it must make sense
+   on its own, with no context at all, to someone who has not heard the reading.
 2. "reflexion": 1 or 2 short sentences (35 words at most in total) to meditate on after the reading; it may end
    with a question. Warm and close tone, addressing the viewer as "you", in clear American English. Faithful to the
    teaching of the Catholic Church and to the meaning of this reading. Do not quote or invent words of Jesus, do not
@@ -606,7 +657,7 @@ FULL READING (context):
     if frase_ok and reflexion_ok:
         cache_guardar(clave, [frase_ok, reflexion_ok])
     if not frase_ok and fiable:
-        frase_ok = frase_de_reserva(fuente)
+        frase_ok = frase_de_reserva(frs, hablado(ev["texto"]))
     return frase_ok, reflexion_ok
 
 
@@ -960,8 +1011,15 @@ def elegir_visuales(tramos, info, fecha, carpeta, retrato=None, presentes=None):
     cat = json.loads(ruta_cat.read_text(encoding="utf-8"))["clips"] if ruta_cat.exists() else {}
     validos = set(presentes or PJ) | {"jesus"}
 
+    otros = validos - {"jesus", "narrador"}
+
     def encaja(k):
-        return set(cat.get(k, {}).get("personajes", [])) <= validos
+        """«persona» en el catálogo = alguien junto a Jesús (p. ej. D06, Jesús abraza a alguien que llora): solo vale
+        si en el pasaje hay otro personaje que no sea Jesús ni el narrador."""
+        pj = set(cat.get(k, {}).get("personajes", []))
+        if "persona" in pj and not otros:
+            return False
+        return pj - {"persona"} <= validos
 
     rellenos = [k for k in cat if k.startswith("D") and archivo_clip(k) and encaja(k)]
     random.shuffle(rellenos)
@@ -1114,26 +1172,44 @@ def trocear(texto, maximo):
 
 
 def trocear_equilibrado(texto, maximo):
-    """Como trocear, pero sin trozos de una sola palabra («mesa?»): el último trozo corto se reparte con el anterior."""
-    trozos = trocear(texto, maximo)
-    k = 1
-    while k < len(trozos):
-        if len(trozos[k].split()) < 3 or len(trozos[k]) < maximo * 0.3:
-            ws = (trozos[k - 1] + " " + trozos[k]).split()
-            if sum(len(w) + 1 for w in ws) <= maximo + 4:
-                trozos[k - 1:k + 1] = [" ".join(ws)]
+    """Trozos de subtítulo equilibrados (como mucho «maximo» letras), cortando a ser posible tras un signo
+    (. ; : , ? !) y nunca dejando una palabra suelta («mesa?», «entregándote»)."""
+    ws = texto.split()
+    if not ws:
+        return []
+    n = max(1, -(-len(texto) // maximo))
+    objetivo = len(texto) / n
+    largo = lambda i, j: len(" ".join(ws[i:j]))  # noqa: E731
+    mejor = {0: (0.0, [])}
+    for j in range(1, len(ws) + 1):
+        opciones = []
+        for i in range(max(0, j - 40), j):
+            if i not in mejor or largo(i, j) > maximo and j - i > 1:
                 continue
-            corte = min(range(1, len(ws)), key=lambda i: abs(len(" ".join(ws[:i])) - len(" ".join(ws[i:]))))
-            trozos[k - 1:k + 1] = [" ".join(ws[:corte]), " ".join(ws[corte:])]
-        k += 1
-    return trozos
+            coste = (largo(i, j) - objetivo) ** 2
+            if j - i < 3 and len(ws) >= 3:
+                coste += 4000  # nada de una o dos palabras solas
+            if j < len(ws) and not re.search(r"[.;:,?!]$", ws[j - 1]):
+                coste += 120  # mejor cortar tras un signo
+            opciones.append((mejor[i][0] + coste, mejor[i][1] + [(i, j)]))
+        if opciones:
+            mejor[j] = min(opciones)
+    return [" ".join(ws[i:j]) for i, j in mejor[len(ws)][1]]
 
 
-def corte_de_linea(palabras, maximo=24):
-    """Índice de la palabra tras la que se parte el subtítulo en dos líneas equilibradas (None si cabe en una)."""
-    if len(" ".join(palabras)) <= maximo or len(palabras) < 2:
-        return None
-    return min(range(1, len(palabras)), key=lambda i: abs(len(" ".join(palabras[:i])) - len(" ".join(palabras[i:]))))
+def cortes_de_linea(palabras, maximo=26):
+    """Dónde partir el subtítulo en líneas equilibradas (índices de palabra), para que libass no parta solo y deje una
+    palabra sola en la última línea. Vale para todos los textos, también la reflexión."""
+    total = len(" ".join(palabras))
+    if total <= maximo or len(palabras) < 2:
+        return []
+    n = 2 if total <= 2 * maximo or len(palabras) < 3 else 3
+    largo = lambda i, j: len(" ".join(palabras[i:j]))  # noqa: E731
+    if n == 2:
+        return [min(range(1, len(palabras)), key=lambda i: max(largo(0, i), largo(i, len(palabras))))]
+    pares = [(i, j) for i in range(1, len(palabras) - 1) for j in range(i + 1, len(palabras))]
+    i, j = min(pares, key=lambda c: max(largo(0, c[0]), largo(c[0], c[1]), largo(c[1], len(palabras))))
+    return [i, j]
 
 
 def bordes_de_voz(f):
@@ -1239,15 +1315,15 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
         k = 0
         for n_tr, tr in enumerate(trozos):
             ws = tr.split()
-            corte = corte_de_linea(ws)
+            cortes = cortes_de_linea(ws, 24 if f.get("reflexion") else 26)
             for j in range(len(ws)):
                 a = tiempos[k + j][0] if j else (tiempos[k][0] if n_tr else f["inicio"])
                 b = tiempos[k + j + 1][0] if j + 1 < len(ws) else tiempos[k + j][1]
                 if j + 1 == len(ws) and n_tr + 1 == len(trozos):
                     b = max(b, siguiente - 0.02)
                 marcadas = ws[:j] + ["{\\c" + color_ass(resalte) + "}" + ws[j] + "{\\c" + color_ass(base) + "}"] + ws[j + 1:]
-                linea = " ".join(marcadas) if corte is None else (
-                    " ".join(marcadas[:corte]) + "\\N" + " ".join(marcadas[corte:]))
+                bordes = [0] + cortes + [len(marcadas)]
+                linea = "\\N".join(" ".join(marcadas[x:y]) for x, y in zip(bordes, bordes[1:]))
                 eventos.append(("Texto", a, b, nombre + estilo + linea))
             k += len(ws)
     cabecera = (
@@ -1458,22 +1534,23 @@ def titulo_youtube(ev, fecha, idioma="es"):
     if idioma == "en":
         mes = MONTHS[fecha.month - 1][:3]
         base = f"Gospel of the day · {MONTHS[fecha.month - 1]} {fecha.day} · {ev['cita']}"
-        opciones = [f" | Gospel of the day, {mes} {fecha.day} ({ev['cita']})", f" | Gospel {mes} {fecha.day} · {ev['cita']}",
-                    f" | Gospel · {ev['cita']}"]
+        opciones = [f" | Gospel of the day, {MONTHS[fecha.month - 1]} {fecha.day} ({ev['cita']})",
+                    f" | Gospel of the day, {mes} {fecha.day} ({ev['cita']})"]
     else:
         fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
         base = f"Evangelio del día · {fecha_txt} · {ev['cita']}"
         corto = f"{fecha.day} {MESES[fecha.month - 1][:3]}"
-        opciones = [f" | Evangelio del día {fecha_txt} ({ev['cita']})", f" | Evangelio {corto} · {ev['cita']}",
-                    f" | Evangelio · {ev['cita']}"]
+        opciones = [f" | Evangelio del día {fecha_txt} ({ev['cita']})", f" | Evangelio del día {corto} ({ev['cita']})"]
     if not frase:
         return base + (" #shorts" if len(base) <= 90 else "")
-    # «“Frase” | Evangelio del día 6 de noviembre (Lucas 16, 1-8)», recortando la frase si no cabe
+    # «“Frase” | Evangelio del día 6 de noviembre (Lucas 16, 1-8)». Si no cabe: primero la fecha corta (la fecha y la
+    # cita siempre se quedan); después se acorta la frase, a ser posible en una pausa (coma, punto y coma) y sin «…».
     frase = frase[0].upper() + frase[1:]
     resto = next((r for r in opciones if len(frase) + 2 + len(r) <= 100), opciones[-1])
     hueco = 100 - len(resto) - 2
     if len(frase) > hueco:
-        frase = frase[:hueco - 1].rsplit(" ", 1)[0] + "…"
+        pausas = [m.start() for m in re.finditer(r"[,;:]", frase[:hueco]) if len(frase[:m.start()].split()) >= 4]
+        frase = frase[:pausas[-1]] if pausas else frase[:hueco - 1].rsplit(" ", 1)[0] + "…"
     return f"“{frase}”{resto}"
 
 

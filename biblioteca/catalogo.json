@@ -306,7 +306,8 @@
       "descripcion": "Imagen devocional de relleno: Jesús consuela y abraza",
       "estilo": "oleo",
       "personajes": [
-        "jesus"
+        "jesus",
+        "persona"
       ],
       "prompt_imagen": "Jesus embraces a weeping person with infinite tenderness, resting his cheek on their head, golden light around them. Jesus is a man in his early thirties with Middle Eastern features, warm olive skin, shoulder-length wavy dark-brown hair, a short beard and kind brown eyes, wearing a cream linen tunic with a muted terracotta mantle over one shoulder and simple sandals; serene, gentle expression. Vertical 9:16 image. Devotional fine-art oil painting with visible, expressive brushstrokes, glowing warm golden divine light radiating softly, rich warm colors (gold, deep red, cream, soft blue), tender and intimate emotion full of love and kindness, sacred and peaceful atmosphere. Authentic 1st-century Galilee and Judea. No text, no logos, no modern objects.",
       "prompt": "Jesus embraces a weeping person with infinite tenderness, resting his cheek on their head, golden light around them. Jesus is a man in his early thirties with Middle Eastern features, warm olive skin, shoulder-length wavy dark-brown hair, a short beard and kind brown eyes, wearing a cream linen tunic with a muted terracotta mantle over one shoulder and simple sandals; serene, gentle expression. Vertical 9:16 video, 8 seconds, in the style of a devotional fine-art oil painting with visible, expressive brushstrokes, glowing warm golden divine light radiating softly, rich warm colors (gold, deep red, cream, soft blue), tender and intimate emotion full of love and kindness, sacred and peaceful atmosphere. Authentic 1st-century Galilee and Judea. No text, no logos, no modern objects. Slow, gentle camera movement and soft drifting light. Audio: soft natural ambience only, no dialogue, no music."
