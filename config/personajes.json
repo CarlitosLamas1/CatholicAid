@@ -30,7 +30,7 @@
   "hora_publicacion_en": 1,
   "max_segundos_imagen": 16,
   "gancho_segundos": 2.8,
-  "_gancho_ab": "Prueba A/B del gancho (desde la rama mejoras-ingles): días pares e impares con distinta duración. Si se quita gancho_ab, se usa gancho_segundos. Cómo compararlo: docs/gancho-ab.md.",
+  "_gancho_ab": "Prueba A/B del gancho (desde la rama mejoras-ingles): días pares e impares con distinta duración. Si se quita gancho_ab, se usa gancho_segundos. Cómo compararlo: guias/gancho-ab.md.",
   "gancho_ab": {
     "par": 2.8,
     "impar": 1.5
