@@ -109,5 +109,22 @@
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
   ],
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "ivDPYCospIw",
+    "url": "https://youtu.be/ivDPYCospIw",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-08T00:00:00Z",
+    "lista": {
+      "titulo": "Gospel according to St. Matthew",
+      "error": "409"
+    },
+    "lista_liturgica": {
+      "titulo": "Daily Gospel · Ordinary Time",
+      "error": "409"
+    },
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+  }
 }
