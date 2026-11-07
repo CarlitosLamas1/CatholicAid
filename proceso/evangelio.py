@@ -652,11 +652,15 @@ def voz_gemini(p, texto, destino):
     dato = r["candidates"][0]["content"]["parts"][0]["inlineData"]
     m = re.search(r"rate=(\d+)", dato.get("mimeType", ""))
     crudo = destino.with_suffix(".raw.wav")
-    with wave.open(str(crudo), "wb") as w:
-        w.setnchannels(1)
-        w.setsampwidth(2)
-        w.setframerate(int(m.group(1)) if m else HZ)
-        w.writeframes(base64.b64decode(dato["data"]))
+    bruto = base64.b64decode(dato["data"])
+    if bruto[:4] == b"RIFF":  # algunos modelos (gemini-3.8-flash-tts) devuelven un WAV completo, no PCM suelto
+        crudo.write_bytes(bruto)
+    else:
+        with wave.open(str(crudo), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(int(m.group(1)) if m else HZ)
+            w.writeframes(bruto)
     a_wav_estandar(crudo, destino, CFG.get("velocidad_voz", 1.0))
 
 
