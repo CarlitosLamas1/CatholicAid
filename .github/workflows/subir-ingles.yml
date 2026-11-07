@@ -7,7 +7,7 @@ name: Subir vídeo en inglés (rama)
 #                   fecha=AAAA-MM-DD  run=<id de la tirada de prueba con el vídeo>
 on:
   push:
-    branches: [mejoras-ingles]
+    branches: [mejoras-ingles, main]
     paths: ["ci/subir-en.txt"]
 
 permissions:
@@ -40,7 +40,8 @@ jobs:
           N=$(gh run view "$RUN" --json number -q .number)
           gh run download "$RUN" -n "evangelio-en-$N" -D t
           D="t/$F-en"
-          gh release view "en-$F" >/dev/null 2>&1 || gh release create "en-$F" "$D/video.mp4" "$D/miniatura.jpg" "$D/miniatura_vertical.jpg" --title "English $F" --notes "Gospel of the day · $F (CatolicAid English)" --prerelease
+          if gh release view "en-$F" >/dev/null 2>&1; then gh release upload "en-$F" "$D/video.mp4" "$D/miniatura.jpg" "$D/miniatura_vertical.jpg" --clobber; else gh release create "en-$F" "$D/video.mp4" "$D/miniatura.jpg" "$D/miniatura_vertical.jpg" --title "English $F" --notes "Gospel of the day · $F (CatolicAid English)" --prerelease; fi
+          if [ "$(sed -n 's/^solo_release=//p' ci/subir-en.txt)" = "si" ]; then echo "Solo release."; exit 0; fi
           python3 proceso/publicar.py "$F-en"
       - name: Guardar registro
         if: always()
