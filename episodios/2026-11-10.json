@@ -8,20 +8,20 @@
   "voces": "edge",
   "peticiones_voz": 7,
   "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
-  "duracion_s": 65.5,
+  "duracion_s": 64.9,
   "imagenes": [
-    "biblioteca/D04",
-    "evangelistas/lucas.jpg",
-    "biblioteca/D06",
-    "biblioteca/D07",
     "biblioteca/D01",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D10",
     "biblioteca/D02",
+    "biblioteca/D05",
+    "biblioteca/D06",
     "evangelistas/lucas.jpg",
     "biblioteca/R04",
     "evangelistas/lucas.jpg"
   ],
-  "frase_clave": "Así también vosotros, cuando hayáis hecho todo lo que se os ha mandado, decid",
-  "reflexion": "Servir al Señor y a los demás es un regalo, no un motivo de orgullo. Pide hoy la gracia de amar con humildad, entregándote de corazón sin buscar aplausos ni recompensas.",
+  "frase_clave": "Somos siervos inútiles",
+  "reflexion": "Servir por amor es un regalo, sin exigir nada a cambio a Dios. Cuando te entregas a los demás, ¿lo haces con la humildad y la gratuidad de un verdadero siervo?",
   "lufs": -13.9,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
@@ -29,24 +29,24 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "A humble servant plows the earth and herds sheep in the open field, wearily returning towards home as the afternoon light fades.",
-      "busqueda": "plowing field",
+      "descripcion": "A weary servant walks across a freshly plowed field at dusk carrying his wooden farming tools, surrounded by peaceful golden hills.",
+      "busqueda": "servant plowing field",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 2,
-      "descripcion": "Inside a warm rustic room, an obedient servant girded with an apron attentively prepares dinner and serves his master seated at the wooden table.",
-      "busqueda": "serving master",
+      "descripcion": "Inside a warm rustic room, a humble servant girded with an apron attentively pours wine and offers bread to his master seated at the dinner table.",
+      "busqueda": "servant serving table",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 3,
-      "descripcion": "Jesus speaks tenderly and earnestly to His gathered apostles, gesturing with outstretched hands as He teaches them the beauty of humble service.",
-      "busqueda": "teaching disciples",
+      "descripcion": "Jesus speaks tenderly to his gathered disciples with an open and inviting hand, teaching them true humility and service with deep love.",
+      "busqueda": "Jesus teaching disciples",
       "personajes": [
         "jesus",
         "apostol"
@@ -96,9 +96,9 @@
       "personaje": "narrador",
       "escena": 3,
       "inicio": 50.18,
-      "texto": "Servir al Señor y a los demás es un regalo, no un motivo de orgullo. Pide hoy la gracia de amar con humildad, entregándote de corazón sin buscar aplausos ni recompensas.",
+      "texto": "Servir por amor es un regalo, sin exigir nada a cambio a Dios. Cuando te entregas a los demás, ¿lo haces con la humildad y la gratuidad de un verdadero siervo?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-07T09:57:51+01:00"
+  "generado": "2026-11-07T10:30:21+01:00"
 }
