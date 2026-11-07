@@ -508,9 +508,9 @@ INICIOS_DEBILES = {"no", "sí", "si", "pero", "y", "e", "o", "porque", "pues", "
 
 
 def frase_valida(frase, pregunta=True):
-    """Frase clave que se entiende sola: 4–14 palabras, sin «…», sin empezar con una muletilla corta («No, por cierto»)."""
+    """Frase clave que se entiende sola: 4–12 palabras, sin «…», sin empezar con una muletilla corta («No, por cierto»)."""
     ws = re.findall(r"\w+", frase)
-    if not 4 <= len(ws) <= 14 or "…" in frase:
+    if not 4 <= len(ws) <= 12 or "…" in frase:
         return False
     if ws[0].lower() in INICIOS_DEBILES and len(ws) < 7:
         return False
@@ -592,7 +592,8 @@ FULL READING (context):
             d = json.loads(next(p["text"] for p in reversed(partes) if "text" in p))
             frase = espacios(hablado(d.get("frase_clave", ""))).strip(" ,;:")
             reflexion = espacios(hablado(d.get("reflexion", "")))
-            if not frase_ok and frase and frase_valida(frase) and any(frase in s for s in base):
+            anuncia = any(re.search(re.escape(frase) + r"\s*:", s) for s in base)  # «…, decid:» se queda a medias
+            if not frase_ok and frase and frase_valida(frase) and not anuncia and any(frase in s for s in base):
                 frase_ok = frase
             elif not frase_ok:
                 log(f"   {modelo}: la frase clave no es literal o no se entiende sola ({frase[:60]}); se descarta")
