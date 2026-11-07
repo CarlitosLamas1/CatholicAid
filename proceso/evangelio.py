@@ -334,12 +334,38 @@ def texto_torres_amat(cita):
 def texto_web(cita):
     """Canal en inglés: la misma cita (en español) con el texto de la World English Bible (Catholic)."""
     texto, fuente = texto_biblia(cita, cargar_web, RAIZ / "biblia" / "web" / "revisada", lambda t: t,
-                                 "At that time,", NOMBRES_EN, "World English Bible, Catholic Edition (public domain)")
+                                 "At that time,", NOMBRES_EN, "World English Bible, Catholic Edition (public domain)",
+                                 saltar_ausentes=True, comillas=equilibrar_comillas)
     return texto, fuente.replace("versión revisada por CatholicAid", "revised by CatolicAid").replace(
         "revisión parcial", "partly revised").replace("ortografía actualizada", "original text")
 
 
-def texto_biblia(cita, cargar, carpeta_rev, arreglar, inicio_defecto, nombres, nombre):
+def equilibrar_comillas(texto):
+    """Solo signos, nunca palabras: la WEB abre “ en cada párrafo de un discurso largo sin cerrarlo antes, y un pasaje
+    puede empezar o acabar en mitad de un discurso. Se quitan las “ repetidas y se abre/cierra la que falte."""
+    salida, abierta, falta_abrir = [], False, False
+    for c in texto:
+        if c == "“":
+            if abierta:
+                continue
+            abierta = True
+        elif c == "”":
+            if not abierta:
+                if any(x in "“”" for x in salida):
+                    continue  # cierre suelto en mitad: sobra
+                falta_abrir = True
+            abierta = False
+        salida.append(c)
+    t = "".join(salida)
+    if falta_abrir:
+        t = "“" + t
+    if abierta:
+        t = t.rstrip() + "”"
+    return t
+
+
+def texto_biblia(cita, cargar, carpeta_rev, arreglar, inicio_defecto, nombres, nombre, saltar_ausentes=False,
+                 comillas=None):
     libro = cita.split()[0]
     datos = cargar(libro)
     ruta_rev = carpeta_rev / f"{libro.lower()}.json"
@@ -354,11 +380,15 @@ def texto_biblia(cita, cargar, carpeta_rev, arreglar, inicio_defecto, nombres, n
             revisados += 1
         elif o:
             partes.append(arreglar(o))
+        elif saltar_ausentes and any(int(k) > v for k in datos.get(str(c), {})):
+            log(f"   {c},{v}: no está en esta Biblia (variante textual omitida); se salta")
         else:
             faltan.append(f"{c},{v}")
     if not vs or faltan:
         raise ValueError(f"faltan versículos: {faltan or cita}")
     texto = " ".join(partes)
+    if comillas:
+        texto = comillas(texto)
     inicio = rev.get("_inicios", {}).get(f"{vs[0][0]}:{vs[0][1]}")
     if inicio is None:
         inicio = "" if vs[0] == (1, 1) else inicio_defecto

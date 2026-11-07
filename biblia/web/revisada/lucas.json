@@ -1,0 +1,11 @@
+{
+ "_nota": "World English Bible (Catholic), revisada por CatolicAid para la lectura litúrgica: SOLO introducciones (_inicios, como el leccionario) y, si la lectura empieza en mitad de un discurso, sin la conjunción inicial (For/But). Las comillas se equilibran solas (evangelio.equilibrar_comillas). Nunca se cambia el sentido.",
+ "_inicios": {
+  "16:9": "At that time, Jesus said to his disciples:",
+  "17:7": "At that time, the Lord said:",
+  "17:26": "At that time, Jesus said to his disciples:"
+ },
+ "17": {
+  "7": "“Who is there among you, having a servant plowing or keeping sheep, that will say when he comes in from the field, ‘Come immediately and sit down at the table’?"
+ }
+}

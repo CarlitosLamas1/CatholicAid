@@ -1,0 +1,10 @@
+{
+ "_nota": "World English Bible (Catholic), revisada por CatolicAid para la lectura litúrgica: SOLO introducciones (_inicios, como el leccionario) y, si la lectura empieza en mitad de un discurso, sin la conjunción inicial (For/But). Las comillas se equilibran solas (evangelio.equilibrar_comillas). Nunca se cambia el sentido.",
+ "_inicios": {
+  "25:1": "At that time, Jesus told his disciples this parable:",
+  "25:14": "At that time, Jesus told his disciples this parable:"
+ },
+ "25": {
+  "14": "“It is like a man going into another country, who called his own servants and entrusted his goods to them."
+ }
+}
