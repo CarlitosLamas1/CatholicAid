@@ -137,5 +137,24 @@
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "wPz32pSdZu4",
+    "url": "https://youtu.be/wPz32pSdZu4",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-09T00:00:00Z",
+    "lista": {
+      "id": "PLWY8mAGRSDI4",
+      "titulo": "Evangelio según san Juan",
+      "url": "https://www.youtube.com/playlist?list=PLWY8mAGRSDI4"
+    },
+    "lista_liturgica": {
+      "id": "PLM39u5xp5OPg",
+      "titulo": "Evangelio del día · Tiempo Ordinario",
+      "url": "https://www.youtube.com/playlist?list=PLM39u5xp5OPg"
+    },
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+  }
 }
