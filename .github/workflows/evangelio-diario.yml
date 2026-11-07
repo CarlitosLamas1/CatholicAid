@@ -24,6 +24,19 @@ on:
         description: "Subir a YouTube"
         type: boolean
         default: true
+      voces:
+        description: "Voces (solo pruebas: edge no gasta cupo de Gemini)"
+        type: choice
+        options: [gemini, edge]
+        default: gemini
+      sin_pago:
+        description: "Sin clave de pago (pruebas: ni imágenes nuevas ni voces de pago)"
+        type: boolean
+        default: false
+      avisar:
+        description: "Avisar a Carlos por Telegram"
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -96,6 +109,8 @@ jobs:
           FECHA: ${{ inputs.fecha }}
           MODO: ${{ inputs.modo || 'diario' }}
           SUBIR: ${{ github.event_name == 'schedule' || inputs.subir }}
+          MOTOR_VOZ: ${{ inputs.voces == 'edge' && 'edge' || '' }}
+          SIN_PAGO: ${{ inputs.sin_pago && '1' || '' }}
         run: |
           ARGS="--modo $MODO"
           if [ -n "$FECHA" ]; then ARGS="$ARGS --fecha $FECHA"; fi
@@ -112,6 +127,8 @@ jobs:
             salida/**/video.mp4
             salida/**/guion.json
             salida/**/subtitulos.ass
+            salida/**/miniatura*.jpg
+            salida/**/metadatos.json
           retention-days: 30
           if-no-files-found: ignore
 
@@ -136,10 +153,10 @@ jobs:
           if [ -z "$D" ] || [ ! -f "$D/video.mp4" ]; then echo "Nada nuevo para TikTok"; exit 0; fi
           F=$(basename "$D")
           gh release delete "tiktok-$F" --yes --cleanup-tag 2>/dev/null || true
-          gh release create "tiktok-$F" "$D/video.mp4" --title "TikTok $F" --notes-file "$D/tiktok.txt" --prerelease
+          gh release create "tiktok-$F" "$D/video.mp4" $(ls "$D"/miniatura*.jpg 2>/dev/null) --title "TikTok $F" --notes-file "$D/tiktok.txt" --prerelease
 
       - name: Avisar por Telegram (vídeo listo)
-        if: success()
+        if: success() && (github.event_name == 'schedule' || inputs.avisar)
         continue-on-error: true
         timeout-minutes: 3
         env:
@@ -148,7 +165,7 @@ jobs:
         run: python3 proceso/avisos.py listo
 
       - name: Avisar por Telegram (fallo)
-        if: failure()
+        if: failure() && (github.event_name == 'schedule' || inputs.avisar)
         continue-on-error: true
         timeout-minutes: 3
         env:

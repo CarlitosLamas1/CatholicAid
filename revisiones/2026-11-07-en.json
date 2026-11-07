@@ -1,0 +1,17 @@
+{
+  "fecha": "2026-11-07",
+  "idioma": "en",
+  "ok": true,
+  "por": "gestor",
+  "generado": "2026-11-07T10:27:57+01:00",
+  "revisado": "2026-11-07T10:50:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "Revisado por el revisor (OK) y Carlos pidió publicarlo hoy."
+  ],
+  "puntos": {
+    "fidelidad": "✅ WEB (Catholic) Lc 16,9-15, guion idéntico al texto",
+    "voces": "✅ Gemini: narrador Charon (Lucas), Jesús Enceladus",
+    "tecnica": "✅ 91.1 s; -14.3 LUFS; pico -1.8 dBTP"
+  }
+}

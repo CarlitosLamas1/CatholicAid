@@ -7,6 +7,8 @@ Los horarios de GitHub (cron) pueden llegar horas tarde o no llegar. Este script
 2. «Publicar revisado»: si hay veredicto del revisor que aún no se ha aplicado.
 3. TikTok (desde hora_publicacion de config, durante 12 h): si el vídeo de hoy tiene el OK y sigue preparado sin publicar.
 4. «Comentarios» cada hora (responde como mucho uno, con ritmo humano).
+5. Canal en inglés (config «en».activo), siempre DESPUÉS de lo del español y sin bloquearlo: su vídeo de mañana
+   (17:00–23:59 Madrid, cuando el español ya está hecho, o desde las 23:00 sin él) y su «Publicar revisado».
 Nunca duplica: no lanza nada que esté en marcha o se haya lanzado hace poco. Necesita GH_TOKEN.
 """
 import datetime as dt
@@ -85,6 +87,16 @@ def main():
         if pendiente and not reciente(runs, "Publicar revisado", 30):
             lanzar("publicar-revisado.yml", fecha=str(f))
 
+    # 2b. Veredictos sin aplicar del inglés (revisiones/AAAA-MM-DD-en.json)
+    for f in (hoy, manana):
+        reg, rev = leer(f"episodios/{f}-en.json"), leer(f"revisiones/{f}-en.json")
+        if not rev or reg.get("no_publicar") or reg.get("modo") != "diario":
+            continue
+        misma = not rev.get("generado") or rev.get("generado") == reg.get("generado")
+        pendiente = misma and (reg.get("revision") == "pendiente" or (rev.get("ok") and not reg.get("youtube")))
+        if pendiente and not reciente(runs, "Publicar revisado", 30):
+            lanzar("publicar-revisado.yml", fecha=f"{f}-en")
+
     # 3. TikTok de hoy
     hora = int(json.loads(open('config/personajes.json', encoding='utf-8').read()).get('hora_publicacion', 7))
     if hora <= ahora.hour < hora + 12:
@@ -97,6 +109,36 @@ def main():
                 lanzar("tiktok-publicar.yml", fecha=str(hoy))
         else:
             log(f"TikTok: nada que hacer (preparado={preparado}, ok={bool(rev.get('ok'))}).")
+
+    try:  # el inglés, lo último: si falla, lo del español ya está hecho
+        ingles(runs, ahora, manana)
+    except Exception as e:
+        log(f"Inglés: no se pudo lanzar ({e})")
+
+
+def ingles(runs, ahora, manana):
+    """5. Vídeo en inglés de mañana. Nunca antes que el español, y nunca si ya está hecho o en marcha."""
+    cfg = json.loads(open("config/personajes.json", encoding="utf-8").read())
+    if not cfg.get("en", {}).get("activo"):
+        return
+    es, en = leer(f"episodios/{manana}.json"), leer(f"episodios/{manana}-en.json")
+    es_hecho = es.get("modo") == "diario" and (
+        es.get("youtube") or es.get("revision") in ("pendiente", "ok", "rechazada") or es.get("no_publicar"))
+    en_hecho = en.get("modo") == "diario" and (
+        en.get("youtube") or en.get("revision") in ("pendiente", "ok") or en.get("no_publicar"))
+    if en_hecho or not 17 <= ahora.hour <= 23:
+        log(f"Inglés: {'hecho' if en_hecho else 'aún no toca'}.")
+        return
+    if en.get("estado") == "fallido" and en.get("cupo_agotado"):
+        log("Inglés: sin cupo gratuito de Gemini hasta mañana; no se reintenta.")
+        return
+    if not es_hecho and ahora.hour < 23:
+        log("Inglés: espero a que esté el vídeo en español.")
+        return
+    if reciente(runs, "Evangelio diario (inglés)", 100):
+        log("Inglés: hay una tirada en marcha o reciente; espero.")
+        return
+    lanzar("evangelio-ingles.yml", modo="diario", fecha=str(manana))
 
 
 def comentarios(runs):

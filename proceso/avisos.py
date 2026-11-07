@@ -34,6 +34,17 @@ MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto
          "septiembre", "octubre", "noviembre", "diciembre"]
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 TIKTOK_PERFIL = "https://www.tiktok.com/@catolicaid"
+IDIOMAS = {"es": "🇪🇸 español", "en": "🇬🇧 inglés"}  # cada aviso dice de qué canal es
+
+
+def idioma_de(nombre):
+    """«2026-11-08-en» -> («2026-11-08», «en»); «2026-11-08» -> («2026-11-08», «es»)."""
+    nombre = str(nombre)
+    return (nombre[:-3], "en") if nombre.endswith("-en") else (nombre, "es")
+
+
+def etiqueta(idioma):
+    return IDIOMAS.get(idioma, idioma)
 
 
 def log(*a):
@@ -127,12 +138,16 @@ def guardar_episodio(fecha, reg):
     (RAIZ / "episodios" / f"{fecha}.json").write_text(json.dumps(reg, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def hora_publicacion():
+def config():
     try:
-        cfg = json.loads((RAIZ / "config" / "personajes.json").read_text(encoding="utf-8"))
-        return int(cfg.get("hora_publicacion", 7))
+        return json.loads((RAIZ / "config" / "personajes.json").read_text(encoding="utf-8"))
     except Exception:
-        return 7
+        return {}
+
+
+def hora_publicacion(idioma="es"):
+    cfg = config()
+    return int(cfg.get("hora_publicacion" if idioma == "es" else f"hora_publicacion_{idioma}", cfg.get("hora_publicacion", 7)))
 
 
 # ---------- Avisos ----------
@@ -144,11 +159,20 @@ def aviso_listo():
         log("no hay vídeo nuevo; nada que avisar")
         return
     carpeta = carpetas[-1]
+    idioma = idioma_de(carpeta.name)[1]
     reg = episodio(carpeta.name) or json.loads((carpeta / "guion.json").read_text(encoding="utf-8"))
     dur = reg.get("duracion_s", 0)
-    lineas = [f"🎬 <b>Vídeo listo</b> · {e(fecha_txt(reg['fecha']))}",
+    lineas = [f"🎬 <b>Vídeo listo</b> · {etiqueta(idioma)} · {e(fecha_txt(reg['fecha']))}",
               f"📖 {e(reg.get('cita', ''))} · ⏱️ {int(dur // 60)}:{int(dur % 60):02d}"]
-    if reg.get("modo") == "diario":
+    if reg.get("modo") == "diario" and idioma == "en":
+        if config().get("en", {}).get("publicar_programado"):
+            lineas.append(f"📅 Se publicará el {e(fecha_txt(reg['fecha']))} a las {hora_publicacion('en')}:00 en "
+                          "<b>YouTube (CatolicAid English)</b>, si el revisor automático lo aprueba.")
+        else:
+            lineas.append("🔒 Estreno: si el revisor lo aprueba, se sube a <b>CatolicAid English</b> en PRIVADO "
+                          "(no se publica hasta que tú lo digas).")
+        lineas.append(f"🔗 También aquí: https://github.com/CarlitosLamas1/CatholicAid/releases/tag/en-{reg['fecha']}")
+    elif reg.get("modo") == "diario":
         lineas.append(f"📅 Se publicará el {e(fecha_txt(reg['fecha']))} a las {hora_publicacion()}:00 en "
                       "<b>YouTube</b> y <b>TikTok</b>, si el revisor automático lo aprueba.")
         lineas.append(f"🔗 También aquí: https://github.com/CarlitosLamas1/CatholicAid/releases/tag/tiktok-{reg['fecha']}")
@@ -158,16 +182,35 @@ def aviso_listo():
 
 
 def aviso_youtube():
-    """📺 Cuando el vídeo de hoy ya es público en YouTube (una sola vez; queda «telegram_youtube» en el registro)."""
+    """📺 Cuando el vídeo de hoy ya es público en YouTube (una sola vez por canal; «telegram_youtube» en el registro)."""
+    for idioma in ("es", "en"):
+        try:
+            aviso_youtube_idioma(idioma)
+        except Exception as ex:  # un canal nunca impide el aviso del otro
+            log(f"aviso de YouTube ({idioma}) no enviado ({type(ex).__name__}: {ex})")
+
+
+def aviso_youtube_idioma(idioma):
     hoy = dt.datetime.now(MADRID).date()
-    reg = episodio(hoy)
+    nombre = f"{hoy}" + ("" if idioma == "es" else f"-{idioma}")
+    reg = episodio(nombre)
     yt = reg.get("youtube", {})
     if not yt.get("id") or reg.get("telegram_youtube"):
-        log("nada que avisar de YouTube")
+        log(f"nada que avisar de YouTube ({idioma})")
         return
+    if idioma == "es":
+        refresh = os.environ["YT_REFRESH_TOKEN"].strip()
+    else:  # el canal en inglés solo con su propio permiso
+        import sys as _s
+        _s.path.insert(0, str(RAIZ / "proceso"))
+        import youtube_conectar
+        refresh = youtube_conectar.guardado(idioma)
+        if not refresh:
+            log("sin permiso del canal en inglés")
+            return
     datos = urllib.parse.urlencode({
         "client_id": os.environ["YT_CLIENT_ID"].strip(), "client_secret": os.environ["YT_CLIENT_SECRET"].strip(),
-        "refresh_token": os.environ["YT_REFRESH_TOKEN"].strip(), "grant_type": "refresh_token"}).encode()
+        "refresh_token": refresh, "grant_type": "refresh_token"}).encode()
     with urllib.request.urlopen(urllib.request.Request("https://oauth2.googleapis.com/token", data=datos), timeout=30) as r:
         tok = json.loads(r.read())["access_token"]
     req = urllib.request.Request(f"https://www.googleapis.com/youtube/v3/videos?part=status&id={yt['id']}",
@@ -175,11 +218,12 @@ def aviso_youtube():
     with urllib.request.urlopen(req, timeout=30) as r:
         items = json.loads(r.read()).get("items", [])
     if not items or items[0]["status"].get("privacyStatus") != "public":
-        log("el vídeo de hoy aún no es público")
+        log(f"el vídeo de hoy aún no es público ({idioma})")
         return
-    if enviar(f"📺 <b>Publicado en YouTube</b> · {e(fecha_txt(hoy))}\n📖 {e(reg.get('cita', ''))}\n🔗 {e(yt['url'])}"):
+    if enviar(f"📺 <b>Publicado en YouTube</b> · {etiqueta(idioma)} · {e(fecha_txt(hoy))}\n📖 {e(reg.get('cita', ''))}"
+              f"\n🔗 {e(yt['url'])}"):
         reg["telegram_youtube"] = True
-        guardar_episodio(hoy, reg)
+        guardar_episodio(nombre, reg)
 
 
 def aviso_tiktok(fecha):
@@ -190,18 +234,25 @@ def aviso_tiktok(fecha):
 
 
 REINTENTOS_UTC = [15, 17, 19, 20, 21]  # horas de «Evangelio diario» (.github/workflows/evangelio-diario.yml)
+REINTENTOS_EN_UTC = [17, 19, 21, 22]  # «Evangelio diario (inglés)», a y media (.github/workflows/evangelio-ingles.yml)
 
 
 def aviso_fallo(fecha="", enlace=""):
     ahora = dt.datetime.now(dt.timezone.utc)
+    idioma = os.environ.get("IDIOMA", "es").strip() or "es"
     fecha = fecha or str(dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
-    siguiente = next((h for h in REINTENTOS_UTC if h > ahora.hour), None)
+    horas, minuto = (REINTENTOS_EN_UTC, 30) if idioma == "en" else (REINTENTOS_UTC, 0)
+    siguiente = next((h for h in horas if h > ahora.hour), None)
     if siguiente is not None:
-        hora = ahora.replace(hour=siguiente, minute=0).astimezone(MADRID).strftime("%H:%M")
+        hora = ahora.replace(hour=siguiente, minute=minuto).astimezone(MADRID).strftime("%H:%M")
         cuando = f"🔁 Se vuelve a intentar solo a las {hora}."
     else:
         cuando = "⚠️ Hoy ya no quedan intentos automáticos: el gestor lo revisará."
-    enviar(f"❌ <b>No se ha podido crear el vídeo</b> del {e(fecha_txt(fecha))}.\n{cuando}"
+    motivo = ""
+    reg = episodio(f"{fecha}-en") if idioma == "en" else {}
+    if reg.get("cupo_agotado"):
+        motivo = "\n⏳ Motivo: no queda cupo gratuito de Gemini hoy (el español va primero)."
+    enviar(f"❌ <b>No se ha podido crear el vídeo</b> · {etiqueta(idioma)} · {e(fecha_txt(fecha))}.{motivo}\n{cuando}"
            + (f"\n🔗 {e(enlace)}" if enlace else ""))
 
 

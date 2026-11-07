@@ -1,0 +1,3 @@
+fecha=2026-11-07
+voces=gemini
+intento=4

@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       fecha:
-        description: "Fecha AAAA-MM-DD"
+        description: "Fecha AAAA-MM-DD (o AAAA-MM-DD-en para el canal en inglés)"
         required: true
 
 permissions:
@@ -43,7 +43,8 @@ jobs:
           if [ -n "${{ inputs.fecha }}" ]; then
             F="${{ inputs.fecha }}"
           else
-            F=$(git diff --name-only HEAD~1 HEAD -- revisiones/ | sed -n 's#^revisiones/\([0-9-]*\)\.json$#\1#p' | tr '\n' ' ')
+            # AAAA-MM-DD (español) o AAAA-MM-DD-en (inglés)
+            F=$(git diff --name-only HEAD~1 HEAD -- revisiones/ | sed -n -E 's#^revisiones/([0-9]{4}-[0-9]{2}-[0-9]{2}(-en)?)\.json$#\1#p' | tr '\n' ' ')
           fi
           echo "Fechas: $F"
           echo "lista=$F" >> "$GITHUB_OUTPUT"

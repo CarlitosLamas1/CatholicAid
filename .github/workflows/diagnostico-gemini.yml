@@ -33,3 +33,18 @@ jobs:
                   print(f"❌ {m}: {e.code} {lim[:2] if lim else t[:120]}")
               except Exception as e:
                   print(f"❌ {m}: {e}")
+          # Voces: cada modelo TTS tiene su propio cupo gratuito. Una petición mínima por modelo (gasta 1 si responde).
+          tts = [m for m in modelos if "tts" in m]
+          print("Modelos de voz:", ", ".join(tts))
+          voz = json.dumps({"contents": [{"parts": [{"text": "Amen."}]}], "generationConfig": {
+              "responseModalities": ["AUDIO"], "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": "Charon"}}}}}).encode()
+          for m in tts:
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(f"{G}/{m}:generateContent", voz, H), timeout=120) as r:
+                      print(f"✅ {m}: responde (voz gratuita disponible)")
+              except urllib.error.HTTPError as e:
+                  t = e.read().decode(errors="replace")
+                  lim = re.findall(r"metric: [^,]*?(\w+), limit: (\d+)", t)
+                  print(f"❌ {m}: {e.code} {lim[:2] if lim else t[:160]}")
+              except Exception as e:
+                  print(f"❌ {m}: {e}")

@@ -1,0 +1,4 @@
+modo=subir
+fecha=2026-11-07
+run=42359006288
+# reintento listas
