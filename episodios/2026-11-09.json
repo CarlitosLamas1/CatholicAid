@@ -1,0 +1,141 @@
+{
+  "fecha": "2026-11-09",
+  "modo": "diario",
+  "cita": "Juan 2, 13-22",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/09.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 12,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 90.3,
+  "imagenes": [
+    "dias/2026-11-09_e1.jpg",
+    "evangelistas/juan.jpg",
+    "dias/2026-11-09_e1.jpg",
+    "biblioteca/D04",
+    "dias/2026-11-09_e2.jpg",
+    "biblioteca/D01",
+    "dias/2026-11-09_e3.jpg",
+    "evangelistas/juan.jpg",
+    "biblioteca/R03",
+    "evangelistas/juan.jpg"
+  ],
+  "frase_clave": "Destruid este templo, y en tres días lo levantaré.",
+  "reflexion": "Tu corazón es templo de Dios y Jesús desea habitar en él limpio de ruidos y apegos. ¿Le dejas renovar hoy tu vida con su gracia?",
+  "lufs": -14.0,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Inside the stone colonnades of the temple, Jesus stands with majestic authority, gesturing towards the merchants and dove sellers as coins spill across the floor.",
+      "busqueda": "cleansing the temple",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus addresses the Jewish leaders amidst the great arches of the temple, speaking with quiet serenity as they listen in astonishment.",
+      "busqueda": "Christ teaching temple",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The resurrected Jesus appears peacefully surrounded by His disciples in a warm, gentle light, inspiring deep faith and recollection in their hearts.",
+      "busqueda": "Risen Christ disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Juan.",
+  "texto_evangelio": "Estaba ya cerca la Pascua de los judíos, y Jesús subió a Jerusalén. Y encontró en el templo a los que vendían bueyes, ovejas y palomas, y a los cambistas sentados a sus mesas; y, haciendo un azote de cuerdas, los echó a todos del templo, con las ovejas y los bueyes; tiró por el suelo el dinero de los cambistas y volcó las mesas; y a los que vendían palomas les dijo: “Quitad esto de aquí; no hagáis de la casa de mi Padre una casa de comercio”. Entonces se acordaron sus discípulos de que está escrito: «El celo de tu casa me consume». Pero los judíos le preguntaron: “¿Qué señal nos das para obrar así?”. Jesús les respondió: “Destruid este templo, y en tres días lo levantaré”. Los judíos replicaron: “Cuarenta y seis años se ha tardado en edificar este templo, ¿y tú lo vas a levantar en tres días?”. Pero él hablaba del templo de su cuerpo. Y cuando resucitó de entre los muertos, sus discípulos se acordaron de que lo había dicho, y creyeron en la Escritura y en las palabras de Jesús.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "Lectura del santo evangelio según san Juan."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 6.31,
+      "texto": "Estaba ya cerca la Pascua de los judíos, y Jesús subió a Jerusalén. Y encontró en el templo a los que vendían bueyes, ovejas y palomas, y a los cambistas sentados a sus mesas; y, haciendo un azote de cuerdas, los echó a todos del templo, con las ovejas y los bueyes; tiró por el suelo el dinero de los cambistas y volcó las mesas; y a los que vendían palomas les dijo:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 30.09,
+      "texto": "“Quitad esto de aquí; no hagáis de la casa de mi Padre una casa de comercio”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 36.57,
+      "texto": "Entonces se acordaron sus discípulos de que está escrito: «El celo de tu casa me consume». Pero los judíos le preguntaron:"
+    },
+    {
+      "personaje": "hombre",
+      "escena": 2,
+      "inicio": 44.88,
+      "texto": "“¿Qué señal nos das para obrar así?”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 48.19,
+      "texto": "Jesús les respondió:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 51.01,
+      "texto": "“Destruid este templo, y en tres días lo levantaré”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 55.21,
+      "texto": "Los judíos replicaron:"
+    },
+    {
+      "personaje": "hombre",
+      "escena": 2,
+      "inicio": 58.11,
+      "texto": "“Cuarenta y seis años se ha tardado en edificar este templo, ¿y tú lo vas a levantar en tres días?”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 63.93,
+      "texto": "Pero él hablaba del templo de su cuerpo. Y cuando resucitó de entre los muertos, sus discípulos se acordaron de que lo había dicho, y creyeron en la Escritura y en las palabras de Jesús."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 77.04,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 80.96,
+      "texto": "Tu corazón es templo de Dios y Jesús desea habitar en él limpio de ruidos y apegos. ¿Le dejas renovar hoy tu vida con su gracia?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-08T00:23:52+01:00",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "revision": "pendiente"
+}
