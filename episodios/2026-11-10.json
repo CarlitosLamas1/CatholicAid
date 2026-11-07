@@ -1,0 +1,98 @@
+{
+  "fecha": "2026-11-10",
+  "modo": "prueba",
+  "cita": "Lucas 17, 7-10",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/10.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "edge",
+  "peticiones_voz": 6,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 52.8,
+  "imagenes": [
+    "biblioteca/D07",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D04",
+    "biblioteca/D08",
+    "biblioteca/D01",
+    "biblioteca/D09",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "No, por cierto.",
+  "reflexion": "",
+  "lufs": -13.8,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A humble servant returns from the open fields carrying his rustic tools under the gentle evening sky. His face shows dedication and patient endurance after a long day of labor.",
+      "busqueda": "servant plowing field",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Inside a dimly lit room, a dutiful servant wearing an apron prepares to serve a simple meal to his master sitting quietly at the table. The atmosphere is solemn and orderly.",
+      "busqueda": "servant master table",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus gathers with his disciples in an intimate setting, speaking to them with profound tenderness and humility while gesturing with his open hands. The disciples listen with reverence and deep reflection.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, dijo el Señor: “¿Quién hay entre vosotros que, teniendo un criado que labra o pastorea, cuando vuelve del campo le diga: ‘Ven enseguida y siéntate a la mesa’? ¿No le dirá más bien: ‘Prepárame la cena, cíñete y sírveme mientras yo como y bebo, y después comerás y beberás tú’? ¿Acaso el amo se tendrá por obligado con ese criado porque hizo lo que le mandó? No, por cierto. Así también vosotros, cuando hayáis hecho todo lo que se os ha mandado, decid: ‘Somos siervos inútiles; no hemos hecho más que lo que teníamos obligación de hacer’”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.61,
+      "texto": "En aquel tiempo, dijo el Señor:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 11.06,
+      "texto": "“¿Quién hay entre vosotros que, teniendo un criado que labra o pastorea, cuando vuelve del campo le diga: ‘Ven enseguida y siéntate a la mesa’?"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 20.27,
+      "texto": "¿No le dirá más bien: ‘Prepárame la cena, cíñete y sírveme mientras yo como y bebo, y después comerás y beberás tú’?"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 28.49,
+      "texto": "¿Acaso el amo se tendrá por obligado con ese criado porque hizo lo que le mandó? No, por cierto. Así también vosotros, cuando hayáis hecho todo lo que se os ha mandado, decid: ‘Somos siervos inútiles; no hemos hecho más que lo que teníamos obligación de hacer’”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 46.72,
+      "texto": "Palabra del Señor."
+    }
+  ],
+  "generado": "2026-11-07T01:37:16+01:00",
+  "cupo_agotado": [
+    "gemini-flash-latest"
+  ]
+}
