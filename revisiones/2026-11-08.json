@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-11-08",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-07T00:57:44+01:00",
+  "revisado": "2026-11-07T01:32:50+01:00",
+  "motivos": [],
+  "avisos": [
+    "Parábola de las diez vírgenes: todo el texto va con la voz de Jesús (correcto, es él quien la cuenta)."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico al texto_evangelio; cita Mateo 25, 1-13 coincide con citas.json.",
+    "voces": "✅ Toda la parábola en jesus, narrador en la introducción, «Palabra del Señor» y reflexión.",
+    "frase_clave": "✅ «Así pues, velad, porque no sabéis ni el día ni la hora.» (12 palabras), literal y de Jesús.",
+    "reflexion": "✅ 22 palabras, cálida, fiel a la doctrina y relacionada con la lectura.",
+    "tecnica": "✅ 95,2 s; -13,9 LUFS.",
+    "audio": "✅ Más lento: fragmento 5 («Palabra del Señor.») 6,9 c/s en 2,6 s (normal, corto); en fragmentos largos el más lento es la reflexión 8,1 c/s (15,5 s, incluye cierre); el más rápido fragmento 3, 19,0 c/s.",
+    "imagenes": "✅ Tres óleos devocionales (vírgenes dormidas con lámparas, vírgenes necias pidiendo aceite, esposo abriendo la puerta), coherentes, sin deformaciones graves.",
+    "metadatos": "✅ Fecha, cita y título (san Mateo) coherentes."
+  }
+}
