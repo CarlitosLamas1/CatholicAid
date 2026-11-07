@@ -7,8 +7,8 @@
   "guion": "gemini-3.8-flash",
   "voces": "gemini",
   "peticiones_voz": 7,
-  "musica": "JS_Bach_-_Well_Tempered_Clavier_-_Prelude_in_Fugue_No.1_in_C_major.ogg",
-  "duracion_s": 108.0,
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 109.0,
   "imagenes": [
     "dias/2026-11-08_e1.jpg",
     "evangelistas/mateo.jpg",
@@ -17,21 +17,21 @@
     "dias/2026-11-08_e2.jpg",
     "biblioteca/D04",
     "dias/2026-11-08_e3.jpg",
-    "biblioteca/D07",
+    "biblioteca/D08",
     "evangelistas/mateo.jpg",
     "biblioteca/R02",
     "evangelistas/mateo.jpg"
   ],
   "frase_clave": "Watch therefore, for you don’t know the day nor the hour",
   "reflexion": "Keep your heart filled with the oil of prayer and charity, always ready to welcome the Lord. How can you nurture your relationship with Christ today?",
-  "lufs": -14.1,
+  "lufs": -14.2,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Ten maidens in ancient robes rest by night along a stone path, holding small oil lamps while some fall asleep waiting.",
+      "descripcion": "Ten young maidens resting and sleeping peacefully in the night, holding their oil lamps under the soft moonlight as they await the bridegroom.",
       "busqueda": "ten virgins sleeping",
       "personajes": [
         "mujer"
@@ -39,7 +39,7 @@
     },
     {
       "numero": 2,
-      "descripcion": "Awakened at midnight, the wise maidens carefully tend their bright lamps while the foolish look with sorrow and empty vessels.",
+      "descripcion": "The maidens awaken at midnight, the wise virgins trimming their brightly burning lamps while the foolish ones look with anxiety at their fading lights.",
       "busqueda": "wise foolish virgins",
       "personajes": [
         "mujer"
@@ -47,7 +47,7 @@
     },
     {
       "numero": 3,
-      "descripcion": "The radiant bridegroom welcomes the wise maidens into the glowing banquet hall while the heavy wooden door begins to close.",
+      "descripcion": "The bridegroom welcomes the wise maidens with open arms into the brightly illuminated, joyful wedding banquet hall while the door stands ready to close.",
       "busqueda": "wedding feast bridegroom",
       "personajes": [
         "hombre",
@@ -73,44 +73,44 @@
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 13.32,
+      "inicio": 14.47,
       "texto": "“Then the Kingdom of Heaven will be like ten virgins who took their lamps and went out to meet the bridegroom. Five of them were foolish, and five were wise. Those who were foolish, when they took their lamps, took no oil with them, but the wise took oil in their vessels with their lamps. Now while the bridegroom delayed, they all slumbered and slept."
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 37.77,
+      "inicio": 37.73,
       "texto": "But at midnight there was a cry, ‘Behold! The bridegroom is coming! Come out to meet him!’ Then all those virgins arose, and trimmed their lamps. The foolish said to the wise, ‘Give us some of your oil, for our lamps are going out.’ But the wise answered, saying, ‘What if there isn’t enough for us and you? You go rather to those who sell, and buy for yourselves.’"
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 64.52,
+      "inicio": 62.92,
       "texto": "While they went away to buy, the bridegroom came, and those who were ready went in with him to the wedding feast, and the door was shut. Afterward the other virgins also came, saying, ‘Lord, Lord, open to us.’ But he answered, ‘Most certainly I tell you, I don’t know you.’ Watch therefore, for you don’t know the day nor the hour in which the Son of Man is coming.”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 88.69,
+      "inicio": 86.89,
       "texto": "The Gospel of the Lord."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 92.39,
+      "inicio": 92.5,
       "texto": "Keep your heart filled with the oil of prayer and charity, always ready to welcome the Lord. How can you nurture your relationship with Christ today?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-07T09:53:42+01:00",
+  "generado": "2026-11-07T11:09:32+01:00",
   "idioma": "en",
   "libro": "Mateo",
   "cita_es": "Mateo 25, 1-13",
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
   ],
-  "revision": "ok",
-  "youtube": {
+  "revision": "pendiente",
+  "youtube_descartado": {
     "id": "ivDPYCospIw",
     "url": "https://youtu.be/ivDPYCospIw",
     "privacyStatus": "private",
@@ -127,6 +127,7 @@
       "titulo": "Daily Gospel · Ordinary Time",
       "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
     },
-    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss",
+    "motivo": "Bloqueado por Content ID (Bach, grabación de Wanda Landowska)"
   }
 }

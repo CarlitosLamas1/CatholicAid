@@ -3,15 +3,15 @@
   "idioma": "en",
   "ok": true,
   "por": "gestor",
-  "generado": "2026-11-07T09:53:42+01:00",
-  "revisado": "2026-11-07T10:15:00+01:00",
+  "generado": "2026-11-07T11:09:32+01:00",
+  "revisado": "2026-11-07T12:50:00+01:00",
   "motivos": [],
   "avisos": [
-    "Revisado por el revisor (prueba v2: OK con avisos) y visto bueno de Carlos para publicarlo."
+    "Mismo vídeo que el revisado el 07/11 (texto, voces, frase y reflexión iguales); solo cambia la música (Satie) porque la grabación de Bach fue reclamada."
   ],
   "puntos": {
-    "fidelidad": "✅ WEB (Catholic) Mt 25,1-13, guion idéntico al texto",
-    "voces": "✅ Gemini (gemini-3.1-flash-tts-preview): narrador Iapetus, Jesús Enceladus",
-    "tecnica": "✅ 108.0 s; -14.1 LUFS"
+    "fidelidad": "✅ igual que la versión revisada",
+    "tecnica": "✅ 109.0 s; -14.2 LUFS",
+    "musica": "✅ Satie, Gymnopédie n.º 1 (Musopen, dominio público)"
   }
 }
