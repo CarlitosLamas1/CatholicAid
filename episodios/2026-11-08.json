@@ -72,5 +72,17 @@
     }
   ],
   "generado": "2026-11-07T00:57:44+01:00",
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "Fx8HY5PSYEk",
+    "url": "https://youtu.be/Fx8HY5PSYEk",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-08T00:00:00Z",
+    "lista": {
+      "titulo": "Evangelio según san Mateo",
+      "error": "409"
+    }
+  }
 }
