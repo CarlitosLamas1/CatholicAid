@@ -1610,12 +1610,16 @@ def publicar_extras(tok, vid, reg, fecha, miniatura, idioma="es"):
     """Tras subir: listas (evangelista y tiempo litúrgico) y miniatura. Nada de esto bloquea."""
     yt = reg["youtube"]
     libro = reg.get("libro") or reg["cita"].split()[0]
-    if not yt.get("lista", {}).get("id"):
-        lista = lista_evangelista(tok, libro, vid, idioma)
-        if lista:
-            yt["lista"] = lista
-    if not yt.get("lista_liturgica", {}).get("id"):
-        yt["lista_liturgica"] = lista_liturgica(tok, fecha, vid, idioma)
+    for intento in range(3):  # YouTube a veces da 409 SERVICE_UNAVAILABLE justo tras subir o crear la lista
+        if not yt.get("lista", {}).get("id"):
+            lista = lista_evangelista(tok, libro, vid, idioma)
+            if lista:
+                yt["lista"] = lista
+        if not yt.get("lista_liturgica", {}).get("id"):
+            yt["lista_liturgica"] = lista_liturgica(tok, fecha, vid, idioma)
+        if yt.get("lista", {}).get("id") and yt.get("lista_liturgica", {}).get("id"):
+            break
+        time.sleep(20)
     if yt.get("miniatura") != "ok" and miniatura:
         yt["miniatura"] = subir_miniatura(tok, vid, miniatura)
 
