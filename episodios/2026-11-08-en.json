@@ -1,9 +1,111 @@
 {
   "fecha": "2026-11-08",
-  "idioma": "en",
   "modo": "prueba",
-  "estado": "fallido",
-  "error": "No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.",
-  "cupo_agotado": [],
-  "intento": "2026-11-07T01:33:46+01:00"
+  "cita": "Matthew 25:1-13",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/08.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "JS_Bach_-_Well_Tempered_Clavier_-_Prelude_in_Fugue_No.1_in_C_major.ogg",
+  "duracion_s": 109.7,
+  "imagenes": [
+    "dias/2026-11-08_e1.jpg",
+    "evangelistas/mateo.jpg",
+    "dias/2026-11-08_e1.jpg",
+    "biblioteca/G12",
+    "dias/2026-11-08_e2.jpg",
+    "biblioteca/D05",
+    "dias/2026-11-08_e3.jpg",
+    "biblioteca/D01",
+    "biblioteca/R02",
+    "evangelistas/mateo.jpg"
+  ],
+  "frase_clave": "Five of them were foolish, and five were wise.",
+  "reflexion": "Keep the flame of faith and love burning brightly through daily prayer and quiet charity. Are you ready to welcome the Lord whenever he arrives?",
+  "lufs": -14.0,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Ten maidens in ancient robes rest by night along a stone path, holding small oil lamps while some fall asleep waiting.",
+      "busqueda": "ten virgins sleeping",
+      "personajes": [
+        "mujer"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Awakened at midnight, the wise maidens carefully tend their bright lamps while the foolish look with sorrow and empty vessels.",
+      "busqueda": "wise foolish virgins",
+      "personajes": [
+        "mujer"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The radiant bridegroom welcomes the wise maidens into the glowing banquet hall while the heavy wooden door begins to close.",
+      "busqueda": "wedding feast bridegroom",
+      "personajes": [
+        "hombre",
+        "mujer"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Matthew.",
+  "texto_evangelio": "At that time, Jesus told his disciples this parable: “Then the Kingdom of Heaven will be like ten virgins who took their lamps and went out to meet the bridegroom. Five of them were foolish, and five were wise. Those who were foolish, when they took their lamps, took no oil with them, but the wise took oil in their vessels with their lamps. Now while the bridegroom delayed, they all slumbered and slept. But at midnight there was a cry, ‘Behold! The bridegroom is coming! Come out to meet him!’ Then all those virgins arose, and trimmed their lamps. The foolish said to the wise, ‘Give us some of your oil, for our lamps are going out.’ But the wise answered, saying, ‘What if there isn’t enough for us and you? You go rather to those who sell, and buy for yourselves.’ While they went away to buy, the bridegroom came, and those who were ready went in with him to the wedding feast, and the door was shut. Afterward the other virgins also came, saying, ‘Lord, Lord, open to us.’ But he answered, ‘Most certainly I tell you, I don’t know you.’ Watch therefore, for you don’t know the day nor the hour in which the Son of Man is coming.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "A reading from the holy Gospel according to Matthew."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.1,
+      "texto": "At that time, Jesus told his disciples this parable:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.66,
+      "texto": "“Then the Kingdom of Heaven will be like ten virgins who took their lamps and went out to meet the bridegroom. Five of them were foolish, and five were wise. Those who were foolish, when they took their lamps, took no oil with them, but the wise took oil in their vessels with their lamps. Now while the bridegroom delayed, they all slumbered and slept."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 38.1,
+      "texto": "But at midnight there was a cry, ‘Behold! The bridegroom is coming! Come out to meet him!’ Then all those virgins arose, and trimmed their lamps. The foolish said to the wise, ‘Give us some of your oil, for our lamps are going out.’ But the wise answered, saying, ‘What if there isn’t enough for us and you? You go rather to those who sell, and buy for yourselves.’"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 64.86,
+      "texto": "While they went away to buy, the bridegroom came, and those who were ready went in with him to the wedding feast, and the door was shut. Afterward the other virgins also came, saying, ‘Lord, Lord, open to us.’ But he answered, ‘Most certainly I tell you, I don’t know you.’ Watch therefore, for you don’t know the day nor the hour in which the Son of Man is coming.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 89.02,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 93.75,
+      "texto": "Keep the flame of faith and love burning brightly through daily prayer and quiet charity. Are you ready to welcome the Lord whenever he arrives?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-07T01:50:33+01:00",
+  "idioma": "en",
+  "libro": "Mateo",
+  "cita_es": "Mateo 25, 1-13",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ]
 }
