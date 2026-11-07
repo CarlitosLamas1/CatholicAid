@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """CatholicAid · Publicar revisado.
 
-Uso: python3 proceso/publicar.py AAAA-MM-DD
+Uso: python3 proceso/publicar.py AAAA-MM-DD       (canal en español)
+     python3 proceso/publicar.py AAAA-MM-DD-en    (canal en inglés: episodios/…-en.json, revisiones/…-en.json,
+                                                  release en-AAAA-MM-DD, permiso secretos/youtube-en.enc, sin TikTok;
+                                                  en el estreno se sube en PRIVADO sin programar)
 
 Lee la revisión del día (revisiones/AAAA-MM-DD.json, la escribe la rutina «Revisor diario» o Carlos con 👍):
 - OK  -> sube a YouTube el vídeo de la release tiktok-AAAA-MM-DD, programado a la hora_publicacion (Madrid, config), y lo añade
@@ -43,9 +46,14 @@ def sh(*args, check=True):
 
 
 def main():
-    fecha = sys.argv[1].strip()
-    ruta_reg = RAIZ / "episodios" / f"{fecha}.json"
-    reg, rev = leer(ruta_reg), leer(RAIZ / "revisiones" / f"{fecha}.json")
+    nombre = sys.argv[1].strip()
+    fecha, idioma = avisos.idioma_de(nombre)
+    ev_mod.aplicar_idioma(idioma)
+    lengua = avisos.etiqueta(idioma)
+    release = f"tiktok-{fecha}" if idioma == "es" else f"en-{fecha}"
+    flujo = "evangelio-diario.yml" if idioma == "es" else "evangelio-ingles.yml"
+    ruta_reg = RAIZ / "episodios" / f"{nombre}.json"
+    reg, rev = leer(ruta_reg), leer(RAIZ / "revisiones" / f"{nombre}.json")
     if not reg:
         log(f"No hay registro del {fecha}; nada que publicar.")
         return
@@ -67,51 +75,61 @@ def main():
             reg["rehechos"] = n + 1
             reg["revision"] = "rechazada"
             guardar(ruta_reg, reg)
-            sh("gh", "release", "delete", f"tiktok-{fecha}", "--yes", "--cleanup-tag", check=False)
-            sh("gh", "workflow", "run", "evangelio-diario.yml", "-f", f"fecha={fecha}", "-f", "modo=diario")
-            log(f"Revisión no OK: rehago el vídeo del {fecha}.")
-            avisos.enviar(f"🔎 El revisor no ha aprobado el vídeo del <b>{avisos.e(cuando)}</b>:\n"
+            sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
+            sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
+            log(f"Revisión no OK: rehago el vídeo del {nombre}.")
+            avisos.enviar(f"🔎 {lengua} · El revisor no ha aprobado el vídeo del <b>{avisos.e(cuando)}</b>:\n"
                           + "\n".join(f"• {avisos.e(m)}" for m in motivos)
                           + "\n\n🔁 Lo rehago solo y el revisor lo vuelve a mirar. No tienes que hacer nada.")
         else:
             reg["revision"] = "rechazada"
             reg["no_publicar"] = "revisor: " + "; ".join(motivos)[:300]
             guardar(ruta_reg, reg)
-            sh("gh", "release", "delete", f"tiktok-{fecha}", "--yes", "--cleanup-tag", check=False)
-            log(f"Revisión no OK por segunda vez: el {fecha} no se publica.")
-            avisos.enviar(f"⛔ El vídeo del <b>{avisos.e(cuando)}</b> <b>no se publica</b>: el revisor no lo ha aprobado "
+            sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
+            log(f"Revisión no OK por segunda vez: el {nombre} no se publica.")
+            avisos.enviar(f"⛔ {lengua} · El vídeo del <b>{avisos.e(cuando)}</b> <b>no se publica</b>: el revisor no lo ha aprobado "
                           "ni después de rehacerlo.\n" + "\n".join(f"• {avisos.e(m)}" for m in motivos)
                           + "\n\nEl gestor lo revisará.")
         return
 
     reg["revision"] = "ok"
+    tmp = Path(tempfile.mkdtemp())
+    sh("gh", "release", "download", release, "-D", tmp, "-p", "miniatura.jpg", check=False)
+    miniatura = tmp / "miniatura.jpg" if (tmp / "miniatura.jpg").exists() else None
     if reg.get("youtube", {}).get("id"):
-        log(f"El {fecha} ya está subido a YouTube ({reg['youtube']['url']}).")
-        if not reg["youtube"].get("lista", {}).get("id"):  # completa la lista si faltó (p. ej. sin permiso entonces)
-            lista = ev_mod.lista_evangelista(ev_mod.token_youtube(), reg["cita"].split()[0], reg["youtube"]["id"])
-            if lista:
-                reg["youtube"]["lista"] = lista
+        log(f"El {nombre} ya está subido a YouTube ({reg['youtube']['url']}).")
+        try:  # completa listas y miniatura si faltaron (p. ej. sin permiso entonces); nunca bloquea
+            ev_mod.publicar_extras(ev_mod.token_youtube(idioma), reg["youtube"]["id"], reg,
+                                   dt.date.fromisoformat(fecha), miniatura, idioma)
+        except Exception as ex:
+            log(f"Extras no completados ({ex})")
         guardar(ruta_reg, reg)
         return
-    tmp = Path(tempfile.mkdtemp())
-    sh("gh", "release", "download", f"tiktok-{fecha}", "-D", tmp, "-p", "video.mp4")
+    sh("gh", "release", "download", release, "-D", tmp, "-p", "video.mp4")
     video = tmp / "video.mp4"
     ev = {"cita": reg["cita"], "titulo": reg.get("titulo") or reg["fragmentos"][0]["texto"],
           "fuente_texto": reg.get("texto_fuente", "Vatican News"), "reflexion": reg.get("reflexion", ""),
           "frase_clave": reg.get("frase_clave", "")}
-    tok = ev_mod.token_youtube()
-    vid, estado = ev_mod.subir_youtube(video, ev, dt.date.fromisoformat(fecha), "diario", tok)
+    tok = ev_mod.token_youtube(idioma)
+    vid, estado = ev_mod.subir_youtube(video, ev, dt.date.fromisoformat(fecha), "diario", tok, idioma)
     reg["youtube"] = {"id": vid, "url": f"https://youtu.be/{vid}", **estado}
-    lista = ev_mod.lista_evangelista(tok, reg["cita"].split()[0], vid)
-    if lista:
-        reg["youtube"]["lista"] = lista
+    guardar(ruta_reg, reg)  # lo subido queda anotado pase lo que pase después
+    try:
+        ev_mod.publicar_extras(tok, vid, reg, dt.date.fromisoformat(fecha), miniatura, idioma)
+    except Exception as ex:
+        log(f"Listas/miniatura no completadas ({ex})")
     guardar(ruta_reg, reg)
     log(f"Subido: https://youtu.be/{vid} ({estado['privacyStatus']})")
     hora = f"{int(ev_mod.CFG.get('hora_publicacion', 7)):02d}:00"
     cuando_yt = f"programado a las {hora}" if estado.get("publishAt") else f"queda {estado['privacyStatus']}"
     nota = "" if rev.get("por") == "Carlos" else "\n🔎 Revisado por el revisor: todo correcto."
-    avisos.enviar(f"✅ Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a YouTube ({cuando_yt}): "
-                  f"{avisos.e(reg['youtube']['url'])}\n🎵 TikTok se publica a las {hora}.{nota}")
+    if idioma == "es":
+        avisos.enviar(f"✅ {lengua} · Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a YouTube ({cuando_yt}): "
+                      f"{avisos.e(reg['youtube']['url'])}\n🎵 TikTok se publica a las {hora}.{nota}")
+    else:
+        estreno = "" if estado.get("publishAt") else "\n🔒 Estreno: queda en privado; tú decides cuándo se publica."
+        avisos.enviar(f"✅ {lengua} · Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a CatolicAid English "
+                      f"({cuando_yt}): {avisos.e(reg['youtube']['url'])}{estreno}{nota}")
 
 
 if __name__ == "__main__":
