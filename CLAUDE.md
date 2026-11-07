@@ -22,7 +22,7 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 - Publica programado a `hora_publicacion_en` (01:00 Madrid); `en.publicar_programado: true` (Carlos aprobó publicar ya). Si llega tarde el mismo día, se publica al momento. Listas «Gospel according to St. …» y «Daily Gospel · <tiempo>». Sin TikTok en inglés aún (Carlos está creando la cuenta).
 - Miniatura: YouTube la rechaza (403) hasta verificar el canal por teléfono en youtube.com/verify.
 - `subir-ingles.yml` + `ci/subir-en.txt` y `ci/evangelio-en.txt`: herramientas de la rama de pruebas; ya no hacen falta.
-- La rutina del revisor aún NO revisa el inglés: Carlos debe añadir el párrafo de `proceso/criterio-revision-en.md` a la rutina «Revisor diario».
+- La rutina «Revisor diario» revisa también el inglés (PASO 4b, añadido el 07/11/2026 con `proceso/criterio-revision-en.md`), siempre después del español.
 
 ## Mejoras del vídeo (07/11/2026, ambos idiomas)
 Subtítulos karaoke (palabra resaltada; Jesús en dorado F5C542; alineador whisper preparado pero apagado, `karaoke.alineador`), miniatura 1280×720 + 1080×1920 con la frase clave, gancho A/B (1,5 s días impares / 2,8 s pares; guía en `guias/gancho-ab.md`), listas por tiempo litúrgico además de por evangelista, frase clave que se entiende sola (reserva por escalones, nunca vacía), «Palabra del Señor» sobre el evangelista, pico ≤ -2 dBTP. Versión anterior estable: etiqueta `version-estable-2026-11-07`.
