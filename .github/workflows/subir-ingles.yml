@@ -1,0 +1,54 @@
+name: Subir vídeo en inglés (rama)
+
+# Solo para la rama mejoras-ingles, mientras el inglés no está en main: sube un vídeo en inglés ya revisado
+# con «Publicar revisado» (proceso/publicar.py AAAA-MM-DD-en) desde el artefacto de una tirada de prueba.
+# ci/subir-en.txt:  modo=comprobar  -> solo muestra a qué canal apunta el permiso del inglés (no sube nada)
+#                   modo=subir      -> crea la release en-AAAA-MM-DD y lo sube (programado a hora_publicacion_en)
+#                   fecha=AAAA-MM-DD  run=<id de la tirada de prueba con el vídeo>
+on:
+  push:
+    branches: [mejoras-ingles]
+    paths: ["ci/subir-en.txt"]
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: publicar-revisado
+  cancel-in-progress: false
+
+jobs:
+  subir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comprobar el canal del inglés
+        run: CANAL=en python3 proceso/youtube_conectar.py comprobar
+      - name: Subir
+        if: ${{ hashFiles('ci/subir-en.txt') != '' }}
+        run: |
+          MODO=$(sed -n 's/^modo=//p' ci/subir-en.txt); F=$(sed -n 's/^fecha=//p' ci/subir-en.txt); RUN=$(sed -n 's/^run=//p' ci/subir-en.txt)
+          if [ "$MODO" != "subir" ]; then echo "Modo $MODO: no se sube nada."; exit 0; fi
+          N=$(gh run view "$RUN" --json number -q .number)
+          gh run download "$RUN" -n "evangelio-en-$N" -D t
+          D="t/$F-en"
+          gh release view "en-$F" >/dev/null 2>&1 || gh release create "en-$F" "$D/video.mp4" "$D/miniatura.jpg" "$D/miniatura_vertical.jpg" --title "English $F" --notes "Gospel of the day · $F (CatolicAid English)" --prerelease
+          python3 proceso/publicar.py "$F-en"
+      - name: Guardar registro
+        if: always()
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add episodios/ 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Inglés: subido a YouTube"
+            git pull -q --rebase && git push -q
+          fi

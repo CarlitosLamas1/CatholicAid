@@ -322,9 +322,9 @@
     ]
   },
   "en": {
-    "_nota": "Canal CatolicAid English (proceso/evangelio.py --idioma en). Mismas voces de Gemini que en español (una fija por personaje) salvo que se elijan otras en el casting en inglés; acento por defecto: americano neutro (pendiente de que Carlos elija americano o británico). Solo clave gratuita (pago_voz=false). Estreno: publicar_programado=false -> se sube en PRIVADO sin programar hasta que Carlos lo apruebe.",
+    "_nota": "Canal CatolicAid English (proceso/evangelio.py --idioma en). Mismas voces de Gemini que en español (una fija por personaje) salvo que se elijan otras en el casting en inglés; acento por defecto: americano neutro (pendiente de que Carlos elija americano o británico). Solo clave gratuita (pago_voz=false). Carlos aprobó publicar el 07/11/2026: publicar_programado=true (programado a hora_publicacion_en, como el español).",
     "activo": true,
-    "publicar_programado": false,
+    "publicar_programado": true,
     "pago_voz": false,
     "_modelos_voz": "Voces del inglés con un modelo de voz DISTINTO del español (gemini-2.5-flash-preview-tts), con su propio cupo gratuito: así el inglés nunca gasta el cupo de voz del español. Si se agota, el inglés espera (no usa otro). Probado el 07/11/2026: gemini-3.8-flash-tts (y su lite) lee en voz alta la instrucción de estilo: NO sirve. Nunca Edge en el diario.",
     "modelos_voz": [

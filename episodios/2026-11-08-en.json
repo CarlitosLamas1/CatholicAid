@@ -1,6 +1,6 @@
 {
   "fecha": "2026-11-08",
-  "modo": "prueba",
+  "modo": "diario",
   "cita": "Matthew 25:1-13",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/08.html",
   "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
@@ -108,5 +108,6 @@
   "cita_es": "Mateo 25, 1-13",
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
-  ]
+  ],
+  "revision": "pendiente"
 }
