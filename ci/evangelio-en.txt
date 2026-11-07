@@ -1,2 +1,2 @@
-fecha=2026-11-07
-voces=edge
+fecha=2026-11-08
+voces=gemini
