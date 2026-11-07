@@ -118,12 +118,14 @@
     "containsSyntheticMedia": true,
     "publishAt": "2026-11-08T00:00:00Z",
     "lista": {
+      "id": "PLXdNKbtzVLWk",
       "titulo": "Gospel according to St. Matthew",
-      "error": "409"
+      "url": "https://www.youtube.com/playlist?list=PLXdNKbtzVLWk"
     },
     "lista_liturgica": {
+      "id": "PLLWkUaN0V-24",
       "titulo": "Daily Gospel · Ordinary Time",
-      "error": "409"
+      "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
     },
     "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
   }
