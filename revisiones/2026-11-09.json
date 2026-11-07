@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-09",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-08T00:23:52+01:00",
+  "revisado": "2026-11-08T00:32:41+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita coincide con biblia/citas.json (Juan 2, 13-22)",
+    "voces": "✅ Jesús dice sus frases; los judíos van como «hombre»; narrador en el resto",
+    "frase_clave": "✅ Literal y de Jesús: «Destruid este templo, y en tres días lo levantaré.»",
+    "reflexion": "✅ Fiel a la doctrina, cálida, unas 25 palabras",
+    "tecnica": "✅ 90,3 s; -14,0 LUFS",
+    "audio": "✅ Más lento: 4,6 c/s en «Palabra del Señor.» (3,9 s, normal por pausas); más rápido: 17,2 c/s",
+    "imagenes": "✅ Tres óleos devocionales coherentes con las escenas, sin deformidades graves",
+    "metadatos": "✅ Fecha, cita y título (san Juan) coherentes"
+  }
+}
