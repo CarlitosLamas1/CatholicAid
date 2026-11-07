@@ -120,6 +120,7 @@ def normalizar(t):
 # ---------- Gemini ----------
 
 CUPO_AGOTADO = set()  # modelos de Gemini que han dado 429 (cupo gratuito agotado) en esta tirada
+MODELOS_VOZ_USADOS = set()
 CACHE = None  # carpeta de caché (--cache): guion, frase/reflexión y voces ya hechas no se vuelven a pedir
 
 
@@ -626,15 +627,28 @@ def voz_gemini(p, texto, destino):
     cuerpo = {"contents": [{"parts": [{"text": texto}]}],
               "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": {
                   "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": p["voz_gemini"]}}}}}
-    try:
-        r = gemini(CFG["modelo_voz"], cuerpo)
-    except urllib.error.HTTPError as e:
-        pago = os.environ.get("GEMINI_API_KEY_IMAGENES", "").strip()
-        if e.code != 429 or not pago:
-            raise
-        log("   Cupo gratuito agotado: sigo con la clave de pago (misma voz)")
-        os.environ["GEMINI_API_KEY"] = pago
-        r = gemini(CFG["modelo_voz"], cuerpo)
+    # Español: modelo_voz (como siempre). Inglés: sus propios modelos de voz (config en.modelos_voz), cada uno con su
+    # cupo gratuito, para no gastar nunca el cupo de voz del español; si uno se agota, el siguiente (misma voz).
+    modelos = CFG.get(IDIOMA, {}).get("modelos_voz") if IDIOMA != "es" else None
+    modelos = [m for m in (modelos or [CFG["modelo_voz"]]) if m not in CUPO_AGOTADO] or [CFG["modelo_voz"]]
+    r = None
+    for k, modelo in enumerate(modelos):
+        try:
+            r = gemini(modelo, cuerpo)
+            MODELOS_VOZ_USADOS.add(modelo)
+            break
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and k + 1 < len(modelos):
+                log(f"   Cupo de voz agotado en {modelo}: sigo con {modelos[k + 1]} (misma voz)")
+                continue
+            pago = os.environ.get("GEMINI_API_KEY_IMAGENES", "").strip()
+            if e.code != 429 or not pago:
+                raise
+            log("   Cupo gratuito agotado: sigo con la clave de pago (misma voz)")
+            os.environ["GEMINI_API_KEY"] = pago
+            r = gemini(modelo, cuerpo)
+            MODELOS_VOZ_USADOS.add(modelo)
+            break
     dato = r["candidates"][0]["content"]["parts"][0]["inlineData"]
     m = re.search(r"rate=(\d+)", dato.get("mimeType", ""))
     crudo = destino.with_suffix(".raw.wav")
@@ -1766,6 +1780,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         registro.update({"idioma": idioma, "libro": libro, "cita_es": ev["cita_es"]})
     if CUPO_AGOTADO:
         registro["cupo_agotado"] = sorted(CUPO_AGOTADO)
+    if MODELOS_VOZ_USADOS:
+        registro["modelos_voz"] = sorted(MODELOS_VOZ_USADOS)
     if AVISOS:
         registro["avisos"] = sorted(set(AVISOS))
     for k in ("rehechos", "descartados"):  # historial de versiones anteriores del mismo día

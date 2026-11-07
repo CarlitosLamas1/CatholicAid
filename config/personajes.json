@@ -321,6 +321,11 @@
     "activo": true,
     "publicar_programado": false,
     "pago_voz": false,
+    "_modelos_voz": "Voces del inglés con modelos de voz DISTINTOS del español (gemini-2.5-flash-preview-tts), cada uno con su propio cupo gratuito: así el inglés nunca gasta el cupo de voz del español. Si uno se agota, el siguiente (misma voz). Comprobado con «Diagnóstico Gemini» el 07/11/2026. Nunca Edge en el diario.",
+    "modelos_voz": [
+      "gemini-3.8-flash-tts",
+      "gemini-3.1-flash-tts-preview"
+    ],
     "_acento": "Acento de TODAS las voces en inglés. Por defecto americano neutro; para británico: \"clear neutral British accent\".",
     "acento": "clear neutral American accent",
     "narradores": {
