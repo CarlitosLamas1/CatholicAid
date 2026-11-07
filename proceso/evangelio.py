@@ -503,10 +503,25 @@ def espacios(t):
     return " ".join(t.split())
 
 
+INICIOS_DEBILES = {"no", "sí", "si", "pero", "y", "e", "o", "porque", "pues", "entonces", "así", "ahora", "ay", "oh",
+                   "yes", "but", "and", "or", "for", "so", "then", "now", "nay", "truly"}
+
+
+def frase_valida(frase, pregunta=True):
+    """Frase clave que se entiende sola: 4–14 palabras, sin «…», sin empezar con una muletilla corta («No, por cierto»)."""
+    ws = re.findall(r"\w+", frase)
+    if not 4 <= len(ws) <= 14 or "…" in frase:
+        return False
+    if ws[0].lower() in INICIOS_DEBILES and len(ws) < 7:
+        return False
+    return pregunta or not frase.rstrip().endswith("?")
+
+
 def frase_de_reserva(fuente):
-    """Si Gemini falla: la frase más corta (3–12 palabras) de las palabras de Jesús, copiada tal cual."""
-    frases = [espacios(x).strip(" ,;:") for s in fuente for x in re.split(r"(?<=[.?!])\s+", s)]
-    buenas = [x for x in frases if 3 <= len(x.split()) <= 12 and "…" not in x]
+    """Si Gemini falla: la frase AUTOSUFICIENTE más corta de las palabras de Jesús (5–12 palabras, que no sea una
+    pregunta ni empiece con una muletilla), copiada tal cual."""
+    frases = [espacios(x).strip(" ,;:") for s in fuente for x in re.split(r"(?<=[.?!;:])\s+", s)]
+    buenas = [x for x in frases if 5 <= len(x.split()) <= 12 and frase_valida(x, pregunta=False)]
     return min(buenas, key=len) if buenas else ""
 
 
@@ -524,8 +539,9 @@ def gancho_y_reflexion(frs, ev, fiable=True):
 
 1. "frase_clave": elige de {quien} (abajo) la frase más significativa y fácil de recordar para mostrarla en grande al
    principio del vídeo. Cópiala LITERALMENTE, palabra por palabra y con los mismos signos, sin comillas: puede ser una
-   frase entera o una parte con sentido completo, de 3 a 12 palabras. Prefiere una enseñanza o promesa de Jesús
-   (no una pregunta suelta ni una frase de transición) y no cojas nada que contenga «…».
+   frase entera o una parte con sentido completo que se entienda sola (con su verbo), de 4 a 12 palabras. Prefiere una enseñanza o promesa de Jesús
+   (no una pregunta suelta, ni una frase de transición, ni una frase que solo describe un detalle del relato o de la
+   parábola y no se entiende fuera de él) y no cojas nada que contenga «…».
 2. "reflexion": 1 o 2 frases breves (máximo 35 palabras en total) para meditar después de la lectura; puede terminar
    con una pregunta. Tono cálido y cercano, de tú, en español de España. Fiel a la doctrina de la Iglesia católica y
    al sentido de esta lectura. No cites ni inventes palabras de Jesús, no uses comillas ni emojis, no hables de
@@ -542,8 +558,9 @@ LECTURA COMPLETA (contexto):
 
 1. "frase_clave": choose from {quien} (below) the most meaningful and memorable sentence, to show it large at the
    beginning of the video. Copy it LITERALLY, word for word and with the same punctuation, without quotation marks:
-   it can be a whole sentence or a part with complete meaning, 3 to 12 words. Prefer a teaching or promise of Jesus
-   (not a lone question or a transition phrase) and do not take anything containing «…».
+   it can be a whole sentence or a part with complete meaning that stands on its own (with its verb), 4 to 12 words. Prefer a teaching or promise of Jesus
+   (not a lone question, nor a transition phrase, nor a sentence that only describes a detail of the story or parable
+   and makes no sense out of context) and do not take anything containing «…».
 2. "reflexion": 1 or 2 short sentences (35 words at most in total) to meditate on after the reading; it may end
    with a question. Warm and close tone, addressing the viewer as "you", in clear American English. Faithful to the
    teaching of the Catholic Church and to the meaning of this reading. Do not quote or invent words of Jesus, do not
@@ -561,7 +578,12 @@ FULL READING (context):
     esquema = {"type": "OBJECT", "properties": {"frase_clave": {"type": "STRING"}, "reflexion": {"type": "STRING"}},
                "required": ["frase_clave", "reflexion"]}
     base = [espacios(s) for s in fuente]
-    for modelo in modelos_texto():
+    frase_ok, reflexion_ok = "", ""
+    reserva = [m for m in CFG.get("comentarios", {}).get("modelos", [])]  # lite: último recurso para no quedarse sin reflexión
+    modelos = modelos_texto()
+    for modelo in modelos + [m for m in reserva if m not in modelos]:
+        if frase_ok and reflexion_ok:
+            break
         try:
             r = gemini(modelo, {"contents": [{"parts": [{"text": prompt}]}],
                                 "generationConfig": {"responseMimeType": "application/json",
@@ -570,17 +592,21 @@ FULL READING (context):
             d = json.loads(next(p["text"] for p in reversed(partes) if "text" in p))
             frase = espacios(hablado(d.get("frase_clave", ""))).strip(" ,;:")
             reflexion = espacios(hablado(d.get("reflexion", "")))
-            if not (frase and "…" not in frase and 2 <= len(frase.split()) <= 14 and any(frase in s for s in base)):
-                log(f"   {modelo}: la frase clave no es literal ({frase[:60]}); se descarta")
-                continue
-            if not reflexion or len(reflexion.split()) > 45:
+            if not frase_ok and frase and frase_valida(frase) and any(frase in s for s in base):
+                frase_ok = frase
+            elif not frase_ok:
+                log(f"   {modelo}: la frase clave no es literal o no se entiende sola ({frase[:60]}); se descarta")
+            if not reflexion_ok and reflexion and len(reflexion.split()) <= 45:
+                reflexion_ok = reflexion
+            elif not reflexion_ok:
                 log(f"   {modelo}: reflexión vacía o demasiado larga; se descarta")
-                continue
-            cache_guardar(clave, [frase, reflexion])
-            return frase, reflexion
         except Exception as e:
             log(f"   {modelo}: gancho/reflexión falló ({e})")
-    return (frase_de_reserva(fuente) if fiable else ""), ""
+    if frase_ok and reflexion_ok:
+        cache_guardar(clave, [frase_ok, reflexion_ok])
+    if not frase_ok and fiable:
+        frase_ok = frase_de_reserva(fuente)
+    return frase_ok, reflexion_ok
 
 
 def preparar_fragmentos(g, ev):
@@ -600,7 +626,7 @@ def preparar_fragmentos(g, ev):
             continue
         frs.append({"personaje": p, "texto": t, "escena": e})
     frs.insert(0, {"personaje": "narrador", "texto": ev["titulo"], "escena": frs[0]["escena"]})
-    frs.append({"personaje": "narrador", "texto": txt("palabra"), "escena": frs[-1]["escena"]})
+    frs.append({"personaje": "narrador", "texto": txt("palabra"), "escena": frs[-1]["escena"], "palabra": True})
     return frs
 
 
@@ -924,12 +950,19 @@ def generar_imagenes_dia(info, escenas, fecha):
                 break
 
 
-def elegir_visuales(tramos, info, fecha, carpeta, retrato=None):
-    """Por tramo: clip del día > clip elegido por Gemini > imagen devocional (D..) > cuadro clásico."""
+def elegir_visuales(tramos, info, fecha, carpeta, retrato=None, presentes=None):
+    """Por tramo: clip del día > clip elegido por Gemini > imagen devocional (D..) > cuadro clásico.
+    presentes: personajes del pasaje. De la biblioteca solo valen imágenes sin personas, con Jesús o con personajes
+    que salen en el pasaje (nunca la Virgen mientras habla Jesús si María no aparece)."""
     datos = {int(e["numero"]): e for e in info}
     ruta_cat = RAIZ / "biblioteca" / "catalogo.json"
     cat = json.loads(ruta_cat.read_text(encoding="utf-8"))["clips"] if ruta_cat.exists() else {}
-    rellenos = [k for k in cat if k.startswith("D") and archivo_clip(k)]
+    validos = set(presentes or PJ) | {"jesus"}
+
+    def encaja(k):
+        return set(cat.get(k, {}).get("personajes", [])) <= validos
+
+    rellenos = [k for k in cat if k.startswith("D") and archivo_clip(k) and encaja(k)]
     random.shuffle(rellenos)
     usados, visuales = set(), []
     for b in tramos:
@@ -955,7 +988,7 @@ def elegir_visuales(tramos, info, fecha, carpeta, retrato=None):
         clip = e.get("clip", "ninguno")
         if propio:
             v = {"archivo": propio, "titulo": f"dias/{propio.name}"}
-        elif clip != "ninguno" and clip not in usados and archivo_clip(clip):
+        elif clip != "ninguno" and clip not in usados and archivo_clip(clip) and encaja(clip):
             usados.add(clip)
             v = {"archivo": archivo_clip(clip), "titulo": f"biblioteca/{clip}"}
         elif any(r not in usados for r in rellenos):
@@ -979,7 +1012,9 @@ def bloques(frs, total, gancho=0.0, cierre=0.0, evangelista=False):
     for i, f in enumerate(frs):
         # Tramos especiales: el evangelista mientras anuncia la lectura (primer fragmento) y la reflexión,
         # que va sobre la última escena oscurecida para separarla del Evangelio.
-        tipo = "reflexion" if f.get("reflexion") else ("evangelista" if i == 0 and evangelista else "escena")
+        # «Palabra del Señor» también sobre el evangelista (lo dice el narrador; no sobre un retrato de Jesús).
+        tipo = "reflexion" if f.get("reflexion") else (
+            "evangelista" if (i == 0 or f.get("palabra")) and evangelista else "escena")
         if not b or b[-1]["escena"] != f["escena"] or b[-1]["tipo"] != tipo:
             b.append({"escena": f["escena"], "inicio": f["inicio"], "tipo": tipo})
     if b[0]["tipo"] == "evangelista" and gancho:  # el gancho, sobre la primera escena; luego el evangelista
@@ -1077,6 +1112,46 @@ def trocear(texto, maximo):
     return trozos
 
 
+def trocear_equilibrado(texto, maximo):
+    """Como trocear, pero sin trozos de una sola palabra («mesa?»): el último trozo corto se reparte con el anterior."""
+    trozos = trocear(texto, maximo)
+    k = 1
+    while k < len(trozos):
+        if len(trozos[k].split()) < 3 or len(trozos[k]) < maximo * 0.3:
+            ws = (trozos[k - 1] + " " + trozos[k]).split()
+            if sum(len(w) + 1 for w in ws) <= maximo + 4:
+                trozos[k - 1:k + 1] = [" ".join(ws)]
+                continue
+            corte = min(range(1, len(ws)), key=lambda i: abs(len(" ".join(ws[:i])) - len(" ".join(ws[i:]))))
+            trozos[k - 1:k + 1] = [" ".join(ws[:corte]), " ".join(ws[corte:])]
+        k += 1
+    return trozos
+
+
+def corte_de_linea(palabras, maximo=24):
+    """Índice de la palabra tras la que se parte el subtítulo en dos líneas equilibradas (None si cabe en una)."""
+    if len(" ".join(palabras)) <= maximo or len(palabras) < 2:
+        return None
+    return min(range(1, len(palabras)), key=lambda i: abs(len(" ".join(palabras[:i])) - len(" ".join(palabras[i:]))))
+
+
+def bordes_de_voz(f):
+    """Silencio al principio y al final del audio del fragmento (en segundos de vídeo), para no adelantar el resaltado."""
+    if not f.get("audio") or not Path(f["audio"]).exists():
+        return 0.0, 0.0
+    try:
+        dur = duracion(f["audio"])
+        escala = (f["fin"] - f["inicio"]) / max(0.1, dur)
+        sil = silencios(f["audio"])
+        ini = next((b for a, b in sil if a <= 0.05), 0.0)
+        fin = next((dur - a for a, b in sil if b >= dur - 0.05), 0.0)
+        if ini + fin >= dur * 0.6:
+            return 0.0, 0.0
+        return ini * escala, fin * escala
+    except Exception:
+        return 0.0, 0.0
+
+
 def tiempos_palabras(f, palabras):
     """Inicio y fin de cada palabra de un fragmento (subtítulos karaoke).
     Por defecto se reparte la duración REAL del audio del fragmento entre sus palabras según su longitud.
@@ -1088,6 +1163,8 @@ def tiempos_palabras(f, palabras):
             return alinear_whisper(f, palabras)
         except Exception as e:
             log(f"   Alineador no disponible ({e}); reparto por longitud")
+    lead, trail = bordes_de_voz(f)
+    ini, dur = ini + lead, dur - lead - trail
     pesos = [len(x) + 1 for x in palabras]
     tiempos, t = [], ini
     for w in pesos:
@@ -1117,7 +1194,8 @@ def alinear_whisper(f, palabras):
 
 def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
     titulo = "Gospel of the day · " if IDIOMA == "en" else "Evangelio del día · "
-    eventos = [("Cabecera", gancho, total - cierre,
+    fin_cabecera = next((f["inicio"] for f in frs if f.get("reflexion")), total - cierre)  # no durante la reflexión
+    eventos = [("Cabecera", gancho, fin_cabecera,
                 "{\\fs38}" + titulo + fecha_larga(fecha) + "\\N{\\fs56}" + ev["cita"])]
     if frase and gancho:
         # Gancho minimalista: velo oscuro muy suave sobre la imagen y la frase en serif fina, centrada.
@@ -1129,10 +1207,12 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
         # Cierre minimalista sobre el evangelista (o la escena oscurecida), arriba, en la pared despejada.
         eventos.append(("Gancho", total - cierre, total, "{\\an8\\pos(540,430)\\fad(300,400)\\blur2\\fs64}" + txt("cierre")
                         + "\\N{\\fs40\\i0\\c" + color_ass("F5C542") + "}CatolicAid"))
-    for f in frs:
+    for n_f, f in enumerate(frs):
         p = PJ[f["personaje"]]
-        limpio = hablado(f["texto"]).replace("{", "(").replace("}", ")")
-        trozos = trocear(limpio, CFG.get("caracteres_por_subtitulo", 46))
+        kar = CFG.get("karaoke", {})
+        # Karaoke: se ven las comillas “ ” y ‘ ’ (citas dentro del discurso); sin karaoke, como siempre.
+        limpio = (espacios(f["texto"]) if kar.get("activo") else hablado(f["texto"])).replace("{", "(").replace("}", ")")
+        trozos = (trocear_equilibrado if kar.get("activo") else trocear)(limpio, CFG.get("caracteres_por_subtitulo", 46))
         largo = sum(len(x) for x in trozos)
         t, dur = f["inicio"], f["fin"] - f["inicio"]
         nombre = ""
@@ -1142,7 +1222,6 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
         base = p.get("color_texto", "FFFFFF")
         if f.get("reflexion"):
             nombre, estilo, base = "", "{\\fs56\\i1\\c" + color_ass("F3E6C4") + "}", "F3E6C4"
-        kar = CFG.get("karaoke", {})
         if not kar.get("activo"):
             for tr in trozos:
                 d = dur * len(tr) / largo
@@ -1155,14 +1234,19 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
             resalte = kar.get("resalte_reflexion", "FFFFFF")
         palabras = [w for tr in trozos for w in tr.split()]
         tiempos = tiempos_palabras(f, palabras)
+        siguiente = frs[n_f + 1]["inicio"] if n_f + 1 < len(frs) else total - cierre  # sin huecos sin texto
         k = 0
-        for tr in trozos:
+        for n_tr, tr in enumerate(trozos):
             ws = tr.split()
+            corte = corte_de_linea(ws)
             for j in range(len(ws)):
-                a = tiempos[k + j][0]
+                a = tiempos[k + j][0] if j else (tiempos[k][0] if n_tr else f["inicio"])
                 b = tiempos[k + j + 1][0] if j + 1 < len(ws) else tiempos[k + j][1]
-                linea = " ".join(ws[:j] + ["{\\c" + color_ass(resalte) + "}" + ws[j] + "{\\c" + color_ass(base) + "}"]
-                                 + ws[j + 1:])
+                if j + 1 == len(ws) and n_tr + 1 == len(trozos):
+                    b = max(b, siguiente - 0.02)
+                marcadas = ws[:j] + ["{\\c" + color_ass(resalte) + "}" + ws[j] + "{\\c" + color_ass(base) + "}"] + ws[j + 1:]
+                linea = " ".join(marcadas) if corte is None else (
+                    " ".join(marcadas[:corte]) + "\\N" + " ".join(marcadas[corte:]))
                 eventos.append(("Texto", a, b, nombre + estilo + linea))
             k += len(ws)
     cabecera = (
@@ -1204,7 +1288,7 @@ def musica_del_dia(fecha):
 
 def medir(ruta, extra=""):
     r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(ruta), "-af",
-                        f"loudnorm=I=-14:TP=-1.5:LRA=11{extra}:print_format=json", "-f", "null", "-"],
+                        f"loudnorm=I=-14:TP=-2:LRA=11{extra}:print_format=json", "-f", "null", "-"],
                        capture_output=True, text=True, check=True)
     return json.loads(r.stderr[r.stderr.rindex("{"):r.stderr.rindex("}") + 1])
 
@@ -1213,7 +1297,8 @@ def normalizar_volumen(origen, destino):
     """Audio final a -14 LUFS (estándar de YouTube/TikTok), en dos pasadas y con pico real máximo de -1,5 dB."""
     m = medir(origen)
     medidas = ":".join(f"measured_{k}={m['input_' + k]}" for k in ("i", "tp", "lra", "thresh"))
-    ffmpeg("-i", origen, "-af", f"loudnorm=I=-14:TP=-1.5:LRA=11:{medidas}:offset={m['target_offset']}:linear=true,"
+    # TP=-2 (no -1,5): margen para que, tras comprimir a AAC, el pico real quede por debajo de -1,5 dBTP
+    ffmpeg("-i", origen, "-af", f"loudnorm=I=-14:TP=-2:LRA=11:{medidas}:offset={m['target_offset']}:linear=true,"
            "aresample=48000", "-ar", 48000, "-ac", 2, "-c:a", "pcm_s16le", destino)
     final = float(medir(destino)["input_i"])
     log(f"   Volumen: {float(m['input_i']):.1f} → {final:.1f} LUFS")
@@ -1391,7 +1476,8 @@ def titulo_youtube(ev, fecha, idioma="es"):
     return f"“{frase}”{resto}"
 
 
-def subir_youtube(video, ev, fecha, modo, tok, idioma="es"):
+def metadatos_youtube(ev, fecha, modo, idioma="es"):
+    """Título, descripción, etiquetas y estado (privado, contenido sintético, programación) del vídeo."""
     titulo = titulo_youtube(ev, fecha, idioma)
     if idioma == "en":
         descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
@@ -1421,9 +1507,14 @@ def subir_youtube(video, ev, fecha, modo, tok, idioma="es"):
                                                                else "hora_publicacion", CFG.get("hora_publicacion", 7)))), MADRID)
         if hora > dt.datetime.now(MADRID) + dt.timedelta(minutes=30):
             estado["publishAt"] = hora.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    meta = {"snippet": {"title": titulo[:100], "description": descripcion[:4900], "categoryId": "22",
+    return {"snippet": {"title": titulo[:100], "description": descripcion[:4900], "categoryId": "22",
                         "tags": etiquetas, "defaultLanguage": idioma, "defaultAudioLanguage": idioma},
             "status": estado}
+
+
+def subir_youtube(video, ev, fecha, modo, tok, idioma="es"):
+    meta = metadatos_youtube(ev, fecha, modo, idioma)
+    estado = meta["status"]
     r, _ = http("https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
                 meta, {"Authorization": f"Bearer {tok}", "X-Upload-Content-Type": "video/mp4",
                        "X-Upload-Content-Length": str(video.stat().st_size)}, method="POST", raw=True)
@@ -1464,6 +1555,8 @@ def miniatura(img, frase, destino, tam=(1280, 720)):
     from PIL import Image, ImageDraw, ImageFilter
     w, h = tam
     base = Image.open(img).convert("RGB")
+    mx, my = int(base.width * 0.06), int(base.height * 0.06)  # sin bordes: ahí suelen salir firmas o garabatos
+    base = base.crop((mx, my, base.width - mx, base.height - my))
     escala = max(w / base.width, h / base.height)
     base = base.resize((round(base.width * escala), round(base.height * escala)), Image.LANCZOS)
     x = (base.width - w) // 2
@@ -1476,7 +1569,7 @@ def miniatura(img, frase, destino, tam=(1280, 720)):
     base = Image.composite(Image.new("RGB", (w, h), (0, 0, 0)), base, velo.filter(ImageFilter.GaussianBlur(8)))
     d = ImageDraw.Draw(base)
     ancho = w * 0.84
-    tam_letra = int(h * (0.085 if w > h else 0.05))
+    tam_letra = int(h * (0.105 if w > h else 0.05))
     frase = f"“{frase.strip()}”" if frase else ""
     while True:
         f = fuente_serif(tam_letra)
@@ -1490,18 +1583,25 @@ def miniatura(img, frase, destino, tam=(1280, 720)):
                 actual = prueba
         if actual:
             lineas.append(actual)
-        if len(lineas) <= (3 if w > h else 5) or tam_letra < 24:
+        if len(lineas) <= (2 if w > h else 5) or tam_letra < 24:
             break
         tam_letra = int(tam_letra * 0.9)
+    if len(lineas) == 2:  # dos líneas equilibradas (nunca una palabra sola abajo)
+        ws = frase.split()
+        i = min(range(1, len(ws)), key=lambda k: max(d.textlength(" ".join(ws[:k]), font=f),
+                                                     d.textlength(" ".join(ws[k:]), font=f)))
+        lineas = [" ".join(ws[:i]), " ".join(ws[i:])]
     alto = tam_letra * 1.25
-    y0 = h * (0.68 if w > h else 0.58) - alto * len(lineas) / 2
+    # Horizontal: la frase abajo (las caras suelen estar en el centro y arriba); vertical: algo por debajo del centro.
+    y0 = (h * 0.93 - alto * len(lineas)) if w > h else h * 0.58 - alto * len(lineas) / 2
     for k, linea in enumerate(lineas):
         lw = d.textlength(linea, font=f)
         d.text(((w - lw) / 2, y0 + k * alto), linea, font=f, fill=(255, 255, 255),
                stroke_width=max(1, tam_letra // 40), stroke_fill=(0, 0, 0))
     marca = fuente_serif(int(tam_letra * 0.45))
     mw = d.textlength("CatolicAid", font=marca)
-    d.text(((w - mw) / 2, h - tam_letra * (1.2 if w > h else 2.2)), "CatolicAid", font=marca, fill=(245, 197, 66))
+    pos = (w - mw - h * 0.04, h * 0.04) if w > h else ((w - mw) / 2, h - tam_letra * 2.2)  # horizontal: esquina superior
+    d.text(pos, "CatolicAid", font=marca, fill=(245, 197, 66), stroke_width=1, stroke_fill=(0, 0, 0))
     base.save(destino, "JPEG", quality=90)
     return destino
 
@@ -1678,6 +1778,11 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         g = guion_reglas(ev["texto"])
     frs = preparar_fragmentos(g, ev)
     frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
+    if not reflexion:  # nunca un vídeo sin reflexión: como el reparto, se reintenta salvo en el último intento
+        if a.modo == "diario" and dt.datetime.now(dt.timezone.utc).hour < (22 if idioma != "es" else 21):
+            raise RuntimeError("Gemini no ha podido escribir la reflexión: no publico sin ella. Se reintenta en la próxima tirada.")
+        reflexion = CFG.get("reflexion_reserva", {}).get(idioma, "")
+        log("   Reflexión de reserva (Gemini no respondió)")
     log(f"   Frase clave: {frase or '(ninguna)'}")
     log(f"   Reflexión: {reflexion or '(ninguna)'}")
     if reflexion:
@@ -1730,7 +1835,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     bl = bloques(frs, total, gancho, cierre, bool(retrato))
     if idioma == "es":  # el inglés reutiliza las imágenes del día del español: no se pinta nada
         generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha)
-    visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta, retrato)
+    presentes = {f["personaje"] for f in frs} | {k for e in g.get("escenas", []) for k in (e.get("personajes") or [])}
+    visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta, retrato, presentes)
 
     log("5/6 Vídeo")
     clips = [(clip_video if es_video(v["archivo"]) else clip_escena)(v["archivo"], b["frames"], i, carpeta, b.get("tipo", "escena"))
@@ -1821,6 +1927,12 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     else:  # TikTok en inglés: fuera de alcance; la nota solo sirve de descripción de la release
         (carpeta / "tiktok.txt").write_text(f"Gospel of the day · {ev['cita']} (CatolicAid English)\n", encoding="utf-8")
 
+    # Metadatos de YouTube tal como se subirían (para revisarlos también en las pruebas, sin subir nada)
+    try:
+        (carpeta / "metadatos.json").write_text(json.dumps(metadatos_youtube(ev, fecha, a.modo, idioma),
+                                                           ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as e:
+        log(f"   Metadatos no generados ({e})")
     texto = json.dumps(registro, ensure_ascii=False, indent=2)
     (carpeta / "guion.json").write_text(texto, encoding="utf-8")
     (RAIZ / "episodios").mkdir(exist_ok=True)

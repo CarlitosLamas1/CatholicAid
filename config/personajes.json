@@ -36,6 +36,11 @@
     "impar": 1.5
   },
   "cierre_segundos": 2.5,
+  "_reflexion_reserva": "Solo si Gemini no puede escribir la reflexión en el ÚLTIMO intento del día (antes se reintenta): nunca sale un vídeo sin reflexión.",
+  "reflexion_reserva": {
+    "es": "Vuelve a leer en silencio estas palabras. ¿Qué te dice hoy el Señor a ti?",
+    "en": "Read these words again in silence. What is the Lord saying to you today?"
+  },
   "fondos_reflexion": [
     "D10",
     "R01",

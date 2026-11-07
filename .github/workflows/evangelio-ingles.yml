@@ -131,6 +131,7 @@ jobs:
             salida/**/guion.json
             salida/**/subtitulos.ass
             salida/**/miniatura*.jpg
+            salida/**/metadatos.json
           retention-days: 30
           if-no-files-found: ignore
 
