@@ -1535,12 +1535,13 @@ def titulo_youtube(ev, fecha, idioma="es"):
         mes = MONTHS[fecha.month - 1][:3]
         base = f"Gospel of the day · {MONTHS[fecha.month - 1]} {fecha.day} · {ev['cita']}"
         opciones = [f" | Gospel of the day, {MONTHS[fecha.month - 1]} {fecha.day} ({ev['cita']})",
-                    f" | Gospel of the day, {mes} {fecha.day} ({ev['cita']})"]
+                    f" | Gospel of the day, {mes} {fecha.day} ({ev['cita']})", f" | Gospel {mes} {fecha.day} · {ev['cita']}"]
     else:
         fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
         base = f"Evangelio del día · {fecha_txt} · {ev['cita']}"
         corto = f"{fecha.day} {MESES[fecha.month - 1][:3]}"
-        opciones = [f" | Evangelio del día {fecha_txt} ({ev['cita']})", f" | Evangelio del día {corto} ({ev['cita']})"]
+        opciones = [f" | Evangelio del día {fecha_txt} ({ev['cita']})", f" | Evangelio del día {corto} ({ev['cita']})",
+                    f" | Evangelio {corto} · {ev['cita']}"]
     if not frase:
         return base + (" #shorts" if len(base) <= 90 else "")
     # «“Frase” | Evangelio del día 6 de noviembre (Lucas 16, 1-8)». Si no cabe: primero la fecha corta (la fecha y la
