@@ -30,6 +30,10 @@ on:
         description: "Subir a YouTube (canal en inglés)"
         type: boolean
         default: false
+      reutilizar:
+        description: "Rehacer: registro del que copiar frase y reflexión (p. ej. episodios/2026-11-08-en.json)"
+        required: false
+        default: ""
       voces:
         description: "Voces (solo pruebas: edge no gasta cupo de Gemini)"
         type: choice
@@ -101,6 +105,7 @@ jobs:
           MODO: ${{ inputs.modo || 'diario' }}
           SUBIR: ${{ inputs.subir && 'true' || 'false' }}
           MOTOR_VOZ: ${{ inputs.voces == 'edge' && 'edge' || '' }}
+          REUTILIZAR: ${{ inputs.reutilizar }}
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
             MODO=prueba; SUBIR=false
@@ -110,6 +115,7 @@ jobs:
           ARGS="--idioma en --modo $MODO --cache cache"
           if [ -n "$FECHA" ]; then ARGS="$ARGS --fecha $FECHA"; fi
           if [ "$SUBIR" != "true" ]; then ARGS="$ARGS --no-subir"; fi
+          if [ -n "$REUTILIZAR" ]; then ARGS="$ARGS --reutilizar $REUTILIZAR"; fi
           if [ "${{ github.event_name }}" = "schedule" ]; then ARGS="$ARGS --si-falta"; fi
           python proceso/evangelio.py $ARGS
 

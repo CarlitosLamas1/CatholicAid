@@ -1798,6 +1798,8 @@ def main():
     ap.add_argument("--no-subir", action="store_true")
     ap.add_argument("--si-falta", action="store_true", help="no hace nada si ese día ya está subido (reintentos)")
     ap.add_argument("--cache", default="", help="carpeta de caché (guion, frase y voces ya hechas no se repiten)")
+    ap.add_argument("--reutilizar", default="", help="registro del que copiar frase clave y reflexión (rehacer un vídeo "
+                                                      "sin volver a pedirlas: con la caché, las voces tampoco se graban)")
     a = ap.parse_args()
     idioma = a.idioma
     aplicar_idioma(idioma)
@@ -1870,7 +1872,12 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         log("   Gemini no disponible o no fiel: uso reglas por comillas")
         g = guion_reglas(ev["texto"])
     frs = preparar_fragmentos(g, ev)
-    frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
+    previo_reg = json.loads((RAIZ / a.reutilizar).read_text(encoding="utf-8")) if a.reutilizar else {}
+    if previo_reg.get("frase_clave") and previo_reg.get("reflexion"):
+        frase, reflexion = previo_reg["frase_clave"], previo_reg["reflexion"]
+        log(f"   Frase y reflexión reutilizadas de {a.reutilizar}")
+    else:
+        frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
     if not reflexion:  # nunca un vídeo sin reflexión: como el reparto, se reintenta salvo en el último intento
         if a.modo == "diario" and dt.datetime.now(dt.timezone.utc).hour < (22 if idioma != "es" else 21):
             raise RuntimeError("Gemini no ha podido escribir la reflexión: no publico sin ella. Se reintenta en la próxima tirada.")
@@ -2030,7 +2037,10 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     texto = json.dumps(registro, ensure_ascii=False, indent=2)
     (carpeta / "guion.json").write_text(texto, encoding="utf-8")
     (RAIZ / "episodios").mkdir(exist_ok=True)
-    (RAIZ / "episodios" / f"{fecha}{suf}.json").write_text(texto, encoding="utf-8")
+    if a.modo != "diario" and hecho.get("modo") == "diario" and (hecho.get("youtube") or hecho.get("revision")):
+        log("   Prueba: no piso el registro del vídeo diario ya hecho (queda solo en salida/)")
+    else:
+        (RAIZ / "episodios" / f"{fecha}{suf}.json").write_text(texto, encoding="utf-8")
     resumen(registro)
     log("LISTO")
 
