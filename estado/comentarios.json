@@ -55,10 +55,13 @@
       "por": "claude"
     },
     "Ugy_dd7FZD_fExlXIbp4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-07T05:06:05+00:00",
       "desde": "2026-11-07T06:33:07.084484+01:00",
-      "listo": "2026-11-07T10:00:05+00:00"
+      "listo": "2026-11-07T10:00:05+00:00",
+      "motivo": "Solo «Amén», nada que aportar",
+      "respuesta": "",
+      "por": "claude"
     }
   },
   "respondidos": [
