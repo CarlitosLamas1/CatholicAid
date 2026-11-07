@@ -55,10 +55,10 @@
     "max_por_video": 5
   },
   "volumen_musica": 0.1,
+  "_musica": "Quitada el 07/11/2026 la grabación de Bach (Well Tempered Clavier, Preludio n.º 1): Content ID bloqueó en todo el mundo el vídeo en inglés del 08/11. Aunque la obra y la grabación de Wikimedia sean libres, Content ID reclama grabaciones parecidas de sellos. Antes de añadir una pista, comprobar su licencia y probarla en un vídeo privado.",
   "musica": [
     "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg",
-    "Clair de lune (Claude Debussy) Suite bergamasque.ogg",
-    "JS Bach - Well Tempered Clavier - Prelude in Fugue No.1 in C major.ogg"
+    "Clair de lune (Claude Debussy) Suite bergamasque.ogg"
   ],
   "pintores": [
     "Carl Heinrich Bloch",

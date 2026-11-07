@@ -110,15 +110,17 @@ if __name__ == "__main__":
         tok = _token({"refresh_token": _refresh(), "grant_type": "refresh_token"})
         h = {"Authorization": f"Bearer {tok['access_token']}"}
         ids = []
-        for ruta in sorted((RAIZ / "episodios").glob("*.json"))[-8:]:
+        rutas = [r for r in sorted((RAIZ / "episodios").glob("*.json")) if r.stem.endswith("-en") == (CANAL == "en")]
+        for ruta in rutas[-8:]:
             vid = json.loads(ruta.read_text(encoding="utf-8")).get("youtube", {}).get("id")
             if vid:
                 ids.append((ruta.stem, vid))
-        q = urllib.parse.urlencode({"part": "status,snippet", "id": ",".join(v for _, v in ids)})
+        q = urllib.parse.urlencode({"part": "status,snippet,contentDetails", "id": ",".join(v for _, v in ids)})
         with urllib.request.urlopen(urllib.request.Request("https://www.googleapis.com/youtube/v3/videos?" + q, headers=h)) as r:
             datos = {i["id"]: i for i in json.loads(r.read())["items"]}
         for fecha, vid in ids:
             st = datos.get(vid, {}).get("status", {})
-            print(fecha, vid, json.dumps(st, ensure_ascii=False))
+            rr = datos.get(vid, {}).get("contentDetails", {}).get("regionRestriction")  # bloqueos por país (reclamaciones)
+            print(fecha, vid, json.dumps(st, ensure_ascii=False), "| restricción:", json.dumps(rr) if rr else "ninguna")
     else:
         print(__doc__)
