@@ -41,7 +41,7 @@
     document.getElementById("inicio").hidden = false;
     document.getElementById("ir").onclick = () => {
       location.href = "https://www.facebook.com/v23.0/dialog/oauth?" + new URLSearchParams({
-        client_id: "1798481228122738", scope: "instagram_basic,instagram_content_publishing,pages_show_list,pages_read_engagement,business_management",
+        client_id: "1798481228122738", scope: "instagram_basic,instagram_content_publish,pages_show_list,pages_read_engagement,business_management",
         response_type: "code", redirect_uri: "https://carlitoslamas1.github.io/CatholicAid/instagram.html", state: "catolicaid"});
     };
   } else {

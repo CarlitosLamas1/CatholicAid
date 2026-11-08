@@ -23,7 +23,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 FICHERO = RAIZ / "secretos" / "instagram.enc"
 REDIRECT = "https://carlitoslamas1.github.io/CatholicAid/instagram.html"
-ALCANCES = "instagram_basic,instagram_content_publishing,pages_show_list,pages_read_engagement,business_management"
+ALCANCES = "instagram_basic,instagram_content_publish,pages_show_list,pages_read_engagement,business_management"
 VERSION = "v23.0"
 GRAPH = f"https://graph.facebook.com/{VERSION}/"
 
