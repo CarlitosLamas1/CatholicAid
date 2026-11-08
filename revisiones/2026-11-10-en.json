@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-10",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-09T00:20:13+01:00",
+  "revisado": "2026-11-09T00:32:53+01:00",
+  "motivos": [],
+  "avisos": [
+    "No existe aún el registro en español del 10/11 (el inglés se grabó antes); el inglés reutiliza imágenes de biblioteca, sin problema.",
+    "El último fragmento (reflexión) incluye el cierre de 2,5 s, por eso va a 8,9 caracteres/s: normal."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a la WEB revisada (Lucas 17,7-10, intro «At that time, the Lord said:»); cita coincide con biblia/citas.json.",
+    "voces": "✅ Todo el discurso en jesus; narración y reflexión en narrador.",
+    "frase_clave": "✅ «We are unworthy servants.» literal, de Jesús, 4 palabras.",
+    "reflexion": "✅ 30 palabras, inglés, doctrinalmente correcta, sin comillas ni política.",
+    "tecnica": "✅ 69,7 s; -14,0 LUFS; gancho 2,8 s; karaoke activo.",
+    "audio": "✅ Más lento: narrador «The Gospel of the Lord.» 5,7 c/s (4,1 s, corto); más rápido: Jesús 16,4 c/s.",
+    "imagenes": "✅ Solo biblioteca (D01, D07, D08, D10, R04) y evangelista Lucas; ya aprobadas.",
+    "metadatos": "✅ Fecha y cita coherentes, evangelista Lucas, todo en inglés."
+  }
+}
