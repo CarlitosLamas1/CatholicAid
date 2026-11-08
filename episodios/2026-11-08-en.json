@@ -149,5 +149,9 @@
     },
     "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
   },
-  "telegram_youtube": true
+  "telegram_youtube": true,
+  "instagram": {
+    "id": "17898493107414460",
+    "enlace": "https://www.instagram.com/reel/Dff249aiSrR/"
+  }
 }
