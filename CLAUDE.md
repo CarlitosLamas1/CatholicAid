@@ -56,6 +56,9 @@ Ajustes en `config/personajes.json` (voces, narradores, estilos, modelo de image
 ## Secretos (GitHub → Settings → Secrets → Actions)
 `GEMINI_API_KEY` (gratis: texto y voces), `GEMINI_API_KEY_IMAGENES` (pago: imágenes), `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`, `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET` (ahora las de Sandbox), `TELEGRAM_BOT_TOKEN`. Variable (no secreta): `TELEGRAM_CHAT_ID`. Nunca pidas que se peguen en el chat. Comprobación: workflow «Verificar secretos».
 
+## Instagram (en preparación, 08/11/2026)
+App de Meta «CatolicAid», ID `1798481228122738` (variable del repo `META_APP_ID`, no secreta; clave en el secreto `META_APP_SECRET`). Cuenta de Instagram profesional (Creador) vinculada a la página de Facebook «CatolicAid» (id 61596254405557). Conexión: página `docs/instagram.html` + workflow «Conectar Instagram» (`proceso/instagram.py`, permiso cifrado en `secretos/instagram.enc`). Falta: añadir la URI de retorno en la app de Meta, autorizar una vez y crear «Publicar en Instagram» (Reels).
+
 ## Web del proyecto
 GitHub Pages desde `docs/`: https://carlitoslamas1.github.io/CatholicAid/ (inicio, `privacidad.html`, `condiciones.html`, `tiktok.html` para autorizar TikTok, verificación de TikTok `tiktok*.txt`, icono `icono-cara.png`). Google y TikTok la usan en sus revisiones: no la borres ni cambies las URL.
 
