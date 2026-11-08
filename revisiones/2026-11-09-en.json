@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-09",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-08T22:23:22+01:00",
+  "revisado": "2026-11-08T22:33:57+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ La unión de los fragmentos coincide con texto_evangelio (WEB, Juan 2:13-22, sin comillas ni espacios).",
+    "voces": "✅ Jesús dice sus frases; «The Jews» (hombre) la pregunta; el resto, narrador.",
+    "frase_clave": "✅ «Destroy this temple, and in three days I will raise it up.» literal, de Jesús, 11 palabras.",
+    "reflexion": "✅ 30 palabras, en inglés, doctrinalmente correcta y relacionada con la lectura.",
+    "tecnica": "✅ 108,3 s; -14,2 LUFS.",
+    "audio": "✅ Más lento: fragmento 12 (4,1 s, 5,7 car/s, corto, normal); más rápido: fragmento 9 (14,9 car/s). Fragmentos largos 10–13 car/s.",
+    "imagenes": "✅ Tres imágenes del día devocionales y coherentes, sin defectos graves.",
+    "metadatos": "✅ Fecha, cita John 2:13-22 y título de Juan coherentes; gancho 1,5 s; karaoke activo."
+  }
+}
