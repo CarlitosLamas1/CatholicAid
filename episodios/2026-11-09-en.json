@@ -1,14 +1,157 @@
 {
   "fecha": "2026-11-09",
-  "idioma": "en",
   "modo": "diario",
-  "estado": "fallido",
-  "error": "No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.",
-  "cupo_agotado": [
+  "cita": "John 2:13-22",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/09.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 14,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 108.3,
+  "imagenes": [
+    "dias/2026-11-09_e1.jpg",
+    "evangelistas/juan.jpg",
+    "dias/2026-11-09_e1.jpg",
+    "biblioteca/D06",
+    "biblioteca/D01",
+    "dias/2026-11-09_e2.jpg",
+    "biblioteca/D08",
+    "dias/2026-11-09_e3.jpg",
+    "evangelistas/juan.jpg",
+    "biblioteca/R03",
+    "evangelistas/juan.jpg"
+  ],
+  "frase_clave": "Destroy this temple, and in three days I will raise it up.",
+  "reflexion": "Jesus offers his very life to restore our communion with God. As a living temple of the Holy Spirit, how can you welcome Christ’s renewing presence into your heart today?",
+  "lufs": -14.2,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Inside the stone colonnades of the temple, Jesus stands with majestic authority, gesturing towards the merchants and dove sellers as coins spill across the floor.",
+      "busqueda": "cleansing temple",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus addresses the Jewish leaders amidst the great arches of the temple, speaking with quiet serenity as they listen in astonishment.",
+      "busqueda": "Jesus temple debate",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The resurrected Jesus appears peacefully surrounded by His disciples in a warm, gentle light, inspiring deep faith and recollection in their hearts.",
+      "busqueda": "resurrected Jesus disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to John.",
+  "texto_evangelio": "The Passover of the Jews was at hand, and Jesus went up to Jerusalem. He found in the temple those who sold oxen, sheep, and doves, and the changers of money sitting. He made a whip of cords and drove all out of the temple, both the sheep and the oxen; and he poured out the changers’ money and overthrew their tables. To those who sold the doves, he said, “Take these things out of here! Don’t make my Father’s house a marketplace!” His disciples remembered that it was written, “Zeal for your house will eat me up.” The Jews therefore answered him, “What sign do you show us, seeing that you do these things?” Jesus answered them, “Destroy this temple, and in three days I will raise it up.” The Jews therefore said, “It took forty-six years to build this temple! Will you raise it up in three days?” But he spoke of the temple of his body. When therefore he was raised from the dead, his disciples remembered that he said this, and they believed the Scripture and the word which Jesus had said.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "A reading from the holy Gospel according to John."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 6.75,
+      "texto": "The Passover of the Jews was at hand, and Jesus went up to Jerusalem. He found in the temple those who sold oxen, sheep, and doves, and the changers of money sitting. He made a whip of cords and drove all out of the temple, both the sheep and the oxen; and he poured out the changers’ money and overthrew their tables. To those who sold the doves, he said,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 34.23,
+      "texto": "“Take these things out of here! Don’t make my Father’s house a marketplace!”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 41.65,
+      "texto": "His disciples remembered that it was written, “Zeal for your house will eat me up.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 48.87,
+      "texto": "The Jews therefore answered him,"
+    },
+    {
+      "personaje": "hombre",
+      "escena": 2,
+      "inicio": 51.98,
+      "texto": "“What sign do you show us, seeing that you do these things?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 56.04,
+      "texto": "Jesus answered them,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 58.58,
+      "texto": "“Destroy this temple, and in three days I will raise it up.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 64.79,
+      "texto": "The Jews therefore said,"
+    },
+    {
+      "personaje": "hombre",
+      "escena": 2,
+      "inicio": 67.78,
+      "texto": "“It took forty-six years to build this temple! Will you raise it up in three days?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 73.35,
+      "texto": "But he spoke of the temple of his body."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 77.4,
+      "texto": "When therefore he was raised from the dead, his disciples remembered that he said this, and they believed the Scripture and the word which Jesus had said."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 87.86,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 91.93,
+      "texto": "Jesus offers his very life to restore our communion with God. As a living temple of the Holy Spirit, how can you welcome Christ’s renewing presence into your heart today?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-08T22:23:22+01:00",
+  "idioma": "en",
+  "libro": "Juan",
+  "cita_es": "Juan 2, 13-22",
+  "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
   ],
-  "intento": "2026-11-08T02:43:22+01:00",
-  "avisos": [
-    "Falta cupo gratuito de Gemini (gemini-3.1-flash-tts-preview): se reintenta más tarde."
-  ]
+  "revision": "pendiente"
 }
