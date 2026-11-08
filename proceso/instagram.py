@@ -80,6 +80,8 @@ def canjear(codigo):
     paginas = _get("me/accounts", access_token=largo, fields="id,name,access_token,instagram_business_account",
                    limit=100).get("data", [])
     cuentas = {}
+    print("Páginas autorizadas:", "; ".join(f"«{p['name']}» ({'con' if p.get('instagram_business_account') else 'SIN'} Instagram)"
+                                            for p in paginas) or "ninguna", flush=True)
     for p in paginas:
         ig = p.get("instagram_business_account")
         if ig:
