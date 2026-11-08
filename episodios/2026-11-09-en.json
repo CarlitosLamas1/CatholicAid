@@ -153,5 +153,24 @@
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
   ],
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "8ZibB4UyNSc",
+    "url": "https://youtu.be/8ZibB4UyNSc",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-09T00:00:00Z",
+    "lista": {
+      "id": "PLMn1-r3oj1Sg",
+      "titulo": "Gospel according to St. John",
+      "url": "https://www.youtube.com/playlist?list=PLMn1-r3oj1Sg"
+    },
+    "lista_liturgica": {
+      "id": "PLLWkUaN0V-24",
+      "titulo": "Daily Gospel · Ordinary Time",
+      "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
+    },
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+  }
 }
