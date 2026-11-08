@@ -64,16 +64,22 @@
       "por": "claude"
     },
     "Ugw29yTLCsZSa_rsrZx4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-08T02:07:22+00:00",
       "desde": "2026-11-08T03:32:47.961075+01:00",
-      "listo": "2026-11-08T06:22:22+00:00"
+      "listo": "2026-11-08T06:22:22+00:00",
+      "motivo": "Solo «Amén», sin nada que aportar",
+      "respuesta": "",
+      "por": "claude"
     },
     "UgzqDKOh-H9Rqux0SO94AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-08T01:56:53+00:00",
       "desde": "2026-11-08T03:32:47.961075+01:00",
-      "listo": "2026-11-08T04:00:53+00:00"
+      "listo": "2026-11-08T04:00:53+00:00",
+      "motivo": "Solo «Amén», sin nada que aportar",
+      "respuesta": "",
+      "por": "claude"
     }
   },
   "respondidos": [
