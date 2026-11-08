@@ -1,0 +1,110 @@
+{
+  "fecha": "2026-11-10",
+  "modo": "diario",
+  "cita": "Luke 17:7-10",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/10.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), partly revised",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 69.7,
+  "imagenes": [
+    "biblioteca/D01",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D07",
+    "biblioteca/D08",
+    "biblioteca/D10",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R04",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "We are unworthy servants.",
+  "reflexion": "True love does not keep score or demand applause. When you serve God and your neighbor humbly from the heart, you find the pure joy of being His faithful child.",
+  "lufs": -14.0,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A devoted servant works faithfully in the sunlit open fields, plowing the earth and tending sheep on rolling hills.",
+      "busqueda": "servant plowing field",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Inside a softly lit home, a humble servant attentatively serves supper to his master seated at the table.",
+      "busqueda": "servant serving master",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus speaks tenderly and wisely to his gathered disciples, teaching them the beauty of humility and faithful service.",
+      "busqueda": "Christ teaching apostles",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, the Lord said: “Who is there among you, having a servant plowing or keeping sheep, that will say when he comes in from the field, ‘Come immediately and sit down at the table’? Wouldn’t he rather tell him, ‘Prepare my supper, clothe yourself properly, and serve me while I eat and drink. Afterward you shall eat and drink’? Does he thank that servant because he did the things that were commanded? I think not. Even so you also, when you have done all the things that are commanded you, say, ‘We are unworthy servants. We have done our duty.’”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 9.66,
+      "texto": "At that time, the Lord said:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.18,
+      "texto": "“Who is there among you, having a servant plowing or keeping sheep, that will say when he comes in from the field, ‘Come immediately and sit down at the table’?"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 22.91,
+      "texto": "Wouldn’t he rather tell him, ‘Prepare my supper, clothe yourself properly, and serve me while I eat and drink. Afterward you shall eat and drink’?"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 32.54,
+      "texto": "Does he thank that servant because he did the things that were commanded? I think not. Even so you also, when you have done all the things that are commanded you, say, ‘We are unworthy servants. We have done our duty.’”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 47.58,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 51.64,
+      "texto": "True love does not keep score or demand applause. When you serve God and your neighbor humbly from the heart, you find the pure joy of being His faithful child.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-09T00:20:13+01:00",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 17, 7-10",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "revision": "pendiente"
+}
