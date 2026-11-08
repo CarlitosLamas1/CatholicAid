@@ -61,7 +61,9 @@ jobs:
           fi
           # Enlace público directo (GitHub redirige a un enlace firmado de ~1 h): Instagram descarga de ahí.
           export VIDEO_URL=$(curl -sIL -o /dev/null -w '%{url_effective}' "https://github.com/${{ github.repository }}/releases/download/$REL/video.mp4")
-          echo "rel=$REL" >> "$GITHUB_OUTPUT"
+          if gh release view "$REL" --json assets -q '.assets[].name' | grep -qx miniatura_vertical.jpg; then
+            export PORTADA_URL=$(curl -sIL -o /dev/null -w '%{url_effective}' "https://github.com/${{ github.repository }}/releases/download/$REL/miniatura_vertical.jpg")
+          fi
           python3 - "$F" <<'PY'
           import json, sys
           from pathlib import Path
@@ -83,7 +85,8 @@ jobs:
                        "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
                        "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion")
           import os
-          mid, enlace = instagram.subir("t/video.mp4", texto, os.environ.get("VIDEO_URL") or None)
+          mid, enlace = instagram.subir("t/video.mp4", texto, os.environ.get("VIDEO_URL") or None,
+                                        os.environ.get("PORTADA_URL") or None)
           print("Instagram:", mid, enlace)
           d["instagram"] = {"id": mid, "enlace": enlace}
           reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")

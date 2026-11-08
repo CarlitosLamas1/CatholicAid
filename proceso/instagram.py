@@ -118,12 +118,14 @@ def _contenedor(tok, ig, campos, video, url):
     return cont["id"]
 
 
-def subir(video, texto, url=None):
+def subir(video, texto, url=None, portada=None):
     """Publica el vídeo como Reel. Primero con `url` (enlace público al .mp4, Instagram lo descarga); si falla
     o no hay enlace, enviando el archivo (subida reanudable). Devuelve (id, enlace)."""
     d = leer()
     tok, ig = d["token"], d["ig_id"]
     campos = {"media_type": "REELS", "caption": texto[:2200], "share_to_feed": "true", "access_token": tok}
+    # Portada: la miniatura vertical con la frase clave; si no hay, un fotograma ya visible (el vídeo empieza en negro).
+    campos.update({"cover_url": portada} if portada else {"thumb_offset": "1500"})
     intentos = ([url] if url else []) + [None]
     for i, u in enumerate(intentos):
         try:
