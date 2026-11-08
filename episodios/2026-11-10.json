@@ -1,0 +1,108 @@
+{
+  "fecha": "2026-11-10",
+  "modo": "diario",
+  "cita": "Lucas 17, 7-10",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/10.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 66.8,
+  "imagenes": [
+    "dias/2026-11-10_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-10_e1.jpg",
+    "dias/2026-11-10_e2.jpg",
+    "dias/2026-11-10_e3.jpg",
+    "biblioteca/D01",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R04",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Somos siervos inútiles",
+  "reflexion": "Servir a Dios no es un negocio ni una exigencia, sino un regalo de amor. ¿Vives tu entrega con la alegría humilde y confiada de saberte hijo suyo?",
+  "lufs": -13.9,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A humble servant diligently plows a field under the warm afternoon sun, returning tired from his labors.",
+      "busqueda": "plowing servant",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A weary servant girt with an apron attends his master seated at a wooden table in a dimly lit rustic interior.",
+      "busqueda": "master servant dining",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus gently instructs His disciples about humility and service, gesturing with tender affection as they listen with reverence.",
+      "busqueda": "Christ teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, dijo el Señor: “¿Quién hay entre vosotros que, teniendo un criado que labra o pastorea, cuando vuelve del campo le diga: ‘Ven enseguida y siéntate a la mesa’? ¿No le dirá más bien: ‘Prepárame la cena, cíñete y sírveme mientras yo como y bebo, y después comerás y beberás tú’? ¿Acaso el amo se tendrá por obligado con ese criado porque hizo lo que le mandó? No, por cierto. Así también vosotros, cuando hayáis hecho todo lo que se os ha mandado, decid: ‘Somos siervos inútiles; no hemos hecho más que lo que teníamos obligación de hacer’”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.63,
+      "texto": "En aquel tiempo, dijo el Señor:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 11.14,
+      "texto": "“¿Quién hay entre vosotros que, teniendo un criado que labra o pastorea, cuando vuelve del campo le diga: ‘Ven enseguida y siéntate a la mesa’?"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 21.0,
+      "texto": "¿No le dirá más bien: ‘Prepárame la cena, cíñete y sírveme mientras yo como y bebo, y después comerás y beberás tú’?"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 31.43,
+      "texto": "¿Acaso el amo se tendrá por obligado con ese criado porque hizo lo que le mandó? No, por cierto. Así también vosotros, cuando hayáis hecho todo lo que se os ha mandado, decid: ‘Somos siervos inútiles; no hemos hecho más que lo que teníamos obligación de hacer’”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 48.48,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 51.98,
+      "texto": "Servir a Dios no es un negocio ni una exigencia, sino un regalo de amor. ¿Vives tu entrega con la alegría humilde y confiada de saberte hijo suyo?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-09T00:32:32+01:00",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "revision": "pendiente"
+}
