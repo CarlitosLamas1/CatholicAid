@@ -1,0 +1,40 @@
+name: Conectar Instagram
+
+# 1) Sin código: muestra en el resumen el enlace para autorizar la cuenta de CatolicAid.
+# 2) Con código: lo canjea con las claves de GitHub y guarda el permiso cifrado en secretos/instagram.enc.
+on:
+  workflow_dispatch:
+    inputs:
+      codigo:
+        description: "Código que muestra la página de CatolicAid tras autorizar (vacío = dame el enlace)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  conectar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      META_APP_ID: ${{ vars.META_APP_ID }}
+      META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+      CODIGO: ${{ inputs.codigo }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enlace o canje
+        run: |
+          if [ -z "$CODIGO" ]; then
+            URL=$(python3 proceso/instagram.py url)
+            echo "### Autorizar Instagram" >> "$GITHUB_STEP_SUMMARY"
+            echo "[Abrir Facebook y autorizar]($URL)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            python3 proceso/instagram.py canjear "$CODIGO"
+            python3 proceso/instagram.py comprobar
+            git config user.name "gestor-catholicaid"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add secretos/instagram.enc
+            git commit -q -m "Instagram conectado (permiso cifrado)"
+            git pull -q --rebase && git push -q
+          fi

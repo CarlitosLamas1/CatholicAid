@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conectar Instagram · CatolicAid</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+  #codigo { font: 15px/1.4 ui-monospace, Menlo, monospace; word-break: break-all; padding: 12px; border: 1px solid var(--suave); border-radius: 8px; }
+  button { margin-top: 12px; padding: 10px 18px; font-size: 16px; border-radius: 8px; border: 0; background: var(--acento); color: #fff; cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Conectar Instagram</h1>
+  <p id="estado">Leyendo la respuesta de Facebook…</p>
+  <div id="inicio" hidden>
+    <p>Pulsa el botón, entra con tu cuenta de Facebook y autoriza a CatolicAid para la página y la cuenta de Instagram del canal.</p>
+    <button id="ir">Autorizar con Facebook</button>
+  </div>
+  <div id="bloque" hidden>
+    <p>Copia este código y pégaselo a Claude en el chat (es de un solo uso y caduca en pocos minutos):</p>
+    <p id="codigo"></p>
+    <button id="copiar">Copiar código</button>
+  </div>
+  <p class="fecha">Esta página solo muestra el código que Facebook envía tras autorizar a CatolicAid. No guarda nada.</p>
+</main>
+<script>
+  const p = new URLSearchParams(location.search);
+  const codigo = p.get("code"), error = p.get("error_description") || p.get("error_message") || p.get("error");
+  const estado = document.getElementById("estado");
+  if (codigo) {
+    estado.textContent = "Facebook ha autorizado a CatolicAid.";
+    document.getElementById("codigo").textContent = codigo;
+    document.getElementById("bloque").hidden = false;
+    document.getElementById("copiar").onclick = async () => {
+      try { await navigator.clipboard.writeText(codigo); document.getElementById("copiar").textContent = "Copiado ✓"; } catch (e) {}
+    };
+  } else if (!error) {
+    estado.textContent = "Conectar la cuenta de Instagram de CatolicAid";
+    document.getElementById("inicio").hidden = false;
+    document.getElementById("ir").onclick = () => {
+      location.href = "https://www.facebook.com/v23.0/dialog/oauth?" + new URLSearchParams({
+        client_id: "1798481228122738", scope: "instagram_basic,instagram_content_publishing,pages_show_list,pages_read_engagement,business_management",
+        response_type: "code", redirect_uri: "https://carlitoslamas1.github.io/CatholicAid/instagram.html", state: "catolicaid"});
+    };
+  } else {
+    estado.textContent = "Facebook ha devuelto un error: " + error;
+  }
+</script>
+</body>
+</html>
