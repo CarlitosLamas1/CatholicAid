@@ -12,6 +12,7 @@ Uso:
   python3 proceso/avisos.py listo              -> 🎬 vídeo listo (lee salida/*/ y episodios/)
   python3 proceso/avisos.py youtube            -> 📺 si el vídeo de hoy ya es público (una sola vez)
   python3 proceso/avisos.py tiktok <fecha>     -> 🎵 publicado en TikTok
+  python3 proceso/avisos.py instagram <fecha>  -> 📸 publicado en Instagram
   python3 proceso/avisos.py fallo [fecha] [url] -> ❌ falló la creación del vídeo y cuándo se reintenta
   python3 proceso/avisos.py prueba             -> mensaje de prueba (falla si Telegram no responde)
 
@@ -174,7 +175,7 @@ def aviso_listo():
         lineas.append(f"🔗 También aquí: https://github.com/CarlitosLamas1/CatholicAid/releases/tag/en-{reg['fecha']}")
     elif reg.get("modo") == "diario":
         lineas.append(f"📅 Se publicará el {e(fecha_txt(reg['fecha']))} a las {hora_publicacion()}:00 en "
-                      "<b>YouTube</b> y <b>TikTok</b>, si el revisor automático lo aprueba.")
+                      "<b>YouTube</b>, <b>TikTok</b> e <b>Instagram</b>, si el revisor automático lo aprueba.")
         lineas.append(f"🔗 También aquí: https://github.com/CarlitosLamas1/CatholicAid/releases/tag/tiktok-{reg['fecha']}")
     else:
         lineas.append("🧪 Es una prueba: no se publica.")
@@ -233,6 +234,12 @@ def aviso_tiktok(fecha):
     enviar(f"🎵 <b>Publicado en TikTok</b> · {e(fecha_txt(fecha))}{nota}\n📖 {e(reg.get('cita', ''))}\n🔗 {TIKTOK_PERFIL}")
 
 
+def aviso_instagram(fecha):
+    reg = episodio(fecha)
+    enlace = reg.get("instagram", {}).get("enlace") or "https://www.instagram.com/"
+    enviar(f"📸 <b>Publicado en Instagram</b> · {e(fecha_txt(fecha))}\n📖 {e(reg.get('cita', ''))}\n🔗 {e(enlace)}")
+
+
 REINTENTOS_UTC = [15, 17, 19, 20, 21]  # horas de «Evangelio diario» (.github/workflows/evangelio-diario.yml)
 REINTENTOS_EN_UTC = [17, 19, 21, 22]  # «Evangelio diario (inglés)», a y media (.github/workflows/evangelio-ingles.yml)
 
@@ -276,6 +283,8 @@ def main():
             aviso_fallo(*sys.argv[2:4])
         elif orden == "tiktok":
             aviso_tiktok(sys.argv[2])
+        elif orden == "instagram":
+            aviso_instagram(sys.argv[2])
         else:
             print(__doc__)
     except SystemExit:

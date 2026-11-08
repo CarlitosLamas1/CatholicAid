@@ -8,11 +8,13 @@ Uso:
   python3 proceso/instagram.py url                 -> enlace para autorizar
   python3 proceso/instagram.py canjear <código>    -> canjea el código y guarda el permiso cifrado
   python3 proceso/instagram.py comprobar           -> muestra la cuenta de Instagram conectada
+  python3 proceso/instagram.py subir <video.mp4> "<texto>"  -> publica el vídeo como Reel
 """
 import json
 import os
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -86,6 +88,38 @@ def canjear(codigo):
     raise RuntimeError(f"Ninguna de tus páginas ({nombres}) tiene una cuenta de Instagram profesional vinculada.")
 
 
+def _post(url, datos=None, cuerpo=None, cabeceras=None):
+    req = urllib.request.Request(url, data=cuerpo if cuerpo is not None else urllib.parse.urlencode(datos or {}).encode(),
+                                 method="POST", headers=cabeceras or {})
+    try:
+        with urllib.request.urlopen(req, timeout=600) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Meta rechaza la petición ({e.code}): {e.read().decode(errors='replace')[:400]}")
+
+
+def subir(video, texto):
+    """Publica el vídeo como Reel (subida directa del archivo, sin enlace público). Devuelve (id, enlace)."""
+    d = leer()
+    tok, ig = d["token"], d["ig_id"]
+    cont = _post(GRAPH + f"{ig}/media", {"media_type": "REELS", "upload_type": "resumable", "caption": texto[:2200],
+                                         "share_to_feed": "true", "access_token": tok})
+    datos = Path(video).read_bytes()
+    _post(f"https://rupload.facebook.com/ig-api-upload/{VERSION}/{cont['id']}", cuerpo=datos,
+          cabeceras={"Authorization": f"OAuth {tok}", "offset": "0", "file_size": str(len(datos))})
+    estado = ""
+    for _ in range(60):  # hasta 10 min procesando
+        time.sleep(10)
+        estado = _get(cont["id"], fields="status_code,status", access_token=tok)
+        if estado.get("status_code") in ("FINISHED", "ERROR", "EXPIRED"):
+            break
+    if estado.get("status_code") != "FINISHED":
+        raise RuntimeError(f"Instagram no procesó el vídeo: {estado}")
+    pub = _post(GRAPH + f"{ig}/media_publish", {"creation_id": cont["id"], "access_token": tok})
+    enlace = _get(pub["id"], fields="permalink", access_token=tok).get("permalink", "")
+    return pub["id"], enlace
+
+
 def cuenta():
     d = leer()
     return _get(d["ig_id"], access_token=d["token"], fields="username,followers_count,media_count")
@@ -101,5 +135,7 @@ if __name__ == "__main__":
     elif orden == "comprobar":
         c = cuenta()
         print("Cuenta conectada: @" + c.get("username", "?"), "· publicaciones:", c.get("media_count"))
+    elif orden == "subir":
+        print(subir(sys.argv[2], sys.argv[3]))
     else:
         print(__doc__)

@@ -5,7 +5,8 @@ Los horarios de GitHub (cron) pueden llegar horas tarde o no llegar. Este script
 («Reloj», lo despierta la rutina del revisor en la nube, que sí es puntual) y lanza lo que falte:
 1. Vídeo de mañana (16:00–23:59 Madrid): si no hay registro diario hecho, o el último intento falló o fue rechazado.
 2. «Publicar revisado»: si hay veredicto del revisor que aún no se ha aplicado.
-3. TikTok (desde hora_publicacion de config, durante 12 h): si el vídeo de hoy tiene el OK y sigue preparado sin publicar.
+3. TikTok e Instagram (desde hora_publicacion de config, durante 12 h): si el vídeo de hoy tiene el OK, sigue preparado
+   y aún no está publicado en esa red. La release se borra cuando ya está en las dos.
 4. «Comentarios» cada hora (responde como mucho uno, con ritmo humano).
 5. Canal en inglés (config «en».activo), siempre DESPUÉS de lo del español y sin bloquearlo: su vídeo de mañana
    (17:00–23:59 Madrid, cuando el español ya está hecho, o desde las 23:00 sin él) y su «Publicar revisado».
@@ -102,13 +103,22 @@ def main():
     if hora <= ahora.hour < hora + 12:
         reg, rev = leer(f"episodios/{hoy}.json"), leer(f"revisiones/{hoy}.json")
         preparado = subprocess.run(["gh", "release", "view", f"tiktok-{hoy}"], capture_output=True).returncode == 0
-        if preparado and rev.get("ok") and not reg.get("no_publicar"):
+        if preparado and rev.get("ok") and not reg.get("no_publicar") and not reg.get("tiktok"):
             if reciente(runs, "Publicar en TikTok", 30):
                 log("TikTok: en marcha o reciente; espero.")
             else:
                 lanzar("tiktok-publicar.yml", fecha=str(hoy))
         else:
             log(f"TikTok: nada que hacer (preparado={preparado}, ok={bool(rev.get('ok'))}).")
+        # 3b. Instagram de hoy (en paralelo con TikTok, mismo vídeo y mismas condiciones)
+        ig_conectado = subprocess.run(["git", "cat-file", "-e", "origin/main:secretos/instagram.enc"]).returncode == 0
+        if ig_conectado and preparado and rev.get("ok") and not reg.get("no_publicar") and not reg.get("instagram"):
+            if reciente(runs, "Publicar en Instagram", 30):
+                log("Instagram: en marcha o reciente; espero.")
+            else:
+                lanzar("instagram-publicar.yml", fecha=str(hoy))
+        else:
+            log(f"Instagram: nada que hacer (conectado={ig_conectado}, hecho={bool(reg.get('instagram'))}).")
 
     try:  # el inglés, lo último: si falla, lo del español ya está hecho
         ingles(runs, ahora, manana)

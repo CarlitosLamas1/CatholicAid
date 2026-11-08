@@ -1,0 +1,104 @@
+name: Publicar en Instagram
+
+# Publica como Reel el vídeo del día (el mismo que TikTok, release tiktok-AAAA-MM-DD) a la hora_publicacion,
+# solo con el OK del revisor. 00:00 UTC = 1:00 en España en invierno; el segundo es un reintento.
+# Los cron de GitHub se retrasan: el Reloj lo lanza igualmente desde la hora de publicación.
+on:
+  schedule:
+    - cron: "0 0 * * *"
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha AAAA-MM-DD (vacío = hoy)"
+        required: false
+        default: ""
+      video_run:
+        description: "Solo si la release ya no existe: ID del run de «Evangelio diario» cuyo vídeo usar"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      META_APP_ID: ${{ vars.META_APP_ID }}
+      META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publicar
+        id: publicar
+        run: |
+          F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
+          RUN="${{ inputs.video_run }}"
+          if [ ! -f secretos/instagram.enc ]; then echo "Instagram aún no está conectado."; exit 0; fi
+          if python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('instagram') else 1)" 2>/dev/null; then echo "Ya publicado en Instagram."; exit 0; fi
+          if ! python3 -c "import json,sys; r=json.load(open(f'revisiones/$F.json')); g=json.load(open(f'episodios/$F.json')); sys.exit(0 if r.get('ok') and not g.get('no_publicar') else 1)" 2>/dev/null; then
+            echo "El vídeo de $F no tiene el OK del revisor (o está marcado para no publicar): no se publica."; exit 0
+          fi
+          mkdir -p t
+          if gh release view "tiktok-$F" >/dev/null 2>&1; then
+            gh release download "tiktok-$F" -D t -p video.mp4
+            gh release view "tiktok-$F" --json body -q .body > t/texto.txt
+          elif [ -n "$RUN" ]; then
+            gh run download "$RUN" -D a && cp "$(find a -path "*$F/video.mp4" | head -1)" t/video.mp4
+          else
+            echo "No hay vídeo preparado para $F."; exit 0
+          fi
+          python3 - "$F" <<'PY'
+          import json, sys
+          from pathlib import Path
+          sys.path.insert(0, "proceso")
+          import instagram
+          fecha = sys.argv[1]
+          reg = Path(f"episodios/{fecha}.json")
+          d = json.loads(reg.read_text(encoding="utf-8"))
+          t = Path("t/texto.txt")
+          if t.exists() and t.read_text(encoding="utf-8").strip():
+              texto = t.read_text(encoding="utf-8")
+          else:  # mismo texto que TikTok, rehecho desde el registro
+              meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
+                       "octubre", "noviembre", "diciembre"]
+              a, m, dia = map(int, fecha.split("-"))
+              frase = d.get("frase_clave", "")
+              texto = (f"Evangelio del día · {dia} de {meses[m - 1]} · {d.get('cita', '')} 🙏\n\n"
+                       + (f"«{frase}»\n\n" if frase else "") + f"{d.get('titulo', '')}\n"
+                       "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
+                       "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion")
+          mid, enlace = instagram.subir("t/video.mp4", texto)
+          print("Instagram:", mid, enlace)
+          d["instagram"] = {"id": mid, "enlace": enlace}
+          reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+          PY
+          # La release la comparten TikTok e Instagram: se borra cuando las dos han publicado.
+          if gh release view "tiktok-$F" >/dev/null 2>&1 && { [ ! -f secretos/tiktok.enc ] || python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('tiktok') else 1)"; }; then
+            gh release delete "tiktok-$F" --yes --cleanup-tag
+          fi
+          echo "fecha=$F" >> "$GITHUB_OUTPUT"
+      - name: Guardar
+        if: always()
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add episodios/ 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Instagram: publicación del día"
+            git pull -q --rebase && git push -q
+          fi
+      - name: Avisar por Telegram (publicado en Instagram)
+        if: success() && steps.publicar.outputs.fecha != ''
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+        run: python3 proceso/avisos.py instagram "${{ steps.publicar.outputs.fecha }}"

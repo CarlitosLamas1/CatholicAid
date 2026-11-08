@@ -125,7 +125,7 @@ def main():
     nota = "" if rev.get("por") == "Carlos" else "\n🔎 Revisado por el revisor: todo correcto."
     if idioma == "es":
         avisos.enviar(f"✅ {lengua} · Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a YouTube ({cuando_yt}): "
-                      f"{avisos.e(reg['youtube']['url'])}\n🎵 TikTok se publica a las {hora}.{nota}")
+                      f"{avisos.e(reg['youtube']['url'])}\n🎵📸 TikTok e Instagram se publican a las {hora}.{nota}")
     else:
         estreno = "" if estado.get("publishAt") else "\n🔒 Estreno: queda en privado; tú decides cuándo se publica."
         avisos.enviar(f"✅ {lengua} · Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a CatolicAid English "

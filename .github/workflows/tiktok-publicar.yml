@@ -38,6 +38,7 @@ jobs:
           if [ ! -f secretos/tiktok.enc ]; then echo "TikTok aún no está conectado."; exit 0; fi
           if ! gh release view "tiktok-$F" >/dev/null 2>&1; then echo "No hay vídeo preparado para $F (ya publicado o no generado)."; exit 0; fi
           # Solo con el OK del revisor (o de Carlos) y si no se ha pedido no publicar.
+          if python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('tiktok') else 1)" 2>/dev/null; then echo "Ya publicado en TikTok."; exit 0; fi
           if ! python3 -c "import json,sys; r=json.load(open(f'revisiones/$F.json')); g=json.load(open(f'episodios/$F.json')); sys.exit(0 if r.get('ok') and not g.get('no_publicar') else 1)" 2>/dev/null; then
             echo "El vídeo de $F no tiene el OK del revisor (o está marcado para no publicar): no se publica."; exit 0
           fi
@@ -61,7 +62,10 @@ jobs:
           if estado == "FAILED":
               raise SystemExit("TikTok rechazó el vídeo")
           PY
-          gh release delete "tiktok-$F" --yes --cleanup-tag
+          # La release la comparten TikTok e Instagram: se borra cuando las dos han publicado.
+          if [ ! -f secretos/instagram.enc ] || python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('instagram') else 1)"; then
+            gh release delete "tiktok-$F" --yes --cleanup-tag
+          fi
           echo "fecha=$F" >> "$GITHUB_OUTPUT"
       - name: Guardar
         if: always()
