@@ -98,15 +98,20 @@ def _post(url, datos=None, cuerpo=None, cabeceras=None):
         raise RuntimeError(f"Meta rechaza la petición ({e.code}): {e.read().decode(errors='replace')[:400]}")
 
 
-def subir(video, texto):
-    """Publica el vídeo como Reel (subida directa del archivo, sin enlace público). Devuelve (id, enlace)."""
+def subir(video, texto, url=None):
+    """Publica el vídeo como Reel. Con `url` (enlace público directo al .mp4) Instagram lo descarga él;
+    sin ella se envía el archivo (subida reanudable). Devuelve (id, enlace)."""
     d = leer()
     tok, ig = d["token"], d["ig_id"]
-    cont = _post(GRAPH + f"{ig}/media", {"media_type": "REELS", "upload_type": "resumable", "caption": texto[:2200],
-                                         "share_to_feed": "true", "access_token": tok})
-    datos = Path(video).read_bytes()
-    _post(f"https://rupload.facebook.com/ig-api-upload/{VERSION}/{cont['id']}", cuerpo=datos,
-          cabeceras={"Authorization": f"OAuth {tok}", "offset": "0", "file_size": str(len(datos))})
+    campos = {"media_type": "REELS", "caption": texto[:2200], "share_to_feed": "true", "access_token": tok}
+    if url:
+        cont = _post(GRAPH + f"{ig}/media", {**campos, "video_url": url})
+    else:
+        cont = _post(GRAPH + f"{ig}/media", {**campos, "upload_type": "resumable"})
+        datos = Path(video).read_bytes()
+        _post(f"https://rupload.facebook.com/ig-api-upload/{VERSION}/{cont['id']}", cuerpo=datos,
+              cabeceras={"Authorization": f"OAuth {tok}", "offset": "0", "file_size": str(len(datos)),
+                         "Content-Type": "application/octet-stream"})
     estado = ""
     for _ in range(60):  # hasta 10 min procesando
         time.sleep(10)
@@ -136,6 +141,6 @@ if __name__ == "__main__":
         c = cuenta()
         print("Cuenta conectada: @" + c.get("username", "?"), "· publicaciones:", c.get("media_count"))
     elif orden == "subir":
-        print(subir(sys.argv[2], sys.argv[3]))
+        print(subir(sys.argv[2], sys.argv[3], sys.argv[4] if len(sys.argv) > 4 else None))
     else:
         print(__doc__)

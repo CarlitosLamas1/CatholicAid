@@ -46,14 +46,21 @@ jobs:
             echo "El vídeo de $F no tiene el OK del revisor (o está marcado para no publicar): no se publica."; exit 0
           fi
           mkdir -p t
-          if gh release view "tiktok-$F" >/dev/null 2>&1; then
-            gh release download "tiktok-$F" -D t -p video.mp4
-            gh release view "tiktok-$F" --json body -q .body > t/texto.txt
+          REL="tiktok-$F"
+          if gh release view "$REL" >/dev/null 2>&1; then
+            gh release download "$REL" -D t -p video.mp4
+            gh release view "$REL" --json body -q .body > t/texto.txt
           elif [ -n "$RUN" ]; then
+            # Copia de seguridad del run (30 días): se sube a una release temporal para tener un enlace público.
             gh run download "$RUN" -D a && cp "$(find a -path "*$F/video.mp4" | head -1)" t/video.mp4
+            REL="instagram-$F"
+            gh release create "$REL" t/video.mp4 --title "Instagram $F (temporal)" --notes "Temporal para Instagram" --prerelease
           else
             echo "No hay vídeo preparado para $F."; exit 0
           fi
+          # Enlace público directo (GitHub redirige a un enlace firmado de ~1 h): Instagram descarga de ahí.
+          export VIDEO_URL=$(curl -sIL -o /dev/null -w '%{url_effective}' "https://github.com/${{ github.repository }}/releases/download/$REL/video.mp4")
+          echo "rel=$REL" >> "$GITHUB_OUTPUT"
           python3 - "$F" <<'PY'
           import json, sys
           from pathlib import Path
@@ -74,11 +81,13 @@ jobs:
                        + (f"«{frase}»\n\n" if frase else "") + f"{d.get('titulo', '')}\n"
                        "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
                        "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion")
-          mid, enlace = instagram.subir("t/video.mp4", texto)
+          import os
+          mid, enlace = instagram.subir("t/video.mp4", texto, os.environ.get("VIDEO_URL") or None)
           print("Instagram:", mid, enlace)
           d["instagram"] = {"id": mid, "enlace": enlace}
           reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
           PY
+          if [ "$REL" = "instagram-$F" ]; then gh release delete "$REL" --yes --cleanup-tag; fi
           # La release la comparten TikTok e Instagram: se borra cuando las dos han publicado.
           if gh release view "tiktok-$F" >/dev/null 2>&1 && { [ ! -f secretos/tiktok.enc ] || python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('tiktok') else 1)"; }; then
             gh release delete "tiktok-$F" --yes --cleanup-tag
