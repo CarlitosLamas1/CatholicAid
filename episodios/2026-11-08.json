@@ -90,5 +90,9 @@
     "estado": "PUBLISH_COMPLETE",
     "privacidad": "SELF_ONLY"
   },
-  "telegram_youtube": true
+  "telegram_youtube": true,
+  "instagram": {
+    "id": "18114345385896213",
+    "enlace": "https://www.instagram.com/reel/DfelKjQnMBZ/"
+  }
 }
