@@ -98,12 +98,7 @@ def _post(url, datos=None, cuerpo=None, cabeceras=None):
         raise RuntimeError(f"Meta rechaza la petición ({e.code}): {e.read().decode(errors='replace')[:400]}")
 
 
-def subir(video, texto, url=None):
-    """Publica el vídeo como Reel. Con `url` (enlace público directo al .mp4) Instagram lo descarga él;
-    sin ella se envía el archivo (subida reanudable). Devuelve (id, enlace)."""
-    d = leer()
-    tok, ig = d["token"], d["ig_id"]
-    campos = {"media_type": "REELS", "caption": texto[:2200], "share_to_feed": "true", "access_token": tok}
+def _contenedor(tok, ig, campos, video, url):
     if url:
         cont = _post(GRAPH + f"{ig}/media", {**campos, "video_url": url})
     else:
@@ -112,15 +107,33 @@ def subir(video, texto, url=None):
         _post(f"https://rupload.facebook.com/ig-api-upload/{VERSION}/{cont['id']}", cuerpo=datos,
               cabeceras={"Authorization": f"OAuth {tok}", "offset": "0", "file_size": str(len(datos)),
                          "Content-Type": "application/octet-stream"})
-    estado = ""
+    estado = {}
     for _ in range(60):  # hasta 10 min procesando
         time.sleep(10)
         estado = _get(cont["id"], fields="status_code,status", access_token=tok)
         if estado.get("status_code") in ("FINISHED", "ERROR", "EXPIRED"):
             break
     if estado.get("status_code") != "FINISHED":
-        raise RuntimeError(f"Instagram no procesó el vídeo: {estado}")
-    pub = _post(GRAPH + f"{ig}/media_publish", {"creation_id": cont["id"], "access_token": tok})
+        raise RuntimeError(f"Instagram no procesó el vídeo ({'enlace' if url else 'archivo'}): {estado}")
+    return cont["id"]
+
+
+def subir(video, texto, url=None):
+    """Publica el vídeo como Reel. Primero con `url` (enlace público al .mp4, Instagram lo descarga); si falla
+    o no hay enlace, enviando el archivo (subida reanudable). Devuelve (id, enlace)."""
+    d = leer()
+    tok, ig = d["token"], d["ig_id"]
+    campos = {"media_type": "REELS", "caption": texto[:2200], "share_to_feed": "true", "access_token": tok}
+    intentos = ([url] if url else []) + [None]
+    for i, u in enumerate(intentos):
+        try:
+            cid = _contenedor(tok, ig, campos, video, u)
+            break
+        except RuntimeError as e:
+            print(e, flush=True)
+            if i == len(intentos) - 1:
+                raise
+    pub = _post(GRAPH + f"{ig}/media_publish", {"creation_id": cid, "access_token": tok})
     enlace = _get(pub["id"], fields="permalink", access_token=tok).get("permalink", "")
     return pub["id"], enlace
 
