@@ -1,8 +1,9 @@
 name: Publicar en Instagram
 
-# Publica como Reel el vídeo del día (el mismo que TikTok, release tiktok-AAAA-MM-DD) a la hora_publicacion,
-# solo con el OK del revisor. 00:00 UTC = 1:00 en España en invierno; el segundo es un reintento.
-# Los cron de GitHub se retrasan: el Reloj lo lanza igualmente desde la hora de publicación.
+# Publica como Reel el vídeo del día a la hora de publicación, solo con el OK del revisor:
+#  - español: release tiktok-AAAA-MM-DD (la comparte con TikTok), cuenta config instagram.es
+#  - inglés:  release en-AAAA-MM-DD, cuenta config instagram.en
+# 00:00 UTC = 1:00 en España en invierno; el segundo es un reintento. El Reloj lo lanza igualmente si se retrasa.
 on:
   schedule:
     - cron: "0 0 * * *"
@@ -11,6 +12,10 @@ on:
     inputs:
       fecha:
         description: "Fecha AAAA-MM-DD (vacío = hoy)"
+        required: false
+        default: ""
+      idioma:
+        description: "es, en o vacío (= los dos)"
         required: false
         default: ""
       video_run:
@@ -28,7 +33,7 @@ concurrency:
 jobs:
   publicar:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       GH_TOKEN: ${{ github.token }}
       META_APP_ID: ${{ vars.META_APP_ID }}
@@ -39,64 +44,85 @@ jobs:
         id: publicar
         run: |
           F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
+          IDIOMAS="${{ inputs.idioma }}"; [ -n "$IDIOMAS" ] || IDIOMAS="es en"
           RUN="${{ inputs.video_run }}"
           if [ ! -f secretos/instagram.enc ]; then echo "Instagram aún no está conectado."; exit 0; fi
-          if python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('instagram') else 1)" 2>/dev/null; then echo "Ya publicado en Instagram."; exit 0; fi
-          if ! python3 -c "import json,sys; r=json.load(open(f'revisiones/$F.json')); g=json.load(open(f'episodios/$F.json')); sys.exit(0 if r.get('ok') and not g.get('no_publicar') else 1)" 2>/dev/null; then
-            echo "El vídeo de $F no tiene el OK del revisor (o está marcado para no publicar): no se publica."; exit 0
-          fi
-          mkdir -p t
-          REL="tiktok-$F"
-          if gh release view "$REL" >/dev/null 2>&1; then
-            gh release download "$REL" -D t -p video.mp4
-            gh release view "$REL" --json body -q .body > t/texto.txt
-          elif [ -n "$RUN" ]; then
-            # Copia de seguridad del run (30 días): se sube a una release temporal para tener un enlace público.
-            gh run download "$RUN" -D a && cp "$(find a -path "*$F/video.mp4" | head -1)" t/video.mp4
-            REL="instagram-$F"
-            gh release delete "$REL" --yes --cleanup-tag >/dev/null 2>&1 || true
-            gh release create "$REL" t/video.mp4 --title "Instagram $F (temporal)" --notes "Temporal para Instagram" --prerelease
-          else
-            echo "No hay vídeo preparado para $F."; exit 0
-          fi
-          # Enlace público directo (GitHub redirige a un enlace firmado de ~1 h): Instagram descarga de ahí.
-          export VIDEO_URL=$(curl -sIL -o /dev/null -w '%{url_effective}' "https://github.com/${{ github.repository }}/releases/download/$REL/video.mp4")
-          if gh release view "$REL" --json assets -q '.assets[].name' | grep -qx miniatura_vertical.jpg; then
-            export PORTADA_URL=$(curl -sIL -o /dev/null -w '%{url_effective}' "https://github.com/${{ github.repository }}/releases/download/$REL/miniatura_vertical.jpg")
-          fi
-          python3 - "$F" <<'PY'
-          import json, sys
+          HECHOS=""
+          FALLO=0
+          for L in $IDIOMAS; do
+            if [ "$L" = "en" ]; then N="$F-en"; REL="en-$F"; else N="$F"; REL="tiktok-$F"; fi
+            echo "::group::Instagram $L ($N)"
+            if python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$N.json')).get('instagram') else 1)" 2>/dev/null; then echo "Ya publicado."; echo "::endgroup::"; continue; fi
+            if ! python3 -c "import json,sys; r=json.load(open(f'revisiones/$N.json')); g=json.load(open(f'episodios/$N.json')); sys.exit(0 if r.get('ok') and not g.get('no_publicar') else 1)" 2>/dev/null; then
+              echo "Sin OK del revisor (o marcado para no publicar): no se publica."; echo "::endgroup::"; continue
+            fi
+            rm -rf t a && mkdir -p t
+            TEMP=""
+            if gh release view "$REL" >/dev/null 2>&1; then
+              gh release download "$REL" -D t -p video.mp4
+            elif [ -n "$RUN" ] && [ "$L" = "es" ]; then
+              # Copia de seguridad del run (30 días): se sube a una release temporal para tener un enlace público.
+              gh run download "$RUN" -D a && cp "$(find a -path "*$F/video.mp4" | head -1)" t/video.mp4
+              REL="instagram-$F"; TEMP=1
+              gh release delete "$REL" --yes --cleanup-tag >/dev/null 2>&1 || true
+              gh release create "$REL" t/video.mp4 --title "Instagram $F (temporal)" --notes "Temporal para Instagram" --prerelease
+            else
+              echo "No hay vídeo preparado."; echo "::endgroup::"; continue
+            fi
+            [ "$L" = "es" ] && [ -z "$TEMP" ] && gh release view "$REL" --json body -q .body > t/texto.txt
+            # Enlaces públicos directos (GitHub redirige a un enlace firmado de ~1 h): Instagram descarga de ahí.
+            export VIDEO_URL=$(curl -sIL -o /dev/null -w '%{url_effective}' "https://github.com/${{ github.repository }}/releases/download/$REL/video.mp4")
+            export PORTADA_URL=""
+            if gh release view "$REL" --json assets -q '.assets[].name' | grep -qx miniatura_vertical.jpg; then
+              PORTADA_URL=$(curl -sIL -o /dev/null -w '%{url_effective}' "https://github.com/${{ github.repository }}/releases/download/$REL/miniatura_vertical.jpg")
+            fi
+            if python3 - "$F" "$L" <<'PY'
+          import json, os, sys
           from pathlib import Path
           sys.path.insert(0, "proceso")
           import instagram
-          fecha = sys.argv[1]
-          reg = Path(f"episodios/{fecha}.json")
+          fecha, idioma = sys.argv[1], sys.argv[2]
+          reg = Path(f"episodios/{fecha}{'-en' if idioma == 'en' else ''}.json")
           d = json.loads(reg.read_text(encoding="utf-8"))
+          a, m, dia = map(int, fecha.split("-"))
+          frase = d.get("frase_clave", "")
           t = Path("t/texto.txt")
-          if t.exists() and t.read_text(encoding="utf-8").strip():
+          if idioma == "es" and t.exists() and t.read_text(encoding="utf-8").strip():
               texto = t.read_text(encoding="utf-8")
-          else:  # mismo texto que TikTok, rehecho desde el registro
+          elif idioma == "es":  # mismo texto que TikTok, rehecho desde el registro
               meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
                        "octubre", "noviembre", "diciembre"]
-              a, m, dia = map(int, fecha.split("-"))
-              frase = d.get("frase_clave", "")
               texto = (f"Evangelio del día · {dia} de {meses[m - 1]} · {d.get('cita', '')} 🙏\n\n"
                        + (f"«{frase}»\n\n" if frase else "") + f"{d.get('titulo', '')}\n"
                        "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
                        "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion")
-          import os
+          else:
+              months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                        "October", "November", "December"]
+              texto = (f"Gospel of the day · {months[m - 1]} {dia} · {d.get('cita', '')} 🙏\n\n"
+                       + (f"“{frase}”\n\n" if frase else "") + f"{d.get('titulo', '')}\n"
+                       "Listen with your heart and share it with someone who needs it. ✝️\n\n"
+                       "#GospelOfTheDay #DailyGospel #Gospel #WordOfGod #Catholic #Faith #Jesus #God #Prayer")
           mid, enlace = instagram.subir("t/video.mp4", texto, os.environ.get("VIDEO_URL") or None,
-                                        os.environ.get("PORTADA_URL") or None)
-          print("Instagram:", mid, enlace)
+                                        os.environ.get("PORTADA_URL") or None, instagram.usuario_de(idioma))
+          print("Instagram:", idioma, mid, enlace)
           d["instagram"] = {"id": mid, "enlace": enlace}
           reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
           PY
-          if [ "$REL" = "instagram-$F" ]; then gh release delete "$REL" --yes --cleanup-tag; fi
-          # La release la comparten TikTok e Instagram: se borra cuando las dos han publicado.
-          if gh release view "tiktok-$F" >/dev/null 2>&1 && { [ ! -f secretos/tiktok.enc ] || python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('tiktok') else 1)"; }; then
-            gh release delete "tiktok-$F" --yes --cleanup-tag
-          fi
-          echo "fecha=$F" >> "$GITHUB_OUTPUT"
+            then
+              HECHOS="$HECHOS $N"
+            else
+              FALLO=1
+            fi
+            [ -n "$TEMP" ] && gh release delete "$REL" --yes --cleanup-tag
+            # La release española la comparten TikTok e Instagram: se borra cuando las dos han publicado.
+            if [ "$L" = "es" ] && gh release view "tiktok-$F" >/dev/null 2>&1 && python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('instagram') else 1)" && { [ ! -f secretos/tiktok.enc ] || python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('tiktok') else 1)"; }; then
+              gh release delete "tiktok-$F" --yes --cleanup-tag
+            fi
+            echo "::endgroup::"
+          done
+          echo "hechos=$HECHOS" >> "$GITHUB_OUTPUT"
+          exit $FALLO
       - name: Guardar
         if: always()
         run: |
@@ -108,10 +134,10 @@ jobs:
             git pull -q --rebase && git push -q
           fi
       - name: Avisar por Telegram (publicado en Instagram)
-        if: success() && steps.publicar.outputs.fecha != ''
+        if: always() && steps.publicar.outputs.hechos != ''
         continue-on-error: true
         timeout-minutes: 3
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
-        run: python3 proceso/avisos.py instagram "${{ steps.publicar.outputs.fecha }}"
+        run: for N in ${{ steps.publicar.outputs.hechos }}; do python3 proceso/avisos.py instagram "$N"; done

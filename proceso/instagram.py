@@ -72,20 +72,43 @@ def url_autorizacion():
 
 
 def canjear(codigo):
+    """Guarda TODAS las cuentas de Instagram vinculadas a páginas del usuario (español, inglés…), por nombre."""
     corto = _get("oauth/access_token", client_id=_id(), client_secret=_secreto(), redirect_uri=REDIRECT,
                  code=urllib.parse.unquote(codigo.strip()))["access_token"]
     largo = _get("oauth/access_token", grant_type="fb_exchange_token", client_id=_id(), client_secret=_secreto(),
                  fb_exchange_token=corto)["access_token"]
     paginas = _get("me/accounts", access_token=largo, fields="id,name,access_token,instagram_business_account",
                    limit=100).get("data", [])
+    cuentas = {}
     for p in paginas:
         ig = p.get("instagram_business_account")
         if ig:
-            datos = {"pagina_id": p["id"], "pagina": p["name"], "token": p["access_token"], "ig_id": ig["id"]}
-            guardar(datos)
-            return datos
-    nombres = ", ".join(p["name"] for p in paginas) or "ninguna"
-    raise RuntimeError(f"Ninguna de tus páginas ({nombres}) tiene una cuenta de Instagram profesional vinculada.")
+            usuario = _get(ig["id"], fields="username", access_token=p["access_token"]).get("username", ig["id"])
+            cuentas[usuario] = {"pagina_id": p["id"], "pagina": p["name"], "token": p["access_token"], "ig_id": ig["id"]}
+    if not cuentas:
+        nombres = ", ".join(p["name"] for p in paginas) or "ninguna"
+        raise RuntimeError(f"Ninguna de tus páginas ({nombres}) tiene una cuenta de Instagram profesional vinculada.")
+    guardar({"cuentas": cuentas})
+    return cuentas
+
+
+def _cuenta(usuario=None):
+    d = leer()
+    if "cuentas" not in d:  # formato antiguo: solo la cuenta española
+        if usuario and usuario != usuario_de("es"):
+            raise RuntimeError(f"La cuenta @{usuario} no está conectada (falta volver a autorizar).")
+        return d
+    cuentas = d["cuentas"]
+    if usuario:
+        if usuario not in cuentas:
+            raise RuntimeError(f"La cuenta @{usuario} no está conectada (conectadas: {', '.join(cuentas)}).")
+        return cuentas[usuario]
+    return next(iter(cuentas.values()))
+
+
+def usuario_de(idioma):
+    cfg = json.loads((RAIZ / "config" / "personajes.json").read_text(encoding="utf-8"))
+    return cfg.get("instagram", {}).get(idioma)
 
 
 def _post(url, datos=None, cuerpo=None, cabeceras=None):
@@ -118,10 +141,10 @@ def _contenedor(tok, ig, campos, video, url):
     return cont["id"]
 
 
-def subir(video, texto, url=None, portada=None):
+def subir(video, texto, url=None, portada=None, usuario=None):
     """Publica el vídeo como Reel. Primero con `url` (enlace público al .mp4, Instagram lo descarga); si falla
     o no hay enlace, enviando el archivo (subida reanudable). Devuelve (id, enlace)."""
-    d = leer()
+    d = _cuenta(usuario)
     tok, ig = d["token"], d["ig_id"]
     campos = {"media_type": "REELS", "caption": texto[:2200], "share_to_feed": "true", "access_token": tok}
     # Portada: la miniatura vertical con la frase clave; si no hay, un fotograma ya visible (el vídeo empieza en negro).
@@ -140,9 +163,12 @@ def subir(video, texto, url=None, portada=None):
     return pub["id"], enlace
 
 
-def cuenta():
+def cuentas():
     d = leer()
-    return _get(d["ig_id"], access_token=d["token"], fields="username,followers_count,media_count")
+    res = []
+    for c in (d.get("cuentas") or {"": d}).values():
+        res.append(_get(c["ig_id"], access_token=c["token"], fields="username,followers_count,media_count"))
+    return res
 
 
 if __name__ == "__main__":
@@ -150,11 +176,11 @@ if __name__ == "__main__":
     if orden == "url":
         print(url_autorizacion())
     elif orden == "canjear":
-        d = canjear(sys.argv[2])
-        print(f"Instagram conectado a través de la página «{d['pagina']}».")
+        for u, c in canjear(sys.argv[2]).items():
+            print(f"Instagram conectado: @{u} (página «{c['pagina']}»).")
     elif orden == "comprobar":
-        c = cuenta()
-        print("Cuenta conectada: @" + c.get("username", "?"), "· publicaciones:", c.get("media_count"))
+        for c in cuentas():
+            print("Cuenta conectada: @" + c.get("username", "?"), "· publicaciones:", c.get("media_count"))
     elif orden == "subir":
         print(subir(sys.argv[2], sys.argv[3], sys.argv[4] if len(sys.argv) > 4 else None))
     else:

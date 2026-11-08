@@ -310,6 +310,11 @@
       "voz_edge": "es-ES-AlvaroNeural"
     }
   },
+  "instagram": {
+    "_nota": "Cuenta de Instagram por idioma (proceso/instagram.py, instagram-publicar.yml). Ambas en la misma autorización de Meta.",
+    "es": "catolicaid_es_official",
+    "en": "catolicaid_en_official"
+  },
   "tiktok": {
     "privacidad": "PUBLIC_TO_EVERYONE"
   },

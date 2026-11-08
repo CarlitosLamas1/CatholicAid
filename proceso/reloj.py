@@ -110,15 +110,24 @@ def main():
                 lanzar("tiktok-publicar.yml", fecha=str(hoy))
         else:
             log(f"TikTok: nada que hacer (preparado={preparado}, ok={bool(rev.get('ok'))}).")
-        # 3b. Instagram de hoy (en paralelo con TikTok, mismo vídeo y mismas condiciones)
+        # 3b. Instagram de hoy, español (mismo vídeo que TikTok) e inglés (release en-), con OK y sin publicar aún
         ig_conectado = subprocess.run(["git", "cat-file", "-e", "origin/main:secretos/instagram.enc"]).returncode == 0
+        falta = []
         if ig_conectado and preparado and rev.get("ok") and not reg.get("no_publicar") and not reg.get("instagram"):
+            falta.append("es")
+        cfg_ig = json.loads(open("config/personajes.json", encoding="utf-8").read()).get("instagram", {})
+        reg_en, rev_en = leer(f"episodios/{hoy}-en.json"), leer(f"revisiones/{hoy}-en.json")
+        prep_en = subprocess.run(["gh", "release", "view", f"en-{hoy}"], capture_output=True).returncode == 0
+        if (ig_conectado and cfg_ig.get("en") and prep_en and rev_en.get("ok") and not reg_en.get("no_publicar")
+                and not reg_en.get("instagram")):
+            falta.append("en")
+        if falta:
             if reciente(runs, "Publicar en Instagram", 30):
                 log("Instagram: en marcha o reciente; espero.")
             else:
-                lanzar("instagram-publicar.yml", fecha=str(hoy))
+                lanzar("instagram-publicar.yml", fecha=str(hoy), idioma=" ".join(falta) if len(falta) == 1 else "")
         else:
-            log(f"Instagram: nada que hacer (conectado={ig_conectado}, hecho={bool(reg.get('instagram'))}).")
+            log(f"Instagram: nada que hacer (conectado={ig_conectado}).")
 
     try:  # el inglés, lo último: si falla, lo del español ya está hecho
         ingles(runs, ahora, manana)

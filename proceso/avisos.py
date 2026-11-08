@@ -234,10 +234,12 @@ def aviso_tiktok(fecha):
     enviar(f"🎵 <b>Publicado en TikTok</b> · {e(fecha_txt(fecha))}{nota}\n📖 {e(reg.get('cita', ''))}\n🔗 {TIKTOK_PERFIL}")
 
 
-def aviso_instagram(fecha):
-    reg = episodio(fecha)
+def aviso_instagram(nombre):
+    """nombre = AAAA-MM-DD (español) o AAAA-MM-DD-en (inglés)."""
+    reg = episodio(nombre)
     enlace = reg.get("instagram", {}).get("enlace") or "https://www.instagram.com/"
-    enviar(f"📸 <b>Publicado en Instagram</b> · {e(fecha_txt(fecha))}\n📖 {e(reg.get('cita', ''))}\n🔗 {e(enlace)}")
+    cuenta = " (English)" if nombre.endswith("-en") else ""
+    enviar(f"📸 <b>Publicado en Instagram{cuenta}</b> · {e(fecha_txt(nombre[:10]))}\n📖 {e(reg.get('cita', ''))}\n🔗 {e(enlace)}")
 
 
 REINTENTOS_UTC = [15, 17, 19, 20, 21]  # horas de «Evangelio diario» (.github/workflows/evangelio-diario.yml)
