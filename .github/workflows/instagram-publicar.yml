@@ -54,6 +54,7 @@ jobs:
             # Copia de seguridad del run (30 días): se sube a una release temporal para tener un enlace público.
             gh run download "$RUN" -D a && cp "$(find a -path "*$F/video.mp4" | head -1)" t/video.mp4
             REL="instagram-$F"
+            gh release delete "$REL" --yes --cleanup-tag >/dev/null 2>&1 || true
             gh release create "$REL" t/video.mp4 --title "Instagram $F (temporal)" --notes "Temporal para Instagram" --prerelease
           else
             echo "No hay vídeo preparado para $F."; exit 0
