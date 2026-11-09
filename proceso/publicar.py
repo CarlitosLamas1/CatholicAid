@@ -17,6 +17,7 @@ Nunca cambia el texto del Evangelio.
 """
 import datetime as dt
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -60,11 +61,32 @@ def guardar_en_main(mensaje):
     log("Aviso: no se pudo subir el registro antes de relanzar (lo intenta el paso «Guardar registro»).")
 
 
+IMAGEN = re.compile(r"\b(imagen|im[aá]genes|plano|cuadro|pintura)\b", re.I)
+ESCENA = re.compile(r"\b(?:escena\s*|e)(\d)\b", re.I)
+SIN_ARREGLO = re.compile(r"\bPNG\b|biblioteca/|evangelistas/|reutiliza", re.I)
+
+
+def repintar_de_avisos(rev, fecha):
+    """Avisos del revisor sobre una imagen pintada del día («La imagen de la escena 2 muestra a Jesús…», «firma en la
+    esquina de e1») -> [{"escena": n, "corregir": aviso}]. Solo escenas cuya imagen del día existe."""
+    pedidas = {}
+    for aviso in rev.get("avisos") or []:
+        if not IMAGEN.search(aviso) or SIN_ARREGLO.search(aviso):
+            continue
+        for n in {int(m) for m in ESCENA.findall(aviso)}:
+            if any((RAIZ / "biblioteca" / "dias" / f"{fecha}_e{n}.{ext}").exists() for ext in ("jpg", "png")):
+                pedidas.setdefault(n, []).append(aviso)
+    return [{"escena": n, "corregir": "Fix the problem the reviewer found in the previous version (in Spanish): "
+             + " ".join(t)} for n, t in sorted(pedidas.items())]
+
+
 def pedir_repintar(fecha, idioma, reg, rev):
     """El revisor pide repintar escenas (rev["repintar"] = [{"escena": n, "corregir": "..."}]): se borran esas imágenes
     del día y la nueva tirada las pinta otra vez con la corrección. Una sola vez por día, solo en español (el inglés
     reutiliza las imágenes) y solo si da tiempo a revisarlo antes de publicar. Devuelve True si hay que rehacer."""
     pedidas = [x for x in rev.get("repintar") or [] if isinstance(x, dict) and str(x.get("escena", "")).isdigit()]
+    if not pedidas:  # el revisor no lo pide de forma explícita: se sacan de sus avisos sobre imágenes del día
+        pedidas = repintar_de_avisos(rev, fecha)
     if idioma != "es" or not pedidas or reg.get("repintados", 0) >= 1:
         return False
     publicar = dt.datetime.combine(dt.date.fromisoformat(fecha), dt.time(int(ev_mod.CFG.get("hora_publicacion", 7))),
