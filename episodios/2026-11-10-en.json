@@ -125,5 +125,10 @@
       "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
     },
     "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+  },
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7706307525511120919",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
   }
 }
