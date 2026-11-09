@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-10",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-09T00:32:32+01:00",
+  "revisado": "2026-11-09T01:33:16+01:00",
+  "motivos": [],
+  "avisos": [
+    "La imagen de la escena 2 muestra a Jesús sentado con el criado; en la parábola el amo es hipotético, no es Jesús (detalle menor).",
+    "La imagen de la escena 1 tiene una firma o marca pequeña en la esquina inferior derecha."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 17, 7-10 coincide con citas.json",
+    "voces": "✅ Palabras de Jesús (parábola incluida) con jesus; narración con narrador",
+    "frase_clave": "✅ «Somos siervos inútiles», literal en fragmento de Jesús, completa",
+    "reflexion": "✅ 25 palabras, cálida, doctrinalmente correcta y ligada a la lectura",
+    "tecnica": "✅ 66,8 s; -13,9 LUFS",
+    "audio": "✅ Más lento: frag. 5 «Palabra del Señor.» 5,1 c/s (corto, normal); más rápido: frag. 4 15,4 c/s",
+    "imagenes": "⚠️ Apropiadas y devocionales; e2 pone a Jesús en la mesa del criado; marca pequeña en e1",
+    "metadatos": "✅ Fecha, cita y título (Lucas) coherentes"
+  }
+}
