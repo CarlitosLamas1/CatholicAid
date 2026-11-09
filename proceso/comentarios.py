@@ -238,10 +238,13 @@ def main():
     # Lo que sigue pendiente, con todo lo que Claude necesita para decidir.
     pendientes = [{**vivos[cid], "contexto": contexto_video(vivos[cid]["video"])}
                   for cid, v in est["vistos"].items() if v["tipo"] == "pendiente" and cid in vivos]
-    if not simular:
+    nuevo = {"comentarios": pendientes, "recientes": est["recientes"][-10:]}
+    previo = leer_json(PENDIENTES, {})
+    # Solo se reescribe si cambia algo de verdad: antes cada pasada cambiaba la hora y llenaba el historial de
+    # commits «Comentarios: estado» vacíos (uno por hora).
+    if not simular and {k: previo.get(k) for k in nuevo} != nuevo:
         PENDIENTES.parent.mkdir(exist_ok=True)
-        PENDIENTES.write_text(json.dumps({"actualizado": momento.isoformat(), "comentarios": pendientes,
-                                          "recientes": est["recientes"][-10:]}, ensure_ascii=False, indent=2),
+        PENDIENTES.write_text(json.dumps({"actualizado": momento.isoformat(), **nuevo}, ensure_ascii=False, indent=2),
                               encoding="utf-8")
     log(f"Comentarios recientes: {len(comentarios)} · pendientes de Claude: {len(pendientes)}")
 
