@@ -33,6 +33,7 @@ Bot **@CatolicAid_bot**; token en el secreto `TELEGRAM_BOT_TOKEN`, chat de Carlo
 2. ✅/⛔ **Revisión**: `proceso/publicar.py` avisa si se sube a YouTube o si no se publica.
 3. 📺 **Publicado en YouTube** («Telegram: publicado en YouTube», `telegram-youtube.yml`, intentos a las 0–11 UTC; una sola vez: `telegram_youtube` en el registro) y 🎵 **Publicado en TikTok** (último paso de «Publicar en TikTok»).
 4. ❌ **Fallo al crear el vídeo** (último paso de «Evangelio diario», solo si falla): qué día y a qué hora se reintenta solo (`REINTENTOS_UTC` en avisos.py; mantenlo igual que los cron).
+6. 📸 **Publicado en Instagram** (último paso de «Publicar en Instagram», uno por cuenta: español e inglés; pedido por Carlos el 09/11/2026).
 5. 💬 **Comentario delicado** de YouTube para que responda Carlos (`proceso/comentarios.py`, aprobado por Carlos el 06/11/2026).
 «Configurar Telegram» obtiene el chat_id (getUpdates), quita el menú de órdenes y manda una prueba; la variable la guarda el gestor con `gh variable set TELEGRAM_CHAT_ID` (GitHub no deja al workflow). No añadas más avisos ni funciones al bot sin que Carlos lo pida.
 
