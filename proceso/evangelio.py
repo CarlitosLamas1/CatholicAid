@@ -55,8 +55,14 @@ TXT = {
                           "and the next always make a clear one-second pause:\n\n",
            "palabra": "The Gospel of the Lord.",
            "cierre": "Follow us to hear\\Nthe Gospel every day"},
+    # Portugués (preparado, aún sin canal: guias/portugues.md). No se usa hasta activar config «pt».
+    "pt": {"leer": "Leia em voz alta, com {estilo}, o seguinte texto:\n\n{texto}",
+           "leer_varios": "Leia em voz alta, com {estilo}, os parágrafos seguintes, nesta ordem. Entre um parágrafo "
+                          "e o seguinte faça sempre uma pausa clara de um segundo:\n\n",
+           "palabra": "Palavra da Salvação.",
+           "cierre": "Siga-nos para ouvir\\No Evangelho todos os dias"},
 }
-SUFIJO = {"es": "", "en": "-en"}  # episodios/AAAA-MM-DD-en.json, revisiones/AAAA-MM-DD-en.json, salida/AAAA-MM-DD-en/
+SUFIJO = {"es": "", "en": "-en", "pt": "-pt"}  # episodios/AAAA-MM-DD-en.json, revisiones/AAAA-MM-DD-en.json, salida/AAAA-MM-DD-en/
 
 
 def txt(clave):
@@ -970,9 +976,11 @@ def es_video(p):
 AVISOS = []  # cosas que requieren a Carlos (se mandan por Telegram con el aviso de «vídeo listo»)
 
 
-def generar_imagenes_dia(info, escenas, fecha):
+def generar_imagenes_dia(info, escenas, fecha, correcciones=None):
     """Pinta con Nano Banana (API de pago) una imagen por escena y la guarda en biblioteca/dias/.
-    Si ya existe (o falla), no hace nada: el proceso sigue con la biblioteca."""
+    Si ya existe (o falla), no hace nada: el proceso sigue con la biblioteca.
+    correcciones: {escena: texto} que pidió el revisor al mandar repintar (publicar.py borra la imagen mala)."""
+    correcciones = {int(k): v for k, v in (correcciones or {}).items()}
     opciones = CFG.get("imagenes_ia", {})
     if not opciones.get("activo") or not os.environ.get("GEMINI_API_KEY_IMAGENES", "").strip():
         return
@@ -990,8 +998,14 @@ def generar_imagenes_dia(info, escenas, fecha):
         refs = [(k.capitalize(), RAIZ / "personajes" / f"{k}.png") for k in e.get("personajes", [])
                 if (RAIZ / "personajes" / f"{k}.png").exists()]
         destino = RAIZ / "biblioteca" / "dias" / f"{fecha}_e{n}.jpg"
+        escena = e["descripcion"]
+        if e.get("personajes") and "jesus" not in e["personajes"]:  # p. ej. una parábola: Jesús la cuenta, pero no sale en ella
+            escena += "\nJesus does NOT appear in this scene."
+        if correcciones.get(n):
+            escena += f"\nIMPORTANT CORRECTION (a previous version was wrong): {correcciones[n]}"
+            log(f"   Escena {n}: se repinta con la corrección del revisor: {correcciones[n]}")
         try:
-            modelo = imagenes.generar(e["descripcion"], destino, refs, e.get("estilo", "oleo"))
+            modelo = imagenes.generar(escena, destino, refs, e.get("estilo", "oleo"))
             hechas += 1
             log(f"   Imagen IA escena {n} ({modelo}): {e['descripcion'][:90]}")
         except Exception as ex:
@@ -1344,23 +1358,63 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
     ruta.write_text(cabecera + cuerpo, encoding="utf-8")
 
 
+MUSICA_VETADA = RAIZ / "estado" / "musica.json"
+LICENCIAS_LIBRES = re.compile(r"public domain|dominio p|\bpd\b|cc0|cc[ -]by(?![ -]?(nc|nd))", re.I)
+
+
+def musica_vetada():
+    """Grabaciones que YouTube (Content ID) ha reclamado o bloqueado: no se vuelven a usar nunca."""
+    try:
+        return json.loads(MUSICA_VETADA.read_text(encoding="utf-8")).get("vetadas", {})
+    except Exception:
+        return {}
+
+
+def vetar_musica(nombre, motivo):
+    datos = {"vetadas": musica_vetada()}
+    datos["vetadas"][nombre.replace(" ", "_")] = {"motivo": motivo, "fecha": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
+    MUSICA_VETADA.parent.mkdir(exist_ok=True)
+    MUSICA_VETADA.write_text(json.dumps(datos, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def licencia_commons(nombre):
+    """Licencia que declara Wikimedia Commons para el archivo («» si no se puede saber)."""
+    url = ("https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=extmetadata&titles="
+           + urllib.parse.quote("File:" + nombre))
+    paginas = http(url, timeout=60).get("query", {}).get("pages", {})
+    meta = next(iter(paginas.values()), {}).get("imageinfo", [{}])[0].get("extmetadata", {})
+    return " ".join(meta.get(k, {}).get("value", "") for k in ("LicenseShortName", "License"))
+
+
 def musica_del_dia(fecha):
-    """Música clásica de dominio público (Wikimedia Commons), rotando por días; se guarda en musica/."""
-    pistas = CFG.get("musica", [])
+    """Música clásica de dominio público (Wikimedia Commons), rotando por días; se guarda en musica/.
+    Solo valen las pistas comprobadas a mano (con su crédito en creditos_musica), con licencia libre en Commons y que
+    YouTube no haya reclamado nunca (estado/musica.json). Si la del día no vale, se usa la siguiente."""
+    vetadas = musica_vetada()
+    creditos = {k.replace(" ", "_") for k in CFG.get("creditos_musica", {})}
+    pistas = [x.replace(" ", "_") for x in CFG.get("musica", [])]
+    pistas = [x for x in pistas if x not in vetadas and x in creditos]
     if not pistas:
+        log("   Sin música: ninguna pista comprobada disponible")
         return None
-    nombre = pistas[fecha.toordinal() % len(pistas)].replace(" ", "_")
-    ruta = RAIZ / "musica" / nombre
-    if not ruta.exists():
+    inicio = fecha.toordinal() % len(pistas)
+    for nombre in pistas[inicio:] + pistas[:inicio]:
+        ruta = RAIZ / "musica" / nombre
+        if ruta.exists():
+            return ruta
         try:
+            lic = licencia_commons(nombre)
+            if not LICENCIAS_LIBRES.search(lic):
+                log(f"   Música {nombre}: licencia no libre o desconocida en Commons ({lic[:80] or '?'}); la salto")
+                continue
             url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(nombre)
             datos = http(url, raw=True, timeout=180)[1]
             ruta.parent.mkdir(exist_ok=True)
             ruta.write_bytes(datos)
+            return ruta
         except Exception as e:
-            log(f"   Sin música ({e})")
-            return None
-    return ruta
+            log(f"   Música {nombre} no disponible ({e})")
+    return None
 
 
 def medir(ruta, extra=""):
@@ -1594,8 +1648,8 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
                                                                else "hora_publicacion", CFG.get("hora_publicacion", 7)))), MADRID)
         if hora > dt.datetime.now(MADRID) + dt.timedelta(minutes=30):
             estado["publishAt"] = hora.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-        elif idioma != "es" and fecha >= dt.datetime.now(MADRID).date():
-            estado["privacyStatus"] = "public"  # inglés que llega tarde (su hora ya pasó, mismo día): se publica ya
+        elif fecha >= dt.datetime.now(MADRID).date():
+            estado["privacyStatus"] = "public"  # llega tarde (su hora ya pasó, mismo día; p. ej. rehecho): se publica ya
     return {"snippet": {"title": titulo[:100], "description": descripcion[:4900], "categoryId": "22",
                         "tags": etiquetas, "defaultLanguage": idioma, "defaultAudioLanguage": idioma},
             "status": estado}
@@ -1630,6 +1684,74 @@ def publicar_extras(tok, vid, reg, fecha, miniatura, idioma="es"):
         time.sleep(20)
     if yt.get("miniatura") != "ok" and miniatura:
         yt["miniatura"] = subir_miniatura(tok, vid, miniatura)
+    if yt.get("subtitulos") != "ok":
+        yt["subtitulos"] = subir_subtitulos(tok, vid, reg, idioma)
+
+
+# ---------- 5a. Subtítulos como archivo (YouTube los indexa para las búsquedas y los traduce solo) ----------
+
+def srt_del_registro(reg):
+    """SRT con lo que se oye (y la frase del gancho), a partir del registro. Cada fragmento dura hasta el siguiente;
+    el último, hasta que empieza el cierre (solo música). Trozos de dos líneas como mucho."""
+    frs = reg.get("fragmentos") or []
+    if not frs:
+        return ""
+    total = float(reg.get("duracion_s") or frs[-1]["inicio"] + 5)
+    fin_voz = total - float(CFG.get("cierre_segundos", 0) or 0)
+    tramos = []
+    gancho = float(reg.get("gancho_segundos") or 0)
+    if gancho and reg.get("frase_clave"):
+        tramos.append((0.0, gancho, f"“{espacios(reg['frase_clave'])}”"))
+    for i, f in enumerate(frs):
+        a = float(f["inicio"])
+        b = float(frs[i + 1]["inicio"]) if i + 1 < len(frs) else max(a + 1.0, fin_voz)
+        trozos = trocear_equilibrado(espacios(f["texto"]), 84) or [espacios(f["texto"])]
+        largo = sum(len(t) for t in trozos) or 1
+        t = a
+        for tr in trozos:
+            d = (b - a) * len(tr) / largo
+            tramos.append((t, t + d - 0.05, tr))
+            t += d
+
+    def marca(s):
+        ms = int(round(max(0.0, s) * 1000))
+        return f"{ms // 3600000:02d}:{ms // 60000 % 60:02d}:{ms // 1000 % 60:02d},{ms % 1000:03d}"
+
+    def dos_lineas(tr):
+        ws = tr.split()
+        if len(tr) <= 42 or len(ws) < 2:
+            return tr
+        c = cortes_de_linea(ws, 42)
+        bordes = [0] + c + [len(ws)]
+        return "\n".join(" ".join(ws[x:y]) for x, y in zip(bordes, bordes[1:]))
+
+    return "".join(f"{n}\n{marca(a)} --> {marca(b)}\n{dos_lineas(tx)}\n\n" for n, (a, b, tx) in enumerate(tramos, 1))
+
+
+def subir_subtitulos(tok, vid, reg, idioma="es", srt=None):
+    """Sube los subtítulos (captions.insert, permiso youtube.force-ssl). Nunca impide la publicación.
+    srt: uno ya hecho (p. ej. el del resumen semanal); si no, se hace con el registro."""
+    srt = srt if srt is not None else srt_del_registro(reg)
+    if not srt:
+        return "sin texto"
+    meta = {"snippet": {"videoId": vid, "language": idioma, "isDraft": False,
+                        "name": "English" if idioma == "en" else "Español"}}
+    frontera = "catolicaid" + huella(vid, srt)[:12]
+    cuerpo = (f"--{frontera}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n{json.dumps(meta)}\r\n"
+              f"--{frontera}\r\nContent-Type: application/x-subrip; charset=UTF-8\r\n\r\n{srt}\r\n--{frontera}--\r\n")
+    try:
+        http("https://www.googleapis.com/upload/youtube/v3/captions?part=snippet&uploadType=multipart",
+             cuerpo.encode("utf-8"), {"Authorization": f"Bearer {tok}",
+                                      "Content-Type": f"multipart/related; boundary={frontera}"}, method="POST")
+        log("   Subtítulos subidos")
+        return "ok"
+    except urllib.error.HTTPError as e:
+        motivo = e.read().decode(errors="replace")[:300]
+        log(f"   Subtítulos no aceptados ({e.code}): {motivo}")
+        return f"error {e.code}: " + re.sub(r"\s+", " ", motivo)[:200]
+    except Exception as e:
+        log(f"   Subtítulos no subidos ({e})")
+        return f"error: {e}"[:200]
 
 
 # ---------- 5b. Miniatura ----------
@@ -1934,7 +2056,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     retrato = retrato if retrato.exists() else None
     bl = bloques(frs, total, gancho, cierre, bool(retrato))
     if idioma == "es":  # el inglés reutiliza las imágenes del día del español: no se pinta nada
-        generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha)
+        correcciones = {str(x.get("escena")): x.get("corregir", "") for x in hecho.get("repintar") or [] if x.get("escena")}
+        generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha, correcciones)
     presentes = {f["personaje"] for f in frs} | {k for e in g.get("escenas", []) for k in (e.get("personajes") or [])}
     visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta, retrato, presentes)
 
@@ -1986,6 +2109,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"],
                                 **({"reflexion": True} if f.get("reflexion") else {})} for f in frs],
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
+    if os.environ.get("GITHUB_RUN_ID"):  # para encontrar después la copia del vídeo (resumen semanal)
+        registro["run"] = os.environ["GITHUB_RUN_ID"]
     if idioma != "es":
         registro.update({"idioma": idioma, "libro": libro, "cita_es": ev["cita_es"]})
     if CUPO_AGOTADO:
@@ -1994,7 +2119,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         registro["modelos_voz"] = sorted(MODELOS_VOZ_USADOS)
     if AVISOS:
         registro["avisos"] = sorted(set(AVISOS))
-    for k in ("rehechos", "descartados"):  # historial de versiones anteriores del mismo día
+    for k in ("rehechos", "descartados", "repintar", "repintados", "musica_bloqueada"):  # historial de versiones anteriores del mismo día
         if k in hecho:
             registro[k] = hecho[k]
 

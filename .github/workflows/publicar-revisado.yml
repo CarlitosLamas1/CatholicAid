@@ -59,7 +59,7 @@ jobs:
         run: |
           git config user.name "gestor-catholicaid"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add episodios/
+          git add -A episodios/ biblioteca/dias/
           if ! git diff --cached --quiet; then
             git commit -q -m "Publicar revisado: ${{ steps.fechas.outputs.lista }}"
             git pull -q --rebase && git push -q

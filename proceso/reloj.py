@@ -10,6 +10,7 @@ Los horarios de GitHub (cron) pueden llegar horas tarde o no llegar. Este script
 4. «Comentarios» cada hora (responde como mucho uno, con ritmo humano).
 5. Canal en inglés (config «en».activo), siempre DESPUÉS de lo del español y sin bloquearlo: su vídeo de mañana
    (17:00–23:59 Madrid, cuando el español ya está hecho, o desde las 23:00 sin él) y su «Publicar revisado».
+6. «Evangelio de la semana» los domingos de 17:00 a 23:59 (Madrid), si el cron de las 15 UTC no llegó.
 Nunca duplica: no lanza nada que esté en marcha o se haya lanzado hace poco. Necesita GH_TOKEN.
 """
 import datetime as dt
@@ -129,6 +130,11 @@ def main():
         else:
             log(f"Instagram: nada que hacer (conectado={ig_conectado}).")
 
+    try:  # 6. Evangelio de la semana (domingo por la tarde), si el cron no llegó
+        semana(runs, ahora)
+    except Exception as e:
+        log(f"Semana: no se pudo lanzar ({e})")
+
     try:  # el inglés, lo último: si falla, lo del español ya está hecho
         ingles(runs, ahora, manana)
     except Exception as e:
@@ -158,6 +164,19 @@ def ingles(runs, ahora, manana):
         log("Inglés: hay una tirada en marcha o reciente; espero.")
         return
     lanzar("evangelio-ingles.yml", modo="diario", fecha=str(manana))
+
+
+def semana(runs, ahora):
+    """6. Resumen semanal: domingo de 17:00 a 23:59 (Madrid), si aún no hay registro de ese domingo."""
+    cfg = json.loads(open("config/personajes.json", encoding="utf-8").read()).get("resumen_semanal", {})
+    if not cfg.get("activo") or ahora.weekday() != 6 or not 17 <= ahora.hour <= 23:
+        return
+    if leer(f"resumenes/{ahora.date()}.json"):
+        log("Semana: hecho.")
+    elif reciente(runs, "Evangelio de la semana", 120):
+        log("Semana: en marcha o reciente; espero.")
+    else:
+        lanzar("resumen-semanal.yml")
 
 
 def comentarios(runs):

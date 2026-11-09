@@ -2,6 +2,7 @@ name: Comentarios
 
 # Responde comentarios de YouTube con ritmo humano (como mucho uno por pasada) y manda a Carlos los delicados.
 # Lo lanza el «Reloj» cada hora; simular=true solo escribe lo que respondería.
+# Además (proceso/youtube_tareas.py): el comentario del canal con la pregunta del día y la vigilancia de la música.
 on:
   workflow_dispatch:
     inputs:
@@ -16,6 +17,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: comentarios
@@ -32,16 +34,24 @@ jobs:
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - name: Responder
         run: python3 proceso/comentarios.py ${{ inputs.simular && '--simular' || '' }} ${{ inputs.ver && '--ver' || '' }}
+      - name: Comentario del canal y música reclamada
+        if: ${{ !inputs.simular && !inputs.ver }}
+        continue-on-error: true
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 proceso/youtube_tareas.py
       - name: Guardar estado
         if: always() && !inputs.simular && !inputs.ver
         run: |
           git config user.name "gestor-catholicaid"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A estado/ comentarios/pendientes.json 2>/dev/null; git add -A estado/ 2>/dev/null || true
+          git add -A estado/ comentarios/pendientes.json episodios/ 2>/dev/null; git add -A estado/ episodios/ 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -q -m "Comentarios: estado"
             git pull -q --rebase && git push -q

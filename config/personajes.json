@@ -39,7 +39,8 @@
   "_reflexion_reserva": "Solo si Gemini no puede escribir la reflexión en el ÚLTIMO intento del día (antes se reintenta): nunca sale un vídeo sin reflexión.",
   "reflexion_reserva": {
     "es": "Vuelve a leer en silencio estas palabras. ¿Qué te dice hoy el Señor a ti?",
-    "en": "Read these words again in silence. What is the Lord saying to you today?"
+    "en": "Read these words again in silence. What is the Lord saying to you today?",
+    "pt": "Volte a ler em silêncio estas palavras. O que o Senhor lhe diz hoje?"
   },
   "fondos_reflexion": [
     "D10",
@@ -55,7 +56,7 @@
     "max_por_video": 5
   },
   "volumen_musica": 0.1,
-  "_musica": "Solo grabaciones libres comprobadas en Wikimedia Commons (07/11/2026). QUITADA la de Bach «Well Tempered Clavier, Preludio n.º 1»: Content ID la identificó como la grabación de Wanda Landowska y bloqueó en todo el mundo el vídeo en inglés del 08/11. Antes de añadir una pista: comprobar intérprete y licencia (no grabaciones comerciales históricas) y poner su crédito en creditos_musica (CC BY obliga a citarla).",
+  "_musica": "Solo grabaciones libres comprobadas en Wikimedia Commons (07/11/2026). QUITADA la de Bach «Well Tempered Clavier, Preludio n.º 1»: Content ID la identificó como la grabación de Wanda Landowska y bloqueó en todo el mundo el vídeo en inglés del 08/11. Antes de añadir una pista: comprobar intérprete y licencia (no grabaciones comerciales históricas) y poner su crédito en creditos_musica (CC BY obliga a citarla). Desde el 09/11/2026 solo se usan pistas con crédito en creditos_musica, licencia libre en Commons y no vetadas: si YouTube bloquea un vídeo por la música, la pista se veta sola (estado/musica.json) y el vídeo se rehace con otra (proceso/youtube_tareas.py).",
   "musica": [
     "Erik Satie - gymnopedies - la 1 ere. lent et douloureux.ogg",
     "Clair de lune (Claude Debussy) Suite bergamasque.ogg",
@@ -505,5 +506,29 @@
         "voz_edge": "en-US-EricNeural"
       }
     }
+  },
+  "resumen_semanal": {
+    "_nota": "Cada domingo, los Evangelios de la semana (lunes a domingo, solo los aprobados y publicados) en un vídeo horizontal con capítulos (proceso/resumen_semanal.py, workflow «Evangelio de la semana»). Se publica a esta hora de Madrid del domingo. Español e inglés.",
+    "activo": true,
+    "hora": 20,
+    "minimo_dias": 5
+  },
+  "pt": {
+    "_nota": "Canal en portugués (Brasil) PREPARADO, sin activar. Ver guias/portugues.md: falta que Carlos cree el canal de YouTube y la cuenta de Instagram, y elegir la Biblia. Mismas voces por personaje que en español; acento brasileño.",
+    "activo": false,
+    "publicar_programado": true,
+    "pago_voz": false,
+    "acento": "natural Brazilian Portuguese accent (from São Paulo), clear and warm",
+    "evangelio_del_dia": "https://www.vaticannews.va/pt/evangelho-do-dia/{AAAA}/{MM}/{DD}.html",
+    "hora_publicacion": 1,
+    "listas": {
+      "Mateo": "Evangelho segundo São Mateus",
+      "Marcos": "Evangelho segundo São Marcos",
+      "Lucas": "Evangelho segundo São Lucas",
+      "Juan": "Evangelho segundo São João"
+    },
+    "titulo_lectura": "Proclamação do Evangelho de Jesus Cristo segundo {evangelista}.",
+    "hashtags": "#Shorts #EvangelhoDoDia #Evangelho #PalavraDeDeus #Catolico",
+    "instagram": "catolicaid_pt_official"
   }
 }

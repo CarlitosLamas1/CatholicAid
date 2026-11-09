@@ -1,0 +1,117 @@
+name: Evangelio de la semana
+
+# Cada domingo junta los vídeos diarios aprobados (lunes a domingo) en un vídeo horizontal con capítulos y lo sube
+# a YouTube programado a resumen_semanal.hora (Madrid). Español e inglés. El Reloj lo relanza si el cron no llega.
+on:
+  schedule:
+    - cron: "0 15 * * 0"
+  workflow_dispatch:
+    inputs:
+      domingo:
+        description: "Domingo AAAA-MM-DD (vacío = el último domingo)"
+        required: false
+        default: ""
+      idioma:
+        description: "es, en o todos"
+        required: false
+        default: "todos"
+      subir:
+        description: "Subir a YouTube"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: resumen-semanal
+  cancel-in-progress: false
+
+jobs:
+  semana:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Versión del sistema
+        id: sistema
+        run: echo "version=${ImageOS:-ubuntu}-${ImageVersion:-0}" >> "$GITHUB_OUTPUT"
+
+      - name: Recuperar paquetes de la caché
+        id: cache-apt
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/paquetes
+          key: apt-ffmpeg-${{ steps.sistema.outputs.version }}-v1
+
+      - name: Instalar herramientas
+        id: instalar
+        timeout-minutes: 20
+        run: |
+          if [ -n "$(ls ~/paquetes/*.deb 2>/dev/null)" ] && sudo dpkg -i ~/paquetes/*.deb > /dev/null 2>&1 \
+             && ffmpeg -hide_banner -filters 2>/dev/null | grep -q " ass "; then
+            echo "Instalado desde la caché"
+          else
+            for i in 1 2 3; do
+              if timeout 300 sudo apt-get update -qq && \
+                 timeout 300 sudo apt-get install -y -qq -o Acquire::Retries=3 -o APT::Keep-Downloaded-Packages=true ffmpeg fonts-dejavu-core fonts-dejavu-extra > /dev/null; then
+                break
+              fi
+              echo "Instalación lenta o fallida (intento $i); reintento"
+              [ $i = 3 ] && exit 1
+              sleep 20
+            done
+            mkdir -p ~/paquetes && cp /var/cache/apt/archives/*.deb ~/paquetes/ 2>/dev/null || true
+            echo "nuevos=$(ls ~/paquetes/*.deb 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+          fi
+          pip install -q --timeout 60 edge-tts pillow
+
+      - name: Guardar paquetes en la caché
+        if: steps.cache-apt.outputs.cache-hit != 'true' && steps.instalar.outputs.nuevos > 0
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: ~/paquetes
+          key: apt-ffmpeg-${{ steps.sistema.outputs.version }}-v1
+
+      - name: Montar y subir
+        run: |
+          ARGS="--idioma ${{ inputs.idioma || 'todos' }}"
+          if [ -n "${{ inputs.domingo }}" ]; then ARGS="$ARGS --domingo ${{ inputs.domingo }}"; fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.subir }}" != "true" ]; then ARGS="$ARGS --no-subir"; fi
+          python proceso/resumen_semanal.py $ARGS
+
+      - name: Guardar copia (30 días)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semana-${{ github.run_number }}
+          path: |
+            salida/semana-*/video.mp4
+            salida/semana-*/metadatos.json
+            salida/semana-*/subtitulos.srt
+            salida/semana-*/miniatura.jpg
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Guardar registro
+        if: always()
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add resumenes/ 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Evangelio de la semana: registro"
+            git pull -q --rebase && git push -q
+          fi

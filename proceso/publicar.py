@@ -12,6 +12,7 @@ Lee la revisión del día (revisiones/AAAA-MM-DD.json, la escribe la rutina «Re
 - No OK -> la primera vez rehace el vídeo (evangelio-diario) para que el revisor lo vuelva a mirar;
            la segunda, no se publica (no_publicar en el registro, se borra la release) y se avisa a Carlos.
 Si el registro tiene «no_publicar» (⛔ o /pausa), no se publica nada aunque haya OK.
+Si el revisor pide «repintar» escenas (imágenes mejorables), se borran, se rehace el vídeo una vez y se revisa de nuevo.
 Nunca cambia el texto del Evangelio.
 """
 import datetime as dt
@@ -45,6 +46,47 @@ def sh(*args, check=True):
     return subprocess.run(list(map(str, args)), check=check, capture_output=True, text=True)
 
 
+def guardar_en_main(mensaje):
+    """Sube ya el registro (y las imágenes borradas) ANTES de relanzar el vídeo: la nueva tirada lo lee de main."""
+    sh("git", "config", "user.name", "gestor-catholicaid")
+    sh("git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
+    sh("git", "add", "-A", "episodios/", "biblioteca/dias/")
+    if sh("git", "diff", "--cached", "--quiet", check=False).returncode == 0:
+        return
+    sh("git", "commit", "-q", "-m", mensaje)
+    for _ in range(3):
+        if sh("git", "pull", "-q", "--rebase", check=False).returncode == 0 and sh("git", "push", "-q", check=False).returncode == 0:
+            return
+    log("Aviso: no se pudo subir el registro antes de relanzar (lo intenta el paso «Guardar registro»).")
+
+
+def pedir_repintar(fecha, idioma, reg, rev):
+    """El revisor pide repintar escenas (rev["repintar"] = [{"escena": n, "corregir": "..."}]): se borran esas imágenes
+    del día y la nueva tirada las pinta otra vez con la corrección. Una sola vez por día, solo en español (el inglés
+    reutiliza las imágenes) y solo si da tiempo a revisarlo antes de publicar. Devuelve True si hay que rehacer."""
+    pedidas = [x for x in rev.get("repintar") or [] if isinstance(x, dict) and str(x.get("escena", "")).isdigit()]
+    if idioma != "es" or not pedidas or reg.get("repintados", 0) >= 1:
+        return False
+    publicar = dt.datetime.combine(dt.date.fromisoformat(fecha), dt.time(int(ev_mod.CFG.get("hora_publicacion", 7))),
+                                   ev_mod.MADRID)
+    if dt.datetime.now(ev_mod.MADRID) > publicar - dt.timedelta(hours=3):
+        log("Repintar: ya no da tiempo antes de publicar; se deja como está.")
+        return False
+    borradas = []
+    for x in pedidas:
+        for ext in ("jpg", "png"):
+            ruta = RAIZ / "biblioteca" / "dias" / f"{fecha}_e{int(x['escena'])}.{ext}"
+            if ruta.exists():
+                ruta.unlink()
+                borradas.append(ruta.name)
+    if not borradas:
+        return False
+    reg["repintar"] = [{"escena": int(x["escena"]), "corregir": str(x.get("corregir", ""))[:400]} for x in pedidas]
+    reg["repintados"] = reg.get("repintados", 0) + 1
+    log(f"Repintar: borradas {', '.join(borradas)}; el vídeo se rehace con las imágenes corregidas.")
+    return True
+
+
 def main():
     nombre = sys.argv[1].strip()
     fecha, idioma = avisos.idioma_de(nombre)
@@ -69,12 +111,26 @@ def main():
     cuando = avisos.fecha_txt(fecha)
     motivos = rev.get("motivos") or []
 
+    if rev.get("ok") and reg.get("revision") == "rechazada" and reg.get("repintar"):
+        log(f"El {nombre} se está rehaciendo con imágenes repintadas; espero a la nueva versión.")
+        return
+    repintar = (rev.get("ok") or reg.get("rehechos", 0) < MAX_REHECHOS) and pedir_repintar(fecha, idioma, reg, rev)
+    if rev.get("ok") and repintar:  # aprobado, pero con imágenes que se pueden arreglar: se repintan y se revisa otra vez
+        reg["revision"] = "rechazada"
+        guardar(ruta_reg, reg)
+        guardar_en_main(f"Repintar imágenes: {nombre}")
+        sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
+        sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
+        log(f"Revisión OK con imágenes a repintar: rehago el vídeo del {nombre}.")
+        return
+
     if not rev.get("ok"):
         n = reg.get("rehechos", 0)
         if n < MAX_REHECHOS:
             reg["rehechos"] = n + 1
             reg["revision"] = "rechazada"
             guardar(ruta_reg, reg)
+            guardar_en_main(f"Revisión no OK: rehacer {nombre}")
             sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
             sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
             log(f"Revisión no OK: rehago el vídeo del {nombre}.")
