@@ -104,5 +104,24 @@
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "9kNLiKYCy9w",
+    "url": "https://youtu.be/9kNLiKYCy9w",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-10T00:00:00Z",
+    "lista": {
+      "id": "PLf0BS8AtTKag",
+      "titulo": "Evangelio según san Lucas",
+      "url": "https://www.youtube.com/playlist?list=PLf0BS8AtTKag"
+    },
+    "lista_liturgica": {
+      "id": "PLM39u5xp5OPg",
+      "titulo": "Evangelio del día · Tiempo Ordinario",
+      "url": "https://www.youtube.com/playlist?list=PLM39u5xp5OPg"
+    },
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+  }
 }
