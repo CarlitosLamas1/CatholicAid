@@ -18,21 +18,16 @@ y su propio cupo gratuito de voz.
    Facebook nueva «CatolicAid Português». Después, una autorización en `docs/instagram.html` guarda todas las cuentas.
 3. Avisar al gestor. El gestor conecta YouTube (workflow «Conectar YouTube» con `CANAL=pt`) y hace el resto.
 
-## Decisión pendiente: qué Biblia usar
-En español usamos Torres Amat (1836) y en inglés la World English Bible: dos textos **de dominio público**.
-En portugués:
-- **Padre Antônio Pereira de Figueiredo** (1778–1790): católica y de dominio público, pero no hay una edición
-  digital limpia (solo escaneos antiguos de 1802–1821). Habría que pasarla a texto (los 4 evangelios, con OCR y
-  revisión), como se hizo con el Torres Amat, y actualizar la ortografía.
-- **Matos Soares** (1932, la católica clásica): aún con derechos.
-- Las traducciones litúrgicas actuales (CNBB, Ave-Maria, la de Vatican News): con derechos; no se pueden usar.
-- Traducciones libres modernas de eBible.org (p. ej. `porbr2018`): hay que confirmar licencia y que el texto de los
-  evangelios sea aceptable para un público católico.
-Recomendación del gestor: Figueiredo con ortografía actual (fiel y católica, como Torres Amat). Se puede preparar
-en paralelo mientras se crean las cuentas.
+## Biblia: Figueiredo actualizada (decidido por Carlos el 09/11/2026)
+- Texto de referencia: `biblia/figueiredo/` (Figueiredo, dominio público; OCR de la edición de 1950 publicado en
+  github.com/ronaldomelofz/abibliasagrada, extraído con `proceso/figueiredo.py`; tiene errores de OCR).
+- El vídeo usa solo la versión revisada y modernizada (`biblia/figueiredo/revisada/`, `texto_figueiredo` en
+  `evangelio.py`), con el criterio de `guias/revision-portugues.md`. Ya están las lecturas del 11 al 17/11.
+- Al activar el canal hará falta revisar cada semana las lecturas siguientes (como el Torres Amat en la rutina
+  «Gestor semanal»).
 
 ## Trabajo de código que falta al activarlo
-- `--idioma pt` en `evangelio.py` (texto, cita del día de Vatican News PT, títulos y descripción en portugués).
+- `--idioma pt` en `evangelio.py` (texto con `texto_figueiredo`, citas de biblia/citas.json, títulos y descripción en portugués).
 - `publicar.py`, `reloj.py`, `avisos.py`, `youtube_tareas.py`, `instagram.py`, `resumen_semanal.py`:
   hoy recorren «es» y «en»; añadir «pt» con las mismas reglas que el inglés.
 - Workflow «Evangelio diario (portugués)» copiado del inglés y criterio del revisor `proceso/criterio-revision-pt.md`

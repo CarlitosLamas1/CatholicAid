@@ -347,6 +347,24 @@ def texto_web(cita):
         "revisión parcial", "partly revised").replace("ortografía actualizada", "original text")
 
 
+NOMBRES_PT = {"Jesus", "Pedro", "Simão", "João", "Maria", "Deus", "Jerusalém", "Galileia", "Herodes", "Pilatos", "Zaqueu",
+              "Marta", "Tomé", "Filipe", "André", "Tiago", "Judas", "Lázaro", "Isabel"}
+
+
+def cargar_figueiredo(libro):
+    """Canal en portugués: Figueiredo (dominio público) ya extraído en biblia/figueiredo/ (proceso/figueiredo.py)."""
+    return json.loads((RAIZ / "biblia" / "figueiredo" / f"{libro.lower()}.json").read_text(encoding="utf-8"))
+
+
+def texto_figueiredo(cita):
+    """Portugués: SOLO con la versión revisada y modernizada completa (el OCR original tiene errores)."""
+    texto, fuente = texto_biblia(cita, cargar_figueiredo, RAIZ / "biblia" / "figueiredo" / "revisada", lambda t: t,
+                                 "Naquele tempo,", NOMBRES_PT, "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público)")
+    if "versión revisada" not in fuente:
+        raise ValueError(f"{cita}: falta la revisión en portugués (biblia/figueiredo/revisada/)")
+    return texto, "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid"
+
+
 def equilibrar_comillas(texto):
     """Solo signos, nunca palabras: la WEB abre “ en cada párrafo de un discurso largo sin cerrarlo antes, y un pasaje
     puede empezar o acabar en mitad de un discurso. Se quitan las “ repetidas y se abre/cierra la que falte."""
