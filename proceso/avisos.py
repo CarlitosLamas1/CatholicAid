@@ -227,11 +227,15 @@ def aviso_youtube_idioma(idioma):
         guardar_episodio(nombre, reg)
 
 
-def aviso_tiktok(fecha):
-    reg = episodio(fecha)
+def aviso_tiktok(nombre):
+    """nombre = AAAA-MM-DD (español, @catolicaid) o AAAA-MM-DD-en (inglés, @catolicaid_en)."""
+    fecha, idioma = idioma_de(nombre)
+    reg = episodio(nombre)
     priv = reg.get("tiktok", {}).get("privacidad", "")
     nota = " (visible solo para ti hasta que TikTok apruebe la app)" if priv == "SELF_ONLY" else ""
-    enviar(f"🎵 <b>Publicado en TikTok</b> · {e(fecha_txt(fecha))}{nota}\n📖 {e(reg.get('cita', ''))}\n🔗 {TIKTOK_PERFIL}")
+    perfil = TIKTOK_PERFIL if idioma == "es" else TIKTOK_PERFIL + "_" + idioma
+    enviar(f"🎵 <b>Publicado en TikTok</b> · {etiqueta(idioma)} · {e(fecha_txt(fecha))}{nota}\n"
+           f"📖 {e(reg.get('cita', ''))}\n🔗 {perfil}")
 
 
 def aviso_instagram(nombre):

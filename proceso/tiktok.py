@@ -9,6 +9,8 @@ Uso:
   python3 proceso/tiktok.py canjear <código>    -> canjea el código y guarda el permiso cifrado
   python3 proceso/tiktok.py comprobar           -> renueva el permiso y muestra la cuenta conectada
   python3 proceso/tiktok.py subir <video.mp4> "<texto>"
+Cuenta: TIKTOK_CUENTA=es (por defecto, @catolicaid, secretos/tiktok.enc) o en (@catolicaid_en, secretos/tiktok-en.enc).
+Las dos usan la misma app de TikTok (mismas claves).
 """
 import json
 import os
@@ -21,7 +23,16 @@ import urllib.request
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-FICHERO = RAIZ / "secretos" / "tiktok.enc"
+CUENTA = os.environ.get("TIKTOK_CUENTA", "es").strip() or "es"
+FICHERO = RAIZ / "secretos" / ("tiktok.enc" if CUENTA == "es" else f"tiktok-{CUENTA}.enc")
+PERFILES = {"es": "https://www.tiktok.com/@catolicaid", "en": "https://www.tiktok.com/@catolicaid_en"}
+
+
+def usar(cuenta):
+    """Cambia la cuenta con la que se trabaja (es / en)."""
+    global CUENTA, FICHERO
+    CUENTA = cuenta
+    FICHERO = RAIZ / "secretos" / ("tiktok.enc" if cuenta == "es" else f"tiktok-{cuenta}.enc")
 REDIRECT = "https://carlitoslamas1.github.io/CatholicAid/tiktok.html"
 ALCANCES = "user.info.basic,video.upload,video.publish"
 API = "https://open.tiktokapis.com/v2/"
@@ -72,7 +83,8 @@ def _token(campos):
 def url_autorizacion():
     return "https://www.tiktok.com/v2/auth/authorize/?" + urllib.parse.urlencode({
         "client_key": _clave(), "scope": ALCANCES, "response_type": "code",
-        "redirect_uri": REDIRECT, "state": "catolicaid"})
+        "redirect_uri": REDIRECT, "state": "catolicaid" if CUENTA == "es" else f"catolicaid-{CUENTA}",
+        "disable_auto_auth": "1"})
 
 
 def canjear(codigo):

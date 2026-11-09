@@ -1,6 +1,7 @@
 name: Publicar en TikTok
 
-# Cada mañana publica en TikTok el vídeo del día que dejó preparado «Evangelio diario» la tarde anterior.
+# Cada mañana publica en TikTok el vídeo del día que dejó preparado «Evangelio diario» la tarde anterior:
+# en español (@catolicaid) y, si está conectada, en inglés (@catolicaid_en, release en-AAAA-MM-DD).
 # 00:00 UTC = 1:00 en España en invierno (2:00 en verano), según hora_publicacion. El segundo es un reintento.
 # Los cron de GitHub se retrasan: el Reloj lo lanza igualmente desde la hora de publicación.
 on:
@@ -35,38 +36,63 @@ jobs:
         id: publicar
         run: |
           F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
-          if [ ! -f secretos/tiktok.enc ]; then echo "TikTok aún no está conectado."; exit 0; fi
-          if ! gh release view "tiktok-$F" >/dev/null 2>&1; then echo "No hay vídeo preparado para $F (ya publicado o no generado)."; exit 0; fi
-          # Solo con el OK del revisor (o de Carlos) y si no se ha pedido no publicar.
-          if python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('tiktok') else 1)" 2>/dev/null; then echo "Ya publicado en TikTok."; exit 0; fi
-          if ! python3 -c "import json,sys; r=json.load(open(f'revisiones/$F.json')); g=json.load(open(f'episodios/$F.json')); sys.exit(0 if r.get('ok') and not g.get('no_publicar') else 1)" 2>/dev/null; then
-            echo "El vídeo de $F no tiene el OK del revisor (o está marcado para no publicar): no se publica."; exit 0
-          fi
-          mkdir -p t && gh release download "tiktok-$F" -D t -p video.mp4
-          gh release view "tiktok-$F" --json body -q .body > t/texto.txt
-          python3 - "$F" <<'PY'
+          HECHOS=""
+          FALLO=0
+          # Español (@catolicaid, release tiktok-F) e inglés (@catolicaid_en, release en-F), cada uno con su permiso.
+          for L in es en; do
+            if [ "$L" = "en" ]; then N="$F-en"; REL="en-$F"; ENC=secretos/tiktok-en.enc; else N="$F"; REL="tiktok-$F"; ENC=secretos/tiktok.enc; fi
+            echo "::group::TikTok $L ($N)"
+            if [ ! -f "$ENC" ]; then echo "TikTok ($L) aún no está conectado."; echo "::endgroup::"; continue; fi
+            if ! gh release view "$REL" >/dev/null 2>&1; then echo "No hay vídeo preparado (ya publicado o no generado)."; echo "::endgroup::"; continue; fi
+            if python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$N.json')).get('tiktok') else 1)" 2>/dev/null; then echo "Ya publicado en TikTok."; echo "::endgroup::"; continue; fi
+            # Solo con el OK del revisor (o de Carlos) y si no se ha pedido no publicar.
+            if ! python3 -c "import json,sys; r=json.load(open(f'revisiones/$N.json')); g=json.load(open(f'episodios/$N.json')); sys.exit(0 if r.get('ok') and not g.get('no_publicar') else 1)" 2>/dev/null; then
+              echo "Sin OK del revisor (o marcado para no publicar): no se publica."; echo "::endgroup::"; continue
+            fi
+            rm -rf t && mkdir -p t && gh release download "$REL" -D t -p video.mp4
+            [ "$L" = "es" ] && gh release view "$REL" --json body -q .body > t/texto.txt
+            if TIKTOK_CUENTA=$L python3 - "$F" "$L" <<'PY'
           import json, sys
           from pathlib import Path
           sys.path.insert(0, "proceso")
           import tiktok
-          fecha = sys.argv[1]
+          fecha, idioma = sys.argv[1], sys.argv[2]
+          reg = Path(f"episodios/{fecha}{'-en' if idioma == 'en' else ''}.json")
+          d = json.loads(reg.read_text(encoding="utf-8")) if reg.exists() else {}
+          t = Path("t/texto.txt")
+          if idioma == "es" and t.exists() and t.read_text(encoding="utf-8").strip():
+              texto = t.read_text(encoding="utf-8")
+          else:  # inglés: el mismo texto que Instagram en inglés
+              a, m, dia = map(int, fecha.split("-"))
+              months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                        "October", "November", "December"]
+              frase = d.get("frase_clave", "")
+              texto = (f"“{frase}”\n\n" if frase else "") + (
+                  f"Gospel of the day · {months[m - 1]} {dia} · {d.get('cita', '')} 🙏\n\n{d.get('titulo', '')}\n"
+                  "Listen with your heart and share it with someone who needs it. ✝️\n\n"
+                  "#GospelOfTheDay #DailyGospel #Gospel #WordOfGod #Catholic #Faith #Jesus #God #Prayer")
           cfg = json.loads(Path("config/personajes.json").read_text(encoding="utf-8")).get("tiktok", {})
-          pid, estado, priv = tiktok.subir("t/video.mp4", Path("t/texto.txt").read_text(encoding="utf-8"),
-                                           cfg.get("privacidad", "PUBLIC_TO_EVERYONE"))
-          print("TikTok:", pid, estado, priv)
-          reg = Path(f"episodios/{fecha}.json")
+          pid, estado, priv = tiktok.subir("t/video.mp4", texto, cfg.get("privacidad", "PUBLIC_TO_EVERYONE"))
+          print("TikTok:", idioma, pid, estado, priv)
           if reg.exists():
-              d = json.loads(reg.read_text(encoding="utf-8"))
               d["tiktok"] = {"publish_id": pid, "estado": estado, "privacidad": priv}
               reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
           if estado == "FAILED":
               raise SystemExit("TikTok rechazó el vídeo")
           PY
-          # La release la comparten TikTok e Instagram: se borra cuando las dos han publicado.
-          if [ ! -f secretos/instagram.enc ] || python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('instagram') else 1)"; then
-            gh release delete "tiktok-$F" --yes --cleanup-tag
-          fi
-          echo "fecha=$F" >> "$GITHUB_OUTPUT"
+            then
+              HECHOS="$HECHOS $N"
+              # La release la comparten TikTok e Instagram: se borra cuando las dos han publicado.
+              if [ ! -f secretos/instagram.enc ] || python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$N.json')).get('instagram') else 1)"; then
+                gh release delete "$REL" --yes --cleanup-tag
+              fi
+            else
+              FALLO=1
+            fi
+            echo "::endgroup::"
+          done
+          echo "hechos=$HECHOS" >> "$GITHUB_OUTPUT"
+          exit $FALLO
       - name: Guardar
         if: always()
         run: |
@@ -78,10 +104,10 @@ jobs:
             git pull -q --rebase && git push -q
           fi
       - name: Avisar por Telegram (publicado en TikTok)
-        if: success() && steps.publicar.outputs.fecha != ''
+        if: always() && steps.publicar.outputs.hechos != ''
         continue-on-error: true
         timeout-minutes: 3
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
-        run: python3 proceso/avisos.py tiktok "${{ steps.publicar.outputs.fecha }}"
+        run: for N in ${{ steps.publicar.outputs.hechos }}; do python3 proceso/avisos.py tiktok "$N"; done

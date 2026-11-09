@@ -119,6 +119,9 @@ jobs:
             if [ "$L" = "es" ] && gh release view "tiktok-$F" >/dev/null 2>&1 && python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('instagram') else 1)" && { [ ! -f secretos/tiktok.enc ] || python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F.json')).get('tiktok') else 1)"; }; then
               gh release delete "tiktok-$F" --yes --cleanup-tag
             fi
+            if [ "$L" = "en" ] && [ -f secretos/tiktok-en.enc ] && gh release view "en-$F" >/dev/null 2>&1 && python3 -c "import json,sys; d=json.load(open('episodios/$F-en.json')); sys.exit(0 if d.get('instagram') and d.get('tiktok') else 1)"; then
+              gh release delete "en-$F" --yes --cleanup-tag
+            fi
             echo "::endgroup::"
           done
           echo "hechos=$HECHOS" >> "$GITHUB_OUTPUT"

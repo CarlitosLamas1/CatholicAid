@@ -9,6 +9,11 @@ on:
         description: "Código que muestra la página de CatolicAid tras autorizar (vacío = dame el enlace)"
         required: false
         default: ""
+      cuenta:
+        description: "Cuenta: es (@catolicaid) o en (@catolicaid_en)"
+        type: choice
+        options: [es, en]
+        default: es
 
 permissions:
   contents: write
@@ -21,13 +26,14 @@ jobs:
       TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
       TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
       CODIGO: ${{ inputs.codigo }}
+      TIKTOK_CUENTA: ${{ inputs.cuenta || 'es' }}
     steps:
       - uses: actions/checkout@v4
       - name: Enlace o canje
         run: |
           if [ -z "$CODIGO" ]; then
             URL=$(python3 proceso/tiktok.py url)
-            echo "Abre este enlace y autoriza con la cuenta de CatolicAid: $URL"
+            echo "Abre este enlace y autoriza con la cuenta de CatolicAid ($TIKTOK_CUENTA): $URL"
             echo "### Autorizar TikTok" >> "$GITHUB_STEP_SUMMARY"
             echo "[Abrir TikTok y autorizar]($URL)" >> "$GITHUB_STEP_SUMMARY"
           else
@@ -35,7 +41,7 @@ jobs:
             python3 proceso/tiktok.py comprobar
             git config user.name "gestor-catholicaid"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add secretos/tiktok.enc
-            git commit -q -m "TikTok conectado (permiso cifrado)"
+            git add secretos/tiktok*.enc
+            git commit -q -m "TikTok conectado ($TIKTOK_CUENTA, permiso cifrado)"
             git pull -q --rebase && git push -q
           fi
