@@ -5,7 +5,7 @@ Los horarios de GitHub (cron) pueden llegar horas tarde o no llegar. Este script
 («Reloj», lo despierta la rutina del revisor en la nube, que sí es puntual) y lanza lo que falte:
 1. Vídeo de mañana (16:00–23:59 Madrid): si no hay registro diario hecho, o el último intento falló o fue rechazado.
 2. «Publicar revisado»: si hay veredicto del revisor que aún no se ha aplicado.
-3. TikTok e Instagram (desde hora_publicacion de config, durante 12 h): si el vídeo de hoy tiene el OK, sigue preparado
+3. TikTok e Instagram (desde 2 h antes de hora_publicacion, esperando a la hora exacta, y durante 12 h): si el vídeo de hoy tiene el OK, sigue preparado
    y aún no está publicado en esa red. La release se borra cuando ya está en las dos.
 4. «Comentarios» cada hora (responde como mucho uno, con ritmo humano).
 5. Canal en inglés (config «en».activo), siempre DESPUÉS de lo del español y sin bloquearlo: su vídeo de mañana
@@ -99,9 +99,16 @@ def main():
         if pendiente and not reciente(runs, "Publicar revisado", 30):
             lanzar("publicar-revisado.yml", fecha=f"{f}-en")
 
-    # 3. TikTok de hoy
+    # 3. TikTok e Instagram. Se lanzan hasta 2 h ANTES de la hora de publicación con «esperar»: el workflow
+    # aguarda solo hasta la hora exacta (los cron de GitHub llegan tarde; así sale puntual). Y hasta 12 h después.
     hora = int(json.loads(open('config/personajes.json', encoding='utf-8').read()).get('hora_publicacion', 7))
-    if hora <= ahora.hour < hora + 12:
+    hoy, esperar = None, "false"
+    for d in (ahora.date(), ahora.date() + dt.timedelta(days=1)):
+        momento = dt.datetime.combine(d, dt.time(hora), MADRID)
+        if momento - dt.timedelta(hours=2) <= ahora < momento + dt.timedelta(hours=12):
+            hoy, esperar = d, ("true" if ahora < momento else "false")
+            break
+    if hoy:
         reg, rev = leer(f"episodios/{hoy}.json"), leer(f"revisiones/{hoy}.json")
         preparado = subprocess.run(["gh", "release", "view", f"tiktok-{hoy}"], capture_output=True).returncode == 0
         falta_tt = preparado and rev.get("ok") and not reg.get("no_publicar") and not reg.get("tiktok")
@@ -116,7 +123,7 @@ def main():
             if reciente(runs, "Publicar en TikTok", 30):
                 log("TikTok: en marcha o reciente; espero.")
             else:
-                lanzar("tiktok-publicar.yml", fecha=str(hoy))
+                lanzar("tiktok-publicar.yml", fecha=str(hoy), esperar=esperar)
         else:
             log(f"TikTok: nada que hacer (preparado={preparado}, ok={bool(rev.get('ok'))}).")
         # 3b. Instagram de hoy, español (mismo vídeo que TikTok) e inglés (release en-), con OK y sin publicar aún
@@ -134,7 +141,8 @@ def main():
             if reciente(runs, "Publicar en Instagram", 30):
                 log("Instagram: en marcha o reciente; espero.")
             else:
-                lanzar("instagram-publicar.yml", fecha=str(hoy), idioma=" ".join(falta) if len(falta) == 1 else "")
+                lanzar("instagram-publicar.yml", fecha=str(hoy), idioma=" ".join(falta) if len(falta) == 1 else "",
+                       esperar=esperar)
         else:
             log(f"Instagram: nada que hacer (conectado={ig_conectado}).")
 

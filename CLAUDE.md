@@ -36,6 +36,7 @@ Subtítulos karaoke (palabra resaltada; Jesús en dorado F5C542; alineador whisp
 - `publicar.py` sube el registro a main ANTES de relanzar el vídeo (antes la nueva tirada podía leer el registro viejo).
 - **Portugués**: preparado y apagado (`pt` en config, `TXT["pt"]`); pasos en `guias/portugues.md`. Biblia: **Figueiredo** (dominio público) actualizada a portugués de Brasil moderno («vocês», sin mesóclise), decidido por Carlos: referencia en `biblia/figueiredo/`, revisada en `biblia/figueiredo/revisada/` (criterio en `guias/revision-portugues.md`). Carlos está creando el canal de YouTube en portugués (09/11/2026).
 - Comentarios: `pendientes.json` solo se reescribe si cambia algo (antes, un commit vacío cada hora).
+- **Publicación puntual (10/11/2026, pedido por Carlos)**: el Reloj lanza «Publicar en TikTok» y «Publicar en Instagram» desde 2 h antes de `hora_publicacion` con `esperar=true`; el workflow espera solo hasta la hora exacta (`proceso/esperar.py`), refresca main y publica. Así no depende de que el cron de GitHub llegue a tiempo.
 
 ## Avisos por Telegram (`proceso/avisos.py`) · SOLO esto (decisión de Carlos, 05/11/2026: nada de extras salvo el aviso de fallo)
 Bot **@CatolicAid_bot**; token en el secreto `TELEGRAM_BOT_TOKEN`, chat de Carlos en la variable del repo `TELEGRAM_CHAT_ID` (1116384184). El bot solo avisa (no escucha ni tiene órdenes). Un aviso **nunca** bloquea: el módulo captura todo y sale con 0.

@@ -14,6 +14,10 @@ on:
         description: "Fecha AAAA-MM-DD (vacío = hoy)"
         required: false
         default: ""
+      esperar:
+        description: "Esperar a la hora de publicación antes de publicar (lo usa el Reloj)"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -25,13 +29,19 @@ concurrency:
 jobs:
   publicar:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 220
     env:
       GH_TOKEN: ${{ github.token }}
       TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
       TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
     steps:
       - uses: actions/checkout@v4
+      - name: Esperar a la hora de publicación
+        if: inputs.esperar == 'true' && inputs.fecha != ''
+        timeout-minutes: 190
+        run: |
+          python3 proceso/esperar.py "${{ inputs.fecha }}"
+          git pull -q --ff-only origin main || true  # lo que haya cambiado mientras esperaba (p. ej. ya publicado)
       - name: Publicar
         id: publicar
         run: |
