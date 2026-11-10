@@ -11,7 +11,9 @@ from zoneinfo import ZoneInfo
 
 MADRID = ZoneInfo("Europe/Madrid")
 cfg = json.loads((Path(__file__).resolve().parent.parent / "config" / "personajes.json").read_text(encoding="utf-8"))
-objetivo = dt.datetime.combine(dt.date.fromisoformat(sys.argv[1]), dt.time(int(cfg.get("hora_publicacion", 7))), MADRID)
+v = cfg.get("hora_publicacion", 7)
+hora = dt.time(*map(int, v.split(":")[:2])) if isinstance(v, str) else dt.time(int(v))
+objetivo = dt.datetime.combine(dt.date.fromisoformat(sys.argv[1]), hora, MADRID)
 falta = (objetivo - dt.datetime.now(MADRID)).total_seconds()
 if 0 < falta <= 3 * 3600:
     print(f"Espero {falta / 60:.0f} min hasta las {objetivo:%H:%M} del {objetivo:%d/%m} (Madrid)", flush=True)

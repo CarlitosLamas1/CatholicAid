@@ -101,10 +101,11 @@ def main():
 
     # 3. TikTok e Instagram. Se lanzan hasta 2 h ANTES de la hora de publicación con «esperar»: el workflow
     # aguarda solo hasta la hora exacta (los cron de GitHub llegan tarde; así sale puntual). Y hasta 12 h después.
-    hora = int(json.loads(open('config/personajes.json', encoding='utf-8').read()).get('hora_publicacion', 7))
+    v = json.loads(open('config/personajes.json', encoding='utf-8').read()).get('hora_publicacion', 7)
+    hora = dt.time(*map(int, v.split(":")[:2])) if isinstance(v, str) else dt.time(int(v))
     hoy, esperar = None, "false"
     for d in (ahora.date(), ahora.date() + dt.timedelta(days=1)):
-        momento = dt.datetime.combine(d, dt.time(hora), MADRID)
+        momento = dt.datetime.combine(d, hora, MADRID)
         if momento - dt.timedelta(hours=2) <= ahora < momento + dt.timedelta(hours=12):
             hoy, esperar = d, ("true" if ahora < momento else "false")
             break

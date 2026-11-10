@@ -89,7 +89,7 @@ def pedir_repintar(fecha, idioma, reg, rev):
         pedidas = repintar_de_avisos(rev, fecha)
     if idioma != "es" or not pedidas or reg.get("repintados", 0) >= 1:
         return False
-    publicar = dt.datetime.combine(dt.date.fromisoformat(fecha), dt.time(int(ev_mod.CFG.get("hora_publicacion", 7))),
+    publicar = dt.datetime.combine(dt.date.fromisoformat(fecha), ev_mod.hora_pub(),
                                    ev_mod.MADRID)
     if dt.datetime.now(ev_mod.MADRID) > publicar - dt.timedelta(hours=3):
         log("Repintar: ya no da tiempo antes de publicar; se deja como está.")
@@ -198,7 +198,7 @@ def main():
         log(f"Listas/miniatura no completadas ({ex})")
     guardar(ruta_reg, reg)
     log(f"Subido: https://youtu.be/{vid} ({estado['privacyStatus']})")
-    hora = f"{int(ev_mod.CFG.get('hora_publicacion', 7)):02d}:00"
+    hora = ev_mod.hora_pub(idioma).strftime("%H:%M")
     cuando_yt = f"programado a las {hora}" if estado.get("publishAt") else f"queda {estado['privacyStatus']}"
     nota = "" if rev.get("por") == "Carlos" else "\n🔎 Revisado por el revisor: todo correcto."
     if idioma == "es":

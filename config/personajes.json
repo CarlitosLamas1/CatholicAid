@@ -26,8 +26,8 @@
     "resalte_otros": "FFE6A6",
     "resalte_reflexion": "FFFFFF"
   },
-  "hora_publicacion": 1,
-  "hora_publicacion_en": 1,
+  "hora_publicacion": "00:05",
+  "hora_publicacion_en": "00:05",
   "max_segundos_imagen": 16,
   "gancho_segundos": 2.8,
   "_gancho_ab": "Prueba A/B del gancho (desde la rama mejoras-ingles): días pares e impares con distinta duración. Si se quita gancho_ab, se usa gancho_segundos. Cómo compararlo: guias/gancho-ab.md.",
@@ -521,7 +521,7 @@
     "pago_voz": false,
     "acento": "natural Brazilian Portuguese accent (from São Paulo), clear and warm",
     "evangelio_del_dia": "https://www.vaticannews.va/pt/evangelho-do-dia/{AAAA}/{MM}/{DD}.html",
-    "hora_publicacion": 1,
+    "hora_publicacion": "00:05",
     "listas": {
       "Mateo": "Evangelho segundo São Mateus",
       "Marcos": "Evangelho segundo São Marcos",

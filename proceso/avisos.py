@@ -148,7 +148,8 @@ def config():
 
 def hora_publicacion(idioma="es"):
     cfg = config()
-    return int(cfg.get("hora_publicacion" if idioma == "es" else f"hora_publicacion_{idioma}", cfg.get("hora_publicacion", 7)))
+    v = cfg.get("hora_publicacion" if idioma == "es" else f"hora_publicacion_{idioma}", cfg.get("hora_publicacion", 7))
+    return v if isinstance(v, str) else f"{int(v):02d}:00"
 
 
 # ---------- Avisos ----------
@@ -167,14 +168,14 @@ def aviso_listo():
               f"📖 {e(reg.get('cita', ''))} · ⏱️ {int(dur // 60)}:{int(dur % 60):02d}"]
     if reg.get("modo") == "diario" and idioma == "en":
         if config().get("en", {}).get("publicar_programado"):
-            lineas.append(f"📅 Se publicará el {e(fecha_txt(reg['fecha']))} a las {hora_publicacion('en')}:00 en "
+            lineas.append(f"📅 Se publicará el {e(fecha_txt(reg['fecha']))} a las {hora_publicacion('en')} en "
                           "<b>YouTube (CatolicAid English)</b>, si el revisor automático lo aprueba.")
         else:
             lineas.append("🔒 Estreno: si el revisor lo aprueba, se sube a <b>CatolicAid English</b> en PRIVADO "
                           "(no se publica hasta que tú lo digas).")
         lineas.append(f"🔗 También aquí: https://github.com/CarlitosLamas1/CatholicAid/releases/tag/en-{reg['fecha']}")
     elif reg.get("modo") == "diario":
-        lineas.append(f"📅 Se publicará el {e(fecha_txt(reg['fecha']))} a las {hora_publicacion()}:00 en "
+        lineas.append(f"📅 Se publicará el {e(fecha_txt(reg['fecha']))} a las {hora_publicacion()} en "
                       "<b>YouTube</b>, <b>TikTok</b> e <b>Instagram</b>, si el revisor automático lo aprueba.")
         lineas.append(f"🔗 También aquí: https://github.com/CarlitosLamas1/CatholicAid/releases/tag/tiktok-{reg['fecha']}")
     else:

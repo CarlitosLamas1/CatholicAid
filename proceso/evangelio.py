@@ -89,6 +89,19 @@ def aplicar_idioma(idioma):
     CFG["hora_publicacion"] = CFG.get(f"hora_publicacion_{idioma}", CFG.get("hora_publicacion", 7))
 
 
+def a_hora(v):
+    """hora_publicacion de config: «00:05» (o un número de hora, como antes) -> dt.time."""
+    if isinstance(v, str) and ":" in v:
+        h, m = v.split(":")[:2]
+        return dt.time(int(h), int(m))
+    return dt.time(int(v))
+
+
+def hora_pub(idioma="es"):
+    return a_hora(CFG.get("hora_publicacion" if idioma == "es" else f"hora_publicacion_{idioma}",
+                          CFG.get("hora_publicacion", 7)))
+
+
 def fecha_larga(fecha):
     if IDIOMA == "en":
         return f"{DAYS[fecha.weekday()]}, {MONTHS[fecha.month - 1]} {fecha.day}"
@@ -1687,8 +1700,7 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
     estado = {"privacyStatus": "private", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}
     programar = idioma == "es" or CFG.get(idioma, {}).get("publicar_programado")  # inglés: estreno solo en privado
     if modo == "diario" and programar:
-        hora = dt.datetime.combine(fecha, dt.time(int(CFG.get(f"hora_publicacion_{idioma}" if idioma != "es"
-                                                               else "hora_publicacion", CFG.get("hora_publicacion", 7)))), MADRID)
+        hora = dt.datetime.combine(fecha, hora_pub(idioma), MADRID)
         if hora > dt.datetime.now(MADRID) + dt.timedelta(minutes=30):
             estado["publishAt"] = hora.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         elif fecha >= dt.datetime.now(MADRID).date():
