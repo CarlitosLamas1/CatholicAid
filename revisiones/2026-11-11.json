@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-11-11",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-10T01:00:11+01:00",
+  "revisado": "2026-11-10T01:35:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "El fragmento 7 (palabras de Jesús, 5,3 s) va algo rápido: 26,2 car/s, dentro del límite."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 17, 11-19 coincide con citas.json",
+    "voces": "✅ Jesús, multitud y narrador correctos",
+    "frase_clave": "✅ literal, de Jesús, 6 palabras",
+    "reflexion": "✅ 28 palabras, cálida, doctrinalmente correcta, ligada a la lectura",
+    "tecnica": "✅ 78,9 s; -14,0 LUFS",
+    "audio": "✅ más lento: frag. 10 (6,8 car/s, 2,7 s, normal); más rápido: frag. 7 (26,2 car/s)",
+    "imagenes": "✅ 3 acuarelas devocionales, coherentes, sin defectos graves",
+    "metadatos": "✅ fecha, cita y título de san Lucas coherentes"
+  }
+}
