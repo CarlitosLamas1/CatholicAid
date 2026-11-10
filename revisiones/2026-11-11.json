@@ -2,20 +2,21 @@
   "fecha": "2026-11-11",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-10T01:00:11+01:00",
-  "revisado": "2026-11-10T01:35:00+01:00",
+  "generado": "2026-11-10T02:49:15+01:00",
+  "revisado": "2026-11-10T03:40:00+01:00",
   "motivos": [],
   "avisos": [
-    "El fragmento 7 (palabras de Jesús, 5,3 s) va algo rápido: 26,2 car/s, dentro del límite."
+    "Imagen de la escena 1: Jesús aparece mezclado con los diez leprosos en lugar de verlos a lo lejos, y no se aprecia su enfermedad; es mejorable pero devocional y sin defectos graves.",
+    "Fragmento 7 (\". Y le dijo:\", 4 s) va lento: 3,0 car/s; es corto, así que es normal."
   ],
   "puntos": {
     "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 17, 11-19 coincide con citas.json",
-    "voces": "✅ Jesús, multitud y narrador correctos",
+    "voces": "✅ narrador, multitud y Jesús correctos",
     "frase_clave": "✅ literal, de Jesús, 6 palabras",
-    "reflexion": "✅ 28 palabras, cálida, doctrinalmente correcta, ligada a la lectura",
-    "tecnica": "✅ 78,9 s; -14,0 LUFS",
-    "audio": "✅ más lento: frag. 10 (6,8 car/s, 2,7 s, normal); más rápido: frag. 7 (26,2 car/s)",
-    "imagenes": "✅ 3 acuarelas devocionales, coherentes, sin defectos graves",
+    "reflexion": "✅ 30 palabras, cálida, doctrinalmente correcta, ligada a la lectura",
+    "tecnica": "✅ 82,5 s; -14,0 LUFS",
+    "audio": "✅ más lento en fragmento largo: frag. 6 (12,3 car/s, 11,4 s); más rápido: frag. 10 (17,2 car/s); sin anomalías",
+    "imagenes": "⚠️ 3 acuarelas devocionales; la 1 mejorable (ver aviso)",
     "metadatos": "✅ fecha, cita y título de san Lucas coherentes"
   }
 }
