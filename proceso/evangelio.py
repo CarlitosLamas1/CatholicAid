@@ -1389,7 +1389,9 @@ def musica_vetada():
 
 
 def vetar_musica(nombre, motivo):
-    datos = {"vetadas": musica_vetada()}
+    datos = musica_estado()
+    datos.setdefault("vetadas", {})
+    datos.get("aprobadas", {}).pop(nombre.replace(" ", "_"), None)
     datos["vetadas"][nombre.replace(" ", "_")] = {"motivo": motivo, "fecha": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
     MUSICA_VETADA.parent.mkdir(exist_ok=True)
     MUSICA_VETADA.write_text(json.dumps(datos, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -1404,32 +1406,55 @@ def licencia_commons(nombre):
     return " ".join(meta.get(k, {}).get("value", "") for k in ("LicenseShortName", "License"))
 
 
+def musica_estado():
+    try:
+        return json.loads(MUSICA_VETADA.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def musica_aprobada():
+    """Candidatas (musica_candidatas de config) que ya pasaron la prueba privada en YouTube sin reclamaciones."""
+    return set(musica_estado().get("aprobadas", {}))
+
+
+def descargar_musica(nombre):
+    """Pista de Wikimedia Commons en musica/ (si no está ya), solo con licencia libre. Devuelve la ruta o None."""
+    nombre = nombre.replace(" ", "_")
+    ruta = RAIZ / "musica" / nombre
+    if ruta.exists():
+        return ruta
+    lic = licencia_commons(nombre)
+    if not LICENCIAS_LIBRES.search(lic):
+        log(f"   Música {nombre}: licencia no libre o desconocida en Commons ({lic[:80] or '?'}); la salto")
+        return None
+    url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(nombre)
+    datos = http(url, raw=True, timeout=180)[1]
+    ruta.parent.mkdir(exist_ok=True)
+    ruta.write_bytes(datos)
+    return ruta
+
+
 def musica_del_dia(fecha):
     """Música clásica de dominio público (Wikimedia Commons), rotando por días; se guarda en musica/.
-    Solo valen las pistas comprobadas a mano (con su crédito en creditos_musica), con licencia libre en Commons y que
-    YouTube no haya reclamado nunca (estado/musica.json). Si la del día no vale, se usa la siguiente."""
+    Solo valen: las pistas de «musica» (ya publicadas sin problemas) y las candidatas que pasaron la prueba privada en
+    YouTube (proceso/youtube_tareas.py); siempre con crédito en creditos_musica, licencia libre en Commons y nunca
+    vetadas (estado/musica.json). Si la del día no vale, se usa la siguiente."""
     vetadas = musica_vetada()
     creditos = {k.replace(" ", "_") for k in CFG.get("creditos_musica", {})}
+    aprobadas = musica_aprobada()
     pistas = [x.replace(" ", "_") for x in CFG.get("musica", [])]
-    pistas = [x for x in pistas if x not in vetadas and x in creditos]
+    pistas += [x.replace(" ", "_") for x in CFG.get("musica_candidatas", []) if x.replace(" ", "_") in aprobadas]
+    pistas = [x for x in dict.fromkeys(pistas) if x not in vetadas and x in creditos]
     if not pistas:
         log("   Sin música: ninguna pista comprobada disponible")
         return None
     inicio = fecha.toordinal() % len(pistas)
     for nombre in pistas[inicio:] + pistas[:inicio]:
-        ruta = RAIZ / "musica" / nombre
-        if ruta.exists():
-            return ruta
         try:
-            lic = licencia_commons(nombre)
-            if not LICENCIAS_LIBRES.search(lic):
-                log(f"   Música {nombre}: licencia no libre o desconocida en Commons ({lic[:80] or '?'}); la salto")
-                continue
-            url = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(nombre)
-            datos = http(url, raw=True, timeout=180)[1]
-            ruta.parent.mkdir(exist_ok=True)
-            ruta.write_bytes(datos)
-            return ruta
+            ruta = descargar_musica(nombre)
+            if ruta:
+                return ruta
         except Exception as e:
             log(f"   Música {nombre} no disponible ({e})")
     return None

@@ -146,6 +146,11 @@ def main():
         else:
             log(f"Instagram: nada que hacer (conectado={ig_conectado}).")
 
+    try:  # 7. Música nueva por probar
+        musica(runs)
+    except Exception as e:
+        log(f"Música: no se pudo lanzar ({e})")
+
     try:  # 6. Evangelio de la semana (domingo por la tarde), si el cron no llegó
         semana(runs, ahora)
     except Exception as e:
@@ -193,6 +198,15 @@ def semana(runs, ahora):
         log("Semana: en marcha o reciente; espero.")
     else:
         lanzar("resumen-semanal.yml")
+
+
+def musica(runs):
+    """7. Piezas nuevas sin probar (musica_candidatas): se lanza «Probar música» (como mucho cada 6 h)."""
+    cfg = json.loads(open("config/personajes.json", encoding="utf-8").read())
+    est = leer("estado/musica.json")
+    hechas = set(est.get("vetadas", {})) | set(est.get("aprobadas", {})) | set(est.get("pruebas", {}))
+    if any(x.replace(" ", "_") not in hechas for x in cfg.get("musica_candidatas", [])) and not reciente(runs, "Probar música", 360):
+        lanzar("probar-musica.yml")
 
 
 def comentarios(runs):

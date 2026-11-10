@@ -7,6 +7,7 @@
 2. Música reclamada: si Content ID bloquea o rechaza el vídeo de hoy o de mañana por la música, esa grabación queda
    vetada para siempre (estado/musica.json), se borra el vídeo de YouTube y se rehace con otra pista (el revisor lo
    vuelve a mirar y se publica igual que siempre). Una sola vez por día.
+3. Música nueva: comprueba las pruebas privadas de proceso/probar_musica.py (aprobada o vetada) y las borra.
 Nada de esto bloquea ni avisa por Telegram. Uso: python3 proceso/youtube_tareas.py
 """
 import datetime as dt
@@ -142,6 +143,36 @@ def musica_reclamada(tok, idioma, fecha):
     log(f"   Rehago el vídeo del {nombre} con otra música.")
 
 
+def pruebas_musica(tok):
+    """Pruebas privadas de música nueva (proceso/probar_musica.py): pasadas 3 h, aprobada o vetada, y se borra."""
+    est = ev.musica_estado()
+    cambios = False
+    for nombre, p in list(est.get("pruebas", {}).items()):
+        if dt.datetime.now(ev.MADRID) - dt.datetime.fromisoformat(p["subido"]) < dt.timedelta(hours=3):
+            continue
+        item = estado_video(tok, p["video"])
+        motivo = bloqueado(item) if item else ""
+        if item and item.get("status", {}).get("uploadStatus") not in ("processed", "rejected"):
+            log(f"Música {nombre}: la prueba aún se está procesando")
+            continue
+        est["pruebas"].pop(nombre)
+        if motivo or not item:
+            est.setdefault("vetadas", {})[nombre] = {"motivo": f"prueba privada: {motivo or 'vídeo desaparecido'}",
+                                                    "fecha": dt.datetime.now(ev.MADRID).isoformat(timespec="seconds")}
+            log(f"Música {nombre}: VETADA ({motivo or 'vídeo desaparecido'})")
+        else:
+            est.setdefault("aprobadas", {})[nombre] = {"fecha": dt.datetime.now(ev.MADRID).isoformat(timespec="seconds"),
+                                                      "prueba": p["video"]}
+            log(f"Música {nombre}: aprobada, entra en la rotación")
+        try:
+            ev.http(YT + f"videos?id={p['video']}", headers={"Authorization": f"Bearer {tok}"}, method="DELETE", raw=True)
+        except Exception as e:
+            log(f"   No se pudo borrar la prueba {p['video']} ({e})")
+        cambios = True
+    if cambios:
+        ev.MUSICA_VETADA.write_text(json.dumps(est, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def main():
     hoy = dt.datetime.now(ev.MADRID).date()
     for idioma in ("es", "en"):
@@ -153,6 +184,11 @@ def main():
         except Exception as e:
             log(f"YouTube ({idioma}): sin permiso ({e})")
             continue
+        if idioma == "es":
+            try:
+                pruebas_musica(tok)
+            except Exception as e:
+                log(f"pruebas_musica: {type(e).__name__}: {e}")
         for tarea, args in ((musica_reclamada, (hoy,)), (musica_reclamada, (hoy + dt.timedelta(days=1),)),
                             (comentario_canal, (hoy,))):
             try:
