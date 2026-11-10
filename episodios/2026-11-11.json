@@ -162,5 +162,25 @@
     "motivo": "bloqueado en 249 países",
     "fecha": "2026-11-10T02:32:55+01:00"
   },
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "Mo_PZXTCreU",
+    "url": "https://youtu.be/Mo_PZXTCreU",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-11T00:00:00Z",
+    "lista": {
+      "id": "PLf0BS8AtTKag",
+      "titulo": "Evangelio según san Lucas",
+      "url": "https://www.youtube.com/playlist?list=PLf0BS8AtTKag"
+    },
+    "lista_liturgica": {
+      "id": "PLM39u5xp5OPg",
+      "titulo": "Evangelio del día · Tiempo Ordinario",
+      "url": "https://www.youtube.com/playlist?list=PLM39u5xp5OPg"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
+  }
 }
