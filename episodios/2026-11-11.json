@@ -6,15 +6,16 @@
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
   "guion": "gemini-3.8-flash",
   "voces": "gemini",
-  "peticiones_voz": 12,
-  "musica": "Gymnopédie_no.3.ogg",
-  "duracion_s": 78.9,
+  "peticiones_voz": 11,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 82.5,
   "imagenes": [
     "dias/2026-11-11_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-11_e1.jpg",
     "biblioteca/G16",
     "dias/2026-11-11_e2.jpg",
+    "biblioteca/D04",
     "dias/2026-11-11_e3.jpg",
     "biblioteca/D02",
     "evangelistas/lucas.jpg",
@@ -22,7 +23,7 @@
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "Levántate, vete; tu fe te ha salvado.",
-  "reflexion": "A veces pedimos mucho y agradecemos poco. Hoy el Señor te invita a reconocer sus dones y volver a Él con un corazón agradecido. ¿Por qué das gracias hoy?",
+  "reflexion": "Agradecer los dones de Dios transforma nuestra vida y nos abre a la salvación. ¿Te acuerdas hoy de volver a Jesús para darle las gracias por todo lo que hace por ti?",
   "lufs": -14.0,
   "gancho_segundos": 1.5,
   "subtitulos_karaoke": true,
@@ -30,7 +31,7 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus pauses near the entrance of a village as ten lepers call out to Him from a distance with pleading eyes.",
+      "descripcion": "Ten lepers stand at a distance on a sunlit road between Samaria and Galilee, crying out to Jesus with hopeful eyes as He looks upon them with mercy.",
       "busqueda": "ten lepers",
       "personajes": [
         "jesus",
@@ -39,16 +40,17 @@
     },
     {
       "numero": 2,
-      "descripcion": "The lepers walking on a sunny path, gazing at their cleansed hands with astonishment and joy.",
-      "busqueda": "lepers healed",
+      "descripcion": "A healed Samaritan falls prostrate with his face to the ground at the feet of Jesus, weeping tears of profound gratitude and joy.",
+      "busqueda": "grateful leper",
       "personajes": [
-        "multitud"
+        "jesus",
+        "hombre"
       ]
     },
     {
       "numero": 3,
-      "descripcion": "The healed Samaritan prostrating at the feet of Jesus in deep gratitude, while the Master looks down at him with tender affection.",
-      "busqueda": "thankful leper",
+      "descripcion": "Jesus gently reaches out His hand to lift the kneeling Samaritan, speaking words of peace and blessing with tender affection under the bright open sky.",
+      "busqueda": "healing leper Jesus",
       "personajes": [
         "jesus",
         "hombre"
@@ -67,84 +69,78 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 5.67,
+      "inicio": 6.34,
       "texto": "En aquel tiempo, caminando Jesús hacia Jerusalén, pasaba entre Samaría y Galilea. Y, al entrar en un pueblo, le salieron al encuentro diez leprosos, que se pararon a lo lejos y levantaron la voz, diciendo:"
     },
     {
       "personaje": "multitud",
       "escena": 1,
-      "inicio": 18.92,
+      "inicio": 20.5,
       "texto": "“Jesús, maestro, ten compasión de nosotros”"
     },
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 23.18,
+      "inicio": 24.7,
       "texto": ". Al verlos, Jesús les dijo:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 25.39,
+      "inicio": 27.8,
       "texto": "“Id a presentaros a los sacerdotes”"
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 28.64,
-      "texto": ". Y, mientras iban, quedaron limpios."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 3,
-      "inicio": 31.75,
-      "texto": "Uno de ellos, al ver que estaba curado, se volvió glorificando a Dios a grandes voces, y se postró a los pies de Jesús, rostro en tierra, dándole gracias. Y este era un samaritano. Jesús dijo entonces:"
+      "inicio": 31.27,
+      "texto": ". Y, mientras iban, quedaron limpios. Uno de ellos, al ver que estaba curado, se volvió glorificando a Dios a grandes voces, y se postró a los pies de Jesús, rostro en tierra, dándole gracias. Y este era un samaritano. Jesús dijo entonces:"
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 49.56,
+      "inicio": 48.42,
       "texto": "“¿No han quedado limpios los diez? Y los otros nueve, ¿dónde están? ¿No ha habido quien volviera a dar gloria a Dios, sino este extranjero?”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 54.91,
+      "inicio": 59.82,
       "texto": ". Y le dijo:"
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 56.06,
+      "inicio": 63.83,
       "texto": "“Levántate, vete; tu fe te ha salvado”."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 60.55,
+      "inicio": 68.33,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 63.2,
-      "texto": "A veces pedimos mucho y agradecemos poco. Hoy el Señor te invita a reconocer sus dones y volver a Él con un corazón agradecido. ¿Por qué das gracias hoy?",
+      "inicio": 72.93,
+      "texto": "Agradecer los dones de Dios transforma nuestra vida y nos abre a la salvación. ¿Te acuerdas hoy de volver a Jesús para darle las gracias por todo lo que hace por ti?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-10T01:00:11+01:00",
-  "run": "42722595109",
+  "generado": "2026-11-10T02:49:15+01:00",
+  "run": "42736567411",
   "cupo_agotado": [
     "gemini-2.5-flash-preview-tts"
   ],
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
-  "revision": "rechazada",
   "musica_bloqueada": {
     "video": "8smuNEWB63A",
     "pista": "Gymnopédie_no.3.ogg",
     "motivo": "bloqueado en 249 países",
     "fecha": "2026-11-10T02:32:55+01:00"
-  }
+  },
+  "revision": "pendiente"
 }
