@@ -1,9 +1,142 @@
 {
   "fecha": "2026-11-11",
-  "idioma": "en",
   "modo": "diario",
-  "estado": "fallido",
-  "error": "No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.",
-  "cupo_agotado": [],
-  "intento": "2026-11-10T03:33:40+01:00"
+  "cita": "Luke 17:11-19",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/11.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 11,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 82.4,
+  "imagenes": [
+    "dias/2026-11-11_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-11_e1.jpg",
+    "biblioteca/G16",
+    "dias/2026-11-11_e2.jpg",
+    "biblioteca/D06",
+    "dias/2026-11-11_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R05",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Your faith has healed you.",
+  "reflexion": "Gratitude opens your heart to receive God's deepest blessings. Today, take a quiet moment to thank the Lord for all the ways He has healed and guided your life.",
+  "lufs": -14.1,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Ten lepers stand at a distance along a sunlit country road, crying out with hope toward Jesus who looks upon them with deep compassion.",
+      "busqueda": "ten lepers",
+      "personajes": [
+        "jesus",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A healed Samaritan man kneels in the dust at the feet of Jesus, weeping with immense gratitude and praising God joyfully.",
+      "busqueda": "healed samaritan",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus extends a gentle hand to raise the kneeling Samaritan, smiling with warmth and blessing him with peaceful tenderness.",
+      "busqueda": "Jesus raises samaritan",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, as he was on his way to Jerusalem, he was passing along the borders of Samaria and Galilee. As he entered into a certain village, ten men who were lepers met him, who stood at a distance. They lifted up their voices, saying, “Jesus, Master, have mercy on us!” When he saw them, he said to them, “Go and show yourselves to the priests.” As they went, they were cleansed. One of them, when he saw that he was healed, turned back, glorifying God with a loud voice. He fell on his face at Jesus’ feet, giving him thanks; and he was a Samaritan. Jesus answered, “Weren’t the ten cleansed? But where are the nine? Were there none found who returned to give glory to God, except this foreigner?” Then he said to him, “Get up, and go your way. Your faith has healed you.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 6.3,
+      "texto": "At that time, as he was on his way to Jerusalem, he was passing along the borders of Samaria and Galilee. As he entered into a certain village, ten men who were lepers met him, who stood at a distance. They lifted up their voices, saying,"
+    },
+    {
+      "personaje": "multitud",
+      "escena": 1,
+      "inicio": 24.99,
+      "texto": "“Jesus, Master, have mercy on us!”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 28.1,
+      "texto": "When he saw them, he said to them,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 30.93,
+      "texto": "“Go and show yourselves to the priests.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 34.15,
+      "texto": "As they went, they were cleansed. One of them, when he saw that he was healed, turned back, glorifying God with a loud voice. He fell on his face at Jesus’ feet, giving him thanks; and he was a Samaritan. Jesus answered,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 51.84,
+      "texto": "“Weren’t the ten cleansed? But where are the nine? Were there none found who returned to give glory to God, except this foreigner?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 61.52,
+      "texto": "Then he said to him,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 66.94,
+      "texto": "“Get up, and go your way. Your faith has healed you.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 71.52,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 73.57,
+      "texto": "Gratitude opens your heart to receive God's deepest blessings. Today, take a quiet moment to thank the Lord for all the ways He has healed and guided your life.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-10T04:55:42+01:00",
+  "run": "42751035789",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 17, 11-19",
+  "cupo_agotado": [
+    "gemini-3.7-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "revision": "pendiente"
 }
