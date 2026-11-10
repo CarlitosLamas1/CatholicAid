@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-11",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-10T04:55:42+01:00",
+  "revisado": "2026-11-10T05:33:06+01:00",
+  "motivos": [],
+  "avisos": [
+    "La imagen de la escena 3 muestra a Jesús con los brazos abiertos, sin tender la mano al samaritano: es mejorable, pero devocional y correcta."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a la WEB (Luke 17:11-19) con la introducción «At that time,»; los fragmentos suman exactamente texto_evangelio.",
+    "voces": "✅ Jesús dice sus palabras; la multitud, «Jesus, Master, have mercy on us!»; el resto es del narrador.",
+    "frase_clave": "✅ «Your faith has healed you.» (5 palabras), literal y de Jesús.",
+    "reflexion": "✅ 29 palabras, en inglés, cálida, doctrinalmente correcta y relacionada con la lectura.",
+    "tecnica": "✅ 82,4 s; -14,1 LUFS; gancho 1,5 s; karaoke activado.",
+    "audio": "✅ Más lento: 3,7 car/s (fragmento corto «Then he said to him,», 5,4 s, con pausa); más rápido: 18,1 car/s (reflexión). Fragmentos largos 11–13 car/s.",
+    "imagenes": "✅ 3 imágenes del día en acuarela, sin defectos graves.",
+    "metadatos": "✅ Luke 17:11-19 = Lucas 17,11-19; evangelista Lucas; todo en inglés."
+  }
+}
