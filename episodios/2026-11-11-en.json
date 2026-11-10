@@ -158,5 +158,10 @@
     },
     "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss",
     "subtitulos": "ok"
+  },
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7706690608160770070",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
   }
 }

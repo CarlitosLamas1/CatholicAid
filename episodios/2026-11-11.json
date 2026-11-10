@@ -182,5 +182,10 @@
     },
     "miniatura": "ok",
     "subtitulos": "ok"
+  },
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7706690904077305879",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
   }
 }
