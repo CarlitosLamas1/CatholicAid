@@ -142,5 +142,12 @@
     "motivo": "bloqueado en 249 países",
     "fecha": "2026-11-10T02:32:55+01:00"
   },
-  "revision": "pendiente"
+  "revision": "rechazada",
+  "repintar": [
+    {
+      "escena": 1,
+      "corregir": "Fix the problem the reviewer found in the previous version (in Spanish): Imagen de la escena 1: Jesús aparece mezclado con los diez leprosos en lugar de verlos a lo lejos, y no se aprecia su enfermedad; es mejorable pero devocional y sin defectos graves."
+    }
+  ],
+  "repintados": 1
 }
