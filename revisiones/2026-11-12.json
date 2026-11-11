@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-12",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-11T01:12:51+01:00",
+  "revisado": "2026-11-11T01:33:06+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 17, 20-25 coincide con citas.json",
+    "voces": "✅ Jesús dice sus palabras; narrador el resto",
+    "frase_clave": "✅ Literal, de Jesús, 9 palabras",
+    "reflexion": "✅ 33 palabras, cálida y fiel a la lectura",
+    "tecnica": "✅ 76,8 s; -14,0 LUFS",
+    "audio": "✅ Más lento: frag. 6 'Palabra del Señor.' 7,0 car/s (corto, normal); más rápido: frag. 4 15,6 car/s",
+    "imagenes": "✅ Tres acuarelas/óleo devocionales, coherentes, sin defectos graves",
+    "metadatos": "✅ Título Lucas, cita y fecha coherentes"
+  }
+}
