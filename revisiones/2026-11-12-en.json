@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-12",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-11T02:35:38+01:00",
+  "revisado": "2026-11-11T03:34:25+01:00",
+  "motivos": [],
+  "avisos": [
+    "La reflexión tiene 27 palabras, dentro del límite.",
+    "Los dos últimos fragmentos (cierre y reflexión) van algo lentos (7,6 y 9,1 caracteres/s), normal por las pausas."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Idéntico a la WEB Católica, Lucas 17:20-25 (comprobado con script)",
+    "voces": "✅ Jesús en jesus, narración en narrador",
+    "frase_clave": "✅ «God’s Kingdom is within you.» literal, de Jesús, 5 palabras",
+    "reflexion": "✅ 27 palabras, doctrina correcta, sin comillas",
+    "tecnica": "✅ 74 s, -14.1 LUFS",
+    "audio": "✅ Más lento: 7,6 c/s (fragmento corto de 3 s); más rápido: 14,8 c/s",
+    "imagenes": "✅ Tres acuarelas/óleo devocionales, sin defectos graves",
+    "metadatos": "✅ Cita Luke 17:20-25 coherente con Lucas 17, 20-25; gancho 2,8; karaoke activo"
+  }
+}
