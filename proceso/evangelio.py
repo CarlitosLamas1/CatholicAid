@@ -835,10 +835,17 @@ def grabar_personaje(frs, indices, carpeta):
         voz_comprobada(p, txt("leer_varios").format(estilo=p['estilo']) + "\n\n".join(textos), completo,
                        sum(len(x) for x in textos) + 15 * (len(textos) - 1))
         dur = duracion(completo)
+        try:
+            oidos = cortes_oidos(completo, textos)
+        except Exception as e:
+            log(f"   {quien}: no pude escuchar la grabación para cortarla ({type(e).__name__}: {e})")
+            oidos = None
+        if oidos:
+            log(f"   {quien}: cortes por lo que se oye en " + ", ".join(f"{c:.2f}" for c in oidos) + " s")
         letras = [len(x) for x in textos]
         candidatos = [((a + b) / 2, b - a) for a, b in silencios(completo) if 0.1 < a and b < dur - 0.1]
-        cortes, previo = [], 0.0
-        for k in range(1, len(indices)):
+        cortes, previo = (list(oidos), None) if oidos else ([], 0.0)
+        for k in (range(1, len(indices)) if not oidos else []):
             esperado = dur * sum(letras[:k]) / sum(letras)
             margen = max(3.0, dur * 0.12)
             validos = [(m, d) for m, d in candidatos if m > previo + 0.5 and abs(m - esperado) <= margen]
@@ -1318,22 +1325,25 @@ def reparto_con_pausas(f, palabras):
 _WHISPER = None
 
 
-def alinear_whisper(f, palabras):
-    """Escucha SOLO la grabación del fragmento (voz limpia, unos segundos) con faster-whisper y empareja lo oído con el
-    texto, que conocemos exacto. Lo no reconocido se coloca entre lo reconocido. None si no es fiable."""
+def oir(ruta):
+    """[(inicio, fin, palabra)] de lo que se oye en un wav (faster-whisper en CPU, audio leído con FFmpeg)."""
     global _WHISPER
-    import difflib
     import numpy as np
     from faster_whisper import WhisperModel
-    opciones = CFG.get("karaoke", {})
     if _WHISPER is None:
-        _WHISPER = WhisperModel(opciones.get("modelo_whisper", "small"), device="cpu", compute_type="int8")
-    crudo = subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-i", str(f["audio"]), "-f", "f32le", "-ac", "1",
+        _WHISPER = WhisperModel(CFG.get("karaoke", {}).get("modelo_whisper", "small"), device="cpu", compute_type="int8")
+    crudo = subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-i", str(ruta), "-f", "f32le", "-ac", "1",
                             "-ar", "16000", "-"], capture_output=True, check=True).stdout
     audio = np.frombuffer(crudo, dtype=np.float32)
     segs, _ = _WHISPER.transcribe(audio, language=IDIOMA, word_timestamps=True, vad_filter=False,
-                                  condition_on_previous_text=False, initial_prompt=hablado(f["texto"]))
-    oidas = [(w.start, w.end, w.word) for sg in segs for w in (sg.words or [])]
+                                  condition_on_previous_text=False)
+    return [(w.start, w.end, w.word) for sg in segs for w in (sg.words or [])], len(audio) / 16000
+
+
+def emparejar(palabras, oidas):
+    """Para cada palabra del texto, (inicio, fin) donde se oye o None. Solo anclas seguras: 2+ palabras seguidas o una
+    palabra de 4+ letras."""
+    import difflib
     a = [_normal_palabra(w) for w in palabras]
     b = [_normal_palabra(w) for _, _, w in oidas]
     rel = [None] * len(palabras)
@@ -1342,11 +1352,52 @@ def alinear_whisper(f, palabras):
             continue
         for d in range(bloque.size):
             rel[bloque.a + d] = oidas[bloque.b + d][:2]
+    return rel
+
+
+def cortes_oidos(ruta, textos):
+    """Grabación con varios fragmentos seguidos (un personaje): dónde cortar, escuchándola. Para cada frontera, el
+    silencio más largo entre la última palabra oída de un fragmento y la primera del siguiente. None si no es fiable."""
+    if CFG.get("karaoke", {}).get("alineador") != "whisper":
+        return None
+    oidas, dur = oir(ruta)
+    palabras, de = [], []
+    for k, t in enumerate(textos):
+        for w in espacios(t).split():
+            palabras.append(w)
+            de.append(k)
+    rel = emparejar(palabras, oidas)
+    if sum(1 for x in rel if x) / max(1, len(rel)) < CFG.get("karaoke", {}).get("minimo_alineado", 0.6):
+        return None
+    sil = silencios(ruta)
+    cortes = []
+    for k in range(1, len(textos)):
+        fin_prev = max((rel[j][1] for j in range(len(rel)) if de[j] == k - 1 and rel[j]), default=None)
+        ini_sig = min((rel[j][0] for j in range(len(rel)) if de[j] == k and rel[j]), default=None)
+        if fin_prev is None or ini_sig is None or ini_sig <= fin_prev:
+            return None
+        huecos = [(a, b) for a, b in sil if b > fin_prev - 0.05 and a < ini_sig + 0.05]
+        if huecos:
+            a, b = max(huecos, key=lambda x: x[1] - x[0])
+            cortes.append((max(a, fin_prev) + min(b, ini_sig)) / 2)
+        else:
+            cortes.append((fin_prev + ini_sig) / 2)
+    if any(y <= x for x, y in zip(cortes, cortes[1:])):
+        return None
+    return cortes
+
+
+def alinear_whisper(f, palabras):
+    """Escucha SOLO la grabación del fragmento (voz limpia, unos segundos) con faster-whisper y empareja lo oído con el
+    texto, que conocemos exacto. Lo no reconocido se coloca entre lo reconocido. None si no es fiable."""
+    opciones = CFG.get("karaoke", {})
+    oidas, segundos = oir(f["audio"])
+    rel = emparejar(palabras, oidas)
     cuota = sum(1 for x in rel if x) / max(1, len(rel))
     if cuota < opciones.get("minimo_alineado", 0.6):
         log(f"   Alineador: {cuota:.0%} reconocido en «{f['texto'][:30]}…»; reparto por pausas")
         return None
-    escala = (f["fin"] - f["inicio"]) / max(0.1, len(audio) / 16000)
+    escala = (f["fin"] - f["inicio"]) / max(0.1, segundos)
     abs_ = [((x[0] * escala + f["inicio"]), (x[1] * escala + f["inicio"])) if x else None for x in rel]
     # Huecos (palabras no reconocidas): por pausas entre las anclas vecinas
     pausas = reparto_con_pausas(f, palabras)
