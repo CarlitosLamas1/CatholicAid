@@ -112,5 +112,25 @@
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "IU8uDmk5Ac8",
+    "url": "https://youtu.be/IU8uDmk5Ac8",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-11T23:05:00Z",
+    "lista": {
+      "id": "PLf0BS8AtTKag",
+      "titulo": "Evangelio según san Lucas",
+      "url": "https://www.youtube.com/playlist?list=PLf0BS8AtTKag"
+    },
+    "lista_liturgica": {
+      "id": "PLM39u5xp5OPg",
+      "titulo": "Evangelio del día · Tiempo Ordinario",
+      "url": "https://www.youtube.com/playlist?list=PLM39u5xp5OPg"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
+  }
 }
