@@ -1,0 +1,119 @@
+{
+  "fecha": "2026-11-12",
+  "modo": "diario",
+  "cita": "Luke 17:20-25",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/12.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 8,
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 74.0,
+  "imagenes": [
+    "dias/2026-11-12_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-12_e1.jpg",
+    "biblioteca/D07",
+    "dias/2026-11-12_e2.jpg",
+    "dias/2026-11-12_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D10",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "God’s Kingdom is within you.",
+  "reflexion": "You do not need to look far to find the Lord. Open your heart to his grace today, because his loving presence is already alive within you.",
+  "lufs": -14.1,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus speaks serenely to a group of curious Pharisees in an open sunny courtyard, gesturing gently to indicate that the Kingdom of God is already in their midst.",
+      "busqueda": "Jesus Pharisees",
+      "personajes": [
+        "jesus",
+        "fariseos"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus sits closely with his disciples on a grassy hillside, looking at them with warmth and tenderness as he counsels them about the times to come.",
+      "busqueda": "Jesus disciples hillside",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus stands in contemplation against a majestic sky illuminated by a sudden sweep of brilliant light from horizon to horizon.",
+      "busqueda": "lightning sky horizon",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, being asked by the Pharisees when God’s Kingdom would come, he answered them, “God’s Kingdom doesn’t come with observation; neither will they say, ‘Look, here!’ or, ‘Look, there!’ for behold, God’s Kingdom is within you.” He said to the disciples, “The days will come when you will desire to see one of the days of the Son of Man, and you will not see it. They will tell you, ‘Look, here!’ or ‘Look, there!’ Don’t go away or follow after them, for as the lightning, when it flashes out of one part under the sky, shines to another part under the sky, so will the Son of Man be in his day. But first, he must suffer many things and be rejected by this generation.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.08,
+      "texto": "At that time, being asked by the Pharisees when God’s Kingdom would come, he answered them,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.65,
+      "texto": "“God’s Kingdom doesn’t come with observation; neither will they say, ‘Look, here!’ or, ‘Look, there!’ for behold, God’s Kingdom is within you.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 24.92,
+      "texto": "He said to the disciples,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 26.82,
+      "texto": "“The days will come when you will desire to see one of the days of the Son of Man, and you will not see it. They will tell you, ‘Look, here!’ or ‘Look, there!’ Don’t go away or follow after them,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 40.04,
+      "texto": "for as the lightning, when it flashes out of one part under the sky, shines to another part under the sky, so will the Son of Man be in his day. But first, he must suffer many things and be rejected by this generation.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 55.8,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 58.84,
+      "texto": "You do not need to look far to find the Lord. Open your heart to his grace today, because his loving presence is already alive within you.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-11T02:35:38+01:00",
+  "run": "42938323723",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 17, 20-25",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "revision": "pendiente"
+}
