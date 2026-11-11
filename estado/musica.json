@@ -5,18 +5,19 @@
       "fecha": "2026-11-10T02:32:54+01:00"
     }
   },
-  "pruebas": {
+  "pruebas": {},
+  "aprobadas": {
     "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg": {
-      "video": "Engn_T8TBpo",
-      "subido": "2026-11-10T22:13:22+01:00"
+      "fecha": "2026-11-11T01:33:38+01:00",
+      "prueba": "Engn_T8TBpo"
     },
     "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._55.ogg": {
-      "video": "goBHq1WhsOE",
-      "subido": "2026-11-10T22:13:31+01:00"
+      "fecha": "2026-11-11T01:33:39+01:00",
+      "prueba": "goBHq1WhsOE"
     },
     "Chopin_-_Nocturne-op-55-no-1.ogg": {
-      "video": "q7pDs5gTWqA",
-      "subido": "2026-11-10T22:13:41+01:00"
+      "fecha": "2026-11-11T01:33:40+01:00",
+      "prueba": "q7pDs5gTWqA"
     }
   }
 }
