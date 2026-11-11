@@ -1258,139 +1258,125 @@ def cortes_de_linea(palabras, maximo=26):
     return [i, j]
 
 
-def bordes_de_voz(f):
-    """Silencio al principio y al final del audio del fragmento (en segundos de vídeo), para no adelantar el resaltado."""
+def tiempos_palabras(f, palabras):
+    """Inicio y fin de cada palabra de un fragmento (subtítulos karaoke). Cada fragmento es su propia grabación
+    (f["audio"]), colocada en el vídeo en [inicio, fin]: su principio y su final son exactos. Dentro:
+    1) alineador (karaoke.alineador = whisper): se escucha la grabación del fragmento y cada palabra va donde suena;
+    2) si no está o no es fiable: la duración se reparte por longitud SOLO entre los tramos con voz (las pausas
+       de las comas y los puntos no hacen avanzar el resaltado)."""
+    if CFG.get("karaoke", {}).get("alineador") == "whisper" and f.get("audio"):
+        try:
+            t = alinear_whisper(f, palabras)
+            if t:
+                return t
+        except Exception as e:
+            log(f"   Alineador no disponible ({type(e).__name__}: {e}); reparto por pausas")
+    return reparto_con_pausas(f, palabras)
+
+
+def tramos_de_voz(f):
+    """[(a, b)] en segundos de vídeo donde se oye voz dentro del fragmento (sin silencios de 0,2 s o más)."""
+    ini, fin = f["inicio"], f["fin"]
     if not f.get("audio") or not Path(f["audio"]).exists():
-        return 0.0, 0.0
+        return [(ini, fin)]
     try:
         dur = duracion(f["audio"])
-        escala = (f["fin"] - f["inicio"]) / max(0.1, dur)
-        sil = silencios(f["audio"])
-        ini = next((b for a, b in sil if a <= 0.05), 0.0)
-        fin = next((dur - a for a, b in sil if b >= dur - 0.05), 0.0)
-        if ini + fin >= dur * 0.6:
-            return 0.0, 0.0
-        return ini * escala, fin * escala
+        escala = (fin - ini) / max(0.1, dur)
+        voz, t = [], 0.0
+        for a, b in silencios(f["audio"]) + [(dur, dur)]:
+            if a - t > 0.05:
+                voz.append((ini + t * escala, ini + min(a, dur) * escala))
+            t = max(t, b)
+        return voz or [(ini, fin)]
     except Exception:
-        return 0.0, 0.0
+        return [(ini, fin)]
 
 
-def tiempos_palabras(f, palabras):
-    """Inicio y fin de cada palabra de un fragmento (subtítulos karaoke).
-    Por defecto se reparte la duración REAL del audio del fragmento entre sus palabras según su longitud.
-    Si se nota desfase, poner "alineador": "whisper" en «karaoke» (config) y añadir faster-whisper al workflow:
-    entonces se alinea con el audio (CPU); si falla o no cuadra, se vuelve al reparto por longitud."""
-    ini, dur = f["inicio"], f["fin"] - f["inicio"]
-    alineadas = f.get("palabras_t")
-    if alineadas and len(alineadas) == len(palabras):  # alineación con el audio real (alinear_audio)
-        return [tuple(x) for x in alineadas]
-    if CFG.get("karaoke", {}).get("alineador") == "whisper_fragmento" and f.get("audio"):
-        try:
-            return alinear_whisper(f, palabras)
-        except Exception as e:
-            log(f"   Alineador no disponible ({e}); reparto por longitud")
-    lead, trail = bordes_de_voz(f)
-    ini, dur = ini + lead, dur - lead - trail
+def reparto_con_pausas(f, palabras):
+    voz = tramos_de_voz(f)
+    total = sum(b - a for a, b in voz)
     pesos = [len(x) + 1 for x in palabras]
-    tiempos, t = [], ini
+    suma = sum(pesos)
+
+    def en_tiempo(frac):  # fracción del habla -> segundo del vídeo (saltando las pausas)
+        objetivo = frac * total
+        for a, b in voz:
+            if objetivo <= b - a + 1e-9:
+                return a + objetivo
+            objetivo -= b - a
+        return voz[-1][1]
+
+    tiempos, acum = [], 0
     for w in pesos:
-        d = dur * w / sum(pesos)
-        tiempos.append((t, t + d))
-        t += d
-    return tiempos
+        a = en_tiempo(acum / suma)
+        acum += w
+        tiempos.append((a, en_tiempo(acum / suma)))
+    # Si una palabra empieza justo al final de un tramo, que espere al siguiente (tras la pausa)
+    return [(a, max(b, a + 0.05)) for a, b in tiempos]
+
+
+_WHISPER = None
+
+
+def alinear_whisper(f, palabras):
+    """Escucha SOLO la grabación del fragmento (voz limpia, unos segundos) con faster-whisper y empareja lo oído con el
+    texto, que conocemos exacto. Lo no reconocido se coloca entre lo reconocido. None si no es fiable."""
+    global _WHISPER
+    import difflib
+    import numpy as np
+    from faster_whisper import WhisperModel
+    opciones = CFG.get("karaoke", {})
+    if _WHISPER is None:
+        _WHISPER = WhisperModel(opciones.get("modelo_whisper", "small"), device="cpu", compute_type="int8")
+    crudo = subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-i", str(f["audio"]), "-f", "f32le", "-ac", "1",
+                            "-ar", "16000", "-"], capture_output=True, check=True).stdout
+    audio = np.frombuffer(crudo, dtype=np.float32)
+    segs, _ = _WHISPER.transcribe(audio, language=IDIOMA, word_timestamps=True, vad_filter=False,
+                                  condition_on_previous_text=False, initial_prompt=hablado(f["texto"]))
+    oidas = [(w.start, w.end, w.word) for sg in segs for w in (sg.words or [])]
+    a = [_normal_palabra(w) for w in palabras]
+    b = [_normal_palabra(w) for _, _, w in oidas]
+    rel = [None] * len(palabras)
+    for bloque in difflib.SequenceMatcher(None, a, b, autojunk=False).get_matching_blocks():
+        if bloque.size < 2 and not (bloque.size == 1 and len(a[bloque.a]) >= 4):
+            continue
+        for d in range(bloque.size):
+            rel[bloque.a + d] = oidas[bloque.b + d][:2]
+    cuota = sum(1 for x in rel if x) / max(1, len(rel))
+    if cuota < opciones.get("minimo_alineado", 0.6):
+        log(f"   Alineador: {cuota:.0%} reconocido en «{f['texto'][:30]}…»; reparto por pausas")
+        return None
+    escala = (f["fin"] - f["inicio"]) / max(0.1, len(audio) / 16000)
+    abs_ = [((x[0] * escala + f["inicio"]), (x[1] * escala + f["inicio"])) if x else None for x in rel]
+    # Huecos (palabras no reconocidas): por pausas entre las anclas vecinas
+    pausas = reparto_con_pausas(f, palabras)
+    anclas = [k for k, x in enumerate(abs_) if x]
+    for k in range(len(abs_)):
+        if abs_[k]:
+            continue
+        prev = max((x for x in anclas if x < k), default=None)
+        nxt = min((x for x in anclas if x > k), default=None)
+        lo = abs_[prev][1] if prev is not None else f["inicio"]
+        hi = abs_[nxt][0] if nxt is not None else f["fin"]
+        # posición relativa según el reparto por pausas, encajada entre las anclas
+        p_lo = pausas[prev][1] if prev is not None else f["inicio"]
+        p_hi = pausas[nxt][0] if nxt is not None else f["fin"]
+        def mapa(t):
+            return lo + (t - p_lo) * (hi - lo) / max(1e-3, p_hi - p_lo)
+        abs_[k] = (mapa(pausas[k][0]), mapa(pausas[k][1]))
+    # Orden y límites del fragmento
+    salida, previo = [], f["inicio"]
+    for x, y in abs_:
+        x = min(max(x, previo, f["inicio"]), f["fin"])
+        y = min(max(y, x + 0.05), f["fin"])
+        salida.append((x, y))
+        previo = x
+    return salida
 
 
 def _normal_palabra(w):
     w = unicodedata.normalize("NFKD", w.lower())
     return "".join(c for c in w if c.isalnum())
-
-
-def alinear_audio(frs, ruta, offset=0.0):
-    """Sincroniza los subtítulos con lo que de verdad se oye: faster-whisper transcribe la pista de voz con el tiempo de
-    cada palabra y se empareja con el texto (que conocemos exacto). Las palabras que no se reconocen se colocan entre
-    las vecinas que sí. Ajusta inicio/fin de cada fragmento y guarda en f["palabras_t"] el tiempo de cada palabra.
-    Devuelve True si la alineación es fiable (si no, se queda el reparto por longitud)."""
-    import difflib
-    opciones = CFG.get("karaoke", {})
-    if opciones.get("alineador") != "whisper":
-        return False
-    try:
-        from faster_whisper import WhisperModel
-    except Exception as e:
-        log(f"   Alineador no instalado ({e}); subtítulos por reparto de longitud")
-        return False
-    t0 = time.time()
-    modelo = WhisperModel(opciones.get("modelo_whisper", "small"), device="cpu", compute_type="int8")
-    import numpy as np  # el audio se lee con FFmpeg (16 kHz, mono): no depende del lector interno (PyAV)
-    crudo = subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-i", str(ruta), "-f", "f32le", "-ac", "1",
-                            "-ar", "16000", "-"], capture_output=True, check=True).stdout
-    audio = np.frombuffer(crudo, dtype=np.float32)
-    segs, _ = modelo.transcribe(audio, language=IDIOMA, word_timestamps=True, vad_filter=False,
-                                condition_on_previous_text=False)
-    oidas = [(w.start, w.end, w.word) for sg in segs for w in (sg.words or [])]
-    nuestras = []  # (fragmento, índice de palabra, texto)
-    for i, f in enumerate(frs):
-        for k, w in enumerate(espacios(f["texto"]).split()):
-            nuestras.append((i, k, w))
-    a = [_normal_palabra(w) for _, _, w in nuestras]
-    b = [_normal_palabra(w) for _, _, w in oidas]
-    if os.environ.get("DEPURAR_ALINEADOR"):
-        log("   Oído: " + " ".join(f"[{x:.2f}]{w.strip()}" for x, _, w in oidas))
-    tiempos = [None] * len(nuestras)
-    for bloque in difflib.SequenceMatcher(None, a, b, autojunk=False).get_matching_blocks():
-        # Solo anclas seguras: tramos de 2+ palabras seguidas, o una palabra suelta larga (no «the», «de», «y»…)
-        if bloque.size < 2 and not (bloque.size == 1 and len(a[bloque.a]) >= 5):
-            continue
-        for d in range(bloque.size):
-            ini, fin, _ = oidas[bloque.b + d]
-            tiempos[bloque.a + d] = (ini + offset, fin + offset)
-    acertadas = sum(1 for x in tiempos if x)
-    cuota = acertadas / max(1, len(tiempos))
-    log(f"   Alineador: {acertadas}/{len(tiempos)} palabras reconocidas ({cuota:.0%}) en {time.time() - t0:.0f} s")
-    if cuota < opciones.get("minimo_alineado", 0.6):
-        log("   Alineación poco fiable: subtítulos por reparto de longitud")
-        return False
-    # Huecos: entre la última palabra reconocida y la siguiente, repartidos por longitud
-    anclas = [j for j, x in enumerate(tiempos) if x]
-    for j in range(len(tiempos)):
-        if tiempos[j]:
-            continue
-        prev = max((x for x in anclas if x < j), default=None)
-        nxt = min((x for x in anclas if x > j), default=None)
-        t_ini = tiempos[prev][1] if prev is not None else max(offset, tiempos[nxt][0] - 0.4 * (nxt - j))
-        t_fin = tiempos[nxt][0] if nxt is not None else tiempos[prev][1] + 0.4 * (j - prev)
-        hueco = list(range((prev + 1) if prev is not None else 0, nxt if nxt is not None else len(tiempos)))
-        pesos = [len(nuestras[x][2]) + 1 for x in hueco]
-        t = t_ini
-        for x, w in zip(hueco, pesos):
-            dd = (t_fin - t_ini) * w / sum(pesos)
-            tiempos[x] = (t, t + dd)
-            t += dd
-    for i, f in enumerate(frs):
-        propias = [tiempos[j] for j, (fi, _, _) in enumerate(nuestras) if fi == i]
-        if not propias:
-            continue
-        f["palabras_t"] = [(round(x, 3), round(y, 3)) for x, y in propias]
-        f["inicio"], f["fin"] = propias[0][0], max(propias[-1][1], propias[0][0] + 0.3)
-    return True
-
-
-def alinear_whisper(f, palabras):
-    """Alineador opcional (NO activo): faster-whisper en CPU da el tiempo de cada palabra oída."""
-    from faster_whisper import WhisperModel  # noqa: solo si se activa (pip install faster-whisper)
-    global _WHISPER
-    if "_WHISPER" not in globals():
-        _WHISPER = WhisperModel("base", device="cpu", compute_type="int8")
-    segs, _ = _WHISPER.transcribe(f["audio"], language=IDIOMA, word_timestamps=True)
-    oidas = [w for s in segs for w in (s.words or [])]
-    if abs(len(oidas) - len(palabras)) > max(2, len(palabras) // 10):
-        raise ValueError(f"oídas {len(oidas)} palabras de {len(palabras)}")
-    escala = (f["fin"] - f["inicio"]) / max(0.1, duracion(f["audio"]))  # por si se aceleró el audio
-    tiempos = []
-    for k in range(len(palabras)):
-        w = oidas[min(k, len(oidas) - 1)]
-        tiempos.append((f["inicio"] + w.start * escala, f["inicio"] + w.end * escala))
-    return tiempos
 
 
 def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
@@ -2184,16 +2170,6 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
             w.writeframes(datos + b"\0\0" * int(HZ * cierre))
         total += cierre
     log(f"   Motor: {motor} · duración {total:.1f} s" + ("  (más de 3 min: no será Short)" if total > 180 else ""))
-
-    try:  # subtítulos sincronizados con el audio real (palabra a palabra)
-        if alinear_audio(frs, carpeta / "audio.wav"):
-            for a_, b_ in zip(frs, frs[1:]):  # sin solapes entre fragmentos
-                if a_["fin"] > b_["inicio"]:
-                    a_["fin"] = b_["inicio"]
-    except Exception as e:
-        log(f"   Alineador falló ({type(e).__name__}: {e}); subtítulos por reparto de longitud")
-        for f in frs:
-            f.pop("palabras_t", None)
 
     log("4/6 Cuadros")
     retrato = RAIZ / "personajes" / "evangelistas" / f"{libro.lower()}.jpg"
