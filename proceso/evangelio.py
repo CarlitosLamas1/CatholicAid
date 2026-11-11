@@ -1334,8 +1334,13 @@ def alinear_audio(frs, ruta, offset=0.0):
             nuestras.append((i, k, w))
     a = [_normal_palabra(w) for _, _, w in nuestras]
     b = [_normal_palabra(w) for _, _, w in oidas]
+    if os.environ.get("DEPURAR_ALINEADOR"):
+        log("   Oído: " + " ".join(f"[{x:.2f}]{w.strip()}" for x, _, w in oidas))
     tiempos = [None] * len(nuestras)
     for bloque in difflib.SequenceMatcher(None, a, b, autojunk=False).get_matching_blocks():
+        # Solo anclas seguras: tramos de 2+ palabras seguidas, o una palabra suelta larga (no «the», «de», «y»…)
+        if bloque.size < 2 and not (bloque.size == 1 and len(a[bloque.a]) >= 5):
+            continue
         for d in range(bloque.size):
             ini, fin, _ = oidas[bloque.b + d]
             tiempos[bloque.a + d] = (ini + offset, fin + offset)

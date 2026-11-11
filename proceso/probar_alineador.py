@@ -3,6 +3,7 @@
 Uso: python3 proceso/probar_alineador.py <carpeta con guion.json y video.mp4>
 Compara, fragmento a fragmento, dónde empezaba el subtítulo antes (reparto por longitud) y dónde se oye de verdad."""
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -16,6 +17,7 @@ ev.aplicar_idioma(reg.get("idioma", "es"))
 wav = carpeta / "voz.wav"
 subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(carpeta / "video.mp4"), "-ac", "1", "-ar", "16000",
                 str(wav)], check=True)
+os.environ["DEPURAR_ALINEADOR"] = "1"
 frs = [dict(f) for f in reg["fragmentos"]]
 for a, b in zip(frs, frs[1:]):
     a["fin"] = b["inicio"]
@@ -31,4 +33,5 @@ for f, (a, _), est in zip(frs, antes, estimadas):
     peor = max(peor, dif)
     print(f"{f['personaje']:>9} · antes {a:6.2f} s · oído {f['inicio']:6.2f} s · desfase máx. de palabra {dif:4.2f} s · "
           f"{f['texto'][:50]}")
+    print("      " + " ".join(f"{w}@{t[0]:.2f}" for w, t in zip(ev.espacios(f["texto"]).split(), reales)))
 print(f"DESFASE MÁXIMO ANTES: {peor:.2f} s")
