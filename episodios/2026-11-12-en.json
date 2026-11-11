@@ -4,17 +4,18 @@
   "cita": "Luke 17:20-25",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/12.html",
   "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
-  "guion": "gemini-3.8-flash",
+  "guion": "gemini-3.6-flash",
   "voces": "gemini",
   "peticiones_voz": 8,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 74.0,
+  "duracion_s": 82.0,
   "imagenes": [
     "dias/2026-11-12_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-12_e1.jpg",
-    "biblioteca/D07",
+    "biblioteca/D04",
     "dias/2026-11-12_e2.jpg",
+    "biblioteca/D01",
     "dias/2026-11-12_e3.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/D10",
@@ -29,8 +30,8 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus speaks serenely to a group of curious Pharisees in an open sunny courtyard, gesturing gently to indicate that the Kingdom of God is already in their midst.",
-      "busqueda": "Jesus Pharisees",
+      "descripcion": "Jesus speaks calmly to a group of curious Pharisees inside a serene courtyard, pointing gently to his heart.",
+      "busqueda": "Pharisees with Jesus",
       "personajes": [
         "jesus",
         "fariseos"
@@ -38,8 +39,8 @@
     },
     {
       "numero": 2,
-      "descripcion": "Jesus sits closely with his disciples on a grassy hillside, looking at them with warmth and tenderness as he counsels them about the times to come.",
-      "busqueda": "Jesus disciples hillside",
+      "descripcion": "Jesus sits on a grassy hillside surrounded by his disciples, addressing them tenderly under the open sky.",
+      "busqueda": "Jesus teaching disciples",
       "personajes": [
         "jesus",
         "apostol"
@@ -47,8 +48,8 @@
     },
     {
       "numero": 3,
-      "descripcion": "Jesus stands in contemplation against a majestic sky illuminated by a sudden sweep of brilliant light from horizon to horizon.",
-      "busqueda": "lightning sky horizon",
+      "descripcion": "A radiant burst of light breaks through clouds over the rolling landscape of Galilee as Jesus looks toward the horizon.",
+      "busqueda": "lightning over Galilee",
       "personajes": [
         "jesus"
       ]
@@ -66,74 +67,52 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 7.08,
+      "inicio": 8.43,
       "texto": "At that time, being asked by the Pharisees when God’s Kingdom would come, he answered them,"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 13.65,
+      "inicio": 16.84,
       "texto": "“God’s Kingdom doesn’t come with observation; neither will they say, ‘Look, here!’ or, ‘Look, there!’ for behold, God’s Kingdom is within you.”"
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 24.92,
+      "inicio": 28.08,
       "texto": "He said to the disciples,"
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 26.82,
+      "inicio": 32.13,
       "texto": "“The days will come when you will desire to see one of the days of the Son of Man, and you will not see it. They will tell you, ‘Look, here!’ or ‘Look, there!’ Don’t go away or follow after them,"
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 40.04,
+      "inicio": 45.36,
       "texto": "for as the lightning, when it flashes out of one part under the sky, shines to another part under the sky, so will the Son of Man be in his day. But first, he must suffer many things and be rejected by this generation.”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 55.8,
+      "inicio": 61.13,
       "texto": "The Gospel of the Lord."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 58.84,
+      "inicio": 66.57,
       "texto": "You do not need to look far to find the Lord. Open your heart to his grace today, because his loving presence is already alive within you.",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-11T02:35:38+01:00",
-  "run": "42938323723",
+  "generado": "2026-11-11T20:33:06+01:00",
+  "run": "43085031849",
   "idioma": "en",
   "libro": "Lucas",
   "cita_es": "Lucas 17, 20-25",
-  "modelos_voz": [
-    "gemini-3.1-flash-tts-preview"
-  ],
-  "revision": "ok",
-  "youtube": {
-    "id": "a-hLeiX86sY",
-    "url": "https://youtu.be/a-hLeiX86sY",
-    "privacyStatus": "private",
-    "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true,
-    "publishAt": "2026-11-11T23:05:00Z",
-    "lista": {
-      "id": "PLE6wYiZ-BMK0",
-      "titulo": "Gospel according to St. Luke",
-      "url": "https://www.youtube.com/playlist?list=PLE6wYiZ-BMK0"
-    },
-    "lista_liturgica": {
-      "id": "PLLWkUaN0V-24",
-      "titulo": "Daily Gospel · Ordinary Time",
-      "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
-    },
-    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss",
-    "subtitulos": "ok"
-  }
+  "reemplaza": "a-hLeiX86sY",
+  "revision": "pendiente"
 }
