@@ -1321,7 +1321,11 @@ def alinear_audio(frs, ruta, offset=0.0):
         return False
     t0 = time.time()
     modelo = WhisperModel(opciones.get("modelo_whisper", "small"), device="cpu", compute_type="int8")
-    segs, _ = modelo.transcribe(str(ruta), language=IDIOMA, word_timestamps=True, vad_filter=False,
+    import numpy as np  # el audio se lee con FFmpeg (16 kHz, mono): no depende del lector interno (PyAV)
+    crudo = subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-i", str(ruta), "-f", "f32le", "-ac", "1",
+                            "-ar", "16000", "-"], capture_output=True, check=True).stdout
+    audio = np.frombuffer(crudo, dtype=np.float32)
+    segs, _ = modelo.transcribe(audio, language=IDIOMA, word_timestamps=True, vad_filter=False,
                                 condition_on_previous_text=False)
     oidas = [(w.start, w.end, w.word) for sg in segs for w in (sg.words or [])]
     nuestras = []  # (fragmento, índice de palabra, texto)
