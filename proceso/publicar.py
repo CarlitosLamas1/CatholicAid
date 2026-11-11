@@ -192,6 +192,16 @@ def main():
     vid, estado = ev_mod.subir_youtube(video, ev, dt.date.fromisoformat(fecha), "diario", tok, idioma)
     reg["youtube"] = {"id": vid, "url": f"https://youtu.be/{vid}", **estado}
     guardar(ruta_reg, reg)  # lo subido queda anotado pase lo que pase después
+    viejo = reg.get("reemplaza")
+    if viejo and viejo != vid:  # versión anterior ya subida (vídeo rehecho): se borra para que no salgan dos
+        try:
+            ev_mod.http(ev_mod.YT + f"videos?id={viejo}", headers={"Authorization": f"Bearer {tok}"},
+                        method="DELETE", raw=True)
+            log(f"Borrada de YouTube la versión anterior ({viejo})")
+            reg["reemplazado"] = reg.pop("reemplaza")
+        except Exception as ex:
+            log(f"No se pudo borrar la versión anterior {viejo} ({ex})")
+        guardar(ruta_reg, reg)
     try:
         ev_mod.publicar_extras(tok, vid, reg, dt.date.fromisoformat(fecha), miniatura, idioma)
     except Exception as ex:

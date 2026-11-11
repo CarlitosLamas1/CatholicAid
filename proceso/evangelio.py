@@ -2290,6 +2290,9 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         registro["modelos_voz"] = sorted(MODELOS_VOZ_USADOS)
     if AVISOS:
         registro["avisos"] = sorted(set(AVISOS))
+    if a.modo == "diario" and hecho.get("modo") == "diario" and hecho.get("youtube", {}).get("id"):
+        # Se rehace un vídeo ya subido (p. ej. para mejorarlo): al subir el nuevo, «Publicar revisado» borra el viejo
+        registro["reemplaza"] = hecho["youtube"]["id"]
     for k in ("rehechos", "descartados", "repintar", "repintados", "musica_bloqueada"):  # historial de versiones anteriores del mismo día
         if k in hecho:
             registro[k] = hecho[k]
