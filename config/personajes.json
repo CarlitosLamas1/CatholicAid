@@ -17,14 +17,16 @@
   "pausa_entre_voces": 0.35,
   "caracteres_por_subtitulo": 46,
   "karaoke": {
-    "_nota": "Subtítulos karaoke: se resalta la palabra que se lee. Tiempos: la duración real de cada audio repartida por longitud de palabra. Si se nota desfase: alineador = whisper (faster-whisper en CPU; hay que añadirlo al workflow).",
+    "_nota": "Subtítulos karaoke: se resalta la palabra que se lee. Desde el 11/11/2026 (Carlos vio desfase en inglés) los tiempos salen del audio real: faster-whisper transcribe la pista de voz y se empareja con el texto exacto (alinear_audio en evangelio.py). Si no está instalado o reconoce menos del 60 %, se vuelve al reparto por longitud.",
     "activo": true,
-    "alineador": "longitud",
+    "alineador": "whisper",
     "resalte": {
       "jesus": "F5C542"
     },
     "resalte_otros": "FFE6A6",
-    "resalte_reflexion": "FFFFFF"
+    "resalte_reflexion": "FFFFFF",
+    "modelo_whisper": "small",
+    "minimo_alineado": 0.6
   },
   "hora_publicacion": "00:05",
   "hora_publicacion_en": "00:05",

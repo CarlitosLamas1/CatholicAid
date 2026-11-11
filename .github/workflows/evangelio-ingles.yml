@@ -87,6 +87,8 @@ jobs:
             done
           fi
           pip install -q --timeout 60 edge-tts pillow
+          # Alineador de subtítulos (palabra a palabra con el audio real). Si no se instala, se sigue sin él.
+          pip install -q --timeout 120 faster-whisper || echo "Alineador no instalado: subtítulos por reparto de longitud"
 
       # Lo ya conseguido de Gemini (guion, frase/reflexión, voces) se guarda entre reintentos: no se gasta cupo dos veces.
       - name: Recuperar caché de Gemini
@@ -95,6 +97,12 @@ jobs:
           path: cache
           key: gemini-en-${{ github.run_id }}
           restore-keys: gemini-en-
+
+      - name: Modelo del alineador de subtítulos (caché)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
 
       - name: Producir vídeo
         env:
