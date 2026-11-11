@@ -53,6 +53,7 @@ jobs:
       - name: Publicar
         id: publicar
         run: |
+          exec > >(tee publicar.log) 2>&1
           F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
           IDIOMAS="${{ inputs.idioma }}"; [ -n "$IDIOMAS" ] || IDIOMAS="es en"
           RUN="${{ inputs.video_run }}"
@@ -118,6 +119,17 @@ jobs:
           print("Instagram:", idioma, mid, enlace)
           d["instagram"] = {"id": mid, "enlace": enlace}
           reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+          # Facebook: el mismo Reel en la página vinculada (config facebook.activo). Nunca impide lo de Instagram.
+          cfg_fb = json.loads(Path("config/personajes.json").read_text(encoding="utf-8")).get("facebook", {})
+          if cfg_fb.get("activo") and not d.get("facebook"):
+              try:
+                  fid, fenlace = instagram.subir_facebook("t/video.mp4", texto, instagram.usuario_de(idioma))
+                  print("Facebook:", idioma, fid, fenlace)
+                  d["facebook"] = {"id": fid, "enlace": fenlace}
+              except Exception as ex:
+                  print("Facebook no publicado:", ex)
+                  d["facebook_error"] = str(ex)[:300]
+              reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
           PY
             then
               HECHOS="$HECHOS $N"
@@ -136,12 +148,23 @@ jobs:
           done
           echo "hechos=$HECHOS" >> "$GITHUB_OUTPUT"
           exit $FALLO
+      - name: Avisar por Telegram (fallo al publicar)
+        if: failure()
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+        run: |
+          F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
+          M=$(grep -hE "rechaza|no da acceso|RuntimeError|Error|error" publicar.log 2>/dev/null | grep -v "^\s*$" | tail -1 | cut -c1-200)
+          python3 proceso/avisos.py publicacion "Instagram" "$F" "$M"
       - name: Guardar
         if: always()
         run: |
           git config user.name "gestor-catholicaid"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add episodios/ 2>/dev/null || true
+          git add episodios/ estado/ 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -q -m "Instagram: publicación del día"
             git pull -q --rebase && git push -q

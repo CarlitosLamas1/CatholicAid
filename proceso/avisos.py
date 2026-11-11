@@ -12,6 +12,7 @@ Uso:
   python3 proceso/avisos.py listo              -> 🎬 vídeo listo (lee salida/*/ y episodios/)
   python3 proceso/avisos.py youtube            -> 📺 si el vídeo de hoy ya es público (una sola vez)
   python3 proceso/avisos.py tiktok <fecha>     -> 🎵 publicado en TikTok
+  python3 proceso/avisos.py publicacion <plataforma> <fecha> [motivo] -> ⚠️ falló la publicación (1 por día)
   python3 proceso/avisos.py instagram <fecha>  -> 📸 publicado en Instagram
   python3 proceso/avisos.py fallo [fecha] [url] -> ❌ falló la creación del vídeo y cuándo se reintenta
   python3 proceso/avisos.py prueba             -> mensaje de prueba (falla si Telegram no responde)
@@ -270,6 +271,33 @@ def aviso_fallo(fecha="", enlace=""):
            + (f"\n🔗 {e(enlace)}" if enlace else ""))
 
 
+def aviso_publicacion(plataforma, fecha="", motivo=""):
+    """⚠️ Falló la publicación en una plataforma (YouTube, TikTok, Instagram). Como mucho UN aviso por plataforma y día
+    (estado/avisos.json), porque el Reloj reintenta cada hora. Aprobado por Carlos el 11/11/2026."""
+    fecha = fecha or str(dt.datetime.now(MADRID).date())
+    ruta = RAIZ / "estado" / "avisos.json"
+    try:
+        hechos = json.loads(ruta.read_text(encoding="utf-8"))
+    except Exception:
+        hechos = {}
+    clave = f"{plataforma}:{fecha}"
+    if clave in hechos:
+        log(f"aviso de fallo ya enviado ({clave})")
+        return
+    texto = motivo.lower()
+    if any(k in texto for k in ("cannot call api", "oauth", "permission", "permiso", "no da acceso", "token", "expired")):
+        que = ("Parece un problema de <b>permiso</b> (la conexión con la cuenta se ha caído). Dímelo y te paso los "
+               "pasos para reconectarla; suele ser un minuto.")
+    else:
+        que = "🔁 Se reintenta solo durante las próximas horas. Si no se arregla, el gestor lo revisará."
+    if enviar(f"⚠️ <b>No se ha podido publicar en {e(plataforma)}</b> · {e(fecha_txt(fecha))}\n{que}"
+              + (f"\n<i>{e(motivo[:200])}</i>" if motivo else "")):
+        hechos = {k: v for k, v in hechos.items() if v >= str(dt.date.today() - dt.timedelta(days=10))}
+        hechos[clave] = str(dt.date.today())
+        ruta.parent.mkdir(exist_ok=True)
+        ruta.write_text(json.dumps(hechos, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def main():
     orden = sys.argv[1] if len(sys.argv) > 1 else ""
     try:
@@ -292,6 +320,8 @@ def main():
             aviso_tiktok(sys.argv[2])
         elif orden == "instagram":
             aviso_instagram(sys.argv[2])
+        elif orden == "publicacion":
+            aviso_publicacion(*sys.argv[2:5])
         else:
             print(__doc__)
     except SystemExit:

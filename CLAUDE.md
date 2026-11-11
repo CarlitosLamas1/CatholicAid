@@ -36,6 +36,8 @@ Subtítulos karaoke (palabra resaltada; Jesús en dorado F5C542; desde el 11/11/
 - `publicar.py` sube el registro a main ANTES de relanzar el vídeo (antes la nueva tirada podía leer el registro viejo).
 - **Portugués**: preparado y apagado (`pt` en config, `TXT["pt"]`); pasos en `guias/portugues.md`. Biblia: **Figueiredo** (dominio público) actualizada a portugués de Brasil moderno («vocês», sin mesóclise), decidido por Carlos: referencia en `biblia/figueiredo/`, revisada en `biblia/figueiredo/revisada/` (criterio en `guias/revision-portugues.md`). Carlos está creando el canal de YouTube en portugués (09/11/2026).
 - Comentarios: `pendientes.json` solo se reescribe si cambia algo (antes, un commit vacío cada hora).
+- **Vigilancia de subtítulos** (11/11/2026): cada registro guarda `sincronia` (frases sincronizadas por lo que se oye, por pausas y personajes cuya grabación se cortó sin poder escucharla). Si `sincronia.ok` es falso, `publicar.py` rehace el vídeo una vez aunque el revisor dé el OK.
+- **Facebook** (preparado 11/11/2026, `facebook.activo` en config): tras cada Reel de Instagram, el mismo vídeo como Reel en la página de Facebook vinculada (`instagram.subir_facebook`). Necesita que Carlos vuelva a autorizar en `docs/instagram.html` (nuevo permiso `pages_manage_posts`) y canjear el código con «Conectar Instagram»; después, `activo: true`.
 - **Hora de publicación 00:05 en todas las plataformas** (11/11/2026, decisión de Carlos; antes 01:00). `hora_publicacion` admite «HH:MM».
 - **Publicación puntual (10/11/2026, pedido por Carlos)**: el Reloj lanza «Publicar en TikTok» y «Publicar en Instagram» desde 2 h antes de `hora_publicacion` con `esperar=true`; el workflow espera solo hasta la hora exacta (`proceso/esperar.py`), refresca main y publica. Así no depende de que el cron de GitHub llegue a tiempo.
 
@@ -47,6 +49,7 @@ Bot **@CatolicAid_bot**; token en el secreto `TELEGRAM_BOT_TOKEN`, chat de Carlo
 4. ❌ **Fallo al crear el vídeo** (último paso de «Evangelio diario», solo si falla): qué día y a qué hora se reintenta solo (`REINTENTOS_UTC` en avisos.py; mantenlo igual que los cron).
 6. 📸 **Publicado en Instagram** (último paso de «Publicar en Instagram», uno por cuenta: español e inglés; pedido por Carlos el 09/11/2026).
 5. 💬 **Comentario delicado** de YouTube para que responda Carlos (`proceso/comentarios.py`, aprobado por Carlos el 06/11/2026).
+7. ⚠️ **Fallo al publicar** en YouTube, TikTok o Instagram (`aviso_publicacion`, paso «Avisar por Telegram (fallo al publicar)» de cada workflow; como mucho uno por plataforma y día, `estado/avisos.json`; si parece un permiso caído, lo dice). Aprobado por Carlos el 11/11/2026.
 «Configurar Telegram» obtiene el chat_id (getUpdates), quita el menú de órdenes y manda una prueba; la variable la guarda el gestor con `gh variable set TELEGRAM_CHAT_ID` (GitHub no deja al workflow). No añadas más avisos ni funciones al bot sin que Carlos lo pida.
 
 Proceso (`proceso/evangelio.py`):

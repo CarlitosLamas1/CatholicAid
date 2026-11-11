@@ -539,5 +539,9 @@
     "Frederic Chopin - nocturne no. 2 in e flat major, op. 62.ogg",
     "Frederic Chopin - nocturne no. 2 in e flat major, op. 55.ogg",
     "Chopin - Nocturne-op-55-no-1.ogg"
-  ]
+  ],
+  "facebook": {
+    "_nota": "Reels también en las páginas de Facebook (CatolicAid y CatolicAid English), los publica «Publicar en Instagram» tras cada Reel. Necesita el permiso pages_manage_posts: Carlos vuelve a autorizar en docs/instagram.html y se pone activo=true.",
+    "activo": false
+  }
 }

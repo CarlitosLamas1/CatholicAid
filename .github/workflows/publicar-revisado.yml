@@ -52,14 +52,26 @@ jobs:
       - name: Publicar
         if: steps.fechas.outputs.lista != ''
         run: |
+          exec > >(tee publicar.log) 2>&1
           for F in ${{ steps.fechas.outputs.lista }}; do python3 proceso/publicar.py "$F"; done
 
+      - name: Avisar por Telegram (fallo al publicar)
+        if: failure()
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+        run: |
+          F="$(echo ${{ steps.fechas.outputs.lista }} | awk '{print $1}' | cut -c1-10)"
+          M=$(grep -hE "rechaza|no da acceso|RuntimeError|Error|error" publicar.log 2>/dev/null | grep -v "^\s*$" | tail -1 | cut -c1-200)
+          python3 proceso/avisos.py publicacion "YouTube" "$F" "$M"
       - name: Guardar registro
         if: always()
         run: |
           git config user.name "gestor-catholicaid"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A episodios/ biblioteca/dias/
+          git add -A episodios/ biblioteca/dias/ estado/
           if ! git diff --cached --quiet; then
             git commit -q -m "Publicar revisado: ${{ steps.fechas.outputs.lista }}"
             git pull -q --rebase && git push -q

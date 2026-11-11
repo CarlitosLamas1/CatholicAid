@@ -133,6 +133,12 @@ def main():
     cuando = avisos.fecha_txt(fecha)
     motivos = rev.get("motivos") or []
 
+    sinc = reg.get("sincronia") or {}
+    if rev.get("ok") and sinc and not sinc.get("ok") and reg.get("rehechos", 0) < MAX_REHECHOS:
+        # Subtítulos que pueden ir desfasados (grabación cortada sin poder escucharla, o varias frases sin reconocer):
+        # se rehace una vez aunque el revisor diera el OK.
+        rev = {**rev, "ok": False, "motivos": (rev.get("motivos") or []) + [
+            "Los subtítulos podrían no ir sincronizados con la voz; lo rehago para dejarlos perfectos."]}
     if rev.get("ok") and reg.get("revision") == "rechazada" and reg.get("repintar"):
         log(f"El {nombre} se está rehaciendo con imágenes repintadas; espero a la nueva versión.")
         return

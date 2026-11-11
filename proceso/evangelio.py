@@ -842,6 +842,8 @@ def grabar_personaje(frs, indices, carpeta):
             oidos = None
         if oidos:
             log(f"   {quien}: cortes por lo que se oye en " + ", ".join(f"{c:.2f}" for c in oidos) + " s")
+        elif CFG.get("karaoke", {}).get("alineador") == "whisper":
+            CORTES_SIN_OIR.append(quien)  # cortado por estimación: puede caer en la pausa equivocada
         letras = [len(x) for x in textos]
         candidatos = [((a + b) / 2, b - a) for a, b in silencios(completo) if 0.1 < a and b < dur - 0.1]
         cortes, previo = (list(oidos), None) if oidos else ([], 0.0)
@@ -1012,6 +1014,7 @@ def es_video(p):
     return Path(p).suffix.lower() in (".mp4", ".mov", ".webm")
 
 
+CORTES_SIN_OIR = []  # personajes cuya grabación se cortó sin poder escucharla (riesgo de desfase entre frases)
 AVISOS = []  # cosas que requieren a Carlos (se mandan por Telegram con el aviso de «vídeo listo»)
 
 
@@ -1275,9 +1278,11 @@ def tiempos_palabras(f, palabras):
         try:
             t = alinear_whisper(f, palabras)
             if t:
+                f["sinc"] = "oido"
                 return t
         except Exception as e:
             log(f"   Alineador no disponible ({type(e).__name__}: {e}); reparto por pausas")
+    f["sinc"] = "pausas"
     return reparto_con_pausas(f, palabras)
 
 
@@ -2288,6 +2293,14 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         registro["cupo_agotado"] = sorted(CUPO_AGOTADO)
     if MODELOS_VOZ_USADOS:
         registro["modelos_voz"] = sorted(MODELOS_VOZ_USADOS)
+    if CFG.get("karaoke", {}).get("alineador") == "whisper":
+        oidas = [f for f in frs if f.get("sinc") == "oido"]
+        por_pausas = [f["texto"][:60] for f in frs if f.get("sinc") == "pausas"]
+        registro["sincronia"] = {"frases_oidas": len(oidas), "frases_por_pausas": por_pausas,
+                                 "cortes_sin_oir": sorted(set(CORTES_SIN_OIR)),
+                                 "ok": not CORTES_SIN_OIR and len(por_pausas) <= 1}
+        log(f"   Sincronía de subtítulos: {len(oidas)} frases por lo que se oye, {len(por_pausas)} por pausas"
+            + (f"; cortes sin oír: {', '.join(sorted(set(CORTES_SIN_OIR)))}" if CORTES_SIN_OIR else ""))
     if AVISOS:
         registro["avisos"] = sorted(set(AVISOS))
     if a.modo == "diario" and hecho.get("modo") == "diario" and hecho.get("youtube", {}).get("id"):

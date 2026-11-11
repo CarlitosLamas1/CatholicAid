@@ -23,7 +23,8 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 FICHERO = RAIZ / "secretos" / "instagram.enc"
 REDIRECT = "https://carlitoslamas1.github.io/CatholicAid/instagram.html"
-ALCANCES = "instagram_basic,instagram_content_publish,pages_show_list,pages_read_engagement,business_management"
+ALCANCES = ("instagram_basic,instagram_content_publish,pages_show_list,pages_read_engagement,business_management,"
+            "pages_manage_posts")  # pages_manage_posts: Reels en la página de Facebook (desde el 11/11/2026)
 VERSION = "v23.0"
 GRAPH = f"https://graph.facebook.com/{VERSION}/"
 
@@ -163,6 +164,23 @@ def subir(video, texto, url=None, portada=None, usuario=None):
     pub = _post(GRAPH + f"{ig}/media_publish", {"creation_id": cid, "access_token": tok})
     enlace = _get(pub["id"], fields="permalink", access_token=tok).get("permalink", "")
     return pub["id"], enlace
+
+
+def subir_facebook(video, texto, usuario=None):
+    """Publica el mismo vídeo como Reel en la PÁGINA de Facebook vinculada a la cuenta de Instagram (permiso
+    pages_manage_posts). Devuelve (id, enlace)."""
+    d = _cuenta(usuario)
+    tok, pagina = d["token"], d.get("pagina_id")
+    if not pagina:
+        raise RuntimeError("Falta la página de Facebook en el permiso guardado (volver a autorizar)")
+    ini = _post(GRAPH + f"{pagina}/video_reels", {"upload_phase": "start", "access_token": tok})
+    datos = Path(video).read_bytes()
+    _post(ini.get("upload_url") or f"https://rupload.facebook.com/video-upload/{VERSION}/{ini['video_id']}", cuerpo=datos,
+          cabeceras={"Authorization": f"OAuth {tok}", "offset": "0", "file_size": str(len(datos))})
+    _post(GRAPH + f"{pagina}/video_reels", {"upload_phase": "finish", "video_id": ini["video_id"],
+                                            "video_state": "PUBLISHED", "description": texto[:2200],
+                                            "access_token": tok})
+    return ini["video_id"], f"https://www.facebook.com/reel/{ini['video_id']}"
 
 
 def cuentas():
