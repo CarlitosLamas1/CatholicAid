@@ -4,24 +4,25 @@
   "cita": "Lucas 17, 20-25",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/12.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
-  "guion": "gemini-3.8-flash",
+  "guion": "gemini-3.6-flash",
   "voces": "gemini",
   "peticiones_voz": 8,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 76.8,
+  "duracion_s": 70.7,
   "imagenes": [
     "dias/2026-11-12_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-12_e1.jpg",
-    "biblioteca/D02",
+    "biblioteca/D04",
     "dias/2026-11-12_e2.jpg",
+    "biblioteca/D01",
     "dias/2026-11-12_e3.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/D10",
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "El reino de Dios no viene con muestras de aparato",
-  "reflexion": "A veces buscas a Dios en lo espectacular, olvidando que ya está dentro de ti y a tu alrededor. ¿Eres capaz de reconocer hoy su presencia en lo sencillo de tu jornada?",
+  "reflexion": "El Reino de Dios no está en grandes espectáculos, sino en tu corazón y en lo cotidiano. ¿Estás atento a la presencia del Señor en tu vida diaria?",
   "lufs": -14.0,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
@@ -29,8 +30,8 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus speaks serenely to a group of curious Pharisees in an open sunny courtyard, gesturing gently to indicate that the Kingdom of God is already in their midst.",
-      "busqueda": "Jesus Pharisees",
+      "descripcion": "Jesus speaks calmly to a group of curious Pharisees inside a serene courtyard, pointing gently to his heart.",
+      "busqueda": "kingdom of god",
       "personajes": [
         "jesus",
         "fariseos"
@@ -38,8 +39,8 @@
     },
     {
       "numero": 2,
-      "descripcion": "Jesus sits closely with his disciples on a grassy hillside, looking at them with warmth and tenderness as he counsels them about the times to come.",
-      "busqueda": "Jesus teaching disciples",
+      "descripcion": "Jesus sits on a grassy hillside surrounded by his disciples, addressing them tenderly under the open sky.",
+      "busqueda": "jesus teaching disciples",
       "personajes": [
         "jesus",
         "apostol"
@@ -47,8 +48,8 @@
     },
     {
       "numero": 3,
-      "descripcion": "Jesus stands in contemplation against a majestic sky illuminated by a sudden sweep of brilliant light from horizon to horizon.",
-      "busqueda": "Son of Man",
+      "descripcion": "A radiant burst of light breaks through clouds over the rolling landscape of Galilee as Jesus looks toward the horizon.",
+      "busqueda": "lightning sky galilee",
       "personajes": [
         "jesus"
       ]
@@ -66,71 +67,52 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 8.23,
+      "inicio": 7.2,
       "texto": "En aquel tiempo, preguntado por los fariseos cuándo vendría el reino de Dios, les respondió:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 14.83,
+      "inicio": 13.51,
       "texto": "“El reino de Dios no viene con muestras de aparato; ni se dirá: ‘Míralo aquí’, o ‘Míralo allí’. Tened por cierto que ya el reino de Dios está en medio de vosotros”."
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 28.3,
+      "inicio": 25.68,
       "texto": "Con esta ocasión dijo a sus discípulos:"
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 31.47,
+      "inicio": 28.93,
       "texto": "“Tiempo vendrá en que desearéis ver uno de los días del Hijo del hombre, y no lo veréis. Entonces os dirán: ‘Míralo aquí’, ‘Míralo allí’. No vayáis tras ellos ni los sigáis."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 42.57,
+      "inicio": 42.56,
       "texto": "Porque, como el relámpago brilla y se deja ver de un extremo del cielo al otro, así se dejará ver el Hijo del hombre en su día. Pero es necesario que primero padezca mucho y sea rechazado por esta generación”."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 58.22,
+      "inicio": 55.65,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 60.78,
-      "texto": "A veces buscas a Dios en lo espectacular, olvidando que ya está dentro de ti y a tu alrededor. ¿Eres capaz de reconocer hoy su presencia en lo sencillo de tu jornada?",
+      "inicio": 58.77,
+      "texto": "El Reino de Dios no está en grandes espectáculos, sino en tu corazón y en lo cotidiano. ¿Estás atento a la presencia del Señor en tu vida diaria?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-11T01:12:51+01:00",
-  "run": "42927416394",
+  "generado": "2026-11-11T20:11:57+01:00",
+  "run": "43080703630",
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
-  "revision": "ok",
-  "youtube": {
-    "id": "IU8uDmk5Ac8",
-    "url": "https://youtu.be/IU8uDmk5Ac8",
-    "privacyStatus": "private",
-    "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true,
-    "publishAt": "2026-11-11T23:05:00Z",
-    "lista": {
-      "id": "PLf0BS8AtTKag",
-      "titulo": "Evangelio según san Lucas",
-      "url": "https://www.youtube.com/playlist?list=PLf0BS8AtTKag"
-    },
-    "lista_liturgica": {
-      "id": "PLM39u5xp5OPg",
-      "titulo": "Evangelio del día · Tiempo Ordinario",
-      "url": "https://www.youtube.com/playlist?list=PLM39u5xp5OPg"
-    },
-    "miniatura": "ok",
-    "subtitulos": "ok"
-  }
+  "reemplaza": "IU8uDmk5Ac8",
+  "revision": "pendiente"
 }
