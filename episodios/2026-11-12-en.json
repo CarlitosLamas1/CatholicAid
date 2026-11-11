@@ -138,5 +138,10 @@
   "instagram": {
     "id": "17964309129228390",
     "enlace": "https://www.instagram.com/reel/Dfnn1FQE9r1/"
+  },
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7707056256100337686",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
   }
 }
