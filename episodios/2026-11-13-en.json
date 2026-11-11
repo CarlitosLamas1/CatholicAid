@@ -1,0 +1,145 @@
+{
+  "fecha": "2026-11-13",
+  "modo": "diario",
+  "cita": "Luke 17:26-37",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/13.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 10,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 125.8,
+  "imagenes": [
+    "biblioteca/D05",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D01",
+    "biblioteca/D08",
+    "biblioteca/D04",
+    "biblioteca/D10",
+    "biblioteca/D07",
+    "biblioteca/D02",
+    "biblioteca/D06",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R01",
+    "biblioteca/R01",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Whoever seeks to save his life loses it",
+  "reflexion": "Life is not about clinging tightly to earthly things, but trusting in God with an open heart. Today, choose to let go of your self-reliance and place your total trust in His loving mercy.",
+  "lufs": -14.4,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus sits on a gentle grassy hill surrounded by attentive disciples, gesturing solemnly as he speaks of the coming days.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Two women seated side by side in a rustic courtyard, turning a stone hand mill together with quiet expressions in the morning light.",
+      "busqueda": "women grinding grain",
+      "personajes": [
+        "mujer"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The disciples look to Jesus with eager and questioning expressions under an open sky, while Jesus responds with calm and serene authority.",
+      "busqueda": "disciples question Jesus",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, Jesus said to his disciples: “As it was in the days of Noah, even so it will also be in the days of the Son of Man. They ate, they drank, they married, and they were given in marriage until the day that Noah entered into the ship, and the flood came and destroyed them all. Likewise, even as it was in the days of Lot: they ate, they drank, they bought, they sold, they planted, they built; but in the day that Lot went out from Sodom, it rained fire and sulfur from the sky and destroyed them all. It will be the same way in the day that the Son of Man is revealed. In that day, he who will be on the housetop and his goods in the house, let him not go down to take them away. Let him who is in the field likewise not turn back. Remember Lot’s wife! Whoever seeks to save his life loses it, but whoever loses his life preserves it. I tell you, in that night there will be two people in one bed. One will be taken and the other will be left. There will be two grinding grain together. One will be taken and the other will be left.” They, answering, asked him, “Where, Lord?” He said to them, “Where the body is, there the vultures will also be gathered together.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.16,
+      "texto": "At that time, Jesus said to his disciples:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.36,
+      "texto": "“As it was in the days of Noah, even so it will also be in the days of the Son of Man. They ate, they drank, they married, and they were given in marriage until the day that Noah entered into the ship, and the flood came and destroyed them all. Likewise, even as it was in the days of Lot: they ate, they drank, they bought, they sold, they planted, they built; but in the day that Lot went out from Sodom, it rained fire and sulfur from the sky and destroyed them all. It will be the same way in the day that the Son of Man is revealed."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 51.89,
+      "texto": "In that day, he who will be on the housetop and his goods in the house, let him not go down to take them away. Let him who is in the field likewise not turn back. Remember Lot’s wife! Whoever seeks to save his life loses it, but whoever loses his life preserves it. I tell you, in that night there will be two people in one bed. One will be taken and the other will be left. There will be two grinding grain together. One will be taken and the other will be left.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 86.55,
+      "texto": "They, answering, asked him,"
+    },
+    {
+      "personaje": "apostol",
+      "escena": 3,
+      "inicio": 91.05,
+      "texto": "“Where, Lord?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 92.34,
+      "texto": "He said to them,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 95.43,
+      "texto": "“Where the body is, there the vultures will also be gathered together.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 99.92,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 105.42,
+      "texto": "Life is not about clinging tightly to earthly things, but trusting in God with an open heart. Today, choose to let go of your self-reliance and place your total trust in His loving mercy.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-12T00:50:27+01:00",
+  "run": "43120961112",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 17, 26-37",
+  "cupo_agotado": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 10,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
