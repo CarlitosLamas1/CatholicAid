@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-11-13",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-12T02:36:29+01:00",
+  "revisado": "2026-11-12T03:32:38+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave «Acordaos de la mujer de Lot.» es corta pero literal y se entiende; aceptable."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 17, 26-37 coincide con citas.json.",
+    "voces": "✅ Palabras de Jesús en jesus, preguntas de los discípulos en apostol, resto narrador.",
+    "frase_clave": "✅ Literal, dentro de un fragmento de Jesús, 5 palabras.",
+    "reflexion": "✅ 26 palabras, cálida y doctrinalmente correcta, relacionada con la lectura.",
+    "tecnica": "✅ duracion 126 s, lufs -14.0, sincronía ok.",
+    "audio": "✅ Más lento: fragmento 9 «Palabra del Señor.» 4,2 c/s (corto, normal). Fragmentos largos 14,1–14,5 c/s. Más rápido: «Dondequiera…» 15,4 c/s.",
+    "imagenes": "✅ Las 3 imágenes del día (arca de Noé, dos mujeres moliendo, Jesús con discípulos) son devocionales y sin defectos graves.",
+    "metadatos": "✅ Fecha, cita y título (san Lucas) coherentes."
+  }
+}
