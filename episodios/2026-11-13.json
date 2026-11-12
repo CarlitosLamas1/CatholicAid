@@ -1,0 +1,146 @@
+{
+  "fecha": "2026-11-13",
+  "modo": "diario",
+  "cita": "Lucas 17, 26-37",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/13.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 11,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 126.0,
+  "imagenes": [
+    "dias/2026-11-13_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-13_e1.jpg",
+    "biblioteca/D05",
+    "biblioteca/D07",
+    "dias/2026-11-13_e2.jpg",
+    "biblioteca/D04",
+    "biblioteca/D08",
+    "dias/2026-11-13_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R01",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Acordaos de la mujer de Lot.",
+  "reflexion": "No vivas apegado a lo material ni mires atrás con nostalgia. Pon tu corazón en Dios, cuida tu fe y camina siempre hacia adelante mirando al Cielo.",
+  "lufs": -14.0,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Noah and his family prepare to enter the great wooden ark under a overcast sky as rain begins to fall.",
+      "busqueda": "Noah ark deluge",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Two women sitting indoors together grinding grain with a traditional stone mill in warm light.",
+      "busqueda": "women grinding grain",
+      "personajes": [
+        "mujer"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus sitting in a peaceful countryside surrounded by his attentive disciples, gesturing warmly as he teaches them.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, dijo Jesús a sus discípulos: “Lo que sucedió en tiempo de Noé, eso mismo sucederá en el día del Hijo del hombre. Comían y bebían, se casaban y celebraban bodas, hasta el día en que Noé entró en el arca; y sobrevino entonces el diluvio, que acabó con todos. Lo mismo sucedió en los días de Lot: los de Sodoma y Gomorra comían y bebían, compraban y vendían, hacían plantíos y edificaban casas; mas el día en que Lot salió de Sodoma, llovió del cielo fuego y azufre, que los abrasó a todos. De esta manera será el día en que se manifieste el Hijo del hombre. En aquella hora, quien se halle en el terrado y tenga sus muebles dentro de casa, no entre a cogerlos; y quien esté en el campo, no vuelva atrás: que no piense sino en salvar su vida. Acordaos de la mujer de Lot. Todo aquel que quiera salvar su vida abandonando la fe, la perderá para siempre; y quien la pierda por defenderla, la conservará. Una cosa os digo: en aquella noche dos estarán en un mismo lecho; uno será salvado y el otro abandonado; dos mujeres estarán moliendo juntas: una será salvada y la otra abandonada; dos hombres estarán en el mismo campo: uno será salvado y el otro abandonado”. “¿Dónde, Señor?”, replicaron ellos, “¿dónde será esto?”. Jesús les respondió: “Dondequiera que esté el cuerpo, allá volarán las águilas”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.46,
+      "texto": "En aquel tiempo, dijo Jesús a sus discípulos:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.45,
+      "texto": "“Lo que sucedió en tiempo de Noé, eso mismo sucederá en el día del Hijo del hombre. Comían y bebían, se casaban y celebraban bodas, hasta el día en que Noé entró en el arca; y sobrevino entonces el diluvio, que acabó con todos. Lo mismo sucedió en los días de Lot: los de Sodoma y Gomorra comían y bebían, compraban y vendían, hacían plantíos y edificaban casas; mas el día en que Lot salió de Sodoma, llovió del cielo fuego y azufre, que los abrasó a todos. De esta manera será el día en que se manifieste el Hijo del hombre."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 49.75,
+      "texto": "En aquella hora, quien se halle en el terrado y tenga sus muebles dentro de casa, no entre a cogerlos; y quien esté en el campo, no vuelva atrás: que no piense sino en salvar su vida. Acordaos de la mujer de Lot. Todo aquel que quiera salvar su vida abandonando la fe, la perderá para siempre; y quien la pierda por defenderla, la conservará. Una cosa os digo: en aquella noche dos estarán en un mismo lecho; uno será salvado y el otro abandonado; dos mujeres estarán moliendo juntas: una será salvada y la otra abandonada; dos hombres estarán en el mismo campo: uno será salvado y el otro abandonado”."
+    },
+    {
+      "personaje": "apostol",
+      "escena": 3,
+      "inicio": 92.57,
+      "texto": "“¿Dónde, Señor?”,"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 94.32,
+      "texto": "replicaron ellos,"
+    },
+    {
+      "personaje": "apostol",
+      "escena": 3,
+      "inicio": 97.69,
+      "texto": "“¿dónde será esto?”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 99.21,
+      "texto": "Jesús les respondió:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 103.2,
+      "texto": "“Dondequiera que esté el cuerpo, allá volarán las águilas”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 107.02,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 111.27,
+      "texto": "No vivas apegado a lo material ni mires atrás con nostalgia. Pon tu corazón en Dios, cuida tu fe y camina siempre hacia adelante mirando al Cielo.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-12T02:36:29+01:00",
+  "run": "43134135032",
+  "cupo_agotado": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 11,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
