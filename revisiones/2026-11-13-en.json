@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-13",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-12T00:50:27+01:00",
+  "revisado": "2026-11-12T01:32:50+01:00",
+  "motivos": [],
+  "avisos": [
+    "Aviso de proceso: aún no existe el registro en español del 13/11 (el inglés se grabó antes); las imágenes son de biblioteca, no del día."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Idéntico a la WEB Catholic (Lc 17,26-37, sin v.36), solo cambia la introducción «At that time,».",
+    "voces": "✅ Jesús, apóstol («Where, Lord?») y narrador correctos.",
+    "frase_clave": "✅ «Whoever seeks to save his life loses it» es literal de Jesús (7 palabras).",
+    "reflexion": "✅ 34 palabras, doctrinalmente correcta, en inglés.",
+    "tecnica": "✅ 125.8 s, -14.4 LUFS, gancho 1,5 s, karaoke, sincronía ok.",
+    "audio": "✅ Más lento: fragmento 8 «The Gospel of the Lord.» 4.2 car/s (corto, normal); más rápido: Jesús 15.8 car/s. Largos 13.4–13.9.",
+    "imagenes": "✅ Todas de biblioteca/evangelista (ya aprobadas).",
+    "metadatos": "✅ Cita Luke 17:26-37, título del registro «A reading from the holy Gospel according to Luke.» igual que otros días; libro Lucas."
+  }
+}
