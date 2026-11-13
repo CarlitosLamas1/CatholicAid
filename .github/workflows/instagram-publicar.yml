@@ -67,6 +67,26 @@ jobs:
           [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
           [ -n "$IDIOMAS" ] || IDIOMAS="es en pt"
           if [ ! -f secretos/instagram.enc ]; then echo "Instagram aún no está conectado."; exit 0; fi
+          # Solo por push del gestor: «borrar=<id>» quita esa publicación (p. ej. subida sin portada) antes de volver a subirla.
+          if [ "${{ github.event_name }}" = "push" ] && grep -q '^borrar=' ci/instagram-publicar.txt; then
+            B=$(sed -n 's/^borrar=//p' ci/instagram-publicar.txt)
+            for L in $IDIOMAS; do
+              [ "$L" = "es" ] && N="$F" || N="$F-$L"
+              python3 - "$B" "$N" "$L" <<'PY' || exit 1
+          import json, sys
+          from pathlib import Path
+          sys.path.insert(0, "proceso")
+          import instagram
+          mid, nombre, idioma = sys.argv[1:4]
+          print("Borrado:", instagram.borrar(mid, instagram.usuario_de(idioma)))
+          reg = Path(f"episodios/{nombre}.json")
+          d = json.loads(reg.read_text(encoding="utf-8"))
+          if d.get("instagram", {}).get("id") == mid:
+              d["instagram_borrado"] = d.pop("instagram")
+          reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+          PY
+            done
+          fi
           HECHOS=""
           FALLO=0
           for L in $IDIOMAS; do
@@ -84,9 +104,12 @@ jobs:
             elif [ -n "$RUN" ]; then
               # Copia de seguridad del run (30 días): se sube a una release temporal para tener un enlace público.
               gh run download "$RUN" -D a && cp "$(find a -path "*${N#$F}/video.mp4" -path "*$F*" | head -1)" t/video.mp4
+              # La portada (miniatura vertical con la frase clave) también viene en la copia del run.
+              M=$(find a -path "*${N#$F}/miniatura_vertical.jpg" -path "*$F*" | head -1)
+              [ -n "$M" ] && cp "$M" t/miniatura_vertical.jpg
               REL="instagram-$N"; TEMP=1
               gh release delete "$REL" --yes --cleanup-tag >/dev/null 2>&1 || true
-              gh release create "$REL" t/video.mp4 --title "Instagram $F (temporal)" --notes "Temporal para Instagram" --prerelease
+              gh release create "$REL" t/video.mp4 $([ -f t/miniatura_vertical.jpg ] && echo t/miniatura_vertical.jpg) --title "Instagram $F (temporal)" --notes "Temporal para Instagram" --prerelease
             else
               echo "No hay vídeo preparado."; echo "::endgroup::"; continue
             fi

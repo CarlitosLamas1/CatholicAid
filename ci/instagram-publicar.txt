@@ -1,3 +1,4 @@
 fecha=2026-11-13
 idioma=pt
 video_run=43422519400
+borrar=18128457814883830

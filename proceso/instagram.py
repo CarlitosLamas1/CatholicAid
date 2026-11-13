@@ -166,6 +166,17 @@ def subir(video, texto, url=None, portada=None, usuario=None):
     return pub["id"], enlace
 
 
+def borrar(media_id, usuario=None):
+    """Borra una publicación propia (p. ej. para volver a subirla con su portada)."""
+    d = _cuenta(usuario)
+    req = urllib.request.Request(GRAPH + f"{media_id}?access_token={urllib.parse.quote(d['token'])}", method="DELETE")
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Meta rechaza el borrado ({e.code}): {e.read().decode(errors='replace')[:300]}")
+
+
 def subir_facebook(video, texto, usuario=None):
     """Publica el mismo vídeo como Reel en la PÁGINA de Facebook vinculada a la cuenta de Instagram (permiso
     pages_manage_posts). Devuelve (id, enlace)."""
