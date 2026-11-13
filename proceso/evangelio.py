@@ -686,6 +686,15 @@ FULL READING (context):
 
 LEITURA COMPLETA (contexto):
 {hablado(ev['texto'])}"""
+    if IDIOMA != "es" and ev.get("frase_es"):
+        # Coherencia entre canales: la misma frase (en esta traducción) y la misma reflexión que el vídeo en español.
+        lengua = {"en": "American English", "pt": "Brazilian Portuguese"}.get(IDIOMA, IDIOMA)
+        prompt += (f"\n\nIMPORTANT — consistency with the Spanish video of the same day, which uses:\n"
+                   f"- frase_clave: «{ev['frase_es']}»\n"
+                   + (f"- reflexion: «{ev['reflexion_es']}»\n" if ev.get("reflexion_es") else "") +
+                   f"For \"frase_clave\", choose the SAME passage (the same words of the same verse) as it appears in the "
+                   f"text above, copied LITERALLY from it (same length and cut as far as possible). For \"reflexion\", "
+                   f"translate the Spanish reflection faithfully and naturally into {lengua} (same meaning, same question).")
     clave = f"gancho_{huella(prompt)}.json"
     previo = cache_leer(clave)
     if previo:
@@ -2285,6 +2294,11 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         frase, reflexion = previo_reg["frase_clave"], previo_reg["reflexion"]
         log(f"   Frase y reflexión reutilizadas de {a.reutilizar}")
     else:
+        if idioma != "es":  # misma frase y reflexión que el español del día (coherencia entre canales)
+            es_reg = RAIZ / "episodios" / f"{fecha}.json"
+            es_d = json.loads(es_reg.read_text(encoding="utf-8")) if es_reg.exists() else {}
+            if es_d.get("modo") == "diario" and es_d.get("frase_clave"):
+                ev["frase_es"], ev["reflexion_es"] = es_d["frase_clave"], es_d.get("reflexion", "")
         frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
     if not reflexion:  # nunca un vídeo sin reflexión: como el reparto, se reintenta salvo en el último intento
         if a.modo == "diario" and dt.datetime.now(dt.timezone.utc).hour < (22 if idioma != "es" else 21):
