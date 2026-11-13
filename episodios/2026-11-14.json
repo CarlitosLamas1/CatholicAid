@@ -128,5 +128,16 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente"
+  "revision": "rechazada",
+  "repintar": [
+    {
+      "escena": 2,
+      "corregir": "Fix the problem the reviewer found in the previous version (in Spanish): En la imagen de la escena 2 la viuda lleva un halo dorado de santa, algo que no corresponde a la parábola (detalle menor)."
+    },
+    {
+      "escena": 3,
+      "corregir": "Fix the problem the reviewer found in the previous version (in Spanish): La imagen de la escena 3 tiene una firma/garabato en la esquina inferior derecha (detalle menor)."
+    }
+  ],
+  "repintados": 1
 }
