@@ -834,7 +834,14 @@ def voz_comprobada(p, prompt, destino, letras):
         shutil.copy(guardada, destino)
         return
     for intento in range(3):
-        voz_gemini(p, prompt, destino)
+        try:
+            voz_gemini(p, prompt, destino)
+        except (KeyError, IndexError) as e:  # a veces Gemini responde sin audio (sin «content»): se pide otra vez
+            if intento == 2:
+                raise
+            log(f"   Gemini respondió sin audio ({e}); grabo otra vez")
+            time.sleep(CFG.get("pausa_tts_segundos", 21))
+            continue
         dur = duracion(destino)
         if esperado * 0.55 - 1 <= dur <= esperado * 1.6 + 3:
             if guardada:
