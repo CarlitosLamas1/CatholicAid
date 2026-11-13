@@ -6,23 +6,24 @@
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
   "guion": "gemini-3.5-flash",
   "voces": "gemini",
-  "peticiones_voz": 7,
+  "peticiones_voz": 8,
   "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
-  "duracion_s": 81.2,
+  "duracion_s": 88.5,
   "imagenes": [
     "dias/2026-11-14_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-14_e1.jpg",
     "dias/2026-11-14_e2.jpg",
-    "biblioteca/D04",
+    "biblioteca/D10",
     "dias/2026-11-14_e3.jpg",
-    "biblioteca/D06",
+    "dias/2026-11-14_e4.jpg",
+    "biblioteca/D01",
     "evangelistas/lucas.jpg",
     "biblioteca/R02",
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "Os aseguro que no tardará en hacerles justicia.",
-  "reflexion": "Dios escucha siempre tu oración y no tardará en responderte. Confía en su amor y no te canses de rezar, ¿sigues manteniendo viva la fe cada día?",
+  "reflexion": "No te canses nunca de acudir a Dios en tu oración diaria. Él escucha siempre tu voz y cuida de ti con amor de Padre; ¿confías de verdad en su bondad?",
   "lufs": -13.9,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
@@ -30,8 +31,8 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus sitting peacefully outdoors surrounded by his disciples, teaching them with a tender expression about constant prayer.",
-      "busqueda": "Jesus praying outdoor",
+      "descripcion": "Jesus sits outdoors surrounded by his attentive disciples, teaching them about prayer under a bright and serene sky.",
+      "busqueda": "Jesus teaching disciples",
       "personajes": [
         "jesus",
         "apostol"
@@ -39,8 +40,8 @@
     },
     {
       "numero": 2,
-      "descripcion": "A persistent widow standing inside a dimly lit courtroom, pleading her case before a proud magistrate seated behind a wooden desk.",
-      "busqueda": "widow unjust judge",
+      "descripcion": "A persistent widow in humble clothing petitions a stern judge seated on an ornate seat inside a dark, quiet hall.",
+      "busqueda": "widow before judge",
       "personajes": [
         "mujer",
         "hombre"
@@ -48,11 +49,19 @@
     },
     {
       "numero": 3,
-      "descripcion": "Jesus comforting a small gathering of faithful believers under warm golden sunlight, reassuring them of God's swift justice.",
-      "busqueda": "Jesus comforting crowd",
+      "descripcion": "The judge gestures with his hand in agreement inside his chamber, deciding to give justice to the relieved widow standing before him.",
+      "busqueda": "judge granting justice",
       "personajes": [
-        "jesus",
-        "multitud"
+        "mujer",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 4,
+      "descripcion": "Jesus looks toward heaven with deep compassion and hands open, surrounded by warm heavenly light.",
+      "busqueda": "Jesus praying light",
+      "personajes": [
+        "jesus"
       ]
     }
   ],
@@ -68,44 +77,51 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 7.34,
+      "inicio": 7.87,
       "texto": "En aquel tiempo, les propuso también una parábola para mostrar que conviene orar siempre y no desfallecer, diciendo:"
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 15.58,
-      "texto": "“En cierta ciudad había un juez que ni temía a Dios ni respetaba a hombre alguno. Vivía en la misma ciudad una viuda que solía acudir a él, diciendo: ‘Hazme justicia frente a mi adversario’. Durante mucho tiempo el juez no quiso hacérsela. Pero después se dijo a sí mismo: ‘Aunque yo no temo a Dios ni respeto a hombre alguno, con todo, para que esta viuda me deje en paz, le haré justicia, a fin de que no venga continuamente a romperme la cabeza’”."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 3,
-      "inicio": 44.85,
-      "texto": "Y añadió el Señor:"
+      "inicio": 17.62,
+      "texto": "“En cierta ciudad había un juez que ni temía a Dios ni respetaba a hombre alguno. Vivía en la misma ciudad una viuda que solía acudir a él, diciendo: ‘Hazme justicia frente a mi adversario’. Durante mucho tiempo el juez no quiso hacérsela."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 47.02,
+      "inicio": 33.91,
+      "texto": "Pero después se dijo a sí mismo: ‘Aunque yo no temo a Dios ni respeto a hombre alguno, con todo, para que esta viuda me deje en paz, le haré justicia, a fin de que no venga continuamente a romperme la cabeza’”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 46.94,
+      "texto": "Y añadió el Señor:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 4,
+      "inicio": 50.83,
       "texto": "“Oíd lo que dijo ese juez inicuo; y ¿creéis que Dios dejará de hacer justicia a sus elegidos, que claman a él día y noche, y que permitirá siempre que se les oprima? Os aseguro que no tardará en hacerles justicia. Pero cuando venga el Hijo del hombre, ¿os parece que encontrará fe sobre la tierra?”."
     },
     {
       "personaje": "narrador",
-      "escena": 3,
-      "inicio": 64.77,
+      "escena": 4,
+      "inicio": 69.15,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
-      "escena": 3,
-      "inicio": 67.7,
-      "texto": "Dios escucha siempre tu oración y no tardará en responderte. Confía en su amor y no te canses de rezar, ¿sigues manteniendo viva la fe cada día?",
+      "escena": 4,
+      "inicio": 73.72,
+      "texto": "No te canses nunca de acudir a Dios en tu oración diaria. Él escucha siempre tu voz y cuida de ti con amor de Padre; ¿confías de verdad en su bondad?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-13T02:49:50+01:00",
-  "run": "43345751450",
+  "generado": "2026-11-13T03:59:51+01:00",
+  "run": "43352981618",
   "cupo_agotado": [
+    "gemini-2.5-flash-preview-tts",
     "gemini-3.7-flash",
     "gemini-3.8-flash"
   ],
@@ -113,13 +129,12 @@
     "gemini-2.5-flash-preview-tts"
   ],
   "sincronia": {
-    "frases_oidas": 7,
+    "frases_oidas": 8,
     "frases_por_pausas": [],
-    "cortes_sin_oir": [
-      "jesus"
-    ],
-    "ok": false
+    "cortes_sin_oir": [],
+    "ok": true
   },
+  "rehechos": 1,
   "repintar": [
     {
       "escena": 2,
@@ -131,6 +146,5 @@
     }
   ],
   "repintados": 1,
-  "revision": "rechazada",
-  "rehechos": 1
+  "revision": "pendiente"
 }
