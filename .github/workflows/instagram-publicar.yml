@@ -9,6 +9,10 @@ on:
   schedule:
     - cron: "10 23 * * *"
     - cron: "0 1 * * *"
+  # Para el gestor cuando no puede lanzarlo a mano: ci/instagram-publicar.txt con «fecha=», «idioma=» y «video_run=».
+  push:
+    branches: ["claude/**"]
+    paths: ["ci/instagram-publicar.txt"]
   workflow_dispatch:
     inputs:
       fecha:
@@ -55,9 +59,13 @@ jobs:
         id: publicar
         run: |
           exec > >(tee publicar.log) 2>&1
-          F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
-          IDIOMAS="${{ inputs.idioma }}"; [ -n "$IDIOMAS" ] || IDIOMAS="es en pt"
-          RUN="${{ inputs.video_run }}"
+          F="${{ inputs.fecha }}"; IDIOMAS="${{ inputs.idioma }}"; RUN="${{ inputs.video_run }}"
+          if [ "${{ github.event_name }}" = "push" ]; then
+            F=$(sed -n 's/^fecha=//p' ci/instagram-publicar.txt); IDIOMAS=$(sed -n 's/^idioma=//p' ci/instagram-publicar.txt)
+            RUN=$(sed -n 's/^video_run=//p' ci/instagram-publicar.txt)
+          fi
+          [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
+          [ -n "$IDIOMAS" ] || IDIOMAS="es en pt"
           if [ ! -f secretos/instagram.enc ]; then echo "Instagram aún no está conectado."; exit 0; fi
           HECHOS=""
           FALLO=0

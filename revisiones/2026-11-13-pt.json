@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-13",
+  "idioma": "pt",
+  "ok": true,
+  "por": "Carlos",
+  "generado": "2026-11-13T13:20:47+01:00",
+  "revisado": "2026-11-13T15:00:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "Primer vídeo en portugués: Carlos lo vio, lo publicó en YouTube y pidió subirlo también a Instagram (13/11/2026)."
+  ],
+  "puntos": {
+    "fidelidad": "✅ idéntico al Figueiredo revisado (comprobado por el gestor)",
+    "voces": "✅",
+    "frase_clave": "✅ literal, de Jesús",
+    "reflexion": "✅",
+    "tecnica": "✅ 118 s, -14,3 LUFS",
+    "audio": "✅",
+    "imagenes": "✅ las del español",
+    "metadatos": "✅"
+  }
+}
