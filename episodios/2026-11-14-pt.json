@@ -136,5 +136,25 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "CleYEbWWbjE",
+    "url": "https://youtu.be/CleYEbWWbjE",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-13T23:05:00Z",
+    "lista": {
+      "id": "PLC35zBQk7mN8",
+      "titulo": "Evangelho segundo São Lucas",
+      "url": "https://www.youtube.com/playlist?list=PLC35zBQk7mN8"
+    },
+    "lista_liturgica": {
+      "id": "PLScW8V6xMpdA",
+      "titulo": "Evangelho do dia · Tempo Comum",
+      "url": "https://www.youtube.com/playlist?list=PLScW8V6xMpdA"
+    },
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss",
+    "subtitulos": "ok"
+  }
 }
