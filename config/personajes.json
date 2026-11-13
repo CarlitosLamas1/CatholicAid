@@ -535,7 +535,8 @@
     "titulo_lectura": "Proclamação do Evangelho de Jesus Cristo segundo {evangelista}.",
     "hashtags": "#Shorts #EvangelhoDoDia #Evangelho #PalavraDeDeus #Catolico",
     "instagram": "catolicaid_pt_official",
-    "_modelos_voz": "No hay un tercer modelo de voz gratuito útil (probado el 13/11/2026: el 3.8 se queda sin cupo a las pocas peticiones y no admite instrucciones de estilo). El portugués usa el del inglés (gemini-3.1-flash-tts-preview) pero SOLO cuando el inglés del mismo día ya está aprobado o descartado (evangelio.py --si-falta y reloj.py): así nunca le quita cupo. El español usa otro modelo (gemini-2.5-flash-preview-tts) y no se toca.",
+    "_modelos_voz": "Voces de PAGO (decisión de Carlos, 13/11/2026, recargó 10 €): voz_de_pago=true usa siempre la clave de pago (GEMINI_API_KEY_IMAGENES, proyecto «Default Gemini Project») con este modelo, así el portugués nunca toca el cupo gratuito de voz del español (2.5) ni del inglés (3.1). Coste estimado: céntimos por vídeo.",
+    "voz_de_pago": true,
     "modelos_voz": [
       "gemini-3.1-flash-tts-preview"
     ],

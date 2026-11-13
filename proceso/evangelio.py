@@ -171,10 +171,11 @@ def clave_gemini():
     return {"x-goog-api-key": os.environ["GEMINI_API_KEY"].strip()}
 
 
-def gemini(modelo, cuerpo, intentos=3):
+def gemini(modelo, cuerpo, intentos=3, clave=None):
     for i in range(intentos):
         try:
-            return http(f"{GEMINI}models/{modelo}:generateContent", cuerpo, clave_gemini(), timeout=300)
+            cab = {"x-goog-api-key": clave} if clave else clave_gemini()
+            return http(f"{GEMINI}models/{modelo}:generateContent", cuerpo, cab, timeout=300)
         except urllib.error.HTTPError as e:
             log(f"   Gemini {modelo} -> {e.code}: {e.read().decode(errors='replace')[:500]}")
             if e.code == 429:
@@ -773,6 +774,16 @@ def voz_gemini(p, texto, destino):
     modelos = CFG.get(IDIOMA, {}).get("modelos_voz") if IDIOMA != "es" else None
     modelos = [m for m in (modelos or [CFG["modelo_voz"]]) if m not in CUPO_AGOTADO] or [CFG["modelo_voz"]]
     r = None
+    pago = os.environ.get("GEMINI_API_KEY_IMAGENES", "").strip()
+    if IDIOMA != "es" and CFG.get(IDIOMA, {}).get("voz_de_pago"):
+        # Portugués (decisión de Carlos, 13/11/2026): voces SIEMPRE con la clave de pago (proyecto de pago, cupo propio),
+        # para no tocar nunca el cupo gratuito de voz del español ni del inglés. Sin clave de pago, no se graba.
+        if not pago:
+            raise RuntimeError("Falta GEMINI_API_KEY_IMAGENES: las voces de este idioma son de pago")
+        modelo = modelos[0]
+        r = gemini(modelo, cuerpo, clave=pago)
+        MODELOS_VOZ_USADOS.add(modelo + " (pago)")
+        modelos = []
     for k, modelo in enumerate(modelos):
         try:
             r = gemini(modelo, cuerpo)
@@ -2196,7 +2207,7 @@ def main():
     suf = SUFIJO[idioma]
     if a.cache:
         CACHE = Path(a.cache)
-    if idioma != "es" and not CFG.get(idioma, {}).get("pago_voz"):
+    if idioma != "es" and not CFG.get(idioma, {}).get("pago_voz") and not CFG.get(idioma, {}).get("voz_de_pago"):
         os.environ.pop("GEMINI_API_KEY_IMAGENES", None)  # inglés: solo la clave gratuita (ni voces ni imágenes de pago)
     if os.environ.get("SIN_PAGO", "").strip().lower() in ("1", "true", "si", "sí"):
         os.environ.pop("GEMINI_API_KEY_IMAGENES", None)  # pruebas: nada de pago
