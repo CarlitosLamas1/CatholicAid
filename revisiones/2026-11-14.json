@@ -2,21 +2,20 @@
   "fecha": "2026-11-14",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-13T01:35:52+01:00",
-  "revisado": "2026-11-13T02:40:00+01:00",
+  "generado": "2026-11-13T02:49:50+01:00",
+  "revisado": "2026-11-13T03:33:01+01:00",
   "motivos": [],
   "avisos": [
-    "En la imagen de la escena 2 la viuda lleva un halo dorado de santa, algo que no corresponde a la parábola (detalle menor).",
-    "La imagen de la escena 3 tiene una firma/garabato en la esquina inferior derecha (detalle menor)."
+    "El registro marca sincronia.ok=false (la grabación de Jesús se cortó sin poder escucharla): el subtítulo podría ir algo desfasado; publicar.py puede rehacer el vídeo por esto."
   ],
   "puntos": {
     "fidelidad": "✅ texto idéntico al texto_evangelio; cita Lucas 18, 1-8 coincide con citas.json",
     "voces": "✅ parábola y palabras de Jesús en jesus; narración en narrador",
     "frase_clave": "✅ literal, de Jesús, 8 palabras",
-    "reflexion": "✅ 26 palabras, doctrinal y relacionada con la lectura",
-    "tecnica": "✅ 88,2 s, -13.8 LUFS",
-    "audio": "✅ más lento: fragmento 6 'Palabra del Señor' 4,7 car/s (corto, normal); más rápido: fragmento 5 con 15,9 car/s",
-    "imagenes": "⚠️ apropiadas y devocionales; halo en la viuda y firma pequeña en e3",
+    "reflexion": "✅ 27 palabras, doctrinal y ligada a la lectura",
+    "tecnica": "✅ 81,2 s, -13,9 LUFS",
+    "audio": "✅ más lento: 'Palabra del Señor' 6,1 car/s (2,9 s, normal); más rápido: jesus fragmento 5 con 16,8 car/s",
+    "imagenes": "✅ repintadas e2 (sin halo) y e3 (sin firma visible); devocionales y apropiadas",
     "metadatos": "✅ Lucas, fecha y cita coherentes"
   }
 }
