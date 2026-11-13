@@ -158,5 +158,10 @@
     },
     "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss",
     "subtitulos": "ok"
+  },
+  "comentario_canal": {
+    "id": "Ugz-G8CnpfnicJ74_oJ4AaABAg",
+    "texto": "🕊️ Onde você tem colocado a sua esperança a cada dia?\n\nConte nos comentários 👇 E se isso te ajudou, compartilhe com quem precisa hoje.",
+    "fecha": "2026-11-13T13:33:47+01:00"
   }
 }
