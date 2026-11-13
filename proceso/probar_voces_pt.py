@@ -83,6 +83,10 @@ for modelo in voz:
         except urllib.error.HTTPError as e:
             if e.code == 429:
                 t, lim = error429(e)
+                if re.search(r"PerMinute", t) and not re.search(r"PerDay", t):
+                    print(f"  (límite por minuto tras {n}; espero 65 s) {lim}")
+                    time.sleep(65)
+                    continue
                 print(f"  CUPO: se agota tras {n} peticiones más hoy · límite informado: {lim or t[:300]}")
                 break
             print(f"  cupo: error {e.code} tras {n}")
