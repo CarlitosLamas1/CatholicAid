@@ -2216,6 +2216,9 @@ def main():
         reg_es = json.loads(es.read_text(encoding="utf-8")) if es.exists() else {}
         listo = reg_es.get("modo") == "diario" and (reg_es.get("youtube") or reg_es.get("revision") in ("pendiente", "ok")
                                                    or reg_es.get("revision") == "rechazada" or reg_es.get("no_publicar"))
+        if idioma == "pt":  # el inglés ya APROBADO (no volverá a grabar voces hoy) o descartado: solo entonces el portugués
+            listo = reg_es.get("modo") == "diario" and (reg_es.get("youtube") or reg_es.get("revision") == "ok"
+                                                       or reg_es.get("no_publicar") or reg_es.get("estado") == "fallido")
         if not listo and dt.datetime.now(dt.timezone.utc).hour < 22:
             log(f"El vídeo en español del {fecha} aún no está hecho: el inglés espera a la próxima tirada.")
             return

@@ -199,9 +199,10 @@ def portugues(runs, ahora, manana):
     if not cfg.get("pt", {}).get("activo"):
         return
     en, pt = leer(f"episodios/{manana}-en.json"), leer(f"episodios/{manana}-pt.json")
+    # El portugués usa el mismo modelo de voz que el inglés: espera a que el inglés esté APROBADO (ya no grabará más
+    # voces hoy) o descartado, para no dejarlo nunca sin cupo.
     en_hecho = en.get("modo") == "diario" and (
-        en.get("youtube") or en.get("revision") in ("pendiente", "ok", "rechazada") or en.get("no_publicar")
-        or en.get("estado") == "fallido")
+        en.get("youtube") or en.get("revision") == "ok" or en.get("no_publicar") or en.get("estado") == "fallido")
     pt_hecho = pt.get("modo") == "diario" and (
         pt.get("youtube") or pt.get("revision") in ("pendiente", "ok") or pt.get("no_publicar"))
     if pt_hecho or not 18 <= ahora.hour <= 23:
