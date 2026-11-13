@@ -17,10 +17,10 @@ portugués; el español y el inglés no se ven afectados. Revisa siempre DESPUÉ
 2. **voces**: palabras de Jesús en `jesus`, narración en `narrador`, etc. Comillas ‘ ’ dentro de un discurso:
    sigue el mismo personaje.
 3. **frase_clave**: literal, de Jesús, en portugués, 3–12 palabras, que se entienda sola.
-4. **reflexion**: en portugués de Brasil, 1–2 frases (≤ 35 palabras) o una pregunta, tratando de «você», fiel a la
+4. **reflexion**: en portugués de Brasil, 1–2 frases (≤ 45 palabras) o una pregunta, tratando de «você», fiel a la
    doctrina, sin comillas, sin política. No es parte del Evangelio.
-5. **tecnica**: duración ≤ 180 s, `lufs` entre -15 y -13. Audio: 9–19 caracteres por segundo por fragmento
-   (< 7 o > 21 es anómalo).
+5. **tecnica**: duración ≤ 180 s, `lufs` entre -15.5 y -12.5 (⚠️ si fuera). Audio: lo normal son 9–19 caracteres por segundo en
+   fragmentos largos; ❌ solo si uno de más de 8 s va a menos de 6 c/s o uno de más de 3 s a más de 30 c/s.
 6. **imagenes**: las del día del español o de la biblioteca; nunca pidas "repintar".
 7. **metadatos**: título «“Frase” | Evangelho do dia 13 de novembro (Lucas 17,26-37)» (≤ 100 caracteres), cita en
    formato brasileño (Lucas 17,26-37; João 20,1-2.11-18), todo en portugués, `subtitulos_karaoke: true`.
