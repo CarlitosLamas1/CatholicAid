@@ -38,6 +38,7 @@ jobs:
             python3 proceso/youtube_conectar.py estado; exit 0
           elif [ -z "$CODIGO" ]; then
             python3 proceso/youtube_conectar.py url
+            echo "Enlace (base64, para el gestor):"; base64 -w0 youtube-url.txt; echo
           else
             python3 proceso/youtube_conectar.py canjear "$CODIGO"
             python3 proceso/youtube_conectar.py comprobar
