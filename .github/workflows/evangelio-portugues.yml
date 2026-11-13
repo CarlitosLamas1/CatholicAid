@@ -1,0 +1,196 @@
+name: Evangelio diario (portugués)
+
+# Canal «CatolicAid Português». Va DESPUÉS del inglés (mismo modelo de voz: nunca le quita cupo) y aislado:
+# otro grupo de ejecución, otro registro (episodios/AAAA-MM-DD-pt.json), otra release (pt-AAAA-MM-DD) y otro permiso
+# de YouTube (secretos/youtube-pt.enc). Usa las imágenes del día del español (no pinta nada) y SOLO la clave gratuita.
+# Texto: Figueiredo revisado (biblia/figueiredo/revisada/). Si el inglés aún no está, espera sin fallar.
+on:
+  schedule:
+    - cron: "40 18 * * *"
+    - cron: "40 20 * * *"
+    - cron: "10 22 * * *"
+    - cron: "45 22 * * *"
+  # Solo para probar en una rama (un workflow nuevo no se puede lanzar a mano hasta que está en main):
+  # ci/evangelio-pt.txt con «fecha=AAAA-MM-DD», «voces=edge|gemini» y «subir=si|no»; siempre en prueba (privado).
+  push:
+    branches: ["claude/**"]
+    paths: ["ci/evangelio-pt.txt"]
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha AAAA-MM-DD (vacío = mañana)"
+        required: false
+        default: ""
+      modo:
+        description: "prueba = privado sin programar · diario = pendiente del revisor"
+        type: choice
+        options: [prueba, diario]
+        default: prueba
+      subir:
+        description: "Subir a YouTube (canal en portugués)"
+        type: boolean
+        default: false
+      reutilizar:
+        description: "Rehacer: registro del que copiar frase y reflexión (p. ej. episodios/2026-11-15-pt.json)"
+        required: false
+        default: ""
+      voces:
+        description: "Voces (solo pruebas: edge no gasta cupo de Gemini)"
+        type: choice
+        options: [gemini, edge]
+        default: gemini
+
+permissions:
+  contents: write
+
+concurrency:
+  group: evangelio-pt
+  cancel-in-progress: false
+
+jobs:
+  producir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Versión del sistema
+        id: sistema
+        run: echo "version=${ImageOS:-ubuntu}-${ImageVersion:-0}" >> "$GITHUB_OUTPUT"
+
+      - name: Recuperar paquetes de la caché
+        id: cache-apt
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/paquetes
+          key: apt-ffmpeg-${{ steps.sistema.outputs.version }}-v1
+
+      - name: Instalar herramientas
+        timeout-minutes: 20
+        run: |
+          if [ -n "$(ls ~/paquetes/*.deb 2>/dev/null)" ] && sudo dpkg -i ~/paquetes/*.deb > /dev/null 2>&1 \
+             && ffmpeg -hide_banner -filters 2>/dev/null | grep -q " ass "; then
+            echo "Instalado desde la caché"
+          else
+            for i in 1 2 3; do
+              if timeout 300 sudo apt-get update -qq && \
+                 timeout 300 sudo apt-get install -y -qq -o Acquire::Retries=3 ffmpeg fonts-dejavu-core fonts-dejavu-extra > /dev/null; then
+                break
+              fi
+              echo "Instalación lenta o fallida (intento $i); reintento"
+              [ $i = 3 ] && exit 1
+              sleep 20
+            done
+          fi
+          pip install -q --timeout 60 edge-tts pillow
+          # Alineador de subtítulos (palabra a palabra con el audio real). Si no se instala, se sigue sin él.
+          pip install -q --timeout 120 faster-whisper || echo "Alineador no instalado: subtítulos por reparto de longitud"
+
+      # Lo ya conseguido de Gemini (guion, frase/reflexión, voces) se guarda entre reintentos: no se gasta cupo dos veces.
+      - name: Recuperar caché de Gemini
+        uses: actions/cache/restore@v4
+        with:
+          path: cache
+          key: gemini-pt-${{ github.run_id }}
+          restore-keys: gemini-pt-
+
+      - name: Modelo del alineador de subtítulos (caché)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+
+      - name: Producir vídeo
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          FECHA: ${{ inputs.fecha }}
+          MODO: ${{ inputs.modo || 'diario' }}
+          SUBIR: ${{ inputs.subir && 'true' || 'false' }}
+          MOTOR_VOZ: ${{ inputs.voces == 'edge' && 'edge' || '' }}
+          REUTILIZAR: ${{ inputs.reutilizar }}
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            MODO=prueba; SUBIR=false
+            [ "$(sed -n 's/^subir=//p' ci/evangelio-pt.txt)" = "si" ] && SUBIR=true
+            FECHA=$(sed -n 's/^fecha=//p' ci/evangelio-pt.txt); MOTOR_VOZ=$(sed -n 's/^voces=//p' ci/evangelio-pt.txt)
+            [ "$MOTOR_VOZ" = "gemini" ] && MOTOR_VOZ=""; export MOTOR_VOZ
+          fi
+          ARGS="--idioma pt --modo $MODO --cache cache"
+          if [ -n "$FECHA" ]; then ARGS="$ARGS --fecha $FECHA"; fi
+          if [ "$SUBIR" != "true" ]; then ARGS="$ARGS --no-subir"; fi
+          if [ -n "$REUTILIZAR" ]; then ARGS="$ARGS --reutilizar $REUTILIZAR"; fi
+          if [ "${{ github.event_name }}" = "schedule" ]; then ARGS="$ARGS --si-falta"; fi
+          python proceso/evangelio.py $ARGS
+
+      - name: Guardar caché de Gemini
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: cache
+          key: gemini-pt-${{ github.run_id }}
+
+      - name: Guardar vídeo y guion (30 días)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evangelio-pt-${{ github.run_number }}
+          path: |
+            salida/**/video.mp4
+            salida/**/guion.json
+            salida/**/subtitulos.ass
+            salida/**/miniatura*.jpg
+            salida/**/metadatos.json
+          retention-days: 30
+          if-no-files-found: ignore
+
+      # También si falla: así queda en el registro el aviso de falta de cupo.
+      - name: Guardar registro del episodio
+        if: always()
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add episodios/*-pt.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Registro del episodio en portugués"
+            git pull -q --rebase
+            git push -q
+          fi
+
+      - name: Dejar el vídeo listo para el revisor
+        if: success() && (github.event_name == 'schedule' || inputs.modo == 'diario')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          D=$(ls -d salida/*-pt/ 2>/dev/null | head -1)
+          if [ -z "$D" ] || [ ! -f "$D/video.mp4" ]; then echo "Nada nuevo"; exit 0; fi
+          F=$(basename "$D"); F=${F%-pt}
+          gh release delete "pt-$F" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "pt-$F" "$D/video.mp4" $(ls "$D"/miniatura*.jpg 2>/dev/null) --title "Português $F" --notes-file "$D/tiktok.txt" --prerelease
+
+      - name: Avisar por Telegram (vídeo listo)
+        if: success() && (github.event_name == 'schedule' || inputs.modo == 'diario')
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+        run: python3 proceso/avisos.py listo
+
+      - name: Avisar por Telegram (fallo)
+        if: failure() && github.event_name != 'push'
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          FECHA: ${{ inputs.fecha }}
+          IDIOMA: pt
+          ENLACE: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: python3 proceso/avisos.py fallo "$FECHA" "$ENLACE"

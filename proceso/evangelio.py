@@ -39,6 +39,9 @@ MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto
 W, H, FPS, HZ = 1080, 1920, 30, 24000
 COMILLAS = "“”‘’\"«»"
 DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+DIAS_PT = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
+MESES_PT = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro",
+            "novembro", "dezembro"]
 MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
           "November", "December"]
 
@@ -106,6 +109,8 @@ def hora_pub(idioma="es"):
 def fecha_larga(fecha):
     if IDIOMA == "en":
         return f"{DAYS[fecha.weekday()]}, {MONTHS[fecha.month - 1]} {fecha.day}"
+    if IDIOMA == "pt":
+        return f"{DIAS_PT[fecha.weekday()]}, {fecha.day} de {MESES_PT[fecha.month - 1]}"
     return f"{DIAS[fecha.weekday()]} {fecha.day} de {MESES[fecha.month - 1]}"
 
 
@@ -659,6 +664,26 @@ LECTURA COMPLETA (contexto):
 {chr(10).join(fuente)}
 
 FULL READING (context):
+{hablado(ev['texto'])}"""
+    if IDIOMA == "pt":
+        quien = "as palavras de Jesus" if jesus else "o texto"
+        prompt = f"""Você é um sacerdote católico que prepara um vídeo curto com o Evangelho do dia ({ev['cita']}).
+
+1. "frase_clave": escolha d{quien} (abaixo) a frase mais significativa e fácil de lembrar, para mostrá-la em grande no
+   início do vídeo. Copie-a LITERALMENTE, palavra por palavra e com a mesma pontuação, sem aspas: pode ser uma frase
+   inteira ou uma parte com sentido completo que se entenda sozinha (com o seu verbo), de 4 a 12 palavras. Prefira um
+   ensinamento ou promessa de Jesus (não uma pergunta solta, nem uma frase de transição, nem uma frase que só descreve
+   um detalhe do relato ou da parábola) e não use nada que contenha «…». MUITO IMPORTANTE: tem de se entender
+   sozinha, sem nenhum contexto, por alguém que não ouviu a leitura.
+2. "reflexion": 1 ou 2 frases breves (no máximo 35 palavras no total) para meditar depois da leitura; pode terminar
+   com uma pergunta. Tom caloroso e próximo, tratando o espectador por «você», em português do Brasil. Fiel à
+   doutrina da Igreja Católica e ao sentido desta leitura. Não cite nem invente palavras de Jesus, não use aspas nem
+   emojis, não fale de política nem de temas polêmicos.
+
+{quien.upper()}:
+{chr(10).join(fuente)}
+
+LEITURA COMPLETA (contexto):
 {hablado(ev['texto'])}"""
     clave = f"gancho_{huella(prompt)}.json"
     previo = cache_leer(clave)
@@ -1436,7 +1461,7 @@ def _normal_palabra(w):
 
 
 def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
-    titulo = "Gospel of the day · " if IDIOMA == "en" else "Evangelio del día · "
+    titulo = {"en": "Gospel of the day · ", "pt": "Evangelho do dia · "}.get(IDIOMA, "Evangelio del día · ")
     fin_cabecera = next((f["inicio"] for f in frs if f.get("reflexion")), total - cierre)  # no durante la reflexión
     eventos = [("Cabecera", gancho, fin_cabecera,
                 "{\\fs38}" + titulo + fecha_larga(fecha) + "\\N{\\fs56}" + ev["cita"])]
@@ -1617,6 +1642,7 @@ def normalizar_volumen(origen, destino):
 
 YT = "https://www.googleapis.com/youtube/v3/"
 CANAL_ES = "UCeQ2e1rojxsa9UyrHWcVEVA"
+CANAL_EN = "UCNedsWPz5j3H9WXOADjzjkg"
 LISTAS = {"Mateo": "Evangelio según san Mateo", "Marcos": "Evangelio según san Marcos",
           "Lucas": "Evangelio según san Lucas", "Juan": "Evangelio según san Juan"}
 LISTAS_EN = {"Mateo": "Gospel according to St. Matthew", "Marcos": "Gospel according to St. Mark",
@@ -1626,6 +1652,11 @@ TIEMPOS = {"adviento": ("Evangelio del día · Adviento", "Daily Gospel · Adven
            "cuaresma": ("Evangelio del día · Cuaresma", "Daily Gospel · Lent"),
            "pascua": ("Evangelio del día · Pascua", "Daily Gospel · Easter"),
            "ordinario": ("Evangelio del día · Tiempo Ordinario", "Daily Gospel · Ordinary Time")}
+
+
+TIEMPOS_PT = {"adviento": "Evangelho do dia · Advento", "navidad": "Evangelho do dia · Natal",
+              "cuaresma": "Evangelho do dia · Quaresma", "pascua": "Evangelho do dia · Páscoa",
+              "ordinario": "Evangelho do dia · Tempo Comum"}
 
 
 def pascua(anio):
@@ -1684,8 +1715,8 @@ def token_youtube(idioma="es"):
         d = http(YT + "channels?part=snippet&mine=true", headers={"Authorization": f"Bearer {r['access_token']}"})
         canal = (d.get("items") or [{}])[0]
         log(f"   Canal: {canal.get('snippet', {}).get('title', '?')} ({canal.get('id', '?')})")
-        if not canal.get("id") or canal["id"] == CANAL_ES:
-            raise RuntimeError("El permiso del inglés apunta al canal en español: no subo nada")
+        if not canal.get("id") or canal["id"] == CANAL_ES or (idioma != "en" and canal["id"] == CANAL_EN):
+            raise RuntimeError(f"El permiso del canal «{idioma}» apunta a otro canal: no subo nada")
     return r["access_token"]
 
 
@@ -1719,10 +1750,13 @@ def anadir_a_lista(tok, titulo, descripcion, vid, idioma="es"):
 
 
 def lista_evangelista(tok, libro, vid, idioma="es"):
-    titulo = (LISTAS_EN if idioma == "en" else LISTAS).get(libro)
+    titulo = (LISTAS_EN if idioma == "en" else CFG.get("pt", {}).get("listas", {}) if idioma == "pt" else LISTAS).get(libro)
     if not titulo:
         return None
-    if idioma == "en":
+    if idioma == "pt":
+        desc = (f"O Evangelho do dia segundo São {LIBROS_PT[libro]}, lido com várias vozes. "
+                "Um vídeo novo todos os dias. #EvangelhoDoDia")
+    elif idioma == "en":
         desc = (f"The Gospel of the day according to St. {LIBROS_EN[libro]}, read with several voices. "
                 "A new video every day. #GospelOfTheDay")
     else:
@@ -1734,6 +1768,10 @@ def lista_evangelista(tok, libro, vid, idioma="es"):
 def lista_liturgica(tok, fecha, vid, idioma="es"):
     tiempo = tiempo_liturgico(fecha)
     es, en = TIEMPOS[tiempo]
+    if idioma == "pt":
+        pt = TIEMPOS_PT[tiempo]
+        return anadir_a_lista(tok, pt, f"{pt.split(' · ')[1]}: o Evangelho de cada dia, lido com várias vozes. "
+                              "#EvangelhoDoDia", vid, idioma)
     if idioma == "en":
         return anadir_a_lista(tok, en, f"{en.split(' · ')[1]}: the Gospel of each day, read with several voices. "
                               "#GospelOfTheDay", vid, idioma)
@@ -1768,7 +1806,13 @@ def credito_musica(ev):
 
 def titulo_youtube(ev, fecha, idioma="es"):
     frase = (ev.get("frase_clave") or "").strip(" .,;:")
-    if idioma == "en":
+    if idioma == "pt":
+        mes = MESES_PT[fecha.month - 1]
+        base = f"Evangelho do dia · {fecha.day} de {mes} · {ev['cita']}"
+        opciones = [f" | Evangelho do dia {fecha.day} de {mes} ({ev['cita']})",
+                    f" | Evangelho do dia {fecha.day}/{fecha.month} ({ev['cita']})",
+                    f" | Evangelho {fecha.day}/{fecha.month} · {ev['cita']}"]
+    elif idioma == "en":
         mes = MONTHS[fecha.month - 1][:3]
         base = f"Gospel of the day · {MONTHS[fecha.month - 1]} {fecha.day} · {ev['cita']}"
         opciones = [f" | Gospel of the day, {MONTHS[fecha.month - 1]} {fecha.day} ({ev['cita']})",
@@ -1795,7 +1839,20 @@ def titulo_youtube(ev, fecha, idioma="es"):
 def metadatos_youtube(ev, fecha, modo, idioma="es"):
     """Título, descripción, etiquetas y estado (privado, contenido sintético, programación) del vídeo."""
     titulo = titulo_youtube(ev, fecha, idioma)
-    if idioma == "en":
+    if idioma == "pt":
+        descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
+                       f"Evangelho de {DIAS_PT[fecha.weekday()]}, {fecha.day} de {MESES_PT[fecha.month - 1]} de "
+                       f"{fecha.year}, lido com várias vozes.\n\n"
+                       + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
+                       f"📖 Texto: {ev.get('fuente_texto', 'Bíblia do Pe. Antônio Pereira de Figueiredo')}. "
+                       "Calendário litúrgico: Vatican News.\n"
+                       "🎨 Imagens: cenas geradas com IA e pinturas clássicas (domínio público).\n"
+                       "🎙️ Vozes geradas com inteligência artificial.\n"
+                       + (f"🎵 Música: {credito_musica(ev)}\n" if credito_musica(ev) else "") + "\n"
+                       + CFG.get("pt", {}).get("hashtags", "#Shorts #EvangelhoDoDia #Evangelho #PalavraDeDeus #Catolico"))
+        etiquetas = ["evangelho do dia", "evangelho", "católico", "palavra de Deus", "bíblia", LIBROS_PT.get(
+            ev["cita"].split()[0], ev["cita"].split()[0])]
+    elif idioma == "en":
         descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
                        f"Gospel of {DAYS[fecha.weekday()]}, {MONTHS[fecha.month - 1]} {fecha.day}, {fecha.year}, "
                        "read with several voices.\n\n"
@@ -1911,7 +1968,7 @@ def subir_subtitulos(tok, vid, reg, idioma="es", srt=None):
     if not srt:
         return "sin texto"
     meta = {"snippet": {"videoId": vid, "language": idioma, "isDraft": False,
-                        "name": "English" if idioma == "en" else "Español"}}
+                        "name": {"en": "English", "pt": "Português"}.get(idioma, "Español")}}
     frontera = "catolicaid" + huella(vid, srt)[:12]
     cuerpo = (f"--{frontera}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n{json.dumps(meta)}\r\n"
               f"--{frontera}\r\nContent-Type: application/x-subrip; charset=UTF-8\r\n\r\n{srt}\r\n--{frontera}--\r\n")
@@ -2046,6 +2103,34 @@ def evangelio_ingles(fecha):
             "cita": cita_en(cita), "cita_es": cita, "libro": libro, "texto": texto, "fuente_texto": fuente}
 
 
+LIBROS_PT = {"Mateo": "Mateus", "Marcos": "Marcos", "Lucas": "Lucas", "Juan": "João"}
+
+
+def cita_pt(cita):
+    """'Lucas 17, 26-37' -> 'Lucas 17,26-37' · 'Juan 20, 1-2. 11-18' -> 'João 20,1-2.11-18'"""
+    libro, resto = cita.split(None, 1)
+    resto = re.sub(r"([,.])\s+", r"\1", resto)
+    return f"{LIBROS_PT.get(libro, libro)} {resto}"
+
+
+def evangelio_portugues(fecha):
+    """Canal en portugués: la MISMA cita que el español, con el Figueiredo revisado (solo la versión revisada)."""
+    es = RAIZ / "episodios" / f"{fecha}.json"
+    reg_es = json.loads(es.read_text(encoding="utf-8")) if es.exists() else {}
+    ruta = RAIZ / "biblia" / "citas.json"
+    citas = json.loads(ruta.read_text(encoding="utf-8")) if ruta.exists() else {}
+    cita = (reg_es.get("cita") if reg_es.get("modo") == "diario" else None) or citas.get(str(fecha))
+    if not cita:
+        cita = obtener_evangelio(fecha)["cita"]
+    texto, fuente = texto_figueiredo(cita)
+    libro = cita.split()[0]
+    plantilla = CFG.get("pt", {}).get("titulo_lectura", "Proclamação do Evangelho de Jesus Cristo segundo {evangelista}.")
+    return {"url": CFG.get("pt", {}).get("evangelio_del_dia", "").replace("{AAAA}", f"{fecha:%Y}").replace(
+                "{MM}", f"{fecha:%m}").replace("{DD}", f"{fecha:%d}"),
+            "titulo": plantilla.replace("{evangelista}", f"São {LIBROS_PT.get(libro, libro)}"),
+            "cita": cita_pt(cita), "cita_es": cita, "libro": libro, "texto": texto, "fuente_texto": fuente}
+
+
 def escenas_del_espanol(fecha):
     """Las escenas del vídeo en español del mismo día, para que el inglés use sus imágenes (no se pinta nada)."""
     es = RAIZ / "episodios" / f"{fecha}.json"
@@ -2092,7 +2177,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--fecha", default="")
     ap.add_argument("--modo", choices=["prueba", "diario"], default="prueba")
-    ap.add_argument("--idioma", choices=["es", "en"], default="es")
+    ap.add_argument("--idioma", choices=["es", "en", "pt"], default="es")
     ap.add_argument("--no-subir", action="store_true")
     ap.add_argument("--si-falta", action="store_true", help="no hace nada si ese día ya está subido (reintentos)")
     ap.add_argument("--cache", default="", help="carpeta de caché (guion, frase y voces ya hechas no se repiten)")
@@ -2119,7 +2204,8 @@ def main():
     if idioma != "es" and a.si_falta and a.modo == "diario":
         # El inglés va DESPUÉS del español (usa sus imágenes y el cupo que sobre). Si el español aún no está, espera
         # sin fallar; solo en la última tirada (22 UTC o más) sigue sin él, con las imágenes de la biblioteca.
-        es = RAIZ / "episodios" / f"{fecha}.json"
+        # El portugués va además DESPUÉS del inglés: usa el mismo modelo de voz y así nunca le quita cupo.
+        es = RAIZ / "episodios" / f"{fecha}{'-en' if idioma == 'pt' else ''}.json"
         reg_es = json.loads(es.read_text(encoding="utf-8")) if es.exists() else {}
         listo = reg_es.get("modo") == "diario" and (reg_es.get("youtube") or reg_es.get("revision") in ("pendiente", "ok")
                                                    or reg_es.get("revision") == "rechazada" or reg_es.get("no_publicar"))
@@ -2144,6 +2230,9 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     log("1/6 Evangelio")
     if idioma == "en":
         ev = evangelio_ingles(fecha)
+        libro = ev["libro"]
+    elif idioma == "pt":
+        ev = evangelio_portugues(fecha)
         libro = ev["libro"]
     else:
         ev = obtener_evangelio(fecha)
@@ -2336,6 +2425,12 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
             f"Evangelio del día · {fecha_txt} · {ev['cita']} 🙏\n\n" + (f"«{frase}»\n\n" if frase else "") + f"{ev['titulo']}\n"
             "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
             "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion", encoding="utf-8")
+    elif idioma == "pt":
+        (carpeta / "tiktok.txt").write_text(
+            f"Evangelho do dia · {fecha.day} de {MESES_PT[fecha.month - 1]} · {ev['cita']} 🙏\n\n"
+            + (f"«{frase}»\n\n" if frase else "") + f"{ev['titulo']}\n"
+            "Ouça com o coração e compartilhe com quem precisa. ✝️\n\n"
+            "#EvangelhoDoDia #Evangelho #PalavraDeDeus #Catolico #Fe #Jesus #Deus #Oracao", encoding="utf-8")
     else:  # TikTok en inglés: fuera de alcance; la nota solo sirve de descripción de la release
         (carpeta / "tiktok.txt").write_text(f"Gospel of the day · {ev['cita']} (CatolicAid English)\n", encoding="utf-8")
 
