@@ -19,6 +19,18 @@ on:
         description: "Esperar a la hora de publicación antes de publicar (lo usa el Reloj)"
         required: false
         default: "false"
+      idioma:
+        description: "es, en, pt o vacío (= todos)"
+        required: false
+        default: ""
+      video_run:
+        description: "Solo si la release ya no existe: ID del run de «Evangelio diario» cuyo vídeo usar"
+        required: false
+        default: ""
+  # Para el gestor cuando no puede lanzarlo a mano: ci/tiktok-publicar.txt con «fecha=», «idioma=» y «video_run=».
+  push:
+    branches: ["claude/**"]
+    paths: ["ci/tiktok-publicar.txt"]
 
 permissions:
   contents: write
@@ -47,14 +59,26 @@ jobs:
         id: publicar
         run: |
           exec > >(tee publicar.log) 2>&1
-          F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
+          F="${{ inputs.fecha }}"; IDIOMAS="${{ inputs.idioma }}"; RUN="${{ inputs.video_run }}"
+          if [ "${{ github.event_name }}" = "push" ]; then
+            F=$(sed -n 's/^fecha=//p' ci/tiktok-publicar.txt); IDIOMAS=$(sed -n 's/^idioma=//p' ci/tiktok-publicar.txt)
+            RUN=$(sed -n 's/^video_run=//p' ci/tiktok-publicar.txt)
+          fi
+          [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
+          [ -n "$IDIOMAS" ] || IDIOMAS="es en pt"
           HECHOS=""
           FALLO=0
           # Español (@catolicaid, release tiktok-F) e inglés (@catolicaid_en, release en-F), cada uno con su permiso.
-          for L in es en pt; do
+          for L in $IDIOMAS; do
             if [ "$L" = "es" ]; then N="$F"; REL="tiktok-$F"; ENC=secretos/tiktok.enc; else N="$F-$L"; REL="$L-$F"; ENC=secretos/tiktok-$L.enc; fi
             echo "::group::TikTok $L ($N)"
             if [ ! -f "$ENC" ]; then echo "TikTok ($L) aún no está conectado."; echo "::endgroup::"; continue; fi
+            if ! gh release view "$REL" >/dev/null 2>&1 && [ -n "$RUN" ] && [ -f "episodios/$N.json" ]; then
+              # Copia de seguridad del run (30 días): se rehace la release para publicar desde ella.
+              rm -rf a && gh run download "$RUN" -D a
+              V=$(find a -path "*${N#$F}/video.mp4" -path "*$F*" | head -1)
+              [ -n "$V" ] && gh release create "$REL" "$V" --title "$N (copia del run)" --notes "" --prerelease
+            fi
             if ! gh release view "$REL" >/dev/null 2>&1; then echo "No hay vídeo preparado (ya publicado o no generado)."; echo "::endgroup::"; continue; fi
             if python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$N.json')).get('tiktok') else 1)" 2>/dev/null; then echo "Ya publicado en TikTok."; echo "::endgroup::"; continue; fi
             # Solo con el OK del revisor (o de Carlos) y si no se ha pedido no publicar.
@@ -74,6 +98,15 @@ jobs:
           t = Path("t/texto.txt")
           if idioma in ("es", "pt") and t.exists() and t.read_text(encoding="utf-8").strip():
               texto = t.read_text(encoding="utf-8")
+          elif idioma == "pt":  # el mismo texto que Instagram en portugués
+              a, m, dia = map(int, fecha.split("-"))
+              meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro",
+                       "outubro", "novembro", "dezembro"]
+              frase = d.get("frase_clave", "")
+              texto = (f"Evangelho do dia · {dia} de {meses[m - 1]} · {d.get('cita', '')} 🙏\n\n"
+                       + (f"«{frase}»\n\n" if frase else "") + f"{d.get('titulo', '')}\n"
+                       "Ouça com o coração e compartilhe com quem precisa. ✝️\n\n"
+                       "#EvangelhoDoDia #Evangelho #PalavraDeDeus #Catolico #Fe #Jesus #Deus #Oracao")
           else:  # inglés: el mismo texto que Instagram en inglés
               a, m, dia = map(int, fecha.split("-"))
               months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
