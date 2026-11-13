@@ -7,11 +7,11 @@ on:
   workflow_dispatch:
     inputs:
       canal:
-        description: "Canal: es (CatolicAid, por defecto) o en (canal en inglés)"
+        description: "Canal: es (CatolicAid, por defecto), en (inglés) o pt (portugués)"
         required: false
         default: "es"
         type: choice
-        options: [es, en]
+        options: [es, en, pt]
       codigo:
         description: "Código o dirección que devuelve Google tras autorizar (vacío = dame el enlace)"
         required: false
