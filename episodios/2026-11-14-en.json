@@ -130,5 +130,25 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "fyGSXQanTNE",
+    "url": "https://youtu.be/fyGSXQanTNE",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-13T23:05:00Z",
+    "lista": {
+      "id": "PLE6wYiZ-BMK0",
+      "titulo": "Gospel according to St. Luke",
+      "url": "https://www.youtube.com/playlist?list=PLE6wYiZ-BMK0"
+    },
+    "lista_liturgica": {
+      "id": "PLLWkUaN0V-24",
+      "titulo": "Daily Gospel · Ordinary Time",
+      "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
+    },
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss",
+    "subtitulos": "ok"
+  }
 }
