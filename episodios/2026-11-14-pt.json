@@ -1,0 +1,140 @@
+{
+  "fecha": "2026-11-14",
+  "modo": "diario",
+  "cita": "Lucas 18,1-8",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/14.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 8,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 91.8,
+  "imagenes": [
+    "dias/2026-11-14_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-14_e1.jpg",
+    "dias/2026-11-14_e2.jpg",
+    "biblioteca/D01",
+    "dias/2026-11-14_e3.jpg",
+    "dias/2026-11-14_e4.jpg",
+    "biblioteca/D05",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R02",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Eu digo a vocês que ele lhes fará justiça bem depressa.",
+  "reflexion": "Deus nunca ignora as suas preces, pois ama escutar a sua voz. Continue rezando com confiança e insistência: você tem perseverado na oração?",
+  "lufs": -13.9,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus sits outdoors surrounded by his attentive disciples, teaching them about prayer under a bright and serene sky.",
+      "busqueda": "teaching prayer outdoors",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A persistent widow in humble clothing petitions a stern judge seated on an ornate seat inside a dark, quiet hall.",
+      "busqueda": "persistent widow judge",
+      "personajes": [
+        "mujer",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The judge gestures with his hand in agreement inside his chamber, deciding to give justice to the relieved widow standing before him.",
+      "busqueda": "judge widow justice",
+      "personajes": [
+        "hombre",
+        "mujer"
+      ]
+    },
+    {
+      "numero": 4,
+      "descripcion": "Jesus looks toward heaven with deep compassion and hands open, surrounded by warm heavenly light.",
+      "busqueda": "jesus prayer heaven",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
+  "texto_evangelio": "Naquele tempo, Jesus contou aos discípulos uma parábola, para mostrar que é preciso rezar sempre, sem desanimar. Ele disse: “Numa cidade havia um juiz que não temia a Deus nem respeitava ninguém. Na mesma cidade havia uma viúva que vinha sempre procurá-lo, dizendo: ‘Faça-me justiça contra o meu adversário’. Durante muito tempo o juiz não quis atendê-la. Mas por fim pensou consigo: ‘Embora eu não tema a Deus nem respeite ninguém, vou fazer justiça a essa viúva, porque ela não para de me incomodar; senão, de tanto vir, ela vai acabar me esgotando’”. E o Senhor acrescentou: “Escutem o que diz esse juiz injusto. E Deus não fará justiça aos seus escolhidos, que clamam a ele dia e noite? Vai fazê-los esperar? Eu digo a vocês que ele lhes fará justiça bem depressa. Mas, quando o Filho do Homem vier, será que vai encontrar fé sobre a terra?”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 9.23,
+      "texto": "Naquele tempo, Jesus contou aos discípulos uma parábola, para mostrar que é preciso rezar sempre, sem desanimar. Ele disse:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 19.67,
+      "texto": "“Numa cidade havia um juiz que não temia a Deus nem respeitava ninguém. Na mesma cidade havia uma viúva que vinha sempre procurá-lo, dizendo: ‘Faça-me justiça contra o meu adversário’. Durante muito tempo o juiz não quis atendê-la."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 37.0,
+      "texto": "Mas por fim pensou consigo: ‘Embora eu não tema a Deus nem respeite ninguém, vou fazer justiça a essa viúva, porque ela não para de me incomodar; senão, de tanto vir, ela vai acabar me esgotando’”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 51.49,
+      "texto": "E o Senhor acrescentou:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 4,
+      "inicio": 54.57,
+      "texto": "“Escutem o que diz esse juiz injusto. E Deus não fará justiça aos seus escolhidos, que clamam a ele dia e noite? Vai fazê-los esperar? Eu digo a vocês que ele lhes fará justiça bem depressa. Mas, quando o Filho do Homem vier, será que vai encontrar fé sobre a terra?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 72.08,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 76.46,
+      "texto": "Deus nunca ignora as suas preces, pois ama escutar a sua voz. Continue rezando com confiança e insistência: você tem perseverado na oração?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-13T15:39:32+01:00",
+  "run": "43442367791",
+  "idioma": "pt",
+  "libro": "Lucas",
+  "cita_es": "Lucas 18, 1-8",
+  "cupo_agotado": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 8,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
