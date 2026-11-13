@@ -32,6 +32,13 @@ jobs:
           if [ -f ci/instagram-codigo.txt ] && [ "${{ github.event_name }}" = "push" ]; then
             CODIGO=$(tr -d '[:space:]' < ci/instagram-codigo.txt); git rm -q ci/instagram-codigo.txt
           fi
+          if [ "$CODIGO" = "comprobar" ]; then
+            mkdir -p estado && python3 proceso/instagram.py comprobar > estado/instagram-cuentas.txt 2>&1 || true
+            git config user.name "gestor-catholicaid"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A estado/instagram-cuentas.txt ci/ && git commit -q -m "Instagram: cuentas conectadas" && git pull -q --rebase && git push -q
+            exit 0
+          fi
           if [ -z "$CODIGO" ]; then
             URL=$(python3 proceso/instagram.py url)
             echo "### Autorizar Instagram" >> "$GITHUB_STEP_SUMMARY"
