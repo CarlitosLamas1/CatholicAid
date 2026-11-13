@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-14",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-13T02:03:34+01:00",
+  "revisado": "2026-11-13T02:48:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "Las imágenes son las del español (la viuda lleva un halo dorado en la escena 2, detalle menor).",
+    "El título de YouTube aún no figura en el registro; no se pudo comprobar el formato en inglés."
+  ],
+  "puntos": {
+    "fidelidad": "✅ idéntico a la WEB Católica, Lucas 18:1-8 (intro «At that time,»)",
+    "voces": "✅ palabras de Jesús (incluida la parábola) en jesus; narración en narrador",
+    "frase_clave": "✅ literal, de Jesús, 9 palabras",
+    "reflexion": "✅ 27 palabras, en inglés, fiel a la doctrina y ligada a la lectura",
+    "tecnica": "✅ 88,6 s, -14.0 LUFS",
+    "audio": "✅ 9–15 car/s en fragmentos largos; más lento: fragmento 6 (4,4 car/s, corto con pausa, normal)",
+    "imagenes": "✅ reutilizadas del español, aprobadas",
+    "metadatos": "⚠️ cita Luke 18:1-8 y libro coherentes; título de YouTube no visible en el registro"
+  }
+}
