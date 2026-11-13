@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-14",
+  "idioma": "pt",
+  "ok": true,
+  "por": "gestor",
+  "generado": "2026-11-13T15:39:32+01:00",
+  "revisado": "2026-11-13T15:52:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "Revisado por el gestor: la rutina «Revisor portugués» dio OK pero no pudo guardar el veredicto (sin permiso de escritura)."
+  ],
+  "puntos": {
+    "fidelidad": "✅ idéntico al Figueiredo revisado (Lucas 18,1-8, coincide con citas.json)",
+    "voces": "✅ narración en narrador; Jesús cuenta la parábola (juez y viúva dentro de su voz)",
+    "frase_clave": "✅ literal, de Jesús, se entiende sola",
+    "reflexion": "✅ portugués de Brasil, de «você», fiel y breve",
+    "tecnica": "✅ 91,8 s, -13,9 LUFS, subtítulos sincronizados (8/8 por lo que se oye)",
+    "audio": "✅ más lento: «Palavra da Salvação» 4,6 c/s (corto, normal); más rápido: Jesús 15,2 c/s",
+    "imagenes": "✅ las del español del 14/11 y biblioteca",
+    "metadatos": "✅ Lucas 18,1-8 en formato brasileño"
+  }
+}
