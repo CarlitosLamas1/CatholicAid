@@ -154,11 +154,8 @@ jobs:
         run: |
           git config user.name "gestor-catholicaid"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add episodios/ secretos/ estado/ 2>/dev/null || true
-          if ! git diff --cached --quiet; then
-            git commit -q -m "TikTok: publicación del día"
-            git pull -q --rebase && git push -q
-          fi
+          # Solo las claves cambiadas, sobre el main más reciente (TikTok e Instagram escriben a la vez).
+          python3 proceso/guardar.py "TikTok: publicación del día" episodios/ secretos/ estado/
       - name: Avisar por Telegram (publicado en TikTok)
         if: always() && steps.publicar.outputs.hechos != ''
         continue-on-error: true
