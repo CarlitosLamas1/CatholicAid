@@ -25,7 +25,8 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 CUENTA = os.environ.get("TIKTOK_CUENTA", "es").strip() or "es"
 FICHERO = RAIZ / "secretos" / ("tiktok.enc" if CUENTA == "es" else f"tiktok-{CUENTA}.enc")
-PERFILES = {"es": "https://www.tiktok.com/@catolicaid", "en": "https://www.tiktok.com/@catolicaid_en"}
+PERFILES = {"es": "https://www.tiktok.com/@catolicaid", "en": "https://www.tiktok.com/@catolicaid_en",
+            "pt": "https://www.tiktok.com/@catolicaid_pt"}
 
 
 def usar(cuenta):

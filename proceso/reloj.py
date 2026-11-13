@@ -113,13 +113,13 @@ def main():
         reg, rev = leer(f"episodios/{hoy}.json"), leer(f"revisiones/{hoy}.json")
         preparado = subprocess.run(["gh", "release", "view", f"tiktok-{hoy}"], capture_output=True).returncode == 0
         falta_tt = preparado and rev.get("ok") and not reg.get("no_publicar") and not reg.get("tiktok")
-        # TikTok en inglés (@catolicaid_en), si está conectado: misma tirada
-        tt_en = subprocess.run(["git", "cat-file", "-e", "origin/main:secretos/tiktok-en.enc"]).returncode == 0
-        if tt_en and not falta_tt:
-            reg_en_tt, rev_en_tt = leer(f"episodios/{hoy}-en.json"), leer(f"revisiones/{hoy}-en.json")
-            prep_en_tt = subprocess.run(["gh", "release", "view", f"en-{hoy}"], capture_output=True).returncode == 0
-            falta_tt = (prep_en_tt and rev_en_tt.get("ok") and not reg_en_tt.get("no_publicar")
-                        and not reg_en_tt.get("tiktok"))
+        # TikTok en inglés (@catolicaid_en) y portugués (@catolicaid_pt), si están conectados: misma tirada
+        for suf in ("en", "pt"):
+            conectado = subprocess.run(["git", "cat-file", "-e", f"origin/main:secretos/tiktok-{suf}.enc"]).returncode == 0
+            if conectado and not falta_tt:
+                reg_x, rev_x = leer(f"episodios/{hoy}-{suf}.json"), leer(f"revisiones/{hoy}-{suf}.json")
+                prep_x = subprocess.run(["gh", "release", "view", f"{suf}-{hoy}"], capture_output=True).returncode == 0
+                falta_tt = prep_x and rev_x.get("ok") and not reg_x.get("no_publicar") and not reg_x.get("tiktok")
         if falta_tt:
             if reciente(runs, "Publicar en TikTok", 30):
                 log("TikTok: en marcha o reciente; espero.")

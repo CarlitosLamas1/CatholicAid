@@ -51,8 +51,8 @@ jobs:
           HECHOS=""
           FALLO=0
           # Español (@catolicaid, release tiktok-F) e inglés (@catolicaid_en, release en-F), cada uno con su permiso.
-          for L in es en; do
-            if [ "$L" = "en" ]; then N="$F-en"; REL="en-$F"; ENC=secretos/tiktok-en.enc; else N="$F"; REL="tiktok-$F"; ENC=secretos/tiktok.enc; fi
+          for L in es en pt; do
+            if [ "$L" = "es" ]; then N="$F"; REL="tiktok-$F"; ENC=secretos/tiktok.enc; else N="$F-$L"; REL="$L-$F"; ENC=secretos/tiktok-$L.enc; fi
             echo "::group::TikTok $L ($N)"
             if [ ! -f "$ENC" ]; then echo "TikTok ($L) aún no está conectado."; echo "::endgroup::"; continue; fi
             if ! gh release view "$REL" >/dev/null 2>&1; then echo "No hay vídeo preparado (ya publicado o no generado)."; echo "::endgroup::"; continue; fi
@@ -62,17 +62,17 @@ jobs:
               echo "Sin OK del revisor (o marcado para no publicar): no se publica."; echo "::endgroup::"; continue
             fi
             rm -rf t && mkdir -p t && gh release download "$REL" -D t -p video.mp4
-            [ "$L" = "es" ] && gh release view "$REL" --json body -q .body > t/texto.txt
+            [ "$L" != "en" ] && gh release view "$REL" --json body -q .body > t/texto.txt
             if TIKTOK_CUENTA=$L python3 - "$F" "$L" <<'PY'
           import json, sys
           from pathlib import Path
           sys.path.insert(0, "proceso")
           import tiktok
           fecha, idioma = sys.argv[1], sys.argv[2]
-          reg = Path(f"episodios/{fecha}{'-en' if idioma == 'en' else ''}.json")
+          reg = Path(f"episodios/{fecha}{'' if idioma == 'es' else '-' + idioma}.json")
           d = json.loads(reg.read_text(encoding="utf-8")) if reg.exists() else {}
           t = Path("t/texto.txt")
-          if idioma == "es" and t.exists() and t.read_text(encoding="utf-8").strip():
+          if idioma in ("es", "pt") and t.exists() and t.read_text(encoding="utf-8").strip():
               texto = t.read_text(encoding="utf-8")
           else:  # inglés: el mismo texto que Instagram en inglés
               a, m, dia = map(int, fecha.split("-"))

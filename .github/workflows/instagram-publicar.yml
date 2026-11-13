@@ -185,7 +185,7 @@ jobs:
               gh release delete "en-$F" --yes --cleanup-tag
             fi
             # Portugués: sin TikTok, la release se borra cuando Instagram ha publicado.
-            if [ "$L" = "pt" ] && gh release view "pt-$F" >/dev/null 2>&1 && python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F-pt.json')).get('instagram') else 1)"; then
+            if [ "$L" = "pt" ] && gh release view "pt-$F" >/dev/null 2>&1 && python3 -c "import json,sys; d=json.load(open('episodios/$F-pt.json')); sys.exit(0 if d.get('instagram') and (d.get('tiktok') or not __import__('os').path.exists('secretos/tiktok-pt.enc')) else 1)"; then
               gh release delete "pt-$F" --yes --cleanup-tag
             fi
             echo "::endgroup::"

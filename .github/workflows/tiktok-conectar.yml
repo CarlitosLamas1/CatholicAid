@@ -3,6 +3,10 @@ name: Conectar TikTok
 # 1) Sin código: muestra en el resumen el enlace para autorizar la cuenta de CatolicAid.
 # 2) Con código: lo canjea con las claves de GitHub y guarda el permiso cifrado en secretos/tiktok.enc.
 on:
+  # Para el gestor cuando no puede lanzarlo a mano: ci/tiktok-codigo.txt con «cuenta=» y «codigo=» (vacío = enlace).
+  push:
+    branches: ["claude/**"]
+    paths: ["ci/tiktok-codigo.txt"]
   workflow_dispatch:
     inputs:
       codigo:
@@ -10,9 +14,9 @@ on:
         required: false
         default: ""
       cuenta:
-        description: "Cuenta: es (@catolicaid) o en (@catolicaid_en)"
+        description: "Cuenta: es (@catolicaid), en (@catolicaid_en) o pt (@catolicaid_pt)"
         type: choice
-        options: [es, en]
+        options: [es, en, pt]
         default: es
 
 permissions:
@@ -31,8 +35,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Enlace o canje
         run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            export TIKTOK_CUENTA=$(sed -n 's/^cuenta=//p' ci/tiktok-codigo.txt); CODIGO=$(sed -n 's/^codigo=//p' ci/tiktok-codigo.txt | tr -d '[:space:]')
+          fi
           if [ -z "$CODIGO" ]; then
             URL=$(python3 proceso/tiktok.py url)
+            echo "Enlace (base64, para el gestor):"; echo -n "$URL" | base64 -w0; echo
             echo "Abre este enlace y autoriza con la cuenta de CatolicAid ($TIKTOK_CUENTA): $URL"
             echo "### Autorizar TikTok" >> "$GITHUB_STEP_SUMMARY"
             echo "[Abrir TikTok y autorizar]($URL)" >> "$GITHUB_STEP_SUMMARY"
