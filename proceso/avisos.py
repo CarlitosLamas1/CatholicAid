@@ -249,7 +249,7 @@ def aviso_instagram(nombre):
     """nombre = AAAA-MM-DD (español) o AAAA-MM-DD-en (inglés)."""
     reg = episodio(nombre)
     enlace = reg.get("instagram", {}).get("enlace") or "https://www.instagram.com/"
-    cuenta = " (English)" if nombre.endswith("-en") else ""
+    cuenta = {"en": " (English)", "pt": " (Português)"}.get(idioma_de(nombre)[1], "")
     enviar(f"📸 <b>Publicado en Instagram{cuenta}</b> · {e(fecha_txt(nombre[:10]))}\n📖 {e(reg.get('cita', ''))}\n🔗 {e(enlace)}")
 
 

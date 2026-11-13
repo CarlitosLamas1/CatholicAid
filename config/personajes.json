@@ -316,9 +316,10 @@
     }
   },
   "instagram": {
-    "_nota": "Cuenta de Instagram por idioma (proceso/instagram.py, instagram-publicar.yml). Ambas en la misma autorización de Meta.",
+    "_nota": "Cuenta de Instagram por idioma (proceso/instagram.py, instagram-publicar.yml). Todas en la misma autorización de Meta.",
     "es": "catolicaid_es_official",
-    "en": "catolicaid_en_official"
+    "en": "catolicaid_en_official",
+    "pt": "catolicaid_pt_official"
   },
   "tiktok": {
     "privacidad": "PUBLIC_TO_EVERYONE"

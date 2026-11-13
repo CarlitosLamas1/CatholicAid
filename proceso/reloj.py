@@ -138,6 +138,11 @@ def main():
         if (ig_conectado and cfg_ig.get("en") and prep_en and rev_en.get("ok") and not reg_en.get("no_publicar")
                 and not reg_en.get("instagram")):
             falta.append("en")
+        reg_pt, rev_pt = leer(f"episodios/{hoy}-pt.json"), leer(f"revisiones/{hoy}-pt.json")
+        prep_pt = subprocess.run(["gh", "release", "view", f"pt-{hoy}"], capture_output=True).returncode == 0
+        if (ig_conectado and cfg_ig.get("pt") and prep_pt and rev_pt.get("ok") and not reg_pt.get("no_publicar")
+                and not reg_pt.get("instagram")):
+            falta.append("pt")
         if falta:
             if reciente(runs, "Publicar en Instagram", 30):
                 log("Instagram: en marcha o reciente; espero.")

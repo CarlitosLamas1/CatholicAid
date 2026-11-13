@@ -3,6 +3,7 @@ name: Publicar en Instagram
 # Publica como Reel el vídeo del día a la hora de publicación, solo con el OK del revisor:
 #  - español: release tiktok-AAAA-MM-DD (la comparte con TikTok), cuenta config instagram.es
 #  - inglés:  release en-AAAA-MM-DD, cuenta config instagram.en
+#  - portugués: release pt-AAAA-MM-DD, cuenta config instagram.pt
 # 00:00 UTC = 1:00 en España en invierno; el segundo es un reintento. El Reloj lo lanza igualmente si se retrasa.
 on:
   schedule:
@@ -19,7 +20,7 @@ on:
         required: false
         default: "false"
       idioma:
-        description: "es, en o vacío (= los dos)"
+        description: "es, en, pt o vacío (= todos)"
         required: false
         default: ""
       video_run:
@@ -55,13 +56,14 @@ jobs:
         run: |
           exec > >(tee publicar.log) 2>&1
           F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
-          IDIOMAS="${{ inputs.idioma }}"; [ -n "$IDIOMAS" ] || IDIOMAS="es en"
+          IDIOMAS="${{ inputs.idioma }}"; [ -n "$IDIOMAS" ] || IDIOMAS="es en pt"
           RUN="${{ inputs.video_run }}"
           if [ ! -f secretos/instagram.enc ]; then echo "Instagram aún no está conectado."; exit 0; fi
           HECHOS=""
           FALLO=0
           for L in $IDIOMAS; do
-            if [ "$L" = "en" ]; then N="$F-en"; REL="en-$F"; else N="$F"; REL="tiktok-$F"; fi
+            if [ "$L" = "es" ]; then N="$F"; REL="tiktok-$F"; else N="$F-$L"; REL="$L-$F"; fi
+            [ "$L" = "es" ] || [ -f "episodios/$N.json" ] || { echo "Sin vídeo en $L."; continue; }
             echo "::group::Instagram $L ($N)"
             if python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$N.json')).get('instagram') else 1)" 2>/dev/null; then echo "Ya publicado."; echo "::endgroup::"; continue; fi
             if ! python3 -c "import json,sys; r=json.load(open(f'revisiones/$N.json')); g=json.load(open(f'episodios/$N.json')); sys.exit(0 if r.get('ok') and not g.get('no_publicar') else 1)" 2>/dev/null; then
@@ -71,16 +73,16 @@ jobs:
             TEMP=""
             if gh release view "$REL" >/dev/null 2>&1; then
               gh release download "$REL" -D t -p video.mp4
-            elif [ -n "$RUN" ] && [ "$L" = "es" ]; then
+            elif [ -n "$RUN" ]; then
               # Copia de seguridad del run (30 días): se sube a una release temporal para tener un enlace público.
-              gh run download "$RUN" -D a && cp "$(find a -path "*$F/video.mp4" | head -1)" t/video.mp4
-              REL="instagram-$F"; TEMP=1
+              gh run download "$RUN" -D a && cp "$(find a -path "*${N#$F}/video.mp4" -path "*$F*" | head -1)" t/video.mp4
+              REL="instagram-$N"; TEMP=1
               gh release delete "$REL" --yes --cleanup-tag >/dev/null 2>&1 || true
               gh release create "$REL" t/video.mp4 --title "Instagram $F (temporal)" --notes "Temporal para Instagram" --prerelease
             else
               echo "No hay vídeo preparado."; echo "::endgroup::"; continue
             fi
-            [ "$L" = "es" ] && [ -z "$TEMP" ] && gh release view "$REL" --json body -q .body > t/texto.txt
+            [ "$L" != "en" ] && [ -z "$TEMP" ] && gh release view "$REL" --json body -q .body > t/texto.txt
             # Enlaces públicos directos (GitHub redirige a un enlace firmado de ~1 h): Instagram descarga de ahí.
             export VIDEO_URL=$(curl -sIL -o /dev/null -w '%{url_effective}' "https://github.com/${{ github.repository }}/releases/download/$REL/video.mp4")
             export PORTADA_URL=""
@@ -93,12 +95,12 @@ jobs:
           sys.path.insert(0, "proceso")
           import instagram
           fecha, idioma = sys.argv[1], sys.argv[2]
-          reg = Path(f"episodios/{fecha}{'-en' if idioma == 'en' else ''}.json")
+          reg = Path(f"episodios/{fecha}{'' if idioma == 'es' else '-' + idioma}.json")
           d = json.loads(reg.read_text(encoding="utf-8"))
           a, m, dia = map(int, fecha.split("-"))
           frase = d.get("frase_clave", "")
           t = Path("t/texto.txt")
-          if idioma == "es" and t.exists() and t.read_text(encoding="utf-8").strip():
+          if idioma in ("es", "pt") and t.exists() and t.read_text(encoding="utf-8").strip():
               texto = t.read_text(encoding="utf-8")
           elif idioma == "es":  # mismo texto que TikTok, rehecho desde el registro
               meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
@@ -107,6 +109,13 @@ jobs:
                        + (f"«{frase}»\n\n" if frase else "") + f"{d.get('titulo', '')}\n"
                        "Escúchalo con el corazón y compártelo con quien lo necesite. ✝️\n\n"
                        "#EvangelioDelDia #Evangelio #PalabraDeDios #Catolico #Fe #Jesus #Dios #Oracion")
+          elif idioma == "pt":
+              meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro",
+                       "outubro", "novembro", "dezembro"]
+              texto = (f"Evangelho do dia · {dia} de {meses[m - 1]} · {d.get('cita', '')} 🙏\n\n"
+                       + (f"«{frase}»\n\n" if frase else "") + f"{d.get('titulo', '')}\n"
+                       "Ouça com o coração e compartilhe com quem precisa. ✝️\n\n"
+                       "#EvangelhoDoDia #Evangelho #PalavraDeDeus #Catolico #Fe #Jesus #Deus #Oracao")
           else:
               months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
                         "October", "November", "December"]
@@ -143,6 +152,10 @@ jobs:
             fi
             if [ "$L" = "en" ] && [ -f secretos/tiktok-en.enc ] && gh release view "en-$F" >/dev/null 2>&1 && python3 -c "import json,sys; d=json.load(open('episodios/$F-en.json')); sys.exit(0 if d.get('instagram') and d.get('tiktok') else 1)"; then
               gh release delete "en-$F" --yes --cleanup-tag
+            fi
+            # Portugués: sin TikTok, la release se borra cuando Instagram ha publicado.
+            if [ "$L" = "pt" ] && gh release view "pt-$F" >/dev/null 2>&1 && python3 -c "import json,sys; sys.exit(0 if json.load(open('episodios/$F-pt.json')).get('instagram') else 1)"; then
+              gh release delete "pt-$F" --yes --cleanup-tag
             fi
             echo "::endgroup::"
           done
