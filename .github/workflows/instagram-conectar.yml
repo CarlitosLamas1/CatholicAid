@@ -3,6 +3,10 @@ name: Conectar Instagram
 # 1) Sin código: muestra en el resumen el enlace para autorizar la cuenta de CatolicAid.
 # 2) Con código: lo canjea con las claves de GitHub y guarda el permiso cifrado en secretos/instagram.enc.
 on:
+  # Para el gestor cuando no puede lanzarlo a mano: ci/instagram-codigo.txt con el código (un solo uso; se borra después).
+  push:
+    branches: ["claude/**"]
+    paths: ["ci/instagram-codigo.txt"]
   workflow_dispatch:
     inputs:
       codigo:
@@ -25,6 +29,16 @@ jobs:
       - uses: actions/checkout@v4
       - name: Enlace o canje
         run: |
+          if [ -f ci/instagram-codigo.txt ] && [ "${{ github.event_name }}" = "push" ]; then
+            CODIGO=$(tr -d '[:space:]' < ci/instagram-codigo.txt); git rm -q ci/instagram-codigo.txt
+          fi
+          if [ "$CODIGO" = "comprobar" ]; then
+            mkdir -p estado && python3 proceso/instagram.py comprobar > estado/instagram-cuentas.txt 2>&1 || true
+            git config user.name "gestor-catholicaid"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A estado/instagram-cuentas.txt ci/ && git commit -q -m "Instagram: cuentas conectadas" && git pull -q --rebase && git push -q
+            exit 0
+          fi
           if [ -z "$CODIGO" ]; then
             URL=$(python3 proceso/instagram.py url)
             echo "### Autorizar Instagram" >> "$GITHUB_STEP_SUMMARY"
@@ -34,7 +48,7 @@ jobs:
             python3 proceso/instagram.py comprobar
             git config user.name "gestor-catholicaid"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add secretos/instagram.enc
+            git add -A secretos/instagram.enc ci/ 2>/dev/null || git add secretos/instagram.enc
             git commit -q -m "Instagram conectado (permiso cifrado)"
             git pull -q --rebase && git push -q
           fi
