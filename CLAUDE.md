@@ -32,6 +32,7 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 - Revisor propio: rutina «CatholicAid · Revisor portugués» (trig_01LSj67247udQEPBghUuxcrQ, creada por el gestor el 13/11/2026, a las y 50 de 17 a 22 UTC; sigue `guias/prompt-revisor-portugues.txt`): revisa los vídeos -pt y prepara en `biblia/figueiredo/revisada/` los textos que falten. La rutina «Revisor diario» no hace falta tocarla.
 - Voces: no hay un tercer modelo gratis útil (el 3.8 se queda sin cupo enseguida). El portugués solo graba cuando el inglés del día ya está APROBADO o descartado, así nunca le quita cupo.
 - 13/11/2026: primer vídeo (Lucas 17,26-37) subido en prueba y publicado por Carlos. Instagram en portugués **conectado** el mismo día: @catolicaid_pt_official (página de Facebook «CatolicAid Português»); «Publicar en Instagram» publica es, en y pt (release `pt-AAAA-MM-DD`, texto en portugués); la release pt se borra tras publicar en Instagram. Sin TikTok en portugués.
+- La API de Instagram NO deja borrar publicaciones (permiso #10): un Reel ya publicado no se puede rehacer; la portada se cambia a mano en la app. Desde el 13/11 la copia del run también lleva la portada (`miniatura_vertical.jpg`).
 - Si el MCP de GitHub no responde: «Conectar Instagram» también se lanza con un push de `ci/instagram-codigo.txt` en una rama claude/** (el código, o «comprobar» para dejar en `estado/instagram-cuentas.txt` las cuentas conectadas).
 
 ## Mejoras del vídeo (07/11/2026, ambos idiomas)
