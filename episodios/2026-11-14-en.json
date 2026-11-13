@@ -1,0 +1,134 @@
+{
+  "fecha": "2026-11-14",
+  "modo": "diario",
+  "cita": "Luke 18:1-8",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/14.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 8,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 88.6,
+  "imagenes": [
+    "dias/2026-11-14_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-14_e1.jpg",
+    "dias/2026-11-14_e2.jpg",
+    "dias/2026-11-14_e3.jpg",
+    "dias/2026-11-14_e4.jpg",
+    "biblioteca/D01",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R02",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "I tell you that he will avenge them quickly.",
+  "reflexion": "Never lose heart when your prayers seem unanswered, because God hears every cry of your heart. Trust in His perfect timing, and keep holding on to faith.",
+  "lufs": -14.0,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus sits outdoors among His disciples, gesturing gently as He teaches them about persistent prayer.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A humble widow stands courageously before a seated judge in an ancient city hall, pleading for justice.",
+      "busqueda": "widow before judge",
+      "personajes": [
+        "mujer",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The stern judge sitting alone in his chamber, rubbing his brow in thought as he decides to grant the widow's petition.",
+      "busqueda": "judge pondering",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 4,
+      "descripcion": "Jesus looking affectionately at His listeners, extending His hand with tenderness as He speaks of God's prompt justice.",
+      "busqueda": "Jesus speaking tenderly",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, he also spoke a parable to them that they must always pray and not give up, saying, “There was a judge in a certain city who didn’t fear God and didn’t respect man. A widow was in that city, and she often came to him, saying, ‘Defend me from my adversary!’ He wouldn’t for a while; but afterward he said to himself, ‘Though I neither fear God nor respect man, yet because this widow bothers me, I will defend her, or else she will wear me out by her continual coming.’” The Lord said, “Listen to what the unrighteous judge says. Won’t God avenge his chosen ones who are crying out to him day and night, and yet he exercises patience with them? I tell you that he will avenge them quickly. Nevertheless, when the Son of Man comes, will he find faith on the earth?”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.79,
+      "texto": "At that time, he also spoke a parable to them that they must always pray and not give up, saying,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 18.6,
+      "texto": "“There was a judge in a certain city who didn’t fear God and didn’t respect man. A widow was in that city, and she often came to him, saying, ‘Defend me from my adversary!’"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 29.79,
+      "texto": "He wouldn’t for a while; but afterward he said to himself, ‘Though I neither fear God nor respect man, yet because this widow bothers me, I will defend her, or else she will wear me out by her continual coming.’”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 44.31,
+      "texto": "The Lord said,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 4,
+      "inicio": 47.23,
+      "texto": "“Listen to what the unrighteous judge says. Won’t God avenge his chosen ones who are crying out to him day and night, and yet he exercises patience with them? I tell you that he will avenge them quickly. Nevertheless, when the Son of Man comes, will he find faith on the earth?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 66.5,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 71.78,
+      "texto": "Never lose heart when your prayers seem unanswered, because God hears every cry of your heart. Trust in His perfect timing, and keep holding on to faith.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-13T02:03:34+01:00",
+  "run": "43338760482",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 18, 1-8",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 8,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
