@@ -1,0 +1,162 @@
+{
+  "fecha": "2026-11-13",
+  "modo": "prueba",
+  "cita": "Lucas 17,26-37",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/13.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 10,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 118.3,
+  "imagenes": [
+    "dias/2026-11-13_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-13_e1.jpg",
+    "biblioteca/D01",
+    "biblioteca/D06",
+    "biblioteca/D08",
+    "biblioteca/D05",
+    "dias/2026-11-13_e2.jpg",
+    "dias/2026-11-13_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R01",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Quem procurar salvar a sua vida vai perdê-la",
+  "reflexion": "Não prenda seu coração às seguranças passageiras deste mundo, mas confie inteiramente na graça de Deus. Onde você tem colocado a sua esperança a cada dia?",
+  "lufs": -14.3,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Noah and his family prepare to enter the great wooden ark under a overcast sky as rain begins to fall.",
+      "busqueda": "Noah ark rain",
+      "personajes": [
+        "hombre",
+        "mujer"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Two women sitting indoors together grinding grain with a traditional stone mill in warm light.",
+      "busqueda": "women grinding grain",
+      "personajes": [
+        "mujer"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus sitting in a peaceful countryside surrounded by his attentive disciples, gesturing warmly as he teaches them.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
+  "texto_evangelio": "Naquele tempo, Jesus disse aos seus discípulos: “Como aconteceu nos dias de Noé, assim também acontecerá nos dias do Filho do Homem. Comiam e bebiam, casavam-se e davam-se em casamento, até o dia em que Noé entrou na arca. Então veio o dilúvio e fez morrer a todos. Aconteceu o mesmo nos dias de Ló: comiam e bebiam, compravam e vendiam, plantavam e construíam. Mas, no dia em que Ló saiu de Sodoma, choveu do céu fogo e enxofre, que fez morrer a todos. Assim será no dia em que o Filho do Homem se manifestar. Naquele dia, quem estiver no terraço, com seus bens dentro de casa, não desça para buscá-los; e quem estiver no campo não volte para trás. Lembrem-se da mulher de Ló. Quem procurar salvar a sua vida vai perdê-la; e quem a perder vai salvá-la. Eu digo a vocês: naquela noite, de dois que estiverem na mesma cama, um será levado e o outro deixado. De duas mulheres que estiverem moendo juntas, uma será levada e a outra deixada. De dois homens que estiverem no campo, um será levado e o outro deixado”. Os discípulos lhe perguntaram: “Onde, Senhor?” Jesus respondeu: “Onde estiver o corpo, aí também se juntarão as águias”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.0,
+      "texto": "Naquele tempo, Jesus disse aos seus discípulos:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.95,
+      "texto": "“Como aconteceu nos dias de Noé, assim também acontecerá nos dias do Filho do Homem. Comiam e bebiam, casavam-se e davam-se em casamento, até o dia em que Noé entrou na arca. Então veio o dilúvio e fez morrer a todos. Aconteceu o mesmo nos dias de Ló: comiam e bebiam, compravam e vendiam, plantavam e construíam. Mas, no dia em que Ló saiu de Sodoma, choveu do céu fogo e enxofre, que fez morrer a todos. Assim será no dia em que o Filho do Homem se manifestar. Naquele dia, quem estiver no terraço, com seus bens dentro de casa, não desça para buscá-los; e quem estiver no campo não volte para trás. Lembrem-se da mulher de Ló. Quem procurar salvar a sua vida vai perdê-la; e quem a perder vai salvá-la. Eu digo a vocês: naquela noite, de dois que estiverem na mesma cama, um será levado e o outro deixado."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 73.78,
+      "texto": "De duas mulheres que estiverem moendo juntas, uma será levada e a outra deixada. De dois homens que estiverem no campo, um será levado e o outro deixado”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 85.14,
+      "texto": "Os discípulos lhe perguntaram:"
+    },
+    {
+      "personaje": "apostol",
+      "escena": 3,
+      "inicio": 89.35,
+      "texto": "“Onde, Senhor?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 90.35,
+      "texto": "Jesus respondeu:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 94.16,
+      "texto": "“Onde estiver o corpo, aí também se juntarão as águias”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 97.91,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 102.76,
+      "texto": "Não prenda seu coração às seguranças passageiras deste mundo, mas confie inteiramente na graça de Deus. Onde você tem colocado a sua esperança a cada dia?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-13T13:20:47+01:00",
+  "run": "43422519400",
+  "idioma": "pt",
+  "libro": "Lucas",
+  "cita_es": "Lucas 17, 26-37",
+  "cupo_agotado": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 10,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "youtube": {
+    "id": "_M28SwhggmI",
+    "url": "https://youtu.be/_M28SwhggmI",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "lista": {
+      "id": "PLC35zBQk7mN8",
+      "titulo": "Evangelho segundo São Lucas",
+      "url": "https://www.youtube.com/playlist?list=PLC35zBQk7mN8"
+    },
+    "lista_liturgica": {
+      "id": "PLScW8V6xMpdA",
+      "titulo": "Evangelho do dia · Tempo Comum",
+      "url": "https://www.youtube.com/playlist?list=PLScW8V6xMpdA"
+    },
+    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss",
+    "subtitulos": "ok"
+  }
+}

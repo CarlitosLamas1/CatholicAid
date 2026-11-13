@@ -27,9 +27,19 @@ PASO 4 · Guardar la revisión (solo si has revisado algo)
 Commit solo de revisiones/ con el mensaje «Revisor: AAAA-MM-DD OK» o «Revisor: AAAA-MM-DD no OK» y push directo a main (git pull --rebase antes; si el push falla, repite pull y push hasta 3 veces). No abras pull requests.
 
 PASO 4b · Canal en INGLÉS (siempre DESPUÉS del español)
-1. git pull --rebase origin main. Pendientes en inglés: cada episodios/AAAA-MM-DD-en.json con fecha >= hoy, "modo": "diario", "revision": "pendiente", sin "no_publicar" y sin "estado": "fallido", y para el que NO exista revisiones/AAAA-MM-DD-en.json con el mismo "generado". Si no hay ninguno, salta al PASO 5.
+1. git pull --rebase origin main. Pendientes en inglés: cada episodios/AAAA-MM-DD-en.json con fecha >= hoy, "modo": "diario", "revision": "pendiente", sin "no_publicar" y sin "estado": "fallido", y para el que NO exista revisiones/AAAA-MM-DD-en.json con el mismo "generado". Si no hay ninguno, salta al PASO 4c.
 2. Lee proceso/criterio-revision-en.md y revisa con ese criterio (mismos puntos que el PASO 2, con estas diferencias: texto de biblia/web/revisada/ o biblia/web/ (World English Bible, Catholic) con los versículos de "cita_es"; frase clave y reflexión en inglés americano; audio normal 10–20 caracteres/s; imágenes reutilizadas del español (en inglés NUNCA pidas "repintar"); título y descripción en inglés). Los apóstrofos (don’t) no son comillas.
 3. Escribe revisiones/AAAA-MM-DD-en.json con el mismo formato que el PASO 3 más "idioma": "en" (motivos y avisos en español para Carlos). Commit solo de ese archivo con «Revisor: AAAA-MM-DD-en OK» o «Revisor: AAAA-MM-DD-en no OK» y push a main (pull --rebase antes; hasta 3 intentos). Sin OK el inglés no se publica; el español no se ve afectado.
+
+PASO 4c · Canal en PORTUGUÉS (siempre DESPUÉS del inglés)
+1. git pull --rebase origin main. Pendientes en portugués: cada episodios/AAAA-MM-DD-pt.json con fecha >= hoy, "modo": "diario", "revision": "pendiente", sin "no_publicar" y sin "estado": "fallido", y para el que NO exista revisiones/AAAA-MM-DD-pt.json con el mismo "generado". Si no hay ninguno, salta al PASO 4d.
+2. Lee proceso/criterio-revision-pt.md y revisa con ese criterio (mismos puntos que el PASO 4b, con estas diferencias: texto de biblia/figueiredo/revisada/ con los versículos de "cita_es"; frase clave y reflexión en portugués de Brasil; audio normal 9–19 caracteres/s; imágenes reutilizadas del español (NUNCA pidas "repintar"); título y descripción en portugués).
+3. Escribe revisiones/AAAA-MM-DD-pt.json con el mismo formato que el PASO 3 más "idioma": "pt" (motivos y avisos en español para Carlos). Commit solo de ese archivo con «Revisor: AAAA-MM-DD-pt OK» o «Revisor: AAAA-MM-DD-pt no OK» y push a main (pull --rebase antes; hasta 3 intentos).
+
+PASO 4d · Textos en portugués de los próximos días (solo si falta alguno)
+1. git pull --rebase origin main. Para cada cita de biblia/citas.json con fecha >= hoy, mira si biblia/figueiredo/revisada/<libro en minúsculas>.json tiene TODOS sus versículos (formato {"<capítulo>": {"<versículo>": "texto"}}, más _nota e _inicios). Si no falta ninguno, salta al PASO 5.
+2. Los que falten, revísalos partiendo de biblia/figueiredo/<libro>.json (OCR con errores: corrígelos) siguiendo guias/revision-portugues.md (fiel al sentido, portugués de Brasil actual, «vocês», sin mesóclise, comillas “ ” y ‘ ’, _inicios si la lectura empieza con Jesús ya hablando). Nunca resumir ni parafrasear. Usa los versículos ya revisados como ejemplo de estilo. json.dump con ensure_ascii=False, indent=1; valida el JSON.
+3. Añade en «Hecho» de guias/revision-portugues.md una línea con la fecha y las citas. Commit solo de biblia/figueiredo/revisada/ y guias/revision-portugues.md con «Revisor: textos en portugués» y push a main (pull --rebase antes; hasta 3 intentos).
 
 PASO 5 · Comentarios de YouTube (siempre)
 1. git pull --rebase origin main. Lee comentarios/pendientes.json (si no existe o "comentarios" está vacío, salta al PASO 6) y comentarios/decisiones.json (un objeto {id: decisión}; si no existe, {}).
@@ -42,9 +52,9 @@ PASO 5 · Comentarios de YouTube (siempre)
 5. Si cambiaste algo: commit solo de comentarios/decisiones.json con el mensaje «Comentarios: decisiones» y push a main (pull --rebase antes; hasta 3 intentos).
 No publicas nada en YouTube: un workflow publica después, de una en una y con ritmo humano.
 
-En main solo puedes tocar revisiones/ y comentarios/decisiones.json: ni episodios/, ni proceso/, ni config/, ni .github/, ni el texto del Evangelio. Si ves un fallo en el código, menciónalo en "avisos" de la revisión.
+En main solo puedes tocar revisiones/, comentarios/decisiones.json, biblia/figueiredo/revisada/ y guias/revision-portugues.md (PASO 4d): ni episodios/, ni proceso/, ni config/, ni .github/, ni el texto del Evangelio. Si ves un fallo en el código, menciónalo en "avisos" de la revisión.
 
 PASO 6 · Reloj (SIEMPRE, al final)
 Despierta al workflow «Reloj» de GitHub, que lanza lo que falte (vídeo de mañana, publicación, TikTok, comentarios). Ejecuta exactamente:
 git fetch origin reloj && git checkout -B reloj origin/reloj && mkdir -p reloj && date -u +%FT%TZ > reloj/latido.txt && git add reloj/latido.txt && git -c user.name="gestor-catholicaid" -c user.email="gestor@catolicaid.invalid" commit -q -m "Reloj: latido" && git push origin reloj
-Si el push falla porque la rama avanzó, repite el comando entero una vez. La rama «reloj» es solo para esto: nunca la fusiones con main ni la sobrescribas. Vuelve a main al terminar (git checkout main). Termina con una línea de resumen (qué revisaste en español y en inglés, cuántos comentarios decidiste y si el latido se envió).
+Si el push falla porque la rama avanzó, repite el comando entero una vez. La rama «reloj» es solo para esto: nunca la fusiones con main ni la sobrescribas. Vuelve a main al terminar (git checkout main). Termina con una línea de resumen (qué revisaste en español, inglés y portugués, cuántos comentarios decidiste y si el latido se envió).

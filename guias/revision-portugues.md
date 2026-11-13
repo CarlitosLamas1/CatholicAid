@@ -18,7 +18,7 @@ no se publica (`texto_figueiredo` lo comprueba).
     «cobradores de impostos», «tanto que os viu» → «ao vê-los».
   - Ortografía del Acuerdo de 1990 (Galileia, ideia, sem trema).
 - Nombres en la forma brasileña: Jesus, Pedro, João, Tiago, Zaqueu, Davi, Abraão, Ló, Noé, Filho do Homem.
-- Comillas “ ” para lo que dice cada personaje y ‘ ’ dentro; el punto final fuera: «…salvou”.».
+- Comillas “ ” para lo que dice cada personaje y ‘ ’ dentro; el punto final fuera: «…salvou”.». Tras «?» o «!» no se pone punto: «“Onde, Senhor?” Jesus respondeu».
 - `_inicios` («Naquele tempo, Jesus disse aos seus discípulos:») cuando la lectura empieza en mitad de un discurso.
 - Pasar de verso a verso: un versículo revisado por cada versículo de la cita, con el mismo número.
 

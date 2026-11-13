@@ -110,7 +110,7 @@ if __name__ == "__main__":
         tok = _token({"refresh_token": _refresh(), "grant_type": "refresh_token"})
         h = {"Authorization": f"Bearer {tok['access_token']}"}
         ids = []
-        rutas = [r for r in sorted((RAIZ / "episodios").glob("*.json")) if r.stem.endswith("-en") == (CANAL == "en")]
+        rutas = [r for r in sorted((RAIZ / "episodios").glob("*.json")) if (r.stem[11:] or "es") == CANAL]
         for ruta in rutas[-8:]:
             vid = json.loads(ruta.read_text(encoding="utf-8")).get("youtube", {}).get("id")
             if vid:

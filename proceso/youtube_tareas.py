@@ -45,6 +45,9 @@ def texto_comentario(reg, idioma):
     reflexion = " ".join((reg.get("reflexion") or "").split())
     preguntas = re.findall(r"¿[^?]*\?" if idioma == "es" else r"[^.!?]*\?", reflexion)
     pregunta = preguntas[-1].strip() if preguntas else ""
+    if idioma == "pt":
+        pregunta = pregunta or "Qual palavra deste Evangelho você leva hoje?"
+        return f"🕊️ {pregunta}\n\nConte nos comentários 👇 E se isso te ajudou, compartilhe com quem precisa hoje."
     if idioma == "en":
         pregunta = pregunta or "Which word from today’s Gospel will you carry with you?"
         return f"🕊️ {pregunta}\n\nShare it in the comments 👇 And if it helped you, pass it on to someone who needs it today."
@@ -136,8 +139,8 @@ def musica_reclamada(tok, idioma, fecha):
         if (subprocess.run(["git", "pull", "-q", "--rebase"]).returncode == 0
                 and subprocess.run(["git", "push", "-q"]).returncode == 0):
             break
-    flujo = "evangelio-diario.yml" if idioma == "es" else "evangelio-ingles.yml"
-    release = f"tiktok-{fecha}" if idioma == "es" else f"en-{fecha}"
+    flujo = {"es": "evangelio-diario.yml", "en": "evangelio-ingles.yml", "pt": "evangelio-portugues.yml"}[idioma]
+    release = f"tiktok-{fecha}" if idioma == "es" else f"{idioma}-{fecha}"
     subprocess.run(["gh", "release", "delete", release, "--yes", "--cleanup-tag"], check=False)
     subprocess.run(["gh", "workflow", "run", flujo, "--ref", "main", "-f", f"fecha={fecha}", "-f", "modo=diario"], check=False)
     log(f"   Rehago el vídeo del {nombre} con otra música.")
@@ -175,7 +178,7 @@ def pruebas_musica(tok):
 
 def main():
     hoy = dt.datetime.now(ev.MADRID).date()
-    for idioma in ("es", "en"):
+    for idioma in ("es", "en", "pt"):
         if idioma != "es" and not ev.CFG.get(idioma, {}).get("activo"):
             continue
         try:

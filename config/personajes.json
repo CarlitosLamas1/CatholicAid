@@ -30,6 +30,7 @@
   },
   "hora_publicacion": "00:05",
   "hora_publicacion_en": "00:05",
+  "hora_publicacion_pt": "00:05",
   "max_segundos_imagen": 16,
   "gancho_segundos": 2.8,
   "_gancho_ab": "Prueba A/B del gancho (desde la rama mejoras-ingles): días pares e impares con distinta duración. Si se quita gancho_ab, se usa gancho_segundos. Cómo compararlo: guias/gancho-ab.md.",
@@ -517,8 +518,8 @@
     "minimo_dias": 5
   },
   "pt": {
-    "_nota": "Canal en portugués (Brasil) PREPARADO, sin activar. Ver guias/portugues.md: falta que Carlos cree el canal de YouTube y la cuenta de Instagram, y elegir la Biblia. Mismas voces por personaje que en español; acento brasileño.",
-    "activo": false,
+    "_nota": "Canal «CatolicAid Português» (proceso/evangelio.py --idioma pt), conectado el 13/11/2026 (secretos/youtube-pt.enc). Mismas voces de Gemini por personaje que en español, acento brasileño. Biblia: Figueiredo revisada (biblia/figueiredo/revisada/). Va DESPUÉS del inglés.",
+    "activo": true,
     "publicar_programado": true,
     "pago_voz": false,
     "acento": "natural Brazilian Portuguese accent (from São Paulo), clear and warm",
@@ -532,7 +533,168 @@
     },
     "titulo_lectura": "Proclamação do Evangelho de Jesus Cristo segundo {evangelista}.",
     "hashtags": "#Shorts #EvangelhoDoDia #Evangelho #PalavraDeDeus #Catolico",
-    "instagram": "catolicaid_pt_official"
+    "instagram": "catolicaid_pt_official",
+    "_modelos_voz": "No hay un tercer modelo de voz gratuito útil (probado el 13/11/2026: el 3.8 se queda sin cupo a las pocas peticiones y no admite instrucciones de estilo). El portugués usa el del inglés (gemini-3.1-flash-tts-preview) pero SOLO cuando el inglés del mismo día ya está aprobado o descartado (evangelio.py --si-falta y reloj.py): así nunca le quita cupo. El español usa otro modelo (gemini-2.5-flash-preview-tts) y no se toca.",
+    "modelos_voz": [
+      "gemini-3.1-flash-tts-preview"
+    ],
+    "personajes": {
+      "narrador": {
+        "estilo": "the voice of a serene and warm old man, natural pace, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural"
+      },
+      "jesus": {
+        "estilo": "the voice of an adult man, warm, harmonious and tender, full of love and serene authority, natural pace, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "Jesus",
+        "alias": [
+          "Jesus",
+          "o Senhor",
+          "Mestre"
+        ]
+      },
+      "maria": {
+        "estilo": "the voice of a young woman, sweet, humble and luminous, full of peace, natural pace, {acento}",
+        "voz_edge": "pt-BR-FranciscaNeural",
+        "nombre": "Maria",
+        "alias": [
+          "sua mãe",
+          "a mãe de Jesus"
+        ]
+      },
+      "magdalena": {
+        "estilo": "the voice of a young woman, sincere, moved and grateful, {acento}",
+        "voz_edge": "pt-BR-FranciscaNeural",
+        "nombre": "Maria Madalena",
+        "alias": [
+          "Madalena"
+        ]
+      },
+      "marta": {
+        "estilo": "the voice of an adult woman, firm, practical and affectionate, {acento}",
+        "voz_edge": "pt-BR-FranciscaNeural",
+        "nombre": "Marta",
+        "alias": [
+          "Marta"
+        ]
+      },
+      "isabel": {
+        "estilo": "the voice of an old woman, warm and full of serene joy, {acento}",
+        "voz_edge": "pt-BR-FranciscaNeural",
+        "nombre": "Isabel",
+        "alias": [
+          "Isabel"
+        ]
+      },
+      "mujer": {
+        "estilo": "the voice of an adult woman, natural and expressive, {acento}",
+        "voz_edge": "pt-BR-FranciscaNeural",
+        "alias": [
+          "mulher"
+        ]
+      },
+      "pedro": {
+        "estilo": "the voice of a mature fisherman, deep and somewhat rough, frank, impulsive and passionate, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "Pedro",
+        "alias": [
+          "Pedro",
+          "Simão"
+        ]
+      },
+      "juan": {
+        "estilo": "the voice of a young man, soft, close and affectionate, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "João",
+        "alias": []
+      },
+      "tomas": {
+        "estilo": "the voice of a middle-aged man, thoughtful, somewhat skeptical but sincere, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "Tomé",
+        "alias": [
+          "Tomé"
+        ]
+      },
+      "judas": {
+        "estilo": "the voice of a man, tense, low and halting, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "Judas",
+        "alias": [
+          "Judas Iscariotes",
+          "Judas"
+        ]
+      },
+      "apostol": {
+        "estilo": "the voice of a simple adult man, natural and close, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "Discípulo",
+        "alias": [
+          "Filipe",
+          "André",
+          "Tiago",
+          "Natanael",
+          "discípulos",
+          "discípulo",
+          "apóstolos"
+        ]
+      },
+      "bautista": {
+        "estilo": "the voice of a prophet, strong, firm and passionate, resounding in the desert, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "João Batista",
+        "alias": [
+          "Batista"
+        ]
+      },
+      "fariseos": {
+        "estilo": "the voice of an educated man, dry, distrustful and somewhat haughty, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "Fariseus",
+        "alias": [
+          "fariseus",
+          "escribas",
+          "saduceus",
+          "sacerdotes",
+          "doutores da lei",
+          "fariseu"
+        ]
+      },
+      "hombre": {
+        "estilo": "the voice of an adult man, natural and expressive, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "alias": [
+          "homem",
+          "anjo",
+          "centurião",
+          "judeus"
+        ]
+      },
+      "multitud": {
+        "estilo": "an energetic, popular voice, like many people speaking, {acento}",
+        "voz_edge": "pt-BR-AntonioNeural",
+        "nombre": "O povo",
+        "alias": [
+          "povo",
+          "multidão",
+          "leprosos"
+        ]
+      }
+    },
+    "narradores": {
+      "Mateo": {
+        "estilo": "the voice of a wise and serene old man, deep and warm, natural pace, {acento}"
+      },
+      "Marcos": {
+        "estilo": "the voice of an older man, clear and direct, with restrained liveliness, natural pace, {acento}"
+      },
+      "Lucas": {
+        "estilo": "the voice of a gentle and cultured old man, warm and delicate like a kind physician, natural pace, {acento}"
+      },
+      "Juan": {
+        "estilo": "the voice of a contemplative and profound old man, warm and full of tenderness, natural pace, {acento}"
+      }
+    }
   },
   "_musica_candidatas": "Piezas nuevas (Musopen, dominio público/CC0, Wikimedia Commons). Antes de usarlas en un vídeo, «Probar música» (probar-musica.yml) sube una prueba privada a YouTube; si en 3 h no hay bloqueo pasan a estado/musica.json «aprobadas» y entran en la rotación; si YouTube la bloquea, se veta. Añadidas el 10/11/2026.",
   "musica_candidatas": [

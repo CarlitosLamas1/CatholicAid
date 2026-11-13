@@ -89,15 +89,15 @@ def main():
         if pendiente and not reciente(runs, "Publicar revisado", 30):
             lanzar("publicar-revisado.yml", fecha=str(f))
 
-    # 2b. Veredictos sin aplicar del inglés (revisiones/AAAA-MM-DD-en.json)
-    for f in (hoy, manana):
-        reg, rev = leer(f"episodios/{f}-en.json"), leer(f"revisiones/{f}-en.json")
+    # 2b. Veredictos sin aplicar del inglés y del portugués (revisiones/AAAA-MM-DD-en.json, …-pt.json)
+    for f, suf in [(f, s) for s in ("en", "pt") for f in (hoy, manana)]:
+        reg, rev = leer(f"episodios/{f}-{suf}.json"), leer(f"revisiones/{f}-{suf}.json")
         if not rev or reg.get("no_publicar") or reg.get("modo") != "diario":
             continue
         misma = not rev.get("generado") or rev.get("generado") == reg.get("generado")
         pendiente = misma and (reg.get("revision") == "pendiente" or (rev.get("ok") and not reg.get("youtube")))
         if pendiente and not reciente(runs, "Publicar revisado", 30):
-            lanzar("publicar-revisado.yml", fecha=f"{f}-en")
+            lanzar("publicar-revisado.yml", fecha=f"{f}-{suf}")
 
     # 3. TikTok e Instagram. Se lanzan hasta 2 h ANTES de la hora de publicación con «esperar»: el workflow
     # aguarda solo hasta la hora exacta (los cron de GitHub llegan tarde; así sale puntual). Y hasta 12 h después.
@@ -162,6 +162,11 @@ def main():
     except Exception as e:
         log(f"Inglés: no se pudo lanzar ({e})")
 
+    try:  # el portugués, después del inglés (mismo modelo de voz)
+        portugues(runs, ahora, manana)
+    except Exception as e:
+        log(f"Portugués: no se pudo lanzar ({e})")
+
 
 def ingles(runs, ahora, manana):
     """5. Vídeo en inglés de mañana. Nunca antes que el español, y nunca si ya está hecho o en marcha."""
@@ -186,6 +191,33 @@ def ingles(runs, ahora, manana):
         log("Inglés: hay una tirada en marcha o reciente; espero.")
         return
     lanzar("evangelio-ingles.yml", modo="diario", fecha=str(manana))
+
+
+def portugues(runs, ahora, manana):
+    """5b. Vídeo en portugués de mañana. Nunca antes que el inglés, y nunca si ya está hecho o en marcha."""
+    cfg = json.loads(open("config/personajes.json", encoding="utf-8").read())
+    if not cfg.get("pt", {}).get("activo"):
+        return
+    en, pt = leer(f"episodios/{manana}-en.json"), leer(f"episodios/{manana}-pt.json")
+    # El portugués usa el mismo modelo de voz que el inglés: espera a que el inglés esté APROBADO (ya no grabará más
+    # voces hoy) o descartado, para no dejarlo nunca sin cupo.
+    en_hecho = en.get("modo") == "diario" and (
+        en.get("youtube") or en.get("revision") == "ok" or en.get("no_publicar") or en.get("estado") == "fallido")
+    pt_hecho = pt.get("modo") == "diario" and (
+        pt.get("youtube") or pt.get("revision") in ("pendiente", "ok") or pt.get("no_publicar"))
+    if pt_hecho or not 18 <= ahora.hour <= 23:
+        log(f"Portugués: {'hecho' if pt_hecho else 'aún no toca'}.")
+        return
+    if pt.get("estado") == "fallido" and pt.get("cupo_agotado"):
+        log("Portugués: sin cupo gratuito de Gemini hasta mañana; no se reintenta.")
+        return
+    if not en_hecho and ahora.hour < 23:
+        log("Portugués: espero a que esté el vídeo en inglés.")
+        return
+    if reciente(runs, "Evangelio diario (portugués)", 100):
+        log("Portugués: hay una tirada en marcha o reciente; espero.")
+        return
+    lanzar("evangelio-portugues.yml", modo="diario", fecha=str(manana))
 
 
 def semana(runs, ahora):

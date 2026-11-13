@@ -2,6 +2,7 @@
 """CatholicAid · Publicar revisado.
 
 Uso: python3 proceso/publicar.py AAAA-MM-DD       (canal en español)
+     python3 proceso/publicar.py AAAA-MM-DD-pt    (canal en portugués: igual que el inglés, release pt-AAAA-MM-DD)
      python3 proceso/publicar.py AAAA-MM-DD-en    (canal en inglés: episodios/…-en.json, revisiones/…-en.json,
                                                   release en-AAAA-MM-DD, permiso secretos/youtube-en.enc, sin TikTok;
                                                   en el estreno se sube en PRIVADO sin programar)
@@ -114,8 +115,8 @@ def main():
     fecha, idioma = avisos.idioma_de(nombre)
     ev_mod.aplicar_idioma(idioma)
     lengua = avisos.etiqueta(idioma)
-    release = f"tiktok-{fecha}" if idioma == "es" else f"en-{fecha}"
-    flujo = "evangelio-diario.yml" if idioma == "es" else "evangelio-ingles.yml"
+    release = f"tiktok-{fecha}" if idioma == "es" else f"{idioma}-{fecha}"
+    flujo = {"es": "evangelio-diario.yml", "en": "evangelio-ingles.yml", "pt": "evangelio-portugues.yml"}[idioma]
     ruta_reg = RAIZ / "episodios" / f"{nombre}.json"
     reg, rev = leer(ruta_reg), leer(RAIZ / "revisiones" / f"{nombre}.json")
     if not reg:
@@ -222,7 +223,7 @@ def main():
                       f"{avisos.e(reg['youtube']['url'])}\n🎵📸 TikTok e Instagram se publican a las {hora}.{nota}")
     else:
         estreno = "" if estado.get("publishAt") else "\n🔒 Estreno: queda en privado; tú decides cuándo se publica."
-        avisos.enviar(f"✅ {lengua} · Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a CatolicAid English "
+        avisos.enviar(f"✅ {lengua} · Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a {avisos.CANALES[idioma]} "
                       f"({cuando_yt}): {avisos.e(reg['youtube']['url'])}{estreno}{nota}")
 
 
