@@ -1,4 +1,4 @@
-# Canal en portugués (Brasil) · preparado, sin activar
+# Canal en portugués (Brasil) · ACTIVO desde el 13/11/2026 (ver CLAUDE.md)
 
 Brasil es el país con más católicos del mundo. El canal en portugués seguiría el mismo modelo que el inglés:
 mismo vídeo cada día, mismas imágenes (no se pinta nada nuevo), mismas voces por personaje con acento brasileño

@@ -8,8 +8,8 @@ on:
   schedule:
     - cron: "40 18 * * *"
     - cron: "40 20 * * *"
-    - cron: "10 22 * * *"
-    - cron: "45 22 * * *"
+    - cron: "40 21 * * *"
+    - cron: "40 22 * * *"
   # Solo para probar en una rama (un workflow nuevo no se puede lanzar a mano hasta que está en main):
   # ci/evangelio-pt.txt con «fecha=AAAA-MM-DD», «voces=edge|gemini» y «subir=si|no»; siempre en prueba (privado).
   push:
