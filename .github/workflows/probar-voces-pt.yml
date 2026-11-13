@@ -1,0 +1,37 @@
+name: Probar voces gratis (portugués)
+
+# Comprueba TODOS los modelos de voz de Gemini con la clave gratuita: si leen bien un texto real en portugués
+# (sin leer las instrucciones) y cuántas peticiones gratis dan al día. Nunca toca los modelos del español (2.5) ni
+# del inglés (3.1) más que con una petición. Lanzar: cambiar ci/voces-pt.txt.
+on:
+  push:
+    branches: ["claude/**"]
+    paths: ["ci/voces-pt.txt"]
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar
+        run: pip install -q faster-whisper numpy
+      - name: Modelo del alineador (caché)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+      - name: Probar
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python proceso/probar_voces_pt.py | tee informe-voces.txt
+      - name: Guardar informe
+        if: always()
+        run: |
+          mkdir -p estado && cp informe-voces.txt estado/informe-voces-pt.txt
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add estado/informe-voces-pt.txt && git commit -q -m "Informe de voces gratis (portugués)" && git pull -q --rebase && git push -q
