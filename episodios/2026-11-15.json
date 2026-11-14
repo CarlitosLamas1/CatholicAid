@@ -128,5 +128,25 @@
     }
   ],
   "repintados": 1,
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "yohhBS5vg8U",
+    "url": "https://youtu.be/yohhBS5vg8U",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-14T23:05:00Z",
+    "lista": {
+      "id": "PLDWdFjTnQWpE",
+      "titulo": "Evangelio según san Mateo",
+      "url": "https://www.youtube.com/playlist?list=PLDWdFjTnQWpE"
+    },
+    "lista_liturgica": {
+      "id": "PLM39u5xp5OPg",
+      "titulo": "Evangelio del día · Tiempo Ordinario",
+      "url": "https://www.youtube.com/playlist?list=PLM39u5xp5OPg"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
+  }
 }
