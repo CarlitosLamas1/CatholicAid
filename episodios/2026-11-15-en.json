@@ -1,19 +1,126 @@
 {
   "fecha": "2026-11-15",
-  "idioma": "en",
   "modo": "diario",
-  "estado": "fallido",
-  "error": "No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.",
-  "cupo_agotado": [
-    "gemini-3.1-flash-tts-preview",
-    "gemini-3.5-flash",
-    "gemini-3.6-flash",
-    "gemini-3.7-flash",
-    "gemini-flash-latest"
+  "cita": "Matthew 25:14-30",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/15.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), partly revised",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg",
+  "duracion_s": 170.0,
+  "imagenes": [
+    "dias/2026-11-15_e1.jpg",
+    "evangelistas/mateo.jpg",
+    "dias/2026-11-15_e1.jpg",
+    "biblioteca/D04",
+    "biblioteca/D10",
+    "dias/2026-11-15_e2.jpg",
+    "biblioteca/G07",
+    "biblioteca/D02",
+    "biblioteca/D05",
+    "dias/2026-11-15_e3.jpg",
+    "biblioteca/D08",
+    "biblioteca/D01",
+    "biblioteca/D06",
+    "evangelistas/mateo.jpg",
+    "biblioteca/R03",
+    "evangelistas/mateo.jpg"
   ],
-  "intento": "2026-11-14T03:50:02+01:00",
-  "avisos": [
-    "Falta cupo gratuito de Gemini (gemini-3.1-flash-tts-preview, gemini-3.5-flash, gemini-3.6-flash, gemini-3.7-flash, gemini-flash-latest): se reintenta más tarde.",
-    "Falta cupo gratuito de Gemini (gemini-3.6-flash, gemini-3.7-flash, gemini-3.8-flash, gemini-flash-latest): se reintenta más tarde."
-  ]
+  "frase_clave": "he also who got the two gained another two.",
+  "reflexion": "God has given you unique talents to share with others, not to hide out of fear. How will you put your gifts at the service of love and your brothers and sisters today?",
+  "lufs": -14.1,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A wealthy master in fine robes entrusts pouches of silver talents to his three servants in a bright courtyard before his departure.",
+      "busqueda": "entrusting talents",
+      "personajes": [
+        "hombre",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "The returned master warmly receives his faithful servants at a table, smiling joyfully as they present their earned talents.",
+      "busqueda": "faithful servants",
+      "personajes": [
+        "hombre",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "An anxious servant hesitantly returns a single coin to his stern master seated in an austere hall in dim evening light.",
+      "busqueda": "unprofitable servant",
+      "personajes": [
+        "hombre"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Matthew.",
+  "texto_evangelio": "At that time, Jesus told his disciples this parable: “It is like a man going into another country, who called his own servants and entrusted his goods to them. To one he gave five talents, to another two, to another one, to each according to his own ability. Then he went on his journey. Immediately he who received the five talents went and traded with them, and made another five talents. In the same way, he also who got the two gained another two. But he who received the one talent went away and dug in the earth and hid his lord’s money. Now after a long time the lord of those servants came, and settled accounts with them. He who received the five talents came and brought another five talents, saying, ‘Lord, you delivered to me five talents. Behold, I have gained another five talents in addition to them.’ His lord said to him, ‘Well done, good and faithful servant. You have been faithful over a few things, I will set you over many things. Enter into the joy of your lord.’ He also who got the two talents came and said, ‘Lord, you delivered to me two talents. Behold, I have gained another two talents in addition to them.’ His lord said to him, ‘Well done, good and faithful servant. You have been faithful over a few things. I will set you over many things. Enter into the joy of your lord.’ He also who had received the one talent came and said, ‘Lord, I knew you that you are a hard man, reaping where you didn’t sow, and gathering where you didn’t scatter. I was afraid, and went away and hid your talent in the earth. Behold, you have what is yours.’ But his lord answered him, ‘You wicked and slothful servant. You knew that I reap where I didn’t sow, and gather where I didn’t scatter. You ought therefore to have deposited my money with the bankers, and at my coming I should have received back my own with interest. Take away therefore the talent from him and give it to him who has the ten talents. For to everyone who has will be given, and he will have abundance, but from him who doesn’t have, even that which he has will be taken away. Throw out the unprofitable servant into the outer darkness, where there will be weeping and gnashing of teeth.’”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.07,
+      "texto": "A reading from the holy Gospel according to Matthew."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 6.85,
+      "texto": "At that time, Jesus told his disciples this parable:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.14,
+      "texto": "“It is like a man going into another country, who called his own servants and entrusted his goods to them. To one he gave five talents, to another two, to another one, to each according to his own ability. Then he went on his journey. Immediately he who received the five talents went and traded with them, and made another five talents. In the same way, he also who got the two gained another two. But he who received the one talent went away and dug in the earth and hid his lord’s money."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 44.45,
+      "texto": "Now after a long time the lord of those servants came, and settled accounts with them. He who received the five talents came and brought another five talents, saying, ‘Lord, you delivered to me five talents. Behold, I have gained another five talents in addition to them.’ His lord said to him, ‘Well done, good and faithful servant. You have been faithful over a few things, I will set you over many things. Enter into the joy of your lord.’ He also who got the two talents came and said, ‘Lord, you delivered to me two talents. Behold, I have gained another two talents in addition to them.’ His lord said to him, ‘Well done, good and faithful servant. You have been faithful over a few things. I will set you over many things. Enter into the joy of your lord.’"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 92.73,
+      "texto": "He also who had received the one talent came and said, ‘Lord, I knew you that you are a hard man, reaping where you didn’t sow, and gathering where you didn’t scatter. I was afraid, and went away and hid your talent in the earth. Behold, you have what is yours.’ But his lord answered him, ‘You wicked and slothful servant. You knew that I reap where I didn’t sow, and gather where I didn’t scatter. You ought therefore to have deposited my money with the bankers, and at my coming I should have received back my own with interest. Take away therefore the talent from him and give it to him who has the ten talents. For to everyone who has will be given, and he will have abundance, but from him who doesn’t have, even that which he has will be taken away. Throw out the unprofitable servant into the outer darkness, where there will be weeping and gnashing of teeth.’”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 146.92,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 152.13,
+      "texto": "God has given you unique talents to share with others, not to hide out of fear. How will you put your gifts at the service of love and your brothers and sisters today?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-14T11:13:02+01:00",
+  "run": "43582815178",
+  "idioma": "en",
+  "libro": "Mateo",
+  "cita_es": "Mateo 25, 14-30",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
 }
