@@ -1,0 +1,3 @@
+
+# Ajustes de Claude solo para el Mac de Carlos (las rutinas de la nube no deben heredarlos)
+.claude/settings.local.json

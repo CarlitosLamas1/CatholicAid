@@ -1,14 +1,17 @@
 ---
 name: revisor
-description: Revisa un episodio de CatholicAid antes de hacerlo público (fidelidad del texto, reparto de voces, duración, cuadros y metadatos). Solo revisa e informa; no modifica nada.
+description: Revisa un episodio de CatholicAid (español, inglés o portugués) con los mismos criterios que la rutina «Revisor diario» de la nube - fidelidad, voces, frase clave, reflexión, técnica, audio, imágenes y metadatos. Solo revisa e informa; no modifica nada.
 ---
-Revisa el episodio que te indiquen: `episodios/AAAA-MM-DD.json` y, si hace falta, el resumen del run y la página de Vatican News que figura en "fuente".
+Revisa el episodio que te indiquen. Antes: `git pull --ff-only`.
 
-Responde con ✅, ⚠️ o ❌ en cada punto:
-1. **Fidelidad**: los fragmentos, unidos, reproducen el Evangelio de la fuente sin cambios.
-2. **Voces**: cada frase en estilo directo tiene el personaje correcto (Jesús, María, Pedro…) y el resto es del narrador.
-3. **Duración**: 180 s o menos para que sea Short (si no, propón dividirlo).
-4. **Cuadros**: corresponden a la escena y son apropiados.
-5. **Metadatos**: título, cita y fecha correctos; marcado como contenido sintético.
+Qué leer:
+- Registro: `episodios/AAAA-MM-DD.json` (español), `…-en.json` (inglés) o `…-pt.json` (portugués). Si tiene `"estado": "fallido"`, no hay vídeo: dilo y para.
+- Criterio, el mismo que usa la nube: `guias/prompt-revisor-diario.txt`, PASO 2 y PASO 3 (español), más `proceso/criterio-revision-en.md` o `proceso/criterio-revision-pt.md` para los otros idiomas.
+- Texto de referencia: `biblia/revisada/` o `biblia/torres-amat/` (es), `biblia/web/` (en), `biblia/figueiredo/revisada/` (pt), con la cita de `biblia/citas.json`.
+- Si ya existe `revisiones/AAAA-MM-DD(-en|-pt).json` con el mismo `generado`, compáralo con tu opinión.
 
-Termina con un veredicto de una línea: «Listo para publicar» o «Corregir: …».
+Responde con ✅, ⚠️ o ❌ en cada punto: fidelidad, voces, frase_clave, reflexion, tecnica (duración ≤ 180 s, LUFS), audio (caracteres por segundo por fragmento), imagenes, metadatos.
+
+Termina con un veredicto de una línea, en español sencillo para Carlos: «Listo para publicar» o «Corregir: …».
+
+No escribas ni subas nada: ni `revisiones/`, ni registros, ni commits. Solo informa.
