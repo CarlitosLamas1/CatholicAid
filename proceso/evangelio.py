@@ -843,7 +843,7 @@ def duracion(ruta):
         return w.getnframes() / w.getframerate()
 
 
-def voz_comprobada(p, prompt, destino, letras):
+def voz_comprobada(p, prompt, destino, letras, intentos=3):
     """Graba y comprueba que la duración es razonable para el texto (≈15 letras por segundo). A veces Gemini
     devuelve un audio anómalo (silencios enormes, texto repetido o leído a medias): entonces se graba otra vez."""
     esperado = letras / 15.0
@@ -853,11 +853,11 @@ def voz_comprobada(p, prompt, destino, letras):
         log(f"   (caché) voz ya grabada: {guardada.name}")
         shutil.copy(guardada, destino)
         return
-    for intento in range(3):
+    for intento in range(intentos):
         try:
             voz_gemini(p, prompt, destino)
         except (KeyError, IndexError) as e:  # a veces Gemini responde sin audio (sin «content»): se pide otra vez
-            if intento == 2:
+            if intento == intentos - 1:
                 raise
             log(f"   Gemini respondió sin audio ({e}); grabo otra vez")
             time.sleep(CFG.get("pausa_tts_segundos", 21))
@@ -873,6 +873,19 @@ def voz_comprobada(p, prompt, destino, letras):
     raise RuntimeError(f"Gemini devuelve audios anómalos ({dur:.0f} s para ~{esperado:.0f} s); no se publica así")
 
 
+def por_separado(p, quien, indices, textos, carpeta):
+    """Graba cada fragmento de un personaje aparte (misma voz). Devuelve {índice de fragmento: wav}."""
+    salida = {}
+    for n, (i, texto) in enumerate(zip(indices, textos)):
+        bruto = carpeta / f"voz_{quien}_{n:02d}_b.wav"
+        voz_comprobada(p, txt("leer").format(estilo=p['estilo'], texto=texto), bruto, len(texto))
+        trozo = carpeta / f"voz_{quien}_{n:02d}.wav"
+        ffmpeg("-i", bruto, "-af", LIMPIAR, "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", trozo)
+        salida[i] = trozo
+        time.sleep(CFG.get("pausa_tts_segundos", 21))
+    return salida
+
+
 def grabar_personaje(frs, indices, carpeta):
     """TODO lo que dice un personaje en UNA sola grabación (mismo tono de principio a fin), cortada en sus fragmentos.
     Devuelve {índice de fragmento: wav}."""
@@ -884,8 +897,14 @@ def grabar_personaje(frs, indices, carpeta):
         voz_comprobada(p, txt("leer").format(estilo=p['estilo'], texto=textos[0]), completo, len(textos[0]))
         partes = [(0.0, duracion(completo))]
     else:
-        voz_comprobada(p, txt("leer_varios").format(estilo=p['estilo']) + "\n\n".join(textos), completo,
-                       sum(len(x) for x in textos) + 15 * (len(textos) - 1))
+        try:
+            voz_comprobada(p, txt("leer_varios").format(estilo=p['estilo']) + "\n\n".join(textos), completo,
+                           sum(len(x) for x in textos) + 15 * (len(textos) - 1), intentos=2)
+        except (KeyError, IndexError):
+            # 14/11/2026: con textos muy largos (la parábola de los talentos, ~1700 letras de Jesús) el modelo de voz
+            # responde varias veces sin audio. Entonces se graba cada fragmento aparte, con la misma voz.
+            log(f"   {quien}: la grabación entera no sale (texto largo); grabo sus fragmentos por separado")
+            return por_separado(p, quien, indices, textos, carpeta)
         dur = duracion(completo)
         try:
             oidos = cortes_oidos(completo, textos)
@@ -912,15 +931,7 @@ def grabar_personaje(frs, indices, carpeta):
         if cortes is None:
             # Muy raro: no se distinguen las pausas. Se graba cada fragmento aparte, con la misma voz.
             log(f"   {quien}: no distingo las pausas; grabo sus fragmentos por separado")
-            salida = {}
-            for n, (i, texto) in enumerate(zip(indices, textos)):
-                bruto = carpeta / f"voz_{quien}_{n:02d}_b.wav"
-                voz_comprobada(p, txt("leer").format(estilo=p['estilo'], texto=texto), bruto, len(texto))
-                trozo = carpeta / f"voz_{quien}_{n:02d}.wav"
-                ffmpeg("-i", bruto, "-af", LIMPIAR, "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", trozo)
-                salida[i] = trozo
-                time.sleep(CFG.get("pausa_tts_segundos", 21))
-            return salida
+            return por_separado(p, quien, indices, textos, carpeta)
         bordes = [0.0] + cortes + [dur]
         partes = list(zip(bordes[:-1], bordes[1:]))
     salida = {}
@@ -2227,6 +2238,12 @@ def main():
     if a.si_falta and hecho.get("modo") == "diario" and (
             "youtube" in hecho or hecho.get("revision") in ("pendiente", "ok") or hecho.get("no_publicar")):
         log(f"El vídeo del {fecha}{suf} ya está hecho ({hecho.get('revision') or 'subido'}); nada que hacer.")
+        return
+    if idioma != "es" and a.si_falta and a.modo == "diario" and dt.datetime.now(dt.timezone.utc).hour < 8:
+        # 14/11/2026: los cron de GitHub llegaron con horas de retraso, de madrugada, y el inglés y el portugués del
+        # día siguiente se grabaron con el cupo gratis que quedaba del día anterior (se renueva a las 08:00 UTC):
+        # sin voces en inglés y sin frase clave coherente. Hay tiempo de sobra: se espera al cupo nuevo.
+        log(f"Son menos de las 08:00 UTC: el vídeo del {fecha}{suf} espera al cupo gratis nuevo del día.")
         return
     if idioma != "es" and a.si_falta and a.modo == "diario":
         # El inglés va DESPUÉS del español (usa sus imágenes y el cupo que sobre). Si el español aún no está, espera

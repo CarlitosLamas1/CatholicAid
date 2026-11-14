@@ -173,6 +173,18 @@ def main():
         log(f"Portugués: no se pudo lanzar ({e})")
 
 
+def sin_cupo_hoy(reg):
+    """El intento falló por cupo DESPUÉS de la última renovación del cupo gratis (08:00 UTC): no vale reintentar.
+    Si falló antes (p. ej. de madrugada, 14/11/2026), el cupo ya es nuevo y sí se reintenta."""
+    if reg.get("estado") != "fallido" or not reg.get("cupo_agotado") or not reg.get("intento"):
+        return False
+    ahora = dt.datetime.now(dt.timezone.utc)
+    renovado = ahora.replace(hour=8, minute=0, second=0, microsecond=0)
+    if ahora < renovado:
+        renovado -= dt.timedelta(days=1)
+    return dt.datetime.fromisoformat(reg["intento"]) >= renovado
+
+
 def ingles(runs, ahora, manana):
     """5. Vídeo en inglés de mañana. Nunca antes que el español, y nunca si ya está hecho o en marcha."""
     cfg = json.loads(open("config/personajes.json", encoding="utf-8").read())
@@ -186,7 +198,7 @@ def ingles(runs, ahora, manana):
     if en_hecho or not 17 <= ahora.hour <= 23:
         log(f"Inglés: {'hecho' if en_hecho else 'aún no toca'}.")
         return
-    if en.get("estado") == "fallido" and en.get("cupo_agotado"):
+    if sin_cupo_hoy(en):
         log("Inglés: sin cupo gratuito de Gemini hasta mañana; no se reintenta.")
         return
     if not es_hecho and ahora.hour < 23:
@@ -213,7 +225,7 @@ def portugues(runs, ahora, manana):
     if pt_hecho or not 18 <= ahora.hour <= 23:
         log(f"Portugués: {'hecho' if pt_hecho else 'aún no toca'}.")
         return
-    if pt.get("estado") == "fallido" and pt.get("cupo_agotado"):
+    if sin_cupo_hoy(pt):
         log("Portugués: sin cupo gratuito de Gemini hasta mañana; no se reintenta.")
         return
     if not en_hecho and ahora.hour < 23:
