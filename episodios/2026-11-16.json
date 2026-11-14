@@ -158,5 +158,12 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente"
+  "revision": "rechazada",
+  "repintar": [
+    {
+      "escena": 3,
+      "corregir": "Fix the problem the reviewer found in the previous version (in Spanish): En la imagen de la escena 3 el hombre curado se parece mucho a Jesús (ambos de túnica blanca y pelo largo); mejorable pero no impide publicar."
+    }
+  ],
+  "repintados": 1
 }
