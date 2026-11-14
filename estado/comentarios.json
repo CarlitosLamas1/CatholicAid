@@ -143,6 +143,12 @@
       "motivo": "Comentario de fe, agradecido",
       "respuesta": "Amén. Gracias por acompañarnos con el Evangelio; que Dios te bendiga hoy y siempre. 🙏",
       "por": "claude"
+    },
+    "Ugzl6ybOrPWNhDA2mi14AaABAg": {
+      "tipo": "pendiente",
+      "publicado": "2026-11-14T07:58:44+00:00",
+      "desde": "2026-11-14T09:32:50.120056+01:00",
+      "listo": "2026-11-14T10:06:44+00:00"
     }
   },
   "respondidos": [
@@ -150,17 +156,19 @@
     "UgxJo-bQIpQQnogSW454AaABAg",
     "UgxH0qjA7NJLdqun5vZ4AaABAg",
     "UgwUHpuZe3oJd2qvpOd4AaABAg",
-    "UgwOvBxoGFQ_dNTsCPR4AaABAg"
+    "UgwOvBxoGFQ_dNTsCPR4AaABAg",
+    "UgwOIXJcICO3_CUYN9R4AaABAg"
   ],
   "recientes": [
     "Gracias por estar ahí cada día. Que la Palabra de Jesús te acompañe y te bendiga.",
     "Gloria a Él por siempre. Gracias por acompañarnos con el Evangelio de hoy, ¡que Dios te bendiga! 🙏",
     "Amén. Que Jesús te bendiga hoy y siempre; gracias por escuchar el Evangelio con nosotros.",
     "Qué verdad tan sencilla y tan honda: lo que importa es el Cielo. Gracias por compartirlo, ¡que Dios te bendiga! 🙏",
-    "Gracias por el dato y por acompañarnos. Es cierto: Sabiduría 10,7 también evoca a la mujer de Lot. ¡Que Dios te bendiga!"
+    "Gracias por el dato y por acompañarnos. Es cierto: Sabiduría 10,7 también evoca a la mujer de Lot. ¡Que Dios te bendiga!",
+    "Amén. Gracias por acompañarnos con el Evangelio; que Dios te bendiga hoy y siempre. 🙏"
   ],
   "dia": "2026-11-14",
-  "hoy": 0,
-  "ultima": "2026-11-13T22:51:05.145985+01:00",
-  "proxima": "2026-11-14T00:13:05.145995+01:00"
+  "hoy": 1,
+  "ultima": "2026-11-14T09:50:41.333469+01:00",
+  "proxima": "2026-11-14T11:56:41.333485+01:00"
 }
