@@ -1,0 +1,133 @@
+{
+  "fecha": "2026-11-17",
+  "modo": "diario",
+  "cita": "Lucas 19, 1-10",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/17.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 9,
+  "musica": "Chopin_-_Nocturne-op-55-no-1.ogg",
+  "duracion_s": 99.9,
+  "imagenes": [
+    "dias/2026-11-17_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-17_e1.jpg",
+    "biblioteca/D08",
+    "biblioteca/D05",
+    "biblioteca/D07",
+    "dias/2026-11-17_e2.jpg",
+    "dias/2026-11-17_e3.jpg",
+    "biblioteca/D01",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R05",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Zaqueo, baja enseguida, porque conviene que hoy me hospede en tu casa",
+  "reflexion": "Jesús no mira tus fallos, sino tu deseo de encontrarle. Abre hoy las puertas de tu corazón y déjale entrar en tu vida.",
+  "lufs": -14.0,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Zacchaeus perched in a leafy sycamore tree looks down eagerly as Jesus, surrounded by a crowd in Jericho, stops and looks up at him with a welcoming smile.",
+      "busqueda": "Zacchaeus sycamore tree",
+      "personajes": [
+        "jesus",
+        "hombre",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "In a warm interior setting, Zacchaeus stands joyfully before Jesus at a banquet table, pledging half of his possessions to the poor.",
+      "busqueda": "Jesus Zacchaeus home",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus reaches out his hand in blessing towards Zacchaeus, extending peace and salvation to his home with deep affection.",
+      "busqueda": "Jesus blessing house",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas 19, 1-10.",
+  "texto_evangelio": "En aquel tiempo, habiendo entrado Jesús en Jericó, atravesaba la ciudad. Y había allí un hombre muy rico llamado Zaqueo, jefe de publicanos, que procuraba conocer a Jesús de vista; pero no podía a causa del gentío, porque era muy pequeño de estatura. Se adelantó corriendo y se subió a un sicómoro para verlo, porque había de pasar por allí. Cuando Jesús llegó a aquel lugar, alzó los ojos, lo vio y le dijo: “Zaqueo, baja enseguida, porque conviene que hoy me hospede en tu casa”. Él bajó a toda prisa y lo recibió gozoso. Todos, al ver esto, murmuraban diciendo que había ido a hospedarse en casa de un hombre pecador. Pero Zaqueo, puesto en presencia del Señor, le dijo: “Señor, desde ahora doy la mitad de mis bienes a los pobres; y si he defraudado en algo a alguno, le restituiré cuatro veces más”. Jesús le respondió: “Hoy ha sido día de salvación para esta casa, pues también este es hijo de Abrahán. Porque el Hijo del hombre ha venido a buscar y a salvar lo que estaba perdido”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "Lectura del santo evangelio según san Lucas 19, 1-10."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.13,
+      "texto": "En aquel tiempo, habiendo entrado Jesús en Jericó, atravesaba la ciudad. Y había allí un hombre muy rico llamado Zaqueo, jefe de publicanos, que procuraba conocer a Jesús de vista; pero no podía a causa del gentío, porque era muy pequeño de estatura. Se adelantó corriendo y se subió a un sicómoro para verlo, porque había de pasar por allí. Cuando Jesús llegó a aquel lugar, alzó los ojos, lo vio y le dijo:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 37.25,
+      "texto": "“Zaqueo, baja enseguida, porque conviene que hoy me hospede en tu casa”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 44.72,
+      "texto": ". Él bajó a toda prisa y lo recibió gozoso. Todos, al ver esto, murmuraban diciendo que había ido a hospedarse en casa de un hombre pecador. Pero Zaqueo, puesto en presencia del Señor, le dijo:"
+    },
+    {
+      "personaje": "hombre",
+      "escena": 2,
+      "inicio": 60.49,
+      "texto": "“Señor, desde ahora doy la mitad de mis bienes a los pobres; y si he defraudado en algo a alguno, le restituiré cuatro veces más”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 67.92,
+      "texto": ". Jesús le respondió:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 71.78,
+      "texto": "“Hoy ha sido día de salvación para esta casa, pues también este es hijo de Abrahán. Porque el Hijo del hombre ha venido a buscar y a salvar lo que estaba perdido”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 85.04,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 88.47,
+      "texto": "Jesús no mira tus fallos, sino tu deseo de encontrarle. Abre hoy las puertas de tu corazón y déjale entrar en tu vida.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-15T00:33:10+01:00",
+  "run": "43651110143",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 9,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
