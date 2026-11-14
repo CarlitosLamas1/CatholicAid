@@ -5,13 +5,15 @@
   "estado": "fallido",
   "error": "No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.",
   "cupo_agotado": [
+    "gemini-3.1-flash-tts-preview",
+    "gemini-3.5-flash",
     "gemini-3.6-flash",
     "gemini-3.7-flash",
-    "gemini-3.8-flash",
     "gemini-flash-latest"
   ],
-  "intento": "2026-11-14T02:52:21+01:00",
+  "intento": "2026-11-14T03:50:02+01:00",
   "avisos": [
+    "Falta cupo gratuito de Gemini (gemini-3.1-flash-tts-preview, gemini-3.5-flash, gemini-3.6-flash, gemini-3.7-flash, gemini-flash-latest): se reintenta más tarde.",
     "Falta cupo gratuito de Gemini (gemini-3.6-flash, gemini-3.7-flash, gemini-3.8-flash, gemini-flash-latest): se reintenta más tarde."
   ]
 }
