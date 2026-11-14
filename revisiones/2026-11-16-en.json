@@ -3,20 +3,20 @@
   "idioma": "en",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-14T12:57:15+01:00",
-  "revisado": "2026-11-14T13:33:01+01:00",
+  "generado": "2026-11-14T13:46:09+01:00",
+  "revisado": "2026-11-14T14:32:56+01:00",
   "motivos": [],
   "avisos": [
-    "La sincronía de subtítulos del inglés marca ok=false (el corte del narrador no se pudo oír y 2 frases se repartieron por pausas); si el sistema lo rehace, es lo esperado."
+    "Ninguno: es la versión rehecha (sincronía de subtítulos ahora ok: 14 frases oídas)."
   ],
   "puntos": {
-    "fidelidad": "✅ Texto = World English Bible (Lucas 18:35-43) salvo la introducción «At that time,» y comillas; fragmentos idénticos a texto_evangelio",
-    "voces": "✅ Jesús dice sus dos frases, el hombre las suyas, el resto del narrador",
+    "fidelidad": "✅ Texto = World English Bible (Lucas 18:35-43) salvo «At that time,»; fragmentos idénticos a texto_evangelio (comprobado por script)",
+    "voces": "✅ Jesús dice sus dos frases, el hombre ciego las suyas, el resto el narrador",
     "frase_clave": "✅ «Receive your sight. Your faith has healed you.» literal, de Jesús, 8 palabras",
-    "reflexion": "✅ Inglés americano, 2 frases (~33 palabras), de tú, doctrinalmente correcta",
-    "tecnica": "✅ 95,2 s; -13,9 LUFS",
-    "audio": "✅ Más lento: fragmento 7 «He said,» 3,4 car/s (muy corto, normal) y fragmento 4 5,1 car/s (7,3 s, frase corta con pausas); fragmentos largos 10,7–14,5 car/s; sin anomalías",
-    "imagenes": "✅ Reutiliza las del español (dias/…_e1, e2) y biblioteca; aprobadas",
-    "metadatos": "✅ Cita Luke 18:35-43, título en inglés, gancho 2,8 s, karaoke activo"
+    "reflexion": "✅ Inglés americano, 2 frases (~30 palabras), de tú, doctrinalmente correcta",
+    "tecnica": "✅ 94,6 s; -14,2 LUFS",
+    "audio": "✅ Fragmentos largos 10,5–14,9 car/s; más lento: fragmento 4 «You son of David…» 5,1 car/s (7,3 s, frase corta con pausas); más rápido: fragmento 3 14,9 car/s; sin anomalías",
+    "imagenes": "✅ Acuarelas del día e1–e3 apropiadas y devocionales, sin deformaciones graves; resto de biblioteca/evangelista",
+    "metadatos": "✅ Luke 18:35-43, título en inglés, gancho 2,8 s, karaoke activo"
   }
 }
