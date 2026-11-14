@@ -68,5 +68,10 @@
     "tipo": "ignorar",
     "motivo": "solo «Amén»",
     "decidido": "2026-11-14T01:32:29.475059+01:00"
+  },
+  "UgzFY_9Q8WAB_bWXDAl4AaABAg": {
+    "tipo": "ignorar",
+    "motivo": "Solo «Amén» y emojis",
+    "decidido": "2026-11-14T03:32:37.222588+01:00"
   }
 }
