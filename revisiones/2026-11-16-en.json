@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-16",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-14T12:57:15+01:00",
+  "revisado": "2026-11-14T13:33:01+01:00",
+  "motivos": [],
+  "avisos": [
+    "La sincronía de subtítulos del inglés marca ok=false (el corte del narrador no se pudo oír y 2 frases se repartieron por pausas); si el sistema lo rehace, es lo esperado."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto = World English Bible (Lucas 18:35-43) salvo la introducción «At that time,» y comillas; fragmentos idénticos a texto_evangelio",
+    "voces": "✅ Jesús dice sus dos frases, el hombre las suyas, el resto del narrador",
+    "frase_clave": "✅ «Receive your sight. Your faith has healed you.» literal, de Jesús, 8 palabras",
+    "reflexion": "✅ Inglés americano, 2 frases (~33 palabras), de tú, doctrinalmente correcta",
+    "tecnica": "✅ 95,2 s; -13,9 LUFS",
+    "audio": "✅ Más lento: fragmento 7 «He said,» 3,4 car/s (muy corto, normal) y fragmento 4 5,1 car/s (7,3 s, frase corta con pausas); fragmentos largos 10,7–14,5 car/s; sin anomalías",
+    "imagenes": "✅ Reutiliza las del español (dias/…_e1, e2) y biblioteca; aprobadas",
+    "metadatos": "✅ Cita Luke 18:35-43, título en inglés, gancho 2,8 s, karaoke activo"
+  }
+}
