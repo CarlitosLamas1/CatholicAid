@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-15",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-14T11:13:02+01:00",
+  "revisado": "2026-11-14T11:32:48+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave empieza en minúscula y es algo floja («he also who got the two gained another two.»), aunque es literal y de Jesús.",
+    "En la imagen de la escena 1 el amo de la parábola se parece a Jesús (túnica azul y roja); es mejorable pero devocional y sin problema grave."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a WEB Catholic (revisada/mateo 25,14-30); solo cambia la introducción «At that time, Jesus told his disciples this parable:».",
+    "voces": "✅ La parábola va entera en jesus; narración y «The Gospel of the Lord.» en narrador.",
+    "frase_clave": "⚠️ Literal y de Jesús, 9 palabras, pero empieza en minúscula y es floja.",
+    "reflexion": "✅ 33 palabras, inglés americano, doctrina correcta, sin comillas ni política.",
+    "tecnica": "✅ 170 s, -14.1 LUFS, sincronía ok (7 frases oídas).",
+    "audio": "✅ Fragmentos largos 15.6–16.0 car/s; más lento el título (4.4 car/s, fragmento corto de 5 s) y el más rápido 16.0.",
+    "imagenes": "⚠️ Tres óleos/acuarela devocionales sin deformidades graves; en la 1 el amo recuerda a Jesús.",
+    "metadatos": "✅ Cita Matthew 25:14-30 coherente con citas.json (Mateo 25, 14-30), evangelista Matthew, gancho 1.5 s, karaoke activo."
+  }
+}
