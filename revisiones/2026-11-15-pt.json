@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-15",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-14T11:15:37+01:00",
+  "revisado": "2026-11-14T18:51:55+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave («Do mesmo modo, o que tinha recebido dois ganhou outros dois.») es floja: no se entiende sola. Es la misma que en español e inglés (coherencia entre idiomas)."
+  ],
+  "puntos": {
+    "fidelidad": "✅ idéntico al Figueiredo revisado (Mateus 25,14-30, coincide con citas.json)",
+    "voces": "✅ narración en narrador; Jesús cuenta toda la parábola (senhor y servos dentro de su voz)",
+    "frase_clave": "⚠️ literal y de Jesús, pero no se entiende sola (igual que en español)",
+    "reflexion": "✅ portugués de Brasil, de «você», 29 palabras, fiel",
+    "tecnica": "✅ 165,1 s, -14,0 LUFS, subtítulos sincronizados (7/7 por lo que se oye)",
+    "audio": "✅ más lento: «Palavra da Salvação» 5,1 c/s (corto, normal); más rápido: Jesús 14,2 c/s",
+    "imagenes": "✅ las del español del 15/11 y biblioteca",
+    "metadatos": "✅ Mateus 25,14-30 en formato brasileño, todo en portugués"
+  }
+}
