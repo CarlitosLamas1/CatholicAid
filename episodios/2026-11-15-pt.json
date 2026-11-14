@@ -4,6 +4,14 @@
   "modo": "diario",
   "estado": "fallido",
   "error": "No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.",
-  "cupo_agotado": [],
-  "intento": "2026-11-14T01:09:24+01:00"
+  "cupo_agotado": [
+    "gemini-3.5-flash",
+    "gemini-3.6-flash",
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "intento": "2026-11-14T03:46:48+01:00",
+  "avisos": [
+    "Falta cupo gratuito de Gemini (gemini-3.5-flash, gemini-3.6-flash, gemini-3.7-flash, gemini-3.8-flash): se reintenta más tarde."
+  ]
 }
