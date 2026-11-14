@@ -1,0 +1,128 @@
+{
+  "fecha": "2026-11-15",
+  "modo": "diario",
+  "cita": "Mateo 25, 14-30",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/15.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg",
+  "duracion_s": 151.4,
+  "imagenes": [
+    "dias/2026-11-15_e1.jpg",
+    "evangelistas/mateo.jpg",
+    "dias/2026-11-15_e1.jpg",
+    "biblioteca/D06",
+    "biblioteca/D10",
+    "dias/2026-11-15_e2.jpg",
+    "biblioteca/D04",
+    "biblioteca/D07",
+    "dias/2026-11-15_e3.jpg",
+    "biblioteca/D05",
+    "biblioteca/D08",
+    "evangelistas/mateo.jpg",
+    "biblioteca/R03",
+    "evangelistas/mateo.jpg"
+  ],
+  "frase_clave": "De la misma manera, el que había recibido dos ganó otros dos.",
+  "reflexion": "Dios te ha regalado dones únicos, no para guardarlos por miedo, sino para compartirlos con amor. ¿Cómo vas a hacer fructificar hoy los talentos que Él ha puesto en tus manos?",
+  "lufs": -14.0,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A wealthy master distributes bags of silver talents to his three servants before departing on a journey.",
+      "busqueda": "parable of talents",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "The master warmly commends his joyful servant who presents double the talents he had originally received.",
+      "busqueda": "faithful servant",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The fearful servant returns the single unearned talent to his stern master in a dimly lit hall.",
+      "busqueda": "buried talent",
+      "personajes": [
+        "hombre"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Mateo.",
+  "texto_evangelio": "En aquel tiempo, dijo Jesús a sus discípulos esta parábola: “Porque el Señor obrará como un hombre que, yéndose a tierras lejanas, convocó a sus criados y les entregó sus bienes: dio a uno cinco talentos, a otro dos y a otro uno, a cada cual según su capacidad, y se marchó enseguida. El que recibió cinco talentos fue, negoció con ellos y ganó otros cinco. De la misma manera, el que había recibido dos ganó otros dos. Pero el que recibió uno fue, hizo un hoyo en la tierra y escondió el dinero de su señor. Pasado mucho tiempo volvió el amo de aquellos criados y les pidió cuentas. Llegó el que había recibido cinco talentos y le presentó otros cinco, diciendo: ‘Señor, cinco talentos me entregaste; aquí tienes otros cinco que he ganado con ellos’. Su amo le respondió: ‘Muy bien, siervo bueno, diligente y leal; ya que has sido fiel en lo poco, yo te confiaré lo mucho; entra en el gozo de tu señor’. Llegó después el que había recibido dos talentos y dijo: ‘Señor, dos talentos me diste; aquí te traigo otros dos que he ganado con ellos’. Su amo le respondió: ‘Muy bien, siervo bueno y fiel; has sido fiel en pocas cosas, yo te confiaré muchas más; entra en el gozo de tu señor’. Por último llegó el que había recibido un talento y dijo: ‘Señor, yo sé que eres un hombre duro, que siegas donde no has sembrado y recoges donde no has esparcido; y por eso, temeroso, me fui y escondí tu talento en tierra; aquí tienes lo que es tuyo’. Pero su amo le respondió: ‘¡Siervo malo y perezoso! Sabías que siego donde no siembro y recojo donde nada he esparcido; pues por eso mismo debías haber entregado mi dinero a los banqueros, para que yo, a mi vuelta, recobrase mi caudal con los intereses. Quitadle, pues, ese talento y dádselo al que tiene diez. Porque al que tiene, se le dará y tendrá en abundancia; pero al que no tiene, aun lo que parece que tiene se le quitará. Y a ese siervo inútil, arrojadlo a las tinieblas de fuera: allí será el llanto y el rechinar de dientes’”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "Lectura del santo evangelio según san Mateo."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 6.49,
+      "texto": "En aquel tiempo, dijo Jesús a sus discípulos esta parábola:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 12.11,
+      "texto": "“Porque el Señor obrará como un hombre que, yéndose a tierras lejanas, convocó a sus criados y les entregó sus bienes: dio a uno cinco talentos, a otro dos y a otro uno, a cada cual según su capacidad, y se marchó enseguida. El que recibió cinco talentos fue, negoció con ellos y ganó otros cinco. De la misma manera, el que había recibido dos ganó otros dos. Pero el que recibió uno fue, hizo un hoyo en la tierra y escondió el dinero de su señor."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 43.35,
+      "texto": "Pasado mucho tiempo volvió el amo de aquellos criados y les pidió cuentas. Llegó el que había recibido cinco talentos y le presentó otros cinco, diciendo: ‘Señor, cinco talentos me entregaste; aquí tienes otros cinco que he ganado con ellos’. Su amo le respondió: ‘Muy bien, siervo bueno, diligente y leal; ya que has sido fiel en lo poco, yo te confiaré lo mucho; entra en el gozo de tu señor’. Llegó después el que había recibido dos talentos y dijo: ‘Señor, dos talentos me diste; aquí te traigo otros dos que he ganado con ellos’. Su amo le respondió: ‘Muy bien, siervo bueno y fiel; has sido fiel en pocas cosas, yo te confiaré muchas más; entra en el gozo de tu señor’."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 86.76,
+      "texto": "Por último llegó el que había recibido un talento y dijo: ‘Señor, yo sé que eres un hombre duro, que siegas donde no has sembrado y recoges donde no has esparcido; y por eso, temeroso, me fui y escondí tu talento en tierra; aquí tienes lo que es tuyo’. Pero su amo le respondió: ‘¡Siervo malo y perezoso! Sabías que siego donde no siembro y recojo donde nada he esparcido; pues por eso mismo debías haber entregado mi dinero a los banqueros, para que yo, a mi vuelta, recobrase mi caudal con los intereses. Quitadle, pues, ese talento y dádselo al que tiene diez. Porque al que tiene, se le dará y tendrá en abundancia; pero al que no tiene, aun lo que parece que tiene se le quitará. Y a ese siervo inútil, arrojadlo a las tinieblas de fuera: allí será el llanto y el rechinar de dientes’”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 131.73,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 134.55,
+      "texto": "Dios te ha regalado dones únicos, no para guardarlos por miedo, sino para compartirlos con amor. ¿Cómo vas a hacer fructificar hoy los talentos que Él ha puesto en tus manos?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-14T01:33:18+01:00",
+  "run": "43532876810",
+  "cupo_agotado": [
+    "gemini-2.5-flash-preview-tts",
+    "gemini-3.7-flash",
+    "gemini-3.8-flash",
+    "gemini-flash-latest"
+  ],
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [
+      "jesus",
+      "narrador"
+    ],
+    "ok": false
+  },
+  "revision": "pendiente"
+}
