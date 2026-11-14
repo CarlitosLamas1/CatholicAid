@@ -231,7 +231,7 @@ def main():
     except Exception as ex:  # nunca se queda Carlos sin parte: uno mínimo
         texto = f"🛡️ <b>PARTE DIARIO</b> · {e(fecha_txt(ahora.date()))}\n⚠️ No pude preparar el parte completo ({e(ex)})."
     print(texto)
-    if enviar(texto):
+    if enviar(texto) and not forzar:  # una prueba forzada no cuenta como el parte del día
         ruta.parent.mkdir(exist_ok=True)
         ruta.write_text(json.dumps({"fecha": str(ahora.date()), "enviado": ahora.isoformat(timespec="seconds")},
                                    ensure_ascii=False, indent=2), encoding="utf-8")
