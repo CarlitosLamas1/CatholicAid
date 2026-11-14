@@ -145,10 +145,13 @@
       "por": "claude"
     },
     "Ugzl6ybOrPWNhDA2mi14AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "responder",
       "publicado": "2026-11-14T07:58:44+00:00",
       "desde": "2026-11-14T09:32:50.120056+01:00",
-      "listo": "2026-11-14T10:06:44+00:00"
+      "listo": "2026-11-14T10:06:44+00:00",
+      "motivo": "alabanza sencilla",
+      "respuesta": "Gloria a Dios. Que la oración de hoy te llene de paz y confianza en Él. ¡Gracias por estar aquí!",
+      "por": "claude"
     }
   },
   "respondidos": [
