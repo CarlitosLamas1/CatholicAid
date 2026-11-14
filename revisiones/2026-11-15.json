@@ -2,22 +2,21 @@
   "fecha": "2026-11-15",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-14T01:33:18+01:00",
-  "revisado": "2026-11-14T02:33:02+01:00",
+  "generado": "2026-11-14T02:52:36+01:00",
+  "revisado": "2026-11-14T03:32:37.222588+01:00",
   "motivos": [],
   "avisos": [
-    "La frase clave empieza con «De la misma manera…» y sola se entiende a medias; es literal y de Jesús, pero es floja.",
-    "En la imagen de la escena 1 el amo tiene un halo dorado y podría confundirse con Jesús (es el amo de la parábola).",
-    "El registro marca sincronia.ok = false (cortes de jesus y narrador sin poder escucharse): publicar.py puede rehacer el vídeo una vez."
+    "La frase clave empieza con «De la misma manera…» y sola se entiende a medias; es literal y de Jesús.",
+    "En la imagen de la escena 1 el amo (parábola) viste como Jesús (túnica azul y roja), aunque ya no tiene halo; podría confundirse."
   ],
   "puntos": {
     "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Mateo 25, 14-30 coincide con citas.json",
-    "voces": "✅ Toda la parábola va a Jesús y la narración al narrador",
-    "frase_clave": "⚠️ Literal y de Jesús, 12 palabras, pero depende del contexto",
-    "reflexion": "✅ 33 palabras, cálida y doctrinalmente correcta, relacionada con los talentos",
-    "tecnica": "✅ 151,4 s, -14,0 LUFS",
-    "audio": "✅ Más lento: 'Palabra del Señor.' 6,4 car/s (2,8 s, normal en corto); más rápido: fragmento de Jesús 17,6 car/s (45 s)",
-    "imagenes": "⚠️ Tres imágenes del día devocionales y sin defectos graves; halo del amo en la escena 1",
+    "voces": "✅ Parábola entera a Jesús, narración al narrador",
+    "frase_clave": "⚠️ Literal y de Jesús, 12 palabras, depende del contexto",
+    "reflexion": "✅ 31 palabras, cálida y doctrinalmente correcta",
+    "tecnica": "✅ 141,5 s, -13,9 LUFS, sincronía ok",
+    "audio": "✅ Más lento: 'Palabra del Señor.' 6,2 car/s (2,9 s, normal); más rápido: Jesús 18,2 car/s (43 s)",
+    "imagenes": "⚠️ Escenas 2 y 3 correctas; escena 1 repintada sin halo, amo parecido a Jesús",
     "metadatos": "✅ Título Mateo, fecha y cita coherentes"
   }
 }
