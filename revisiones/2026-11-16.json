@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-11-16",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-14T11:39:58+01:00",
+  "revisado": "2026-11-14T12:32:45+01:00",
+  "motivos": [],
+  "avisos": [
+    "En la imagen de la escena 3 el hombre curado se parece mucho a Jesús (ambos de túnica blanca y pelo largo); mejorable pero no impide publicar."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 18, 35-43 coincide con citas.json",
+    "voces": "✅ Jesús dice sus dos frases; el hombre (ciego) las suyas; narración del narrador",
+    "frase_clave": "✅ «Recobra la vista; tu fe te ha salvado.» literal, de Jesús, 7 palabras",
+    "reflexion": "✅ Doctrinalmente correcta, cálida, ~30 palabras",
+    "tecnica": "✅ 89,8 s; -13,8 LUFS; sincronía ok",
+    "audio": "✅ Más lento: fragmento 12 «Palabra del Señor.» 4,9 car/s (corto, normal); más rápido: fragmento 3 14,7 car/s; fragmentos largos 12,9–14,7",
+    "imagenes": "⚠️ Acuarelas devocionales, sin problemas graves; la escena 3 confunde al curado con Jesús",
+    "metadatos": "✅ Título de Lucas, fecha y cita coherentes"
+  }
+}
