@@ -124,5 +124,13 @@
     ],
     "ok": false
   },
-  "revision": "pendiente"
+  "revision": "rechazada",
+  "repintar": [
+    {
+      "escena": 1,
+      "corregir": "Fix the problem the reviewer found in the previous version (in Spanish): En la imagen de la escena 1 el amo tiene un halo dorado y podría confundirse con Jesús (es el amo de la parábola)."
+    }
+  ],
+  "repintados": 1,
+  "rehechos": 1
 }
