@@ -8,30 +8,30 @@
   "voces": "gemini",
   "peticiones_voz": 14,
   "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._55.ogg",
-  "duracion_s": 95.2,
+  "duracion_s": 94.6,
   "imagenes": [
     "dias/2026-11-16_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-16_e1.jpg",
-    "biblioteca/D08",
     "biblioteca/D06",
-    "dias/2026-11-16_e2.jpg",
-    "biblioteca/D01",
     "biblioteca/D10",
+    "dias/2026-11-16_e2.jpg",
+    "biblioteca/D04",
+    "dias/2026-11-16_e3.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/R04",
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "Receive your sight. Your faith has healed you.",
-  "reflexion": "Even if the world's noise tries to drown out your prayer, the Lord always hears your cry. Bring Him your blindness in faith today: what do you need Him to heal in you?",
-  "lufs": -13.9,
+  "reflexion": "Sometimes problems blind us and discourage us, but the Lord always hears your trusting prayer. Do you dare to ask Him with faith today to heal your heart?",
+  "lufs": -14.2,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "A poor blind beggar sits by the dusty roadside outside Jericho, crying out passionately towards the passing crowd.",
+      "descripcion": "A blind beggar sitting by the dusty roadside near Jericho as a large crowd passes by.",
       "busqueda": "blind beggar Jericho",
       "personajes": [
         "hombre",
@@ -40,7 +40,7 @@
     },
     {
       "numero": 2,
-      "descripcion": "Jesus stands gently before the blind man, looking into his face with deep compassion and tenderly reaching out to him.",
+      "descripcion": "Jesus stops along the sunny road and reaches out tenderly to the blind man brought before him.",
       "busqueda": "Jesus heals blind",
       "personajes": [
         "jesus",
@@ -49,12 +49,12 @@
     },
     {
       "numero": 3,
-      "descripcion": "The man, now seeing clearly, rejoices with arms lifted towards heaven as he follows Jesus amidst a celebrating crowd.",
-      "busqueda": "healed man follows",
+      "descripcion": "The healed man joyful with his eyes opened, praising God alongside the amazed crowd under bright daylight.",
+      "busqueda": "healed man praising",
       "personajes": [
-        "jesus",
         "hombre",
-        "multitud"
+        "multitud",
+        "jesus"
       ]
     }
   ],
@@ -70,85 +70,85 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 7.82,
+      "inicio": 7.86,
       "texto": "At that time, as he came near Jericho, a certain blind man sat by the road, begging. Hearing a multitude going by, he asked what this meant. They told him that Jesus of Nazareth was passing by. He cried out,"
     },
     {
       "personaje": "hombre",
       "escena": 1,
-      "inicio": 24.2,
+      "inicio": 24.02,
       "texto": "“Jesus, you son of David, have mercy on me!”"
     },
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 30.26,
+      "inicio": 30.08,
       "texto": "Those who led the way rebuked him, that he should be quiet; but he cried out all the more,"
     },
     {
       "personaje": "hombre",
       "escena": 1,
-      "inicio": 36.78,
+      "inicio": 36.11,
       "texto": "“You son of David, have mercy on me!”"
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 44.09,
+      "inicio": 43.41,
       "texto": "Standing still, Jesus commanded him to be brought to him. When he had come near, he asked him,"
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 52.91,
+      "inicio": 50.86,
       "texto": "“What do you want me to do?”"
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 55.42,
+      "inicio": 53.37,
       "texto": "He said,"
     },
     {
       "personaje": "hombre",
       "escena": 2,
-      "inicio": 57.76,
+      "inicio": 55.09,
       "texto": "“Lord, that I may see again.”"
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 61.89,
+      "inicio": 59.21,
       "texto": "Jesus said to him,"
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 63.65,
+      "inicio": 62.06,
       "texto": "“Receive your sight. Your faith has healed you.”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 67.76,
+      "inicio": 66.17,
       "texto": "Immediately he received his sight and followed him, glorifying God. All the people, when they saw it, praised God."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 75.62,
+      "inicio": 75.97,
       "texto": "The Gospel of the Lord."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 79.57,
-      "texto": "Even if the world's noise tries to drown out your prayer, the Lord always hears your cry. Bring Him your blindness in faith today: what do you need Him to heal in you?",
+      "inicio": 79.98,
+      "texto": "Sometimes problems blind us and discourage us, but the Lord always hears your trusting prayer. Do you dare to ask Him with faith today to heal your heart?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-14T12:57:15+01:00",
-  "run": "43590933281",
+  "generado": "2026-11-14T13:46:09+01:00",
+  "run": "43595438600",
   "idioma": "en",
   "libro": "Lucas",
   "cita_es": "Lucas 18, 35-43",
@@ -160,16 +160,11 @@
     "gemini-3.1-flash-tts-preview"
   ],
   "sincronia": {
-    "frases_oidas": 12,
-    "frases_por_pausas": [
-      "He said,",
-      "Jesus said to him,"
-    ],
-    "cortes_sin_oir": [
-      "narrador"
-    ],
-    "ok": false
+    "frases_oidas": 14,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
   },
-  "revision": "rechazada",
-  "rehechos": 1
+  "rehechos": 1,
+  "revision": "pendiente"
 }
