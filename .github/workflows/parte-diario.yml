@@ -1,0 +1,41 @@
+name: Parte diario
+
+# 🛡️ Un mensaje al día a Carlos por Telegram con cómo está todo (pedido por Carlos el 14/11/2026).
+# Lo lanza el Reloj a partir de las 21:00 de Madrid; el cron es solo una red (20:15 UTC). Una vez al día.
+on:
+  schedule:
+    - cron: "15 20 * * *"
+  workflow_dispatch:
+    inputs:
+      forzar:
+        description: "Mandarlo aunque ya se haya enviado hoy (pruebas)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: parte-diario
+  cancel-in-progress: false
+
+jobs:
+  parte:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mandar el parte
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python3 proceso/parte.py $([ "${{ inputs.forzar }}" = "true" ] && echo --forzar)
+      - name: Guardar
+        run: |
+          git config user.name "gestor-catholicaid"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 proceso/guardar.py "Parte diario enviado" estado/

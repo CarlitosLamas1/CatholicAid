@@ -3,12 +3,8 @@ name: Evangelio diario
 on:
   # Cada tarde prepara y programa el vídeo de MAÑANA (hora UTC; en España +1/+2).
   # Las ejecuciones siguientes son reintentos: si el vídeo ya está subido, no hacen nada.
-  schedule:
-    - cron: "0 15 * * *"
-    - cron: "0 17 * * *"
-    - cron: "0 19 * * *"
-    - cron: "0 21 * * *"
-    - cron: "0 20 * * *"
+  # Sin horarios propios desde el 14/11/2026: los lanza el Reloj (continuo, cada 10 min), con un día de margen
+  # (mañana y pasado mañana). Los cron de GitHub llegaban horas tarde y lanzaban tiradas a deshora.
   workflow_dispatch:
     inputs:
       fecha:

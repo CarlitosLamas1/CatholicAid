@@ -29,6 +29,10 @@
     "minimo_alineado": 0.6
   },
   "hora_publicacion": "00:05",
+  "dias_margen": 2,
+  "_dias_margen": "Cada vídeo se hace con un día de margen: primero el de mañana si falta y, si ya está, el de pasado mañana (14/11/2026, pedido por Carlos).",
+  "reserva_pago": true,
+  "_reserva_pago": "Si se acaba el cupo gratis de Gemini (texto o voz), la misma petición con la clave de pago, mismo modelo y misma voz (14/11/2026, aprobado por Carlos). Céntimos.",
   "hora_publicacion_en": "00:05",
   "hora_publicacion_pt": "00:05",
   "max_segundos_imagen": 16,
@@ -341,10 +345,10 @@
     ]
   },
   "en": {
-    "_nota": "Canal CatolicAid English (proceso/evangelio.py --idioma en). Mismas voces de Gemini que en español (una fija por personaje) salvo que se elijan otras en el casting en inglés; acento por defecto: americano neutro (pendiente de que Carlos elija americano o británico). Solo clave gratuita (pago_voz=false). Carlos aprobó publicar el 07/11/2026: publicar_programado=true (programado a hora_publicacion_en, como el español).",
+    "_nota": "Canal CatolicAid English (proceso/evangelio.py --idioma en). Mismas voces de Gemini que en español (una fija por personaje) salvo que se elijan otras en el casting en inglés; acento por defecto: americano neutro (pendiente de que Carlos elija americano o británico). Clave gratuita y, si se acaba el cupo, la de pago como reserva (desde el 14/11/2026). Carlos aprobó publicar el 07/11/2026: publicar_programado=true (programado a hora_publicacion_en, como el español).",
     "activo": true,
     "publicar_programado": true,
-    "pago_voz": false,
+    "pago_voz": true,
     "_modelos_voz": "Voces del inglés con un modelo de voz DISTINTO del español (gemini-2.5-flash-preview-tts), con su propio cupo gratuito: así el inglés nunca gasta el cupo de voz del español. Si se agota, el inglés espera (no usa otro). Probado el 07/11/2026: gemini-3.8-flash-tts (y su lite) lee en voz alta la instrucción de estilo: NO sirve. Nunca Edge en el diario.",
     "modelos_voz": [
       "gemini-3.1-flash-tts-preview"

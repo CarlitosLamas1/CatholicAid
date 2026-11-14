@@ -1,8 +1,11 @@
 name: Reloj
 
-# Lanza lo que falte (vídeo de mañana, publicación revisada, TikTok de las 7:00) cuando los horarios de
-# GitHub se retrasan. Lo despierta cada hora la rutina «CatholicAid · Revisor diario» (en la nube, puntual)
-# subiendo una marca a la rama «reloj»; el cron de abajo es solo una red más. Nunca duplica tiradas.
+# El director de orquesta: lanza lo que falte (vídeos de mañana y pasado mañana, publicación revisada, TikTok,
+# Instagram, comentarios, parte diario) sin duplicar nunca.
+# Desde el 14/11/2026 es CONTINUO: cada tirada dura casi 6 h, mira cada 10 minutos y, al acabar, se relanza sola.
+# Así ya no dependemos de los cron de GitHub (llegan horas tarde o no llegan). El repositorio es público: no gasta
+# minutos de pago. Si la cadena se rompe, la vuelven a arrancar el cron de cada hora o la marca que sube la rutina
+# «Revisor diario» a la rama «reloj». Solo hay una tirada a la vez (concurrency).
 on:
   push:
     branches: [reloj]
@@ -21,12 +24,23 @@ concurrency:
 jobs:
   reloj:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 355
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Lanzar lo que falte
-        run: python3 proceso/reloj.py
+      - name: Mirar cada 10 minutos (casi 6 h)
+        run: |
+          FIN=$(( $(date +%s) + 340*60 ))
+          while [ "$(date +%s)" -lt "$FIN" ]; do
+            git fetch -q origin main && git reset -q --hard origin/main || true
+            echo "::group::Pasada $(TZ=Europe/Madrid date '+%d/%m %H:%M')"
+            timeout 300 python3 proceso/reloj.py || echo "La pasada falló; sigo con la siguiente."
+            echo "::endgroup::"
+            sleep 600
+          done
+      - name: Relanzarse (la siguiente tirada continúa la vigilancia)
+        if: always()
+        run: gh workflow run reloj.yml --ref main || echo "No pude relanzarme; me arranca el cron de cada hora."

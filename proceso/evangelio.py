@@ -171,6 +171,9 @@ def clave_gemini():
     return {"x-goog-api-key": os.environ["GEMINI_API_KEY"].strip()}
 
 
+RESERVA_PAGO = set()  # modelos que tiraron de la clave de pago por falta de cupo gratis (queda en el registro)
+
+
 def gemini(modelo, cuerpo, intentos=3, clave=None):
     for i in range(intentos):
         try:
@@ -180,6 +183,13 @@ def gemini(modelo, cuerpo, intentos=3, clave=None):
             log(f"   Gemini {modelo} -> {e.code}: {e.read().decode(errors='replace')[:500]}")
             if e.code == 429:
                 CUPO_AGOTADO.add(modelo)
+                # Reserva de pago (decisión de Carlos, 14/11/2026): si se acaba el cupo gratis, la MISMA petición
+                # (mismo modelo, misma voz) con la clave de pago. Céntimos, y nunca más un vídeo sin hacer por cupo.
+                pago = os.environ.get("GEMINI_API_KEY_IMAGENES", "").strip()
+                if pago and not clave and CFG.get("reserva_pago", True):
+                    log(f"   Cupo gratis agotado en {modelo}: sigo con la clave de pago (reserva)")
+                    RESERVA_PAGO.add(modelo)
+                    return gemini(modelo, cuerpo, intentos, clave=pago)
             if e.code in (500, 502, 503, 504) and i < intentos - 1:
                 time.sleep(15 * (i + 1))
                 continue
@@ -2210,6 +2220,26 @@ def gancho_del_dia(fecha):
     return float(CFG.get("gancho_segundos", 2.0))
 
 
+FECHA_OBJETIVO = None
+
+
+def registro_hecho(fecha, suf):
+    """El vídeo de esa fecha ya está hecho (pendiente de revisión, aprobado, subido o descartado)."""
+    ruta = RAIZ / "episodios" / f"{fecha}{suf}.json"
+    reg = json.loads(ruta.read_text(encoding="utf-8")) if ruta.exists() else {}
+    return reg.get("modo") == "diario" and bool(
+        "youtube" in reg or reg.get("revision") in ("pendiente", "ok") or reg.get("no_publicar"))
+
+
+def ultimo_intento(idioma):
+    """Solo se acepta un vídeo «de reserva» (reparto por reglas, reflexión de reserva, inglés sin español) en la última
+    tirada para el vídeo de MAÑANA. Si es para pasado mañana, siempre se reintenta: hay un día entero de margen."""
+    manana = dt.datetime.now(MADRID).date() + dt.timedelta(days=1)
+    if FECHA_OBJETIVO and FECHA_OBJETIVO > manana:
+        return False
+    return dt.datetime.now(dt.timezone.utc).hour >= (21 if idioma == "es" else 22)
+
+
 def main():
     global CACHE
     ap = argparse.ArgumentParser()
@@ -2227,12 +2257,20 @@ def main():
     suf = SUFIJO[idioma]
     if a.cache:
         CACHE = Path(a.cache)
-    if idioma != "es" and not CFG.get(idioma, {}).get("pago_voz") and not CFG.get(idioma, {}).get("voz_de_pago"):
-        os.environ.pop("GEMINI_API_KEY_IMAGENES", None)  # inglés: solo la clave gratuita (ni voces ni imágenes de pago)
+    if idioma != "es" and not CFG.get("reserva_pago", True) and not CFG.get(idioma, {}).get("voz_de_pago"):
+        os.environ.pop("GEMINI_API_KEY_IMAGENES", None)  # sin reserva de pago: el inglés solo con la clave gratuita
     if os.environ.get("SIN_PAGO", "").strip().lower() in ("1", "true", "si", "sí"):
         os.environ.pop("GEMINI_API_KEY_IMAGENES", None)  # pruebas: nada de pago
-    fecha = (dt.date.fromisoformat(a.fecha.strip()) if a.fecha.strip()
-             else dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
+    if a.fecha.strip():
+        fecha = dt.date.fromisoformat(a.fecha.strip())
+    else:
+        # Un día de margen (14/11/2026, pedido por Carlos): primero el de mañana si falta; si ya está, el de pasado
+        # mañana. Así, si algo falla, queda un día entero para reintentar antes de publicar.
+        hoy = dt.datetime.now(MADRID).date()
+        candidatas = [hoy + dt.timedelta(days=n) for n in range(1, 1 + CFG.get("dias_margen", 2))]
+        fecha = next((d for d in candidatas if not registro_hecho(d, suf)), candidatas[0])
+    global FECHA_OBJETIVO
+    FECHA_OBJETIVO = fecha
     previo = RAIZ / "episodios" / f"{fecha}{suf}.json"
     hecho = json.loads(previo.read_text(encoding="utf-8")) if previo.exists() else {}
     if a.si_falta and hecho.get("modo") == "diario" and (
@@ -2249,14 +2287,13 @@ def main():
         # El inglés va DESPUÉS del español (usa sus imágenes y el cupo que sobre). Si el español aún no está, espera
         # sin fallar; solo en la última tirada (22 UTC o más) sigue sin él, con las imágenes de la biblioteca.
         # El portugués va además DESPUÉS del inglés: usa el mismo modelo de voz y así nunca le quita cupo.
-        es = RAIZ / "episodios" / f"{fecha}{'-en' if idioma == 'pt' else ''}.json"
+        # Desde el 14/11/2026 el portugués solo espera al español (su frase y reflexión): sus voces son de pago y ya
+        # no comparten cupo con el inglés.
+        es = RAIZ / "episodios" / f"{fecha}.json"
         reg_es = json.loads(es.read_text(encoding="utf-8")) if es.exists() else {}
         listo = reg_es.get("modo") == "diario" and (reg_es.get("youtube") or reg_es.get("revision") in ("pendiente", "ok")
                                                    or reg_es.get("revision") == "rechazada" or reg_es.get("no_publicar"))
-        if idioma == "pt":  # el inglés ya APROBADO (no volverá a grabar voces hoy) o descartado: solo entonces el portugués
-            listo = reg_es.get("modo") == "diario" and (reg_es.get("youtube") or reg_es.get("revision") == "ok"
-                                                       or reg_es.get("no_publicar") or reg_es.get("estado") == "fallido")
-        if not listo and dt.datetime.now(dt.timezone.utc).hour < 22:
+        if not listo and not ultimo_intento(idioma):
             log(f"El vídeo en español del {fecha} aún no está hecho: el inglés espera a la próxima tirada.")
             return
     if CACHE:
@@ -2299,7 +2336,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     biblioteca = clips_disponibles()
     log(f"   Biblioteca: {len(biblioteca)} clips disponibles")
     g = guion_gemini(ev["texto"], biblioteca, escenas_del_espanol(fecha) if idioma != "es" else "")
-    if not g and a.modo == "diario" and dt.datetime.now(dt.timezone.utc).hour < 21:
+    if not g and a.modo == "diario" and not ultimo_intento(idioma):
         raise RuntimeError("Gemini no ha podido repartir las voces: no publico con un reparto dudoso. "
                            "Se reintenta en la próxima tirada (el último intento, a las 21 UTC, usa reglas).")
     if not g:
@@ -2318,7 +2355,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
                 ev["frase_es"], ev["reflexion_es"] = es_d["frase_clave"], es_d.get("reflexion", "")
         frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
     if not reflexion:  # nunca un vídeo sin reflexión: como el reparto, se reintenta salvo en el último intento
-        if a.modo == "diario" and dt.datetime.now(dt.timezone.utc).hour < (22 if idioma != "es" else 21):
+        if a.modo == "diario" and not ultimo_intento(idioma):
             raise RuntimeError("Gemini no ha podido escribir la reflexión: no publico sin ella. Se reintenta en la próxima tirada.")
         reflexion = CFG.get("reflexion_reserva", {}).get(idioma, "")
         log("   Reflexión de reserva (Gemini no respondió)")
@@ -2432,6 +2469,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         registro.update({"idioma": idioma, "libro": libro, "cita_es": ev["cita_es"]})
     if CUPO_AGOTADO:
         registro["cupo_agotado"] = sorted(CUPO_AGOTADO)
+    if RESERVA_PAGO:
+        registro["reserva_pago"] = sorted(RESERVA_PAGO)
     if MODELOS_VOZ_USADOS:
         registro["modelos_voz"] = sorted(MODELOS_VOZ_USADOS)
     if CFG.get("karaoke", {}).get("alineador") == "whisper":

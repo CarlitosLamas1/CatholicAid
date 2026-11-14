@@ -48,6 +48,27 @@ def reciente(runs, nombre, minutos):
     return False
 
 
+try:  # mañana y pasado mañana (config dias_margen)
+    DIAS_MARGEN = int(json.loads(open("config/personajes.json", encoding="utf-8").read()).get("dias_margen", 2))
+except Exception:
+    DIAS_MARGEN = 2
+
+
+def hecho_reg(reg):
+    return reg.get("modo") == "diario" and bool(
+        reg.get("youtube") or reg.get("revision") in ("pendiente", "ok") or reg.get("no_publicar"))
+
+
+def pendiente_de(fechas, suf):
+    """La primera fecha (mañana, pasado mañana) cuyo vídeo falta, o None."""
+    return next((f for f in fechas if not hecho_reg(leer(f"episodios/{f}{suf}.json"))), None)
+
+
+def puede_grabar(ahora):
+    """Desde las 08:00 UTC (se renueva el cupo gratis) hasta las 23:59 UTC; de madrugada no se graba."""
+    return dt.datetime.now(dt.timezone.utc).hour >= 8
+
+
 def lanzar(archivo, **campos):
     args = ["gh", "workflow", "run", archivo, "--ref", "main"]
     for k, v in campos.items():
@@ -61,26 +82,26 @@ def main():
     runs = json.loads(sh("gh", "run", "list", "-L", "60", "--json", "workflowName,status,createdAt"))
     ahora = dt.datetime.now(MADRID)
     hoy, manana = ahora.date(), ahora.date() + dt.timedelta(days=1)
+    fechas = [manana + dt.timedelta(days=n) for n in range(DIAS_MARGEN)]  # mañana y pasado mañana
     log(f"Reloj: {ahora:%Y-%m-%d %H:%M} (Madrid)")
     try:
         comentarios(runs)
     except Exception as e:  # nunca impide lo demás
         log(f"Comentarios: no se pudo lanzar ({e})")
 
-    # 1. Vídeo de mañana
-    reg = leer(f"episodios/{manana}.json")
-    hecho = reg.get("modo") == "diario" and (
-        reg.get("youtube") or reg.get("revision") in ("pendiente", "ok") or reg.get("no_publicar"))
-    if 16 <= ahora.hour <= 23 and not hecho:
+    # 1. Vídeo en español: el de mañana si falta y, si ya está, el de pasado mañana (un día de margen, 14/11/2026).
+    #    Desde las 08:00 UTC (cupo gratis nuevo) hasta las 23:59 de Madrid.
+    objetivo = pendiente_de(fechas, "")
+    if objetivo and puede_grabar(ahora):
         if reciente(runs, "Evangelio diario", 45):
-            log("Vídeo de mañana: hay una tirada en marcha o reciente; espero.")
+            log(f"Español {objetivo}: hay una tirada en marcha o reciente; espero.")
         else:
-            lanzar("evangelio-diario.yml", modo="diario", fecha=str(manana))
+            lanzar("evangelio-diario.yml", modo="diario", fecha=str(objetivo))
     else:
-        log(f"Vídeo de mañana: {'hecho' if hecho else 'aún no toca'} ({reg.get('revision') or reg.get('modo') or 'sin registro'}).")
+        log(f"Español: {'aún no toca' if objetivo else 'mañana y pasado ya hechos'}.")
 
     # 2. Veredictos sin aplicar
-    for f in (hoy, manana):
+    for f in [hoy] + fechas:
         reg, rev = leer(f"episodios/{f}.json"), leer(f"revisiones/{f}.json")
         if not rev or reg.get("no_publicar") or reg.get("modo") != "diario":
             continue
@@ -90,7 +111,7 @@ def main():
             lanzar("publicar-revisado.yml", fecha=str(f))
 
     # 2b. Veredictos sin aplicar del inglés y del portugués (revisiones/AAAA-MM-DD-en.json, …-pt.json)
-    for f, suf in [(f, s) for s in ("en", "pt") for f in (hoy, manana)]:
+    for f, suf in [(f, s) for s in ("en", "pt") for f in [hoy] + fechas]:
         reg, rev = leer(f"episodios/{f}-{suf}.json"), leer(f"revisiones/{f}-{suf}.json")
         if not rev or reg.get("no_publicar") or reg.get("modo") != "diario":
             continue
@@ -152,6 +173,13 @@ def main():
         else:
             log(f"Instagram: nada que hacer (conectado={ig_conectado}).")
 
+    try:  # 8. Parte diario (21:00 Madrid, una vez al día)
+        if ahora.hour >= 21 and leer("estado/parte.json").get("fecha") != str(ahora.date()) \
+                and not reciente(runs, "Parte diario", 30):
+            lanzar("parte-diario.yml")
+    except Exception as e:
+        log(f"Parte: no se pudo lanzar ({e})")
+
     try:  # 7. Música nueva por probar
         musica(runs)
     except Exception as e:
@@ -163,12 +191,12 @@ def main():
         log(f"Semana: no se pudo lanzar ({e})")
 
     try:  # el inglés, lo último: si falla, lo del español ya está hecho
-        ingles(runs, ahora, manana)
+        ingles(runs, ahora, fechas)
     except Exception as e:
         log(f"Inglés: no se pudo lanzar ({e})")
 
     try:  # el portugués, después del inglés (mismo modelo de voz)
-        portugues(runs, ahora, manana)
+        portugues(runs, ahora, fechas)
     except Exception as e:
         log(f"Portugués: no se pudo lanzar ({e})")
 
@@ -185,56 +213,38 @@ def sin_cupo_hoy(reg):
     return dt.datetime.fromisoformat(reg["intento"]) >= renovado
 
 
-def ingles(runs, ahora, manana):
-    """5. Vídeo en inglés de mañana. Nunca antes que el español, y nunca si ya está hecho o en marcha."""
+def ingles(runs, ahora, fechas):
+    """5. Vídeo en inglés: el primero de mañana / pasado mañana que falte, siempre DESPUÉS del español de ese día."""
+    otro_idioma(runs, ahora, fechas, "en", "Evangelio diario (inglés)", "evangelio-ingles.yml", "Inglés")
+
+
+def portugues(runs, ahora, fechas):
+    """5b. Vídeo en portugués: igual que el inglés. Desde el 14/11/2026 solo espera al español (voces de pago)."""
+    otro_idioma(runs, ahora, fechas, "pt", "Evangelio diario (portugués)", "evangelio-portugues.yml", "Portugués")
+
+
+def otro_idioma(runs, ahora, fechas, suf, nombre, archivo, etiqueta):
     cfg = json.loads(open("config/personajes.json", encoding="utf-8").read())
-    if not cfg.get("en", {}).get("activo"):
+    if not cfg.get(suf, {}).get("activo"):
         return
-    es, en = leer(f"episodios/{manana}.json"), leer(f"episodios/{manana}-en.json")
+    objetivo = pendiente_de(fechas, f"-{suf}")
+    if not objetivo or not puede_grabar(ahora):
+        log(f"{etiqueta}: {'aún no toca' if objetivo else 'mañana y pasado ya hechos'}.")
+        return
+    if sin_cupo_hoy(leer(f"episodios/{objetivo}-{suf}.json")):
+        log(f"{etiqueta} {objetivo}: sin cupo de Gemini desde la última renovación; espero a la siguiente.")
+        return
+    es = leer(f"episodios/{objetivo}.json")
     es_hecho = es.get("modo") == "diario" and (
         es.get("youtube") or es.get("revision") in ("pendiente", "ok", "rechazada") or es.get("no_publicar"))
-    en_hecho = en.get("modo") == "diario" and (
-        en.get("youtube") or en.get("revision") in ("pendiente", "ok") or en.get("no_publicar"))
-    if en_hecho or not 17 <= ahora.hour <= 23:
-        log(f"Inglés: {'hecho' if en_hecho else 'aún no toca'}.")
+    ultimo = objetivo == fechas[0] and ahora.hour >= 23
+    if not es_hecho and not ultimo:
+        log(f"{etiqueta} {objetivo}: espero a que esté el vídeo en español.")
         return
-    if sin_cupo_hoy(en):
-        log("Inglés: sin cupo gratuito de Gemini hasta mañana; no se reintenta.")
+    if reciente(runs, nombre, 100):
+        log(f"{etiqueta} {objetivo}: hay una tirada en marcha o reciente; espero.")
         return
-    if not es_hecho and ahora.hour < 23:
-        log("Inglés: espero a que esté el vídeo en español.")
-        return
-    if reciente(runs, "Evangelio diario (inglés)", 100):
-        log("Inglés: hay una tirada en marcha o reciente; espero.")
-        return
-    lanzar("evangelio-ingles.yml", modo="diario", fecha=str(manana))
-
-
-def portugues(runs, ahora, manana):
-    """5b. Vídeo en portugués de mañana. Nunca antes que el inglés, y nunca si ya está hecho o en marcha."""
-    cfg = json.loads(open("config/personajes.json", encoding="utf-8").read())
-    if not cfg.get("pt", {}).get("activo"):
-        return
-    en, pt = leer(f"episodios/{manana}-en.json"), leer(f"episodios/{manana}-pt.json")
-    # El portugués usa el mismo modelo de voz que el inglés: espera a que el inglés esté APROBADO (ya no grabará más
-    # voces hoy) o descartado, para no dejarlo nunca sin cupo.
-    en_hecho = en.get("modo") == "diario" and (
-        en.get("youtube") or en.get("revision") == "ok" or en.get("no_publicar") or en.get("estado") == "fallido")
-    pt_hecho = pt.get("modo") == "diario" and (
-        pt.get("youtube") or pt.get("revision") in ("pendiente", "ok") or pt.get("no_publicar"))
-    if pt_hecho or not 18 <= ahora.hour <= 23:
-        log(f"Portugués: {'hecho' if pt_hecho else 'aún no toca'}.")
-        return
-    if sin_cupo_hoy(pt):
-        log("Portugués: sin cupo gratuito de Gemini hasta mañana; no se reintenta.")
-        return
-    if not en_hecho and ahora.hour < 23:
-        log("Portugués: espero a que esté el vídeo en inglés.")
-        return
-    if reciente(runs, "Evangelio diario (portugués)", 100):
-        log("Portugués: hay una tirada en marcha o reciente; espero.")
-        return
-    lanzar("evangelio-portugues.yml", modo="diario", fecha=str(manana))
+    lanzar(archivo, modo="diario", fecha=str(objetivo))
 
 
 def semana(runs, ahora):

@@ -37,6 +37,13 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 - La API de Instagram NO deja borrar publicaciones (permiso #10): un Reel ya publicado no se puede rehacer; la portada se cambia a mano en la app. Desde el 13/11 la copia del run también lleva la portada (`miniatura_vertical.jpg`).
 - Si el MCP de GitHub no responde: «Conectar TikTok» se lanza con un push de `ci/tiktok-codigo.txt` (`cuenta=`, `codigo=`; sin código, el enlace sale en base64 en el registro) y «Publicar en Instagram» con `ci/instagram-publicar.txt`; «Conectar Instagram» también se lanza con un push de `ci/instagram-codigo.txt` en una rama claude/** (el código, o «comprobar» para dejar en `estado/instagram-cuentas.txt` las cuentas conectadas).
 
+## Robustez (14/11/2026, aprobado por Carlos)
+- **Reloj continuo = único director**: `reloj.yml` dura ~5 h 40 min, ejecuta `proceso/reloj.py` cada 10 min y al acabar se relanza solo (repo público: sin coste). Lo rearrancan el cron de cada hora y la marca de la rutina en la rama `reloj`. Los workflows de creación de vídeo (es/en/pt) ya NO tienen cron propio: los lanza solo el Reloj (los cron llegaban horas tarde y lanzaban tiradas de madrugada).
+- **Un día de margen** (`dias_margen: 2`): se hace primero el vídeo de mañana si falta y, si ya está, el de pasado mañana. Se graba desde las 08:00 UTC (renovación del cupo gratis) hasta las 23:59 UTC. El vídeo «de reserva» (reparto por reglas, reflexión de reserva…) solo se acepta en la última tirada del vídeo de MAÑANA (`ultimo_intento`). El portugués ya solo espera al español del mismo día.
+- **Reserva de pago** (`reserva_pago: true`): si se acaba el cupo gratis de Gemini (texto o voz), `gemini()` repite la misma petición con `GEMINI_API_KEY_IMAGENES` (mismo modelo y voz); queda en `reserva_pago` del registro. El inglés ya no se queda sin la clave de pago (`en.pago_voz: true`); sigue sin pintar imágenes.
+- **Parte diario** 🛡️ (`proceso/parte.py`, workflow «Parte diario», lo lanza el Reloj a las 21:00 Madrid; una vez al día, `estado/parte.json`): semáforo (🟢/🟡/🟠), lo que le toca a Carlos, HOY por idioma (📺🎵📸 + visitas), MAÑANA y PASADO MAÑANA por idioma, lo que se está arreglando solo y visitas del vídeo de ayer. Aprobado por Carlos como aviso nuevo de Telegram.
+- El aviso ❌ de fallo al crear ya no salta en cada fallo: solo si es el vídeo de mañana y son más de las 21 UTC (lo demás sale en el parte).
+
 ## Coherencia entre idiomas (13/11/2026, pedido por Carlos)
 Inglés y portugués usan la MISMA frase clave (el mismo pasaje, copiado literal de su traducción) y la misma reflexión (traducida) que el vídeo en español del día (`frase_es`/`reflexion_es` en `gancho_y_reflexion`). Así el título y el gancho coinciden en los tres canales.
 

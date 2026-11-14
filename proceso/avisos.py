@@ -253,28 +253,23 @@ def aviso_instagram(nombre):
     enviar(f"📸 <b>Publicado en Instagram{cuenta}</b> · {e(fecha_txt(nombre[:10]))}\n📖 {e(reg.get('cita', ''))}\n🔗 {e(enlace)}")
 
 
-REINTENTOS_UTC = [15, 17, 19, 20, 21]  # horas de «Evangelio diario» (.github/workflows/evangelio-diario.yml)
-REINTENTOS_EN_UTC = [17, 19, 21, 22]  # «Evangelio diario (inglés)», a y media (.github/workflows/evangelio-ingles.yml)
-REINTENTOS_PT_UTC = [18, 20, 21, 22]  # «Evangelio diario (portugués)», a las y 40 (.github/workflows/evangelio-portugues.yml)
-
-
 def aviso_fallo(fecha="", enlace=""):
+    """❌ Falló la creación de un vídeo. Desde el 14/11/2026 el Reloj lo reintenta solo y hay un día de margen, así
+    que un fallo suelto NO se avisa (sale en el parte diario). Solo se avisa si es el vídeo de MAÑANA y ya es tarde
+    (desde las 21 UTC): entonces sí puede quedarse sin publicar."""
     ahora = dt.datetime.now(dt.timezone.utc)
     idioma = os.environ.get("IDIOMA", "es").strip() or "es"
-    fecha = fecha or str(dt.datetime.now(MADRID).date() + dt.timedelta(days=1))
-    horas, minuto = {"en": (REINTENTOS_EN_UTC, 30), "pt": (REINTENTOS_PT_UTC, 40)}.get(idioma, (REINTENTOS_UTC, 0))
-    siguiente = next((h for h in horas if h > ahora.hour), None)
-    if siguiente is not None:
-        hora = ahora.replace(hour=siguiente, minute=minuto).astimezone(MADRID).strftime("%H:%M")
-        cuando = f"🔁 Se vuelve a intentar solo a las {hora}."
-    else:
-        cuando = "⚠️ Hoy ya no quedan intentos automáticos: el gestor lo revisará."
+    manana = dt.datetime.now(MADRID).date() + dt.timedelta(days=1)
+    fecha = fecha or str(manana)
+    if dt.date.fromisoformat(fecha) > manana or ahora.hour < 21:
+        log(f"fallo de {fecha} ({idioma}) sin avisar: hay margen y el reloj lo reintenta solo (sale en el parte)")
+        return
     motivo = ""
-    reg = episodio(f"{fecha}-{idioma}") if idioma != "es" else {}
-    if reg.get("cupo_agotado"):
-        motivo = ("\n⏳ Motivo: no queda cupo gratuito de Gemini hoy (el español va primero"
-                  + (" y el inglés después)." if idioma == "pt" else ")."))
-    enviar(f"❌ <b>No se ha podido crear el vídeo</b> · {etiqueta(idioma)} · {e(fecha_txt(fecha))}.{motivo}\n{cuando}"
+    reg = episodio(f"{fecha}-{idioma}" if idioma != "es" else fecha)
+    if reg.get("error"):
+        motivo = f"\n<i>{e(reg['error'][:160])}</i>"
+    enviar(f"🚨 <b>Ojo: el vídeo de mañana aún no está</b>\n{etiqueta(idioma)} · {e(fecha_txt(fecha))}{motivo}\n"
+           "🔁 Lo sigo intentando solo hasta medianoche. Si no sale, te lo diré en el parte."
            + (f"\n🔗 {e(enlace)}" if enlace else ""))
 
 

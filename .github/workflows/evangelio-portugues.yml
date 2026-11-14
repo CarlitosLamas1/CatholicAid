@@ -5,11 +5,8 @@ name: Evangelio diario (portugués)
 # de YouTube (secretos/youtube-pt.enc). Usa las imágenes del día del español (no pinta nada) y SOLO la clave gratuita.
 # Texto: Figueiredo revisado (biblia/figueiredo/revisada/). Si el inglés aún no está, espera sin fallar.
 on:
-  schedule:
-    - cron: "40 18 * * *"
-    - cron: "40 20 * * *"
-    - cron: "40 21 * * *"
-    - cron: "40 22 * * *"
+  # Sin horarios propios desde el 14/11/2026: los lanza el Reloj (continuo, cada 10 min), con un día de margen
+  # (mañana y pasado mañana). Los cron de GitHub llegaban horas tarde y lanzaban tiradas a deshora.
   # Solo para probar en una rama (un workflow nuevo no se puede lanzar a mano hasta que está en main):
   # ci/evangelio-pt.txt con «fecha=AAAA-MM-DD», «voces=edge|gemini» y «subir=si|no»; siempre en prueba (privado).
   push:
