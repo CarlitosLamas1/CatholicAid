@@ -154,10 +154,13 @@
       "por": "claude"
     },
     "UgyYwPeG3SgsAXgehnp4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "responder",
       "publicado": "2026-11-14T18:38:16+00:00",
       "desde": "2026-11-14T20:00:11.646445+01:00",
-      "listo": "2026-11-14T23:32:16+00:00"
+      "listo": "2026-11-14T23:32:16+00:00",
+      "motivo": "alabanza de fe",
+      "respuesta": "Gloria a Ti, Señor. Gracias por unirte a la oración de hoy; que confíes siempre en que Él escucha.",
+      "por": "claude"
     }
   },
   "respondidos": [
