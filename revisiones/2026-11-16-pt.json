@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-16",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-14T13:02:48+01:00",
+  "revisado": "2026-11-14T18:51:55+01:00",
+  "motivos": [],
+  "avisos": [
+    "Subtítulos: 3 frases sincronizadas solo por pausas y la grabación del narrador se cortó sin oírla (sincronia.ok falso): el proceso rehará el vídeo una vez.",
+    "Dos fragmentos del narrador empiezan con un punto suelto («. Jesus lhe disse:», «. No mesmo instante…»): el punto tras la comilla de cierre pasó al fragmento siguiente."
+  ],
+  "puntos": {
+    "fidelidad": "✅ idéntico al Figueiredo revisado (Lucas 18,35-43, coincide con citas.json)",
+    "voces": "✅ narrador, Jesús y el ciego (hombre) bien repartidos",
+    "frase_clave": "✅ «Veja! A sua fé o salvou»: literal, de Jesús, se entiende sola",
+    "reflexion": "✅ portugués de Brasil, de «você», 33 palabras, fiel",
+    "tecnica": "⚠️ 98,1 s, -14,0 LUFS; sincronía de subtítulos no fiable (3 frases por pausas)",
+    "audio": "✅ más lento: «. Jesus lhe disse:» 5,5 c/s (3,3 s, corto); más rápido: narrador 16,2 c/s",
+    "imagenes": "✅ las del español del 16/11 y biblioteca",
+    "metadatos": "✅ Lucas 18,35-43 en formato brasileño, todo en portugués"
+  }
+}
