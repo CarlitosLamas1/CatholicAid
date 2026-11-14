@@ -1,17 +1,126 @@
 {
   "fecha": "2026-11-15",
-  "idioma": "pt",
   "modo": "diario",
-  "estado": "fallido",
-  "error": "No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.",
-  "cupo_agotado": [
-    "gemini-3.5-flash",
-    "gemini-3.6-flash",
-    "gemini-3.7-flash",
-    "gemini-3.8-flash"
+  "cita": "Mateus 25,14-30",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/15.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg",
+  "duracion_s": 165.1,
+  "imagenes": [
+    "dias/2026-11-15_e1.jpg",
+    "evangelistas/mateo.jpg",
+    "dias/2026-11-15_e1.jpg",
+    "biblioteca/D05",
+    "biblioteca/D04",
+    "dias/2026-11-15_e2.jpg",
+    "biblioteca/D10",
+    "biblioteca/D07",
+    "dias/2026-11-15_e3.jpg",
+    "biblioteca/D01",
+    "biblioteca/D06",
+    "biblioteca/D08",
+    "evangelistas/mateo.jpg",
+    "biblioteca/R03",
+    "evangelistas/mateo.jpg"
   ],
-  "intento": "2026-11-14T03:46:48+01:00",
-  "avisos": [
-    "Falta cupo gratuito de Gemini (gemini-3.5-flash, gemini-3.6-flash, gemini-3.7-flash, gemini-3.8-flash): se reintenta más tarde."
-  ]
+  "frase_clave": "Do mesmo modo, o que tinha recebido dois ganhou outros dois.",
+  "reflexion": "Deus lhe deu talentos únicos para compartilhá-los com os outros, não para guardá-los por medo. Como você vai colocar hoje seus dons a serviço do amor e dos irmãos?",
+  "lufs": -14.0,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A wealthy master in fine robes entrusts pouches of silver talents to his three servants in a bright courtyard before his departure.",
+      "busqueda": "talents master servants",
+      "personajes": [
+        "hombre",
+        "multitud",
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "The returned master warmly receives his faithful servants at a table, smiling joyfully as they present their earned talents.",
+      "busqueda": "faithful servant table",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "An anxious servant hesitantly returns a single coin to his stern master seated in an austere hall in dim evening light.",
+      "busqueda": "unfaithful servant coin",
+      "personajes": [
+        "hombre"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Mateus.",
+  "texto_evangelio": "Naquele tempo, Jesus contou aos seus discípulos esta parábola: “Será como um homem que, ao partir para longe, chamou os seus servos e lhes confiou os seus bens. A um deu cinco talentos, a outro dois e a outro um, a cada um conforme a sua capacidade. E partiu logo. O que tinha recebido cinco talentos foi negociar com eles e ganhou outros cinco. Do mesmo modo, o que tinha recebido dois ganhou outros dois. Mas o que tinha recebido um foi, cavou um buraco na terra e escondeu o dinheiro do seu senhor. Depois de muito tempo, o senhor daqueles servos voltou e foi acertar contas com eles. O que tinha recebido cinco talentos aproximou-se e lhe entregou outros cinco, dizendo: ‘Senhor, tu me confiaste cinco talentos; aqui estão outros cinco que ganhei’. O senhor lhe disse: ‘Muito bem, servo bom e fiel! Foste fiel no pouco, eu te confiarei muito mais. Vem participar da alegria do teu senhor’. Chegou também o que tinha recebido dois talentos e disse: ‘Senhor, tu me confiaste dois talentos; aqui estão outros dois que ganhei’. O senhor lhe disse: ‘Muito bem, servo bom e fiel! Foste fiel no pouco, eu te confiarei muito mais. Vem participar da alegria do teu senhor’. Por fim chegou o que tinha recebido um talento e disse: ‘Senhor, eu sabia que és um homem severo, que colhes onde não semeaste e recolhes onde não espalhaste. Por isso, fiquei com medo e fui esconder o teu talento na terra. Aqui tens o que é teu’. O senhor lhe respondeu: ‘Servo mau e preguiçoso! Sabias que colho onde não semeei e recolho onde não espalhei? Então devias ter entregado o meu dinheiro aos banqueiros, e, ao voltar, eu receberia o que é meu com os juros. Tirem dele o talento e deem-no ao que tem dez. Porque a todo aquele que tem será dado mais, e terá em abundância; mas daquele que não tem será tirado até o que parece ter. E esse servo inútil, joguem-no nas trevas lá de fora. Ali haverá choro e ranger de dentes’”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Mateus."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.75,
+      "texto": "Naquele tempo, Jesus contou aos seus discípulos esta parábola:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.24,
+      "texto": "“Será como um homem que, ao partir para longe, chamou os seus servos e lhes confiou os seus bens. A um deu cinco talentos, a outro dois e a outro um, a cada um conforme a sua capacidade. E partiu logo. O que tinha recebido cinco talentos foi negociar com eles e ganhou outros cinco. Do mesmo modo, o que tinha recebido dois ganhou outros dois. Mas o que tinha recebido um foi, cavou um buraco na terra e escondeu o dinheiro do seu senhor."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 44.19,
+      "texto": "Depois de muito tempo, o senhor daqueles servos voltou e foi acertar contas com eles. O que tinha recebido cinco talentos aproximou-se e lhe entregou outros cinco, dizendo: ‘Senhor, tu me confiaste cinco talentos; aqui estão outros cinco que ganhei’. O senhor lhe disse: ‘Muito bem, servo bom e fiel! Foste fiel no pouco, eu te confiarei muito mais. Vem participar da alegria do teu senhor’. Chegou também o que tinha recebido dois talentos e disse: ‘Senhor, tu me confiaste dois talentos; aqui estão outros dois que ganhei’. O senhor lhe disse: ‘Muito bem, servo bom e fiel! Foste fiel no pouco, eu te confiarei muito mais. Vem participar da alegria do teu senhor’."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 91.17,
+      "texto": "Por fim chegou o que tinha recebido um talento e disse: ‘Senhor, eu sabia que és um homem severo, que colhes onde não semeaste e recolhes onde não espalhaste. Por isso, fiquei com medo e fui esconder o teu talento na terra. Aqui tens o que é teu’. O senhor lhe respondeu: ‘Servo mau e preguiçoso! Sabias que colho onde não semeei e recolho onde não espalhei? Então devias ter entregado o meu dinheiro aos banqueiros, e, ao voltar, eu receberia o que é meu com os juros. Tirem dele o talento e deem-no ao que tem dez. Porque a todo aquele que tem será dado mais, e terá em abundância; mas daquele que não tem será tirado até o que parece ter. E esse servo inútil, joguem-no nas trevas lá de fora. Ali haverá choro e ranger de dentes’”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 143.73,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 147.67,
+      "texto": "Deus lhe deu talentos únicos para compartilhá-los com os outros, não para guardá-los por medo. Como você vai colocar hoje seus dons a serviço do amor e dos irmãos?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-14T11:15:37+01:00",
+  "run": "43582824369",
+  "idioma": "pt",
+  "libro": "Mateo",
+  "cita_es": "Mateo 25, 14-30",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
 }
