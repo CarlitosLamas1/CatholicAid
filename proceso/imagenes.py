@@ -28,7 +28,8 @@ ESTILO_OLEO = ("Devotional fine-art oil painting with visible, expressive brushs
 ESTILO_ACUARELA = ("Delicate watercolor painting with soft washes, pastel sky with warm peach clouds, wildflower "
                    "meadows, gentle light, tender, hopeful and full of love and kindness.")
 REGLAS = ("Vertical 9:16 composition filling the whole frame. Authentic 1st-century Galilee and Judea. "
-          "No text, no letters, no signatures, no watermarks, no modern objects. Never violence or blood.")
+          "No text, no letters, no signatures, no watermarks, no modern objects. Never violence or blood. "
+          "Only Jesus may have a halo or glow around the head; ordinary people and the characters of a parable never do.")
 
 
 def clave():
@@ -86,12 +87,20 @@ def guardar(datos, destino):
     destino.write_bytes(datos)
 
 
-def generar(escena, destino, referencias=(), estilo="oleo", intentos=3):
-    """Genera una imagen vertical para la escena. referencias: [(nombre, ruta)] p. ej. [("Jesus", "personajes/jesus.png")]."""
+def generar(escena, destino, referencias=(), estilo="oleo", intentos=3, anterior=None):
+    """Genera una imagen vertical para la escena. referencias: [(nombre, ruta)] p. ej. [("Jesus", "personajes/jesus.png")].
+    anterior: otra imagen ya pintada del MISMO vídeo, para que las escenas de un día parezcan de la misma mano y los
+    personajes que se repiten (Zaqueo, el ciego, el amo de la parábola…) no cambien de aspecto de una a otra."""
     partes = []
     for nombre, ruta in referencias:
         partes.append({"text": f"Reference image of {nombre}: keep exactly this face, hair and clothing."})
         partes.append(_referencia(ruta))
+    if anterior and Path(anterior).exists():
+        partes.append({"text": "Another scene already painted for this same story. Keep the SAME painting technique, "
+                               "palette and light, and the SAME appearance (face, age, hair, beard, clothing) for "
+                               "every character that appears again. Do NOT copy its composition or its background: "
+                               "the new scene is a different moment."})
+        partes.append(_referencia(anterior))
     estilo_txt = ESTILO_ACUARELA if estilo == "acuarela" else ESTILO_OLEO
     partes.append({"text": f"Create a new image. Scene: {escena}\nStyle: {estilo_txt}\n{REGLAS}"})
     cuerpo = {"contents": [{"parts": partes}],

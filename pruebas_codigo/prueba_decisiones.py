@@ -102,6 +102,16 @@ class FraseClave(unittest.TestCase):
         self.assertNotEqual(ev.frase_de_reserva(frs, "", (primera,)), primera)
 
 
+class Imagenes(unittest.TestCase):
+    def test_un_solo_estilo_por_video(self):
+        escenas = [{"descripcion": "a", "estilo": "acuarela"}, {"descripcion": "b", "estilo": "oleo"},
+                   {"descripcion": "c", "estilo": "oleo"}]
+        self.assertEqual(ev.estilo_del_dia(escenas), "oleo")
+        self.assertEqual(ev.estilo_del_dia(escenas[:2]), "acuarela")  # empate: el de la primera
+        self.assertEqual(ev.estilo_del_dia(escenas, "acuarela"), "acuarela")  # al repintar, el que ya tenía el día
+        self.assertEqual(ev.estilo_del_dia([]), "oleo")
+
+
 class Titulo(unittest.TestCase):
     def test_cabe_en_100_y_lleva_cita(self):
         for idioma, cita in (("es", "Lucas 19, 1-10"), ("en", "Luke 19:1-10"), ("pt", "Lucas 19,1-10")):

@@ -1121,10 +1121,37 @@ CORTES_SIN_OIR = []  # personajes cuya grabación se cortó sin poder escucharla
 AVISOS = []  # cosas que requieren a Carlos (se mandan por Telegram con el aviso de «vídeo listo»)
 
 
-def generar_imagenes_dia(info, escenas, fecha, correcciones=None):
+def estilo_del_dia(info, previo=""):
+    """Un solo estilo (óleo o acuarela) para todas las imágenes pintadas de un vídeo: el que más escenas piden
+    (si empatan, el de la primera). Antes cada escena iba con el suyo y un mismo vídeo mezclaba acuarela y óleo.
+    previo: el estilo ya usado ese día (registro), para que una escena repintada no desentone con las demás."""
+    if previo in ("oleo", "acuarela"):
+        return previo
+    pedidos = [e.get("estilo", "oleo") for e in info if e.get("descripcion")]
+    if not pedidos:
+        return "oleo"
+    return max(dict.fromkeys(pedidos), key=pedidos.count)
+
+
+def imagen_hermana(fecha, n):
+    """Otra imagen ya pintada del mismo día: la de la escena anterior más cercana o, si no hay, la siguiente."""
+    hechas = {}
+    for p in (RAIZ / "biblioteca" / "dias").glob(f"{fecha}_e*.*"):
+        m = re.search(r"_e(\d+)\.(jpg|png)$", p.name)
+        if m and int(m.group(1)) != n:
+            hechas[int(m.group(1))] = p
+    if not hechas:
+        return None
+    antes = [k for k in hechas if k < n]
+    return hechas[max(antes)] if antes else hechas[min(hechas)]
+
+
+def generar_imagenes_dia(info, escenas, fecha, correcciones=None, estilo=None):
     """Pinta con Nano Banana (API de pago) una imagen por escena y la guarda en biblioteca/dias/.
     Si ya existe (o falla), no hace nada: el proceso sigue con la biblioteca.
-    correcciones: {escena: texto} que pidió el revisor al mandar repintar (publicar.py borra la imagen mala)."""
+    correcciones: {escena: texto} que pidió el revisor al mandar repintar (publicar.py borra la imagen mala).
+    estilo: el del día (estilo_del_dia), el mismo para todas las escenas."""
+    estilo = estilo or estilo_del_dia(info)
     correcciones = {int(k): v for k, v in (correcciones or {}).items()}
     opciones = CFG.get("imagenes_ia", {})
     if not opciones.get("activo") or not os.environ.get("GEMINI_API_KEY_IMAGENES", "").strip():
@@ -1145,12 +1172,13 @@ def generar_imagenes_dia(info, escenas, fecha, correcciones=None):
         destino = RAIZ / "biblioteca" / "dias" / f"{fecha}_e{n}.jpg"
         escena = e["descripcion"]
         if e.get("personajes") and "jesus" not in e["personajes"]:  # p. ej. una parábola: Jesús la cuenta, pero no sale en ella
-            escena += "\nJesus does NOT appear in this scene."
+            escena += ("\nJesus does NOT appear in this scene, and nobody in it looks or dresses like Him "
+                       "(no white tunic with a red or blue mantle, no halo).")
         if correcciones.get(n):
             escena += f"\nIMPORTANT CORRECTION (a previous version was wrong): {correcciones[n]}"
             log(f"   Escena {n}: se repinta con la corrección del revisor: {correcciones[n]}")
         try:
-            modelo = imagenes.generar(escena, destino, refs, e.get("estilo", "oleo"))
+            modelo = imagenes.generar(escena, destino, refs, estilo, anterior=imagen_hermana(fecha, n))
             hechas += 1
             log(f"   Imagen IA escena {n} ({modelo}): {e['descripcion'][:90]}")
         except Exception as ex:
@@ -2444,7 +2472,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     bl = bloques(frs, total, gancho, cierre, bool(retrato))
     if idioma == "es":  # el inglés reutiliza las imágenes del día del español: no se pinta nada
         correcciones = {str(x.get("escena")): x.get("corregir", "") for x in hecho.get("repintar") or [] if x.get("escena")}
-        generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha, correcciones)
+        estilo_dia = estilo_del_dia(g.get("escenas", []), hecho.get("estilo_imagenes", ""))
+        generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha, correcciones, estilo_dia)
     presentes = {f["personaje"] for f in frs} | {k for e in g.get("escenas", []) for k in (e.get("personajes") or [])}
     visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta, retrato, presentes)
 
@@ -2496,6 +2525,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
                                 "inicio": round(f["inicio"], 2), "texto": f["texto"],
                                 **({"reflexion": True} if f.get("reflexion") else {})} for f in frs],
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
+    if idioma == "es":
+        registro["estilo_imagenes"] = estilo_dia
     if os.environ.get("GITHUB_RUN_ID"):  # para encontrar después la copia del vídeo (resumen semanal)
         registro["run"] = os.environ["GITHUB_RUN_ID"]
     if idioma != "es":
