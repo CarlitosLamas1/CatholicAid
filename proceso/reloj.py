@@ -181,6 +181,13 @@ def main():
     except Exception as e:
         log(f"Parte: no se pudo lanzar ({e})")
 
+    try:  # 9. Mantenimiento (de 4 a 6 de la madrugada de Madrid, una vez al día): releases viejas, duplicados…
+        if 4 <= ahora.hour < 7 and leer("estado/mantenimiento.json").get("fecha") != str(ahora.date()) \
+                and not reciente(runs, "Mantenimiento", 60):
+            lanzar("mantenimiento.yml")
+    except Exception as e:
+        log(f"Mantenimiento: no se pudo lanzar ({e})")
+
     try:  # 7. Música nueva por probar
         musica(runs)
     except Exception as e:

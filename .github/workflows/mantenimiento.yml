@@ -1,0 +1,32 @@
+name: "Mantenimiento"
+
+# Una vez al día, de madrugada (lo lanza el Reloj; el cron es solo respaldo): borra releases viejas, archiva las
+# imágenes antiguas y busca vídeos duplicados en YouTube. Resultado en estado/mantenimiento.json (parte diario).
+on:
+  schedule:
+    - cron: "30 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mantenimiento
+  cancel-in-progress: false
+
+jobs:
+  mantenimiento:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mantenimiento
+        run: python3 proceso/mantenimiento.py
+      - name: Guardar
+        if: always()
+        run: python3 proceso/guardar.py "Mantenimiento diario" estado/ biblioteca/dias/
