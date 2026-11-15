@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-17",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-15T00:33:10+01:00",
+  "revisado": "2026-11-15T01:32:51+01:00",
+  "motivos": [],
+  "avisos": [
+    "Fragmentos cortos ('. Jesús le respondió:' y 'Palabra del Señor.') salen lentos (5,4 y 5,2 car/s), normal por las pausas.",
+    "Imágenes: la escena 1 es acuarela y las 2 y 3 óleo (mezcla de estilos); Zaqueo, 'muy rico', aparece pobre en la escena 3 y mayor en la 2. Mejorable, no grave."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 19, 1-10 coincide con citas.json",
+    "voces": "✅ Jesús en sus dos intervenciones, Zaqueo como 'hombre', resto narrador",
+    "frase_clave": "✅ Literal, de Jesús, 12 palabras",
+    "reflexion": "✅ 23 palabras, doctrinalmente correcta y relacionada",
+    "tecnica": "✅ 99,9 s, -14,0 LUFS, sincronía ok",
+    "audio": "✅ Más lento: 5,2 car/s (3,4 s, 'Palabra del Señor.'); más rápido: 17,4 car/s (fragmento 'hombre', 7,4 s); fragmentos largos 12–14 car/s",
+    "imagenes": "⚠️ Apropiadas y devocionales, sin deformidades graves; estilos mezclados",
+    "metadatos": "✅ Título Lucas coherente con la cita"
+  }
+}
