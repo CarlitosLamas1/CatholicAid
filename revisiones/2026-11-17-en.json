@@ -3,21 +3,21 @@
   "idioma": "en",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-15T01:01:22+01:00",
-  "revisado": "2026-11-15T01:33:05+01:00",
+  "generado": "2026-11-15T12:15:08+01:00",
+  "revisado": "2026-11-15T12:33:07+01:00",
   "motivos": [],
   "avisos": [
-    "La frase clave tiene 13 palabras (el criterio dice 3–12); es literal y se entiende sola.",
-    "Imágenes: mezcla de estilos (acuarela en escena 1, óleo en 2 y 3), reutilizadas del español."
+    "La primera imagen es acuarela y las otras dos óleo: el estilo no es uniforme (solo estético).",
+    "Un fragmento del narrador (14,9 s, ~6 caracteres/s) va algo lento; la sincronía de subtítulos está OK (11 frases oídas), probablemente son pausas."
   ],
   "puntos": {
-    "fidelidad": "✅ Igual que la WEB (Lucas 19:1-10) salvo la introducción «At that time,» permitida",
-    "voces": "✅ Jesús, multitud y hombre (Zaqueo) correctos; resto narrador",
-    "frase_clave": "⚠️ Literal y de Jesús, 13 palabras",
-    "reflexion": "✅ 27 palabras, inglés, fiel a la doctrina",
-    "tecnica": "✅ 93,9 s, -14,1 LUFS, sincronía ok",
-    "audio": "✅ Más lento: 5,0 car/s (4,6 s, 'The Gospel of the Lord.', pausas); más rápido: 16,9 car/s; largos 12–15 car/s",
-    "imagenes": "⚠️ Apropiadas, estilos mezclados",
-    "metadatos": "✅ Título estándar 'A reading from the holy Gospel according to Luke.' igual que días anteriores; cita Luke 19:1-10"
+    "fidelidad": "✅ Texto idéntico a los fragmentos (sin comillas ni espacios); coincide con WEB Catholic, Luke 19:1-10.",
+    "voces": "✅ Jesús, multitud y hombre (Zacchaeus) correctos; narrador en el resto.",
+    "frase_clave": "✅ «Today, salvation has come to this house», literal y de Jesús; coincide con la del español.",
+    "reflexion": "✅ Dos frases, fiel a la doctrina, en inglés, coherente con la del español (algo más larga de 35 palabras: ~38).",
+    "tecnica": "✅ 126,2 s; LUFS -14,2.",
+    "audio": "⚠️ Más lento: narrador 14,9 s a 6,3 c/s; más rápido: multitud 3,1 s a 16,9 c/s. Normal el resto (11–15 c/s).",
+    "imagenes": "⚠️ Las 3 de hoy son apropiadas y devocionales, sin deformaciones graves; estilo mixto.",
+    "metadatos": "✅ Cita Luke 19:1-10, Lucas, gancho 1,5 s, karaoke activo."
   }
 }
