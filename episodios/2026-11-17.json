@@ -8,13 +8,13 @@
   "voces": "gemini",
   "peticiones_voz": 9,
   "musica": "Chopin_-_Nocturne-op-55-no-1.ogg",
-  "duracion_s": 100.0,
+  "duracion_s": 95.5,
   "imagenes": [
     "dias/2026-11-17_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-17_e1.jpg",
     "biblioteca/D01",
-    "biblioteca/D02",
+    "biblioteca/D06",
     "dias/2026-11-17_e2.jpg",
     "dias/2026-11-17_e3.jpg",
     "biblioteca/G07",
@@ -23,16 +23,16 @@
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "Hoy ha sido día de salvación para esta casa",
-  "reflexion": "Jesús no se fija en tus caídas, sino en tu deseo de encontrarlo. Abre hoy las puertas de tu corazón, ¿estás dispuesto a dejarte transformar por su misericordia?",
-  "lufs": -14.0,
+  "reflexion": "Jesús no mira tus fallos del pasado, sino tu deseo sincero de acogerle en tu vida. ¿Le abrirás hoy la puerta de tu corazón para dejarte transformar por su misericordia?",
+  "lufs": -14.1,
   "gancho_segundos": 1.5,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus pauses beneath a large sycamore tree on the road in Jericho, gazing up with warmth and calling to Zacchaeus perched among the leafy branches.",
-      "busqueda": "Zacchaeus tree Jesus",
+      "descripcion": "Jesus looks up with a warm and loving smile toward Zacchaeus perched in the branches of a sycamore tree in Jericho, surrounded by an eager crowd.",
+      "busqueda": "Zacchaeus sycamore Jesus",
       "personajes": [
         "jesus",
         "hombre",
@@ -41,8 +41,8 @@
     },
     {
       "numero": 2,
-      "descripcion": "Zacchaeus hurries down the tree to joyfully welcome Jesus, while onlookers in the background murmur with disapproval.",
-      "busqueda": "Zacchaeus welcoming Jesus",
+      "descripcion": "Zacchaeus hurried down from the tree, joyfully greeting Jesus amidst the murmuring whispers of the townspeople.",
+      "busqueda": "Zacchaeus welcomes Jesus",
       "personajes": [
         "jesus",
         "hombre",
@@ -51,8 +51,8 @@
     },
     {
       "numero": 3,
-      "descripcion": "Inside Zacchaeus's home, Zacchaeus stands humbled and joyful before Jesus, making his heartfelt pledge as Jesus smiles with profound mercy and love.",
-      "busqueda": "Jesus Zacchaeus house",
+      "descripcion": "Inside Zacchaeus' home, Zacchaeus speaks with deep repentance and humility to Jesus, who responds with profound tenderness and grace.",
+      "busqueda": "Jesus Zacchaeus home",
       "personajes": [
         "jesus",
         "hombre"
@@ -71,61 +71,63 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 8.51,
+      "inicio": 8.08,
       "texto": "En aquel tiempo, habiendo entrado Jesús en Jericó, atravesaba la ciudad. Y había allí un hombre muy rico llamado Zaqueo, jefe de publicanos, que procuraba conocer a Jesús de vista; pero no podía a causa del gentío, porque era muy pequeño de estatura. Se adelantó corriendo y se subió a un sicómoro para verlo, porque había de pasar por allí. Cuando Jesús llegó a aquel lugar, alzó los ojos, lo vio y le dijo:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 39.59,
+      "inicio": 35.93,
       "texto": "“Zaqueo, baja enseguida, porque conviene que hoy me hospede en tu casa”."
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 46.29,
+      "inicio": 42.1,
       "texto": "Él bajó a toda prisa y lo recibió gozoso. Todos, al ver esto, murmuraban diciendo que había ido a hospedarse en casa de un hombre pecador. Pero Zaqueo, puesto en presencia del Señor, le dijo:"
     },
     {
       "personaje": "hombre",
       "escena": 3,
-      "inicio": 60.41,
+      "inicio": 55.42,
       "texto": "“Señor, desde ahora doy la mitad de mis bienes a los pobres; y si he defraudado en algo a alguno, le restituiré cuatro veces más”."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 68.33,
+      "inicio": 63.27,
       "texto": "Jesús le respondió:"
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 70.7,
+      "inicio": 65.48,
       "texto": "“Hoy ha sido día de salvación para esta casa, pues también este es hijo de Abrahán. Porque el Hijo del hombre ha venido a buscar y a salvar lo que estaba perdido”."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 83.09,
+      "inicio": 78.74,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 86.04,
-      "texto": "Jesús no se fija en tus caídas, sino en tu deseo de encontrarlo. Abre hoy las puertas de tu corazón, ¿estás dispuesto a dejarte transformar por su misericordia?",
+      "inicio": 81.68,
+      "texto": "Jesús no mira tus fallos del pasado, sino tu deseo sincero de acogerle en tu vida. ¿Le abrirás hoy la puerta de tu corazón para dejarte transformar por su misericordia?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-15T02:23:28+01:00",
-  "run": "43661994687",
+  "generado": "2026-11-15T02:46:28+01:00",
+  "run": "43663623231",
   "cupo_agotado": [
     "gemini-2.5-flash-preview-tts",
+    "gemini-3.7-flash",
     "gemini-3.8-flash"
   ],
   "reserva_pago": [
     "gemini-2.5-flash-preview-tts",
+    "gemini-3.7-flash",
     "gemini-3.8-flash"
   ],
   "modelos_voz": [
@@ -134,11 +136,10 @@
   "sincronia": {
     "frases_oidas": 9,
     "frases_por_pausas": [],
-    "cortes_sin_oir": [
-      "narrador"
-    ],
-    "ok": false
+    "cortes_sin_oir": [],
+    "ok": true
   },
+  "rehechos": 1,
   "repintar": [
     {
       "escena": 1,
@@ -150,6 +151,5 @@
     }
   ],
   "repintados": 1,
-  "revision": "rechazada",
-  "rehechos": 1
+  "revision": "pendiente"
 }
