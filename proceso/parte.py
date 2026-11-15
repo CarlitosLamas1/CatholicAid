@@ -101,6 +101,9 @@ def estado_futuro(fecha, idioma):
         return "⛔", "NO se publicará" + (f": {e(motivo[:120])}" if motivo else ""), True
     if reg.get("estado") == "fallido":
         return "🔁", "falló al crearse; el reloj lo reintenta solo", False
+    if reg.get("revision") == "rechazada":  # también si ya había una versión subida: se está rehaciendo otra
+        motivo = "para que coincida con el español" if reg.get("rehecho_por_es") else "mejorándolo"
+        return "🔁", f"se está rehaciendo ({motivo})", False
     yt = reg.get("youtube") or {}
     if yt.get("id"):
         return "✅", f"aprobado y programado a las {hora}", False
@@ -108,8 +111,6 @@ def estado_futuro(fecha, idioma):
         return "✅", "aprobado; subiéndose a YouTube", False
     if reg.get("revision") == "pendiente":
         return "🕐", "hecho; esperando al revisor", False
-    if reg.get("revision") == "rechazada":
-        return "🔁", "el revisor lo rechazó; se está rehaciendo", False
     return "🕐", e(reg.get("revision") or "en marcha"), False
 
 
@@ -194,6 +195,28 @@ def componer(ahora):
     pago = [f"{NOMBRES[x].lower()}" for f in (manana, pasado) for x in idiomas()
             if leer(f"episodios/{nombre(f, x)}.json").get("reserva_pago")]
 
+    # Vídeos de YouTube que no están en ningún registro (posible subida duplicada): los encuentra «Mantenimiento»
+    sobran = leer("estado/mantenimiento.json").get("sobrantes") or []
+    if sobran:
+        enlaces = ", ".join(f"{BANDERAS.get(v.get('idioma'), '')} https://youtu.be/{v['id']}" for v in sobran[:4])
+        necesita.append(f"Hay {len(sobran)} vídeo{'s' if len(sobran) > 1 else ''} en YouTube que no está"
+                        f"{'n' if len(sobran) > 1 else ''} en mis registros (posible duplicado): {e(enlaces)}. "
+                        "Dime si lo borro.")
+    # Gasto estimado de la clave de pago (imágenes, voces de pago, reserva) y, si hay saldo apuntado, lo que queda
+    linea_gasto = ""
+    try:
+        import gasto
+        g, cfg_g = gasto.resumen(hoy), gasto.config()
+        euros = lambda x: f"{x:.2f}".replace(".", ",") + " €"  # noqa: E731
+        linea_gasto = f"💶 <b>Gasto estimado</b> · hoy ~{euros(g['hoy'])} · este mes ~{euros(g['mes'])}"
+        if g["queda"] is not None:
+            linea_gasto += f" · quedan ~{euros(max(g['queda'], 0))}"
+            if g["queda"] < float(cfg_g.get("avisar_por_debajo", 3)):
+                necesita.append(f"Quedan unos {euros(max(g['queda'], 0))} de saldo de pago de Gemini (estimado): "
+                                "conviene recargar para que no falten imágenes ni voces.")
+    except Exception as ex:
+        avisos.log(f"gasto no calculado ({ex})")
+
     if necesita:
         semaforo = f"🟠 <b>Te necesito en {len(necesita)} cosa{'s' if len(necesita) > 1 else ''}</b>"
     elif arreglando:
@@ -212,8 +235,9 @@ def componer(ahora):
     vis = visitas_ayer(ayer)
     if vis:
         msg += [f"📊 <b>Visitas del vídeo de ayer</b> · {vis}", ""]
-    if pago:
-        msg += [f"💶 Hoy se usó la reserva de pago (cupo gratis agotado): {', '.join(dict.fromkeys(pago))}. Céntimos.", ""]
+    if linea_gasto:
+        msg += [linea_gasto + (f"\n<i>Reserva de pago usada (cupo gratis agotado): {', '.join(dict.fromkeys(pago))}.</i>"
+                               if pago else ""), ""]
     msg += ["<i>Próximo parte: mañana a las 21:00.</i>"]
     return "\n".join(msg).strip()
 

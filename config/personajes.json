@@ -711,5 +711,10 @@
   "facebook": {
     "_nota": "Reels también en las páginas de Facebook (CatolicAid y CatolicAid English), los publica «Publicar en Instagram» tras cada Reel. Necesita el permiso pages_manage_posts: Carlos vuelve a autorizar en docs/instagram.html y se pone activo=true.",
     "activo": false
+  },
+  "gasto": {
+    "_nota": "Estimación del gasto de la clave de pago de Gemini para el parte diario (proceso/gasto.py). Precios aproximados en euros: por imagen pintada, por segundo de voz grabada con la clave de pago y un fijo por vídeo cuando el texto tiró de la reserva. Google no da el saldo por API: si Carlos dice cuánto saldo hay un día, se apunta en «saldo» ({\"euros\": 8.5, \"fecha\": \"AAAA-MM-DD\"}) y el parte estima lo que queda y avisa cuando baje de «avisar_por_debajo».",
+    "precios": {"imagen": 0.04, "voz_segundo": 0.0003, "texto": 0.01},
+    "avisar_por_debajo": 3
   }
 }

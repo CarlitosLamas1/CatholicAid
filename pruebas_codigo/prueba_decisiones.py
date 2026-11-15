@@ -8,6 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "proceso"))
 import evangelio as ev  # noqa: E402
+import gasto  # noqa: E402
 import mantenimiento  # noqa: E402
 import publicar  # noqa: E402
 import reloj  # noqa: E402
@@ -110,6 +111,29 @@ class Imagenes(unittest.TestCase):
         self.assertEqual(ev.estilo_del_dia(escenas[:2]), "acuarela")  # empate: el de la primera
         self.assertEqual(ev.estilo_del_dia(escenas, "acuarela"), "acuarela")  # al repintar, el que ya tenía el día
         self.assertEqual(ev.estilo_del_dia([]), "oleo")
+
+
+class Gasto(unittest.TestCase):
+    ES = {"fecha": "2026-11-17", "generado": "2026-11-15T02:46:28+01:00", "duracion_s": 100, "repintados": 1,
+          "imagenes": ["dias/2026-11-17_e1.jpg", "evangelistas/lucas.jpg", "dias/2026-11-17_e1.jpg",
+                       "dias/2026-11-17_e2.jpg", "biblioteca/D01"],
+          "modelos_voz": ["gemini-2.5-flash-preview-tts"]}
+    PT = {"fecha": "2026-11-17", "idioma": "pt", "generado": "2026-11-15T01:03:26+01:00", "duracion_s": 100,
+          "imagenes": ["dias/2026-11-17_e1.jpg"], "modelos_voz": ["gemini-3.1-flash-tts-preview (pago)"],
+          "reserva_pago": ["gemini-3.7-flash"]}
+    P = {"imagen": 0.04, "voz_segundo": 0.001, "texto": 0.01}
+
+    def test_espanol_solo_paga_imagenes(self):
+        self.assertAlmostEqual(gasto.gasto_registro(self.ES, self.P), 0.12)  # 2 pintadas + 1 repintada
+
+    def test_portugues_paga_voz_y_reserva_de_texto(self):
+        self.assertAlmostEqual(gasto.gasto_registro(self.PT, self.P), 0.11)  # 100 s de voz + texto; no pinta
+
+    def test_resumen_y_saldo(self):
+        cfg = {"precios": self.P, "saldo": {"euros": 5, "fecha": "2026-11-15"}}
+        r = gasto.resumen(dt.date(2026, 11, 15), [self.ES, self.PT, {"generado": "2026-10-30T10:00:00+01:00"}], cfg)
+        self.assertEqual(r, {"hoy": 0.23, "mes": 0.23, "queda": 4.77})
+        self.assertIsNone(gasto.resumen(dt.date(2026, 11, 15), [self.ES], {"precios": self.P})["queda"])
 
 
 class Titulo(unittest.TestCase):
