@@ -49,8 +49,9 @@
     "ganador": "2.8"
   },
   "gancho_historial": [
-    "2.8",
-    "2.8"
-  ],
-  "gancho_fijado": "2.8"
+    {
+      "semana": "2026-W46",
+      "ganador": "2.8"
+    }
+  ]
 }

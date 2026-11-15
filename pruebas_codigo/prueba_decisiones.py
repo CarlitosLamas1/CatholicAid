@@ -155,11 +155,15 @@ class Estadisticas(unittest.TestCase):
         pocos = [self.vid(1.5, 100), self.vid(2.8, 500)]
         self.assertIsNone(estadisticas.comparar_gancho(pocos)["ganador"])
 
-    def test_solo_se_fija_si_repite(self):
-        self.assertEqual(estadisticas.decidir([], "2.8"), (["2.8"], None))
-        self.assertEqual(estadisticas.decidir(["2.8"], "2.8"), (["2.8", "2.8"], "2.8"))
-        self.assertEqual(estadisticas.decidir(["1.5"], "2.8")[1], None)
-        self.assertEqual(estadisticas.decidir(["2.8"], None)[1], None)
+    def test_solo_se_fija_si_repite_en_otra_semana(self):
+        h1, fijar = estadisticas.decidir([], "2.8", "2026-W46")
+        self.assertIsNone(fijar)
+        h1b, fijar = estadisticas.decidir(h1, "2.8", "2026-W46")  # el mismo día o semana otra vez: no cuenta doble
+        self.assertIsNone(fijar)
+        self.assertEqual(len(h1b), 1)
+        self.assertEqual(estadisticas.decidir(h1b, "2.8", "2026-W47")[1], "2.8")
+        self.assertIsNone(estadisticas.decidir(h1b, "1.5", "2026-W47")[1])
+        self.assertIsNone(estadisticas.decidir(h1b, None, "2026-W47")[1])
 
 
 class RevisionDeReserva(unittest.TestCase):

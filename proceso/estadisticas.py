@@ -76,10 +76,12 @@ def comparar_gancho(lista):
     return {"lados": res, "ganador": ganador}
 
 
-def decidir(historial, ganador):
-    """Añade el ganador de esta semana al historial y dice si hay que fijarlo (el mismo dos semanas seguidas)."""
-    historial = (historial + [ganador])[-6:]
-    fijar = ganador if ganador and len(historial) >= 2 and historial[-2] == ganador else None
+def decidir(historial, ganador, semana):
+    """Apunta el ganador de esta semana ({"semana": "2026-W46", "ganador": "2.8"}; una sola entrada por semana,
+    aunque el cálculo se repita) y dice si hay que fijarlo: el mismo ganador dos semanas DISTINTAS seguidas."""
+    historial = [h for h in historial if isinstance(h, dict) and h.get("semana") != semana]
+    historial = (historial + [{"semana": semana, "ganador": ganador}])[-6:]
+    fijar = ganador if ganador and len(historial) >= 2 and historial[-2]["ganador"] == ganador else None
     return historial, fijar
 
 
@@ -119,7 +121,9 @@ def main():
             "mejor": {k: mejor[k] for k in ("fecha", "frase", "visitas")} if mejor else None}
         if idioma == "es":
             estado["gancho"] = comparar_gancho(lista)
-            estado["gancho_historial"], fijar = decidir(previo.get("gancho_historial") or [], estado["gancho"]["ganador"])
+            semana = "{}-W{:02d}".format(*hoy.isocalendar()[:2])
+            estado["gancho_historial"], fijar = decidir(previo.get("gancho_historial") or [],
+                                                         estado["gancho"]["ganador"], semana)
             if fijar and fijar_gancho(fijar):
                 estado["gancho_fijado"] = fijar
                 log(f"Gancho fijado en {fijar} s")
