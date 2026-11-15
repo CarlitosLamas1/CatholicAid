@@ -108,10 +108,5 @@ jobs:
       - name: Guardar registro
         if: always()
         run: |
-          git config user.name "gestor-catholicaid"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add resumenes/ 2>/dev/null || true
-          if ! git diff --cached --quiet; then
-            git commit -q -m "Evangelio de la semana: registro"
-            git pull -q --rebase && git push -q
-          fi
+          mkdir -p resumenes
+          python3 proceso/guardar.py "Evangelio de la semana: registro" resumenes/

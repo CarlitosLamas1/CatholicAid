@@ -26,6 +26,9 @@ def anterior(ruta):
 
 def main():
     mensaje, carpetas = sys.argv[1], sys.argv[2:]
+    if not git("config", "user.name", check=False).strip():  # en los workflows no hay autor configurado
+        git("config", "user.name", "gestor-catholicaid")
+        git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
     rutas = set(git("diff", "--name-only", "HEAD", "--", *carpetas).split())
     rutas |= set(git("ls-files", "--others", "--exclude-standard", "--", *carpetas).split())
     if not rutas:

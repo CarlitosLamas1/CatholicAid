@@ -48,18 +48,19 @@ def sh(*args, check=True):
     return subprocess.run(list(map(str, args)), check=check, capture_output=True, text=True)
 
 
-def guardar_en_main(mensaje):
-    """Sube ya el registro (y las imágenes borradas) ANTES de relanzar el vídeo: la nueva tirada lo lee de main."""
-    sh("git", "config", "user.name", "gestor-catholicaid")
-    sh("git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
-    sh("git", "add", "-A", "episodios/", "biblioteca/dias/")
-    if sh("git", "diff", "--cached", "--quiet", check=False).returncode == 0:
-        return
-    sh("git", "commit", "-q", "-m", mensaje)
-    for _ in range(3):
-        if sh("git", "pull", "-q", "--rebase", check=False).returncode == 0 and sh("git", "push", "-q", check=False).returncode == 0:
-            return
-    log("Aviso: no se pudo subir el registro antes de relanzar (lo intenta el paso «Guardar registro»).")
+def guardar_en_main(mensaje, ruta_reg=None, reg=None):
+    """Sube ya el registro (y las imágenes borradas) a main con el guardado seguro (proceso/guardar.py): justo después
+    de subir a YouTube (15/11/2026: el guardado del final chocó, no quedó anotado y la pasada siguiente subió el vídeo
+    otra vez) y antes de relanzar un vídeo (la nueva tirada lee el registro de main).
+    Después, «reg» se vuelve a leer del disco: guardar.py lo deja con lo último de main más nuestros cambios."""
+    r = sh(sys.executable, RAIZ / "proceso" / "guardar.py", mensaje, "episodios/", "biblioteca/dias/", "estado/",
+           check=False)
+    log((r.stdout or r.stderr).strip()[-300:])
+    if ruta_reg is not None and reg is not None and ruta_reg.exists():
+        nuevo = leer(ruta_reg)
+        reg.clear()
+        reg.update(nuevo)
+    return r.returncode == 0
 
 
 IMAGEN = re.compile(r"\b(imagen|im[aá]genes|plano|cuadro|pintura)\b", re.I)
@@ -147,7 +148,7 @@ def main():
     if rev.get("ok") and repintar:  # aprobado, pero con imágenes que se pueden arreglar: se repintan y se revisa otra vez
         reg["revision"] = "rechazada"
         guardar(ruta_reg, reg)
-        guardar_en_main(f"Repintar imágenes: {nombre}")
+        guardar_en_main(f"Repintar imágenes: {nombre}", ruta_reg, reg)
         sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
         sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
         log(f"Revisión OK con imágenes a repintar: rehago el vídeo del {nombre}.")
@@ -159,7 +160,7 @@ def main():
             reg["rehechos"] = n + 1
             reg["revision"] = "rechazada"
             guardar(ruta_reg, reg)
-            guardar_en_main(f"Revisión no OK: rehacer {nombre}")
+            guardar_en_main(f"Revisión no OK: rehacer {nombre}", ruta_reg, reg)
             sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
             sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
             log(f"Revisión no OK: rehago el vídeo del {nombre}.")
@@ -198,7 +199,11 @@ def main():
     tok = ev_mod.token_youtube(idioma)
     vid, estado = ev_mod.subir_youtube(video, ev, dt.date.fromisoformat(fecha), "diario", tok, idioma)
     reg["youtube"] = {"id": vid, "url": f"https://youtu.be/{vid}", **estado}
-    guardar(ruta_reg, reg)  # lo subido queda anotado pase lo que pase después
+    guardar(ruta_reg, reg)
+    # Lo subido queda anotado en main YA, pase lo que pase después: sin esto, un fallo al guardar al final hacía
+    # que la pasada siguiente subiera el vídeo otra vez.
+    if not guardar_en_main(f"Publicar revisado: {nombre} subido a YouTube", ruta_reg, reg):
+        log("AVISO: no se pudo anotar en main el vídeo recién subido; lo reintenta el paso «Guardar registro».")
     viejo = reg.get("reemplaza")
     if viejo and viejo != vid:  # versión anterior ya subida (vídeo rehecho): se borra para que no salgan dos
         try:

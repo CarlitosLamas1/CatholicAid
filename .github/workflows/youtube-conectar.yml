@@ -42,11 +42,7 @@ jobs:
           else
             python3 proceso/youtube_conectar.py canjear "$CODIGO"
             python3 proceso/youtube_conectar.py comprobar
-            git config user.name "gestor-catholicaid"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add secretos/youtube*.enc
-            git commit -q -m "YouTube reconectado (permiso cifrado)"
-            git pull -q --rebase && git push -q
+            python3 proceso/guardar.py "YouTube reconectado (permiso cifrado)" secretos/
           fi
       - uses: actions/upload-artifact@v4
         if: inputs.codigo == ''

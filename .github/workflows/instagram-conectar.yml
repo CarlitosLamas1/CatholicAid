@@ -34,9 +34,7 @@ jobs:
           fi
           if [ "$CODIGO" = "comprobar" ]; then
             mkdir -p estado && python3 proceso/instagram.py comprobar > estado/instagram-cuentas.txt 2>&1 || true
-            git config user.name "gestor-catholicaid"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A estado/instagram-cuentas.txt ci/ && git commit -q -m "Instagram: cuentas conectadas" && git pull -q --rebase && git push -q
+            python3 proceso/guardar.py "Instagram: cuentas conectadas" estado/instagram-cuentas.txt ci/
             exit 0
           fi
           if [ -z "$CODIGO" ]; then
@@ -46,9 +44,5 @@ jobs:
           else
             python3 proceso/instagram.py canjear "$CODIGO"
             python3 proceso/instagram.py comprobar
-            git config user.name "gestor-catholicaid"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A secretos/instagram.enc ci/ 2>/dev/null || git add secretos/instagram.enc
-            git commit -q -m "Instagram conectado (permiso cifrado)"
-            git pull -q --rebase && git push -q
+            python3 proceso/guardar.py "Instagram conectado (permiso cifrado)" secretos/instagram.enc ci/
           fi

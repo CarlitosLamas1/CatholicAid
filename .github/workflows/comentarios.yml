@@ -49,10 +49,4 @@ jobs:
       - name: Guardar estado
         if: always() && !inputs.simular && !inputs.ver
         run: |
-          git config user.name "gestor-catholicaid"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A estado/ comentarios/pendientes.json episodios/ 2>/dev/null; git add -A estado/ episodios/ 2>/dev/null || true
-          if ! git diff --cached --quiet; then
-            git commit -q -m "Comentarios: estado"
-            git pull -q --rebase && git push -q
-          fi
+          python3 proceso/guardar.py "Comentarios: estado" estado/ comentarios/pendientes.json episodios/

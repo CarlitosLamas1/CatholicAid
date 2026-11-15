@@ -47,9 +47,5 @@ jobs:
           else
             python3 proceso/tiktok.py canjear "$CODIGO"
             python3 proceso/tiktok.py comprobar
-            git config user.name "gestor-catholicaid"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add secretos/tiktok*.enc
-            git commit -q -m "TikTok conectado ($TIKTOK_CUENTA, permiso cifrado)"
-            git pull -q --rebase && git push -q
+            python3 proceso/guardar.py "TikTok conectado ($TIKTOK_CUENTA, permiso cifrado)" secretos/
           fi
