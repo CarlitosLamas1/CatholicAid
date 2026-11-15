@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 5
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      CHAT_GUARDADO: ${{ vars.TELEGRAM_CHAT_ID }}
+      CHAT_GUARDADO: ${{ secrets.TELEGRAM_CHAT_ID || vars.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
       - name: Obtener chat_id

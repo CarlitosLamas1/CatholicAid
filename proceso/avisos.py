@@ -17,7 +17,7 @@ Uso:
   python3 proceso/avisos.py fallo [fecha] [url] -> ❌ falló la creación del vídeo y cuándo se reintenta
   python3 proceso/avisos.py prueba             -> mensaje de prueba (falla si Telegram no responde)
 
-Necesita TELEGRAM_BOT_TOKEN (secreto) y TELEGRAM_CHAT_ID (variable del repo).
+Necesita TELEGRAM_BOT_TOKEN (secreto) y TELEGRAM_CHAT_ID (secreto, para que no salga en los registros públicos).
 """
 import datetime as dt
 import html

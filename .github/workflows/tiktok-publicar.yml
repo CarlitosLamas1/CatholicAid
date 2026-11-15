@@ -144,7 +144,7 @@ jobs:
         timeout-minutes: 3
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || vars.TELEGRAM_CHAT_ID }}
         run: |
           F="${{ inputs.fecha }}"; [ -n "$F" ] || F=$(TZ=Europe/Madrid date +%F)
           M=$(grep -hE "rechaza|no da acceso|RuntimeError|Error|error" publicar.log 2>/dev/null | grep -v "^\s*$" | tail -1 | cut -c1-200)
@@ -162,5 +162,5 @@ jobs:
         timeout-minutes: 3
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || vars.TELEGRAM_CHAT_ID }}
         run: for N in ${{ steps.publicar.outputs.hechos }}; do python3 proceso/avisos.py tiktok "$N"; done
