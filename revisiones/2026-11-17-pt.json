@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-17",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-15T12:16:54+01:00",
+  "revisado": "2026-11-15T15:32:54+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ idéntico al Figueiredo revisado (Lucas 19,1-10, coincide con la cita)",
+    "voces": "✅ narrador, Jesús, multitud y Zaqueo (hombre) bien repartidos",
+    "frase_clave": "✅ «Hoje a salvação entrou nesta casa»: literal, de Jesús, se entiende sola; mismo pasaje que el español",
+    "reflexion": "✅ portugués de Brasil, de «você», 31 palabras, traducción de la del español",
+    "tecnica": "✅ 107,6 s, -14,1 LUFS, subtítulos karaoke, sincronía OK. Audio: más lento 4,2 c/s (fragmento corto de 17 caracteres con pausas, normal); más rápido 14,7 c/s",
+    "audio": "✅ sin fragmentos anómalos (fragmentos largos 10,6–13,7 c/s)",
+    "imagenes": "✅ reutiliza las del español ya aprobado, más biblioteca y evangelista",
+    "metadatos": "✅ cita Lucas 19,1-10 coherente; título del evangelista Lucas"
+  }
+}
