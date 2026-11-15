@@ -1,0 +1,54 @@
+{
+  "fecha": "2026-11-15",
+  "idiomas": {
+    "es": {
+      "videos": 7,
+      "visitas": 4696,
+      "gustas": 230,
+      "comentarios": 23,
+      "mejor": {
+        "fecha": "2026-11-13",
+        "frase": "Acordaos de la mujer de Lot.",
+        "visitas": 1813
+      }
+    },
+    "en": {
+      "videos": 7,
+      "visitas": 1333,
+      "gustas": 156,
+      "comentarios": 12,
+      "mejor": {
+        "fecha": "2026-11-13",
+        "frase": "Whoever seeks to save his life loses it",
+        "visitas": 565
+      }
+    },
+    "pt": {
+      "videos": 1,
+      "visitas": 57,
+      "gustas": 4,
+      "comentarios": 2,
+      "mejor": {
+        "fecha": "2026-11-14",
+        "frase": "Eu digo a vocês que ele lhes fará justiça bem depressa.",
+        "visitas": 57
+      }
+    }
+  },
+  "gancho": {
+    "lados": {
+      "1.5": {
+        "n": 3,
+        "mediana": 297
+      },
+      "2.8": {
+        "n": 3,
+        "mediana": 466
+      }
+    },
+    "ganador": "2.8"
+  },
+  "gancho_historial": [
+    "2.8"
+  ]
+}
