@@ -79,7 +79,7 @@ def _api(metodo, datos=None, archivo=None):
         for k, v in (datos or {}).items():
             cuerpo += f"--{limite}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n".encode()
         campo, ruta = archivo
-        tipo = "video/mp4" if str(ruta).endswith(".mp4") else "image/jpeg"
+        tipo = {".mp4": "video/mp4", ".zip": "application/zip"}.get(Path(ruta).suffix.lower(), "image/jpeg")
         cuerpo += (f"--{limite}\r\nContent-Disposition: form-data; name=\"{campo}\"; filename=\"{Path(ruta).name}\"\r\n"
                    f"Content-Type: {tipo}\r\n\r\n").encode() + Path(ruta).read_bytes() + f"\r\n--{limite}--\r\n".encode()
         req = urllib.request.Request(url, data=cuerpo, headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
@@ -130,6 +130,18 @@ def enviar(texto, video=None):
         return True
     except Exception as ex:
         log(f"Telegram no disponible ({ex}); se sigue sin avisar")
+        return False
+
+
+def enviar_documento(ruta, texto):
+    """Envía un archivo (p. ej. la copia de seguridad semanal) SIN sonar. Nunca lanza excepciones."""
+    try:
+        _api("sendDocument", {"chat_id": chat_id(), "caption": texto[:1024], "parse_mode": "HTML",
+                              "disable_notification": "true"}, ("document", ruta))
+        log("documento enviado")
+        return True
+    except Exception as ex:
+        log(f"documento no enviado ({ex})")
         return False
 
 

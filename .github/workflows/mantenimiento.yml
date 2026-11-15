@@ -11,6 +11,10 @@ on:
         description: "Calcular también los números de la semana (normalmente solo los domingos)"
         type: boolean
         default: false
+      copia:
+        description: "Enviar también la copia de seguridad (normalmente solo los domingos)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -28,10 +32,12 @@ jobs:
       YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
       YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || vars.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
       - name: Mantenimiento
-        run: python3 proceso/mantenimiento.py ${{ inputs.estadisticas && '--estadisticas' || '' }}
+        run: python3 proceso/mantenimiento.py ${{ inputs.estadisticas && '--estadisticas' || '' }} ${{ inputs.copia && '--copia' || '' }}
       - name: Guardar
         if: always()
         run: python3 proceso/guardar.py "Mantenimiento diario" estado/ biblioteca/dias/ config/

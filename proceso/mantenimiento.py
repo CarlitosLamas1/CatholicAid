@@ -6,7 +6,10 @@
 2. Archiva las imágenes del día con más de 60 días (biblioteca/dias/) en una release mensual «archivo-AAAA-MM»
    y las saca del repositorio, para que no crezca sin fin.
 3. Busca en los tres canales de YouTube vídeos que no estén en ningún registro (subidas duplicadas).
-4. Los domingos, los números de la semana (proceso/estadisticas.py -> estado/estadisticas.json).
+4. Los domingos, los números de la semana (proceso/estadisticas.py -> estado/estadisticas.json) y una copia de
+   seguridad de todo lo que no se puede volver a generar (proceso, configuración, textos revisados, registros,
+   revisiones, guías, permisos cifrados, web y workflows), enviada en silencio al Telegram de Carlos: es la única
+   copia fuera de GitHub. Las imágenes, la música y los vídeos no van (pesan y se pueden rehacer).
 Deja el resultado en estado/mantenimiento.json (lo lee el parte diario). Ningún paso bloquea a los demás.
 """
 import datetime as dt
@@ -94,6 +97,33 @@ def buscar_sobrantes():
     return sobran
 
 
+COPIA = ("proceso", "config", "biblia", "episodios", "revisiones", "resumenes", "guias", "secretos", "estado",
+         "comentarios", "informes", "docs", "pruebas_codigo", ".github", ".claude", "CLAUDE.md", ".gitignore")
+
+
+def copia_de_seguridad(hoy):
+    import tempfile
+    import zipfile
+    destino = Path(tempfile.mkdtemp()) / f"catolicaid-copia-{hoy}.zip"
+    n = 0
+    with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as z:
+        for nombre in COPIA:
+            base = RAIZ / nombre
+            rutas = [base] if base.is_file() else sorted(p for p in base.rglob("*") if p.is_file()) if base.exists() else []
+            for p in rutas:
+                if "__pycache__" not in p.parts and not p.name.endswith(".local.json"):
+                    z.write(p, p.relative_to(RAIZ))
+                    n += 1
+    megas = destino.stat().st_size / 1e6
+    log(f"Copia de seguridad: {n} archivos, {megas:.1f} MB")
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import avisos
+    ok = megas < 45 and avisos.enviar_documento(
+        destino, f"🗄️ <b>Copia de seguridad semanal</b> · {hoy}\nNo tienes que hacer nada: es la copia del canal "
+                 "fuera de GitHub (programa, textos revisados, registros y permisos cifrados).")
+    return {"archivos": n, "megas": round(megas, 1), "enviada": bool(ok)}
+
+
 def main():
     hoy = dt.datetime.now(MADRID).date()
     estado = {"fecha": str(hoy)}
@@ -113,6 +143,12 @@ def main():
         except Exception as ex:
             log(f"estadísticas: falló ({ex})")
             estado.setdefault("errores", []).append(f"estadisticas: {str(ex)[:150]}")
+    if hoy.isoweekday() == 7 or "--copia" in sys.argv:
+        try:
+            estado["copia"] = copia_de_seguridad(hoy)
+        except Exception as ex:
+            log(f"copia de seguridad: falló ({ex})")
+            estado.setdefault("errores", []).append(f"copia: {str(ex)[:150]}")
     (RAIZ / "estado" / "mantenimiento.json").write_text(json.dumps(estado, ensure_ascii=False, indent=2),
                                                          encoding="utf-8")
 
