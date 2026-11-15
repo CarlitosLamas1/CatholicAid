@@ -195,5 +195,14 @@
     "publish_id": "v_pub_file~v2-1.7708538288826599446",
     "estado": "PUBLISH_COMPLETE",
     "privacidad": "SELF_ONLY"
-  }
+  },
+  "instagram": {
+    "id": "18155743474541908",
+    "enlace": "https://www.instagram.com/reel/Dfx7WujlD0L/"
+  },
+  "facebook": {
+    "id": "1680543170246236",
+    "enlace": "https://www.facebook.com/reel/1680543170246236"
+  },
+  "instagram_historia": "17916817026549317"
 }
