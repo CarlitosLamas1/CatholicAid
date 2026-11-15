@@ -146,9 +146,17 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente",
+  "revision": "ok",
   "rehecho_por_es": 1,
   "frase_es": "Hoy ha sido día de salvación para esta casa",
   "reflexion_es": "Jesús no mira tus fallos del pasado, sino tu deseo sincero de acogerle en tu vida. ¿Le abrirás hoy la puerta de tu corazón para dejarte transformar por su misericordia?",
-  "copiado_de": "2026-11-15T02:46:28+01:00"
+  "copiado_de": "2026-11-15T02:46:28+01:00",
+  "youtube": {
+    "id": "T12OYRV_Euk",
+    "url": "https://youtu.be/T12OYRV_Euk",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-16T23:05:00Z"
+  }
 }
