@@ -6,6 +6,7 @@
 2. Archiva las imágenes del día con más de 60 días (biblioteca/dias/) en una release mensual «archivo-AAAA-MM»
    y las saca del repositorio, para que no crezca sin fin.
 3. Busca en los tres canales de YouTube vídeos que no estén en ningún registro (subidas duplicadas).
+4. Los domingos, los números de la semana (proceso/estadisticas.py -> estado/estadisticas.json).
 Deja el resultado en estado/mantenimiento.json (lo lee el parte diario). Ningún paso bloquea a los demás.
 """
 import datetime as dt
@@ -104,6 +105,14 @@ def main():
         except Exception as ex:
             log(f"{clave}: falló ({ex})")
             estado.setdefault("errores", []).append(f"{clave}: {str(ex)[:150]}")
+    if hoy.isoweekday() == 7 or "--estadisticas" in sys.argv:
+        try:
+            sys.path.insert(0, str(Path(__file__).resolve().parent))
+            import estadisticas
+            estadisticas.main()
+        except Exception as ex:
+            log(f"estadísticas: falló ({ex})")
+            estado.setdefault("errores", []).append(f"estadisticas: {str(ex)[:150]}")
     (RAIZ / "estado" / "mantenimiento.json").write_text(json.dumps(estado, ensure_ascii=False, indent=2),
                                                          encoding="utf-8")
 

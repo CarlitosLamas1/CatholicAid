@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "proceso"))
+import estadisticas  # noqa: E402
 import evangelio as ev  # noqa: E402
 import gasto  # noqa: E402
 import mantenimiento  # noqa: E402
@@ -134,6 +135,27 @@ class Gasto(unittest.TestCase):
         r = gasto.resumen(dt.date(2026, 11, 15), [self.ES, self.PT, {"generado": "2026-10-30T10:00:00+01:00"}], cfg)
         self.assertEqual(r, {"hoy": 0.23, "mes": 0.23, "queda": 4.77})
         self.assertIsNone(gasto.resumen(dt.date(2026, 11, 15), [self.ES], {"precios": self.P})["queda"])
+
+
+class Estadisticas(unittest.TestCase):
+    def vid(self, gancho, visitas):
+        return {"gancho": gancho, "visitas": visitas}
+
+    def test_gana_con_claridad(self):
+        lista = [self.vid(1.5, x) for x in (100, 120, 110)] + [self.vid(2.8, x) for x in (150, 170, 140)]
+        self.assertEqual(estadisticas.comparar_gancho(lista)["ganador"], "2.8")
+
+    def test_sin_diferencia_clara_o_pocos_videos(self):
+        parejo = [self.vid(1.5, x) for x in (100, 120, 110)] + [self.vid(2.8, x) for x in (115, 125, 105)]
+        self.assertIsNone(estadisticas.comparar_gancho(parejo)["ganador"])
+        pocos = [self.vid(1.5, 100), self.vid(2.8, 500)]
+        self.assertIsNone(estadisticas.comparar_gancho(pocos)["ganador"])
+
+    def test_solo_se_fija_si_repite(self):
+        self.assertEqual(estadisticas.decidir([], "2.8"), (["2.8"], None))
+        self.assertEqual(estadisticas.decidir(["2.8"], "2.8"), (["2.8", "2.8"], "2.8"))
+        self.assertEqual(estadisticas.decidir(["1.5"], "2.8")[1], None)
+        self.assertEqual(estadisticas.decidir(["2.8"], None)[1], None)
 
 
 class Titulo(unittest.TestCase):

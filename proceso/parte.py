@@ -235,6 +235,26 @@ def componer(ahora):
     vis = visitas_ayer(ayer)
     if vis:
         msg += [f"📊 <b>Visitas del vídeo de ayer</b> · {vis}", ""]
+    semana = leer("estado/estadisticas.json")
+    if semana.get("fecha") == str(hoy) and semana.get("idiomas"):  # los domingos: los números de la semana
+        msg += ["📈 <b>LA SEMANA EN NÚMEROS</b>"]
+        for x in idiomas():
+            d = semana["idiomas"].get(x)
+            if d:
+                msg += [f"{BANDERAS[x]} {d['videos']} vídeos · 👀 {d['visitas']} · ❤️ {d['gustas']} · 💬 {d['comentarios']}"]
+        mejor = (semana["idiomas"].get("es") or {}).get("mejor")
+        if mejor and mejor.get("frase"):
+            msg += [f"🏆 El más visto: <i>«{e(mejor['frase'])}»</i> ({mejor['visitas']})"]
+        lados = (semana.get("gancho") or {}).get("lados") or {}
+        if len(lados) == 2:
+            txt = " · ".join(f"{k} s: {v['mediana']} visitas ({v['n']} vídeos)" for k, v in lados.items())
+            gana = semana["gancho"].get("ganador")
+            if semana.get("gancho_fijado"):
+                txt += f"\n✅ Gana el de {semana['gancho_fijado']} s dos semanas seguidas: queda fijado."
+            elif gana:
+                txt += f"\n→ Esta semana gana el de {gana} s; si repite la próxima, lo dejo fijo."
+            msg += [f"⏱️ Gancho: {txt}"]
+        msg += [""]
     if linea_gasto:
         msg += [linea_gasto + (f"\n<i>Reserva de pago usada (cupo gratis agotado): {', '.join(dict.fromkeys(pago))}.</i>"
                                if pago else ""), ""]

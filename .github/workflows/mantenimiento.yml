@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: "30 4 * * *"
   workflow_dispatch:
+    inputs:
+      estadisticas:
+        description: "Calcular también los números de la semana (normalmente solo los domingos)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -26,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Mantenimiento
-        run: python3 proceso/mantenimiento.py
+        run: python3 proceso/mantenimiento.py ${{ inputs.estadisticas && '--estadisticas' || '' }}
       - name: Guardar
         if: always()
-        run: python3 proceso/guardar.py "Mantenimiento diario" estado/ biblioteca/dias/
+        run: python3 proceso/guardar.py "Mantenimiento diario" estado/ biblioteca/dias/ config/
