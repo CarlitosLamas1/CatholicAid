@@ -65,8 +65,9 @@ def pendiente_de(fechas, suf):
 
 
 def puede_grabar(ahora):
-    """Desde las 08:00 UTC (se renueva el cupo gratis) hasta las 23:59 UTC; de madrugada no se graba."""
-    return dt.datetime.now(dt.timezone.utc).hour >= 8
+    """De 08:00 a 21:59 UTC (de 9 a 23 h en España): se graba de día, con el cupo gratis recién renovado, y nunca
+    alrededor de la medianoche, cuando se publica (15/11/2026: antes también grababa a las 00:xx de Madrid)."""
+    return 8 <= dt.datetime.now(dt.timezone.utc).hour < 22
 
 
 def lanzar(archivo, **campos):
