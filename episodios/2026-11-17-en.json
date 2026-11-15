@@ -8,29 +8,32 @@
   "voces": "gemini",
   "peticiones_voz": 11,
   "musica": "Chopin_-_Nocturne-op-55-no-1.ogg",
-  "duracion_s": 93.9,
+  "duracion_s": 126.2,
   "imagenes": [
     "dias/2026-11-17_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-17_e1.jpg",
-    "biblioteca/D04",
-    "biblioteca/D05",
+    "biblioteca/D01",
+    "biblioteca/D06",
     "dias/2026-11-17_e2.jpg",
+    "biblioteca/D05",
     "dias/2026-11-17_e3.jpg",
+    "biblioteca/G07",
+    "biblioteca/D10",
     "evangelistas/lucas.jpg",
     "biblioteca/R05",
     "evangelistas/lucas.jpg"
   ],
-  "frase_clave": "Zacchaeus, hurry and come down, for today I must stay at your house.",
-  "reflexion": "Jesus does not look at your faults, but at your desire to find him. Open the doors of your heart today and let him enter your life.",
-  "lufs": -14.1,
+  "frase_clave": "Today, salvation has come to this house",
+  "reflexion": "Jesus does not look at your past mistakes, but at your sincere desire to welcome him into your life. Will you open the door of your heart today to be transformed by his mercy?",
+  "lufs": -14.2,
   "gancho_segundos": 1.5,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Zacchaeus perched in a leafy sycamore tree looks down eagerly as Jesus, surrounded by a crowd in Jericho, stops and looks up at him with a welcoming smile.",
+      "descripcion": "Jesus looks up with a warm and loving smile toward Zacchaeus perched in the branches of a sycamore tree in Jericho, surrounded by an eager crowd.",
       "busqueda": "Zacchaeus sycamore tree",
       "personajes": [
         "jesus",
@@ -40,17 +43,18 @@
     },
     {
       "numero": 2,
-      "descripcion": "In a warm interior setting, Zacchaeus stands joyfully before Jesus at a banquet table, pledging half of his possessions to the poor.",
-      "busqueda": "Zacchaeus banquet table",
+      "descripcion": "Zacchaeus hurried down from the tree, joyfully greeting Jesus amidst the murmuring whispers of the townspeople.",
+      "busqueda": "Zacchaeus crowd murmuring",
       "personajes": [
         "jesus",
-        "hombre"
+        "hombre",
+        "multitud"
       ]
     },
     {
       "numero": 3,
-      "descripcion": "Jesus reaches out his hand in blessing towards Zacchaeus, extending peace and salvation to his home with deep affection.",
-      "busqueda": "Jesus blessing Zacchaeus",
+      "descripcion": "Inside Zacchaeus' home, Zacchaeus speaks with deep repentance and humility to Jesus, who responds with profound tenderness and grace.",
+      "busqueda": "Zacchaeus house Jesus",
       "personajes": [
         "jesus",
         "hombre"
@@ -69,75 +73,70 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 6.11,
+      "inicio": 10.15,
       "texto": "At that time, he entered and was passing through Jericho. There was a man named Zacchaeus. He was a chief tax collector, and he was rich. He was trying to see who Jesus was, and couldn’t because of the crowd, because he was short. He ran on ahead and climbed up into a sycamore tree to see him, for he was going to pass that way. When Jesus came to the place, he looked up and saw him, and said to him,"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 33.54,
+      "inicio": 45.45,
       "texto": "“Zacchaeus, hurry and come down, for today I must stay at your house.”"
     },
     {
       "personaje": "narrador",
-      "escena": 1,
-      "inicio": 39.78,
+      "escena": 2,
+      "inicio": 51.69,
       "texto": "He hurried, came down, and received him joyfully. When they saw it, they all murmured, saying,"
     },
     {
       "personaje": "multitud",
-      "escena": 1,
-      "inicio": 47.21,
+      "escena": 2,
+      "inicio": 66.63,
       "texto": "“He has gone in to lodge with a man who is a sinner.”"
     },
     {
       "personaje": "narrador",
-      "escena": 2,
-      "inicio": 50.34,
+      "escena": 3,
+      "inicio": 69.76,
       "texto": "Zacchaeus stood and said to the Lord,"
     },
     {
       "personaje": "hombre",
-      "escena": 2,
-      "inicio": 53.64,
+      "escena": 3,
+      "inicio": 76.54,
       "texto": "“Behold, Lord, half of my goods I give to the poor. If I have wrongfully exacted anything of anyone, I restore four times as much.”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 62.11,
+      "inicio": 85.01,
       "texto": "Jesus said to him,"
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 64.25,
+      "inicio": 91.45,
       "texto": "“Today, salvation has come to this house, because he also is a son of Abraham. For the Son of Man came to seek and to save that which was lost.”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 75.81,
+      "inicio": 103.01,
       "texto": "The Gospel of the Lord."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 80.4,
-      "texto": "Jesus does not look at your faults, but at your desire to find him. Open the doors of your heart today and let him enter your life.",
+      "inicio": 110.78,
+      "texto": "Jesus does not look at your past mistakes, but at your sincere desire to welcome him into your life. Will you open the door of your heart today to be transformed by his mercy?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-15T01:01:22+01:00",
-  "run": "43654521589",
+  "generado": "2026-11-15T12:15:08+01:00",
+  "run": "43705859022",
   "idioma": "en",
   "libro": "Lucas",
   "cita_es": "Lucas 19, 1-10",
-  "cupo_agotado": [
-    "gemini-3.7-flash",
-    "gemini-3.8-flash",
-    "gemini-flash-latest"
-  ],
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
   ],
@@ -147,26 +146,10 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "rechazada",
-  "youtube": {
-    "id": "EXtuKK40txs",
-    "url": "https://youtu.be/EXtuKK40txs",
-    "privacyStatus": "private",
-    "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true,
-    "publishAt": "2026-11-16T23:05:00Z",
-    "lista": {
-      "id": "PLE6wYiZ-BMK0",
-      "titulo": "Gospel according to St. Luke",
-      "url": "https://www.youtube.com/playlist?list=PLE6wYiZ-BMK0"
-    },
-    "lista_liturgica": {
-      "id": "PLLWkUaN0V-24",
-      "titulo": "Daily Gospel · Ordinary Time",
-      "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
-    },
-    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss",
-    "subtitulos": "ok"
-  },
-  "rehecho_por_es": 1
+  "revision": "pendiente",
+  "rehecho_por_es": 1,
+  "frase_es": "Hoy ha sido día de salvación para esta casa",
+  "reflexion_es": "Jesús no mira tus fallos del pasado, sino tu deseo sincero de acogerle en tu vida. ¿Le abrirás hoy la puerta de tu corazón para dejarte transformar por su misericordia?",
+  "copiado_de": "2026-11-15T02:46:28+01:00",
+  "reemplaza": "EXtuKK40txs"
 }
