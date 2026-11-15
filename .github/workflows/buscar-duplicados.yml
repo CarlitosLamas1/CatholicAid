@@ -11,6 +11,9 @@ on:
       borrar:
         description: "Para borrar: identificador del vídeo que sobra"
         required: false
+      ver:
+        description: "Para consultar un vídeo concreto (con idioma)"
+        required: false
 
 permissions:
   contents: read
@@ -29,7 +32,11 @@ jobs:
         env:
           IDIOMA: ${{ inputs.idioma }}
           BORRAR: ${{ inputs.borrar }}
+          VER: ${{ inputs.ver }}
         run: |
+          if [ -n "$VER" ] && [ -n "$IDIOMA" ]; then
+            python3 proceso/duplicados.py --ver "$IDIOMA" "$VER"
+          fi
           if [ -n "$BORRAR" ] && [ -n "$IDIOMA" ]; then
             python3 proceso/duplicados.py --borrar "$IDIOMA" "$BORRAR"
           fi

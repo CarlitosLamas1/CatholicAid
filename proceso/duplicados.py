@@ -64,7 +64,9 @@ def sobrantes(idioma, ids=None):
     """Vídeos del canal que no figuran en ningún registro."""
     ids = conocidos() if ids is None else ids
     ev.aplicar_idioma(idioma)
-    return [v for v in subidas(ev.token_youtube(idioma)) if v["id"] not in ids]
+    todos = subidas(ev.token_youtube(idioma))
+    print(f"[{idioma}] {len(todos)} vídeos mirados; el más reciente: {todos[0]['id'] if todos else '—'}")
+    return [v for v in todos if v["id"] not in ids]
 
 
 def main():
@@ -76,6 +78,16 @@ def main():
         tok = ev.token_youtube(idioma)
         ev.http(ev.YT + f"videos?id={vid}", headers={"Authorization": f"Bearer {tok}"}, method="DELETE", raw=True)
         print(f"Borrado de YouTube ({idioma}): {vid}")
+        return
+    if len(sys.argv) == 4 and sys.argv[1] == "--ver":
+        idioma, vid = sys.argv[2], sys.argv[3]
+        ev.aplicar_idioma(idioma)
+        tok = ev.token_youtube(idioma)
+        d = ev.http(ev.YT + f"videos?part=snippet,status&id={vid}", headers={"Authorization": f"Bearer {tok}"})
+        for i in d.get("items", []):
+            print(f"VER {i['id']} · canal {i['snippet']['channelId']} · {i['status']['privacyStatus']} · publica "
+                  f"{i['status'].get('publishAt', '—')} · {i['snippet']['title']}")
+        print(f"VER {vid}: {len(d.get('items', []))} resultado(s); en registro: {vid in conocidos()}")
         return
     ids = conocidos()
     total = 0
