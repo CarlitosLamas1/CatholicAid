@@ -96,10 +96,14 @@ def generar(escena, destino, referencias=(), estilo="oleo", intentos=3, anterior
         partes.append({"text": f"Reference image of {nombre}: keep exactly this face, hair and clothing."})
         partes.append(_referencia(ruta))
     if anterior and Path(anterior).exists():
-        partes.append({"text": "Another scene already painted for this same story. Keep the SAME painting technique, "
-                               "palette and light, and the SAME appearance (face, age, hair, beard, clothing) for "
-                               "every character that appears again. Do NOT copy its composition or its background: "
-                               "the new scene is a different moment."})
+        # Prueba del 15/11/2026: con una instrucción más floja copiaba la composición entera (los mismos criados
+        # arrodillados en todas las escenas, incluso donde no tocaban).
+        partes.append({"text": "Another scene already painted for this same story. Use it ONLY as a guide for the "
+                               "painting technique, palette and light, and for how a character looks (face, age, hair, "
+                               "beard, clothing) IF that same character is described in the new scene. The new image "
+                               "must show ONLY the people and the action described in the new scene, in a clearly "
+                               "different composition, place in the frame and camera angle. Do not repeat its poses, "
+                               "its background or people the new scene does not mention."})
         partes.append(_referencia(anterior))
     estilo_txt = ESTILO_ACUARELA if estilo == "acuarela" else ESTILO_OLEO
     partes.append({"text": f"Create a new image. Scene: {escena}\nStyle: {estilo_txt}\n{REGLAS}"})
