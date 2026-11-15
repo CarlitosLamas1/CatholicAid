@@ -2,21 +2,22 @@
   "fecha": "2026-11-17",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-15T02:23:28+01:00",
-  "revisado": "2026-11-15T02:32:53+01:00",
+  "generado": "2026-11-15T02:46:28+01:00",
+  "revisado": "2026-11-15T03:40:00+01:00",
   "motivos": [],
   "avisos": [
-    "Imágenes: la escena 1 es acuarela y las 2 y 3 óleo (mezcla de estilos); en la escena 2 Zaqueo aparece como un anciano y en la 3 como un hombre maduro. Mejorable, no grave.",
-    "La sincronía de subtítulos marca ok=false (el corte del narrador no se pudo escuchar); publicar.py puede rehacer el vídeo una vez."
+    "Imágenes: la escena 1 es acuarela y las 2 y 3 óleo (mezcla de estilos, ya repintado una vez).",
+    "Imágenes: en la escena 2 Zaqueo aparece como un anciano, distinto del de las escenas 1 y 3. Mejorable, no grave.",
+    "La reflexión va como 'Jesús no mira tus fallos…': correcta, aunque no es palabra de Jesús."
   ],
   "puntos": {
     "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 19, 1-10 coincide",
-    "voces": "✅ Jesús, Zaqueo (hombre) y narrador bien asignados",
-    "frase_clave": "✅ literal, dicha por Jesús, 8 palabras",
-    "reflexion": "✅ 28 palabras, cálida y fiel a la lectura",
-    "tecnica": "✅ duración 100 s; LUFS -14.0",
-    "audio": "✅ más lento: frag. 7 'Palabra del Señor' 6,1 car/s (3 s, normal); más rápido: frag. 4 Zaqueo 16,4 car/s",
-    "imagenes": "⚠️ mezcla de estilos y edad inconsistente de Zaqueo; nada inapropiado",
-    "metadatos": "✅ fecha, cita y título de san Lucas coherentes"
+    "voces": "✅ Jesús, hombre (Zaqueo) y narrador correctos",
+    "frase_clave": "✅ literal, de Jesús, 7 palabras",
+    "reflexion": "✅ cálida, católica, 31 palabras",
+    "tecnica": "✅ 95,5 s; -14,1 LUFS; sincronía ok",
+    "audio": "✅ más lento: Palabra del Señor 6,1 c/s (corto); más rápido: 16,6 c/s (frag. 4)",
+    "imagenes": "⚠️ mezcla acuarela/óleo y Zaqueo inconsistente; nada inapropiado",
+    "metadatos": "✅ título Lucas coherente con la cita"
   }
 }
