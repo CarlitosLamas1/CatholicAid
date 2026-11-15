@@ -83,7 +83,8 @@
     "lista": {
       "titulo": "Evangelio según san Mateo",
       "error": "409"
-    }
+    },
+    "miniatura": "ok"
   },
   "tiktok": {
     "publish_id": "v_pub_file~v2-1.7705594012916500502",

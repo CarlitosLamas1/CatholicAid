@@ -133,7 +133,7 @@
       "titulo": "Daily Gospel · Ordinary Time",
       "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
     },
-    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+    "miniatura": "ok"
   },
   "telegram_youtube": true
 }

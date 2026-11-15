@@ -122,7 +122,7 @@
       "titulo": "Evangelio del día · Tiempo Ordinario",
       "url": "https://www.youtube.com/playlist?list=PLM39u5xp5OPg"
     },
-    "miniatura": "error 403: { \"error\": { \"code\": 403, \"message\": \"The authenticated user doesn't have permissions to upload and set custom video thumbnails.\", \"errors\": [ { \"message\": \"The authenticated user doesn't have permiss"
+    "miniatura": "ok"
   },
   "tiktok": {
     "publish_id": "v_pub_file~v2-1.7706307133134096406",
