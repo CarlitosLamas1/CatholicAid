@@ -18,15 +18,6 @@
       "respuesta": "",
       "por": "claude"
     },
-    "Ugzb53V_6nlVYUQEckd4AaABAg": {
-      "tipo": "responder",
-      "publicado": "2026-11-05T02:34:16+00:00",
-      "desde": "2026-11-06T12:13:31.300376+01:00",
-      "listo": "2026-11-05T04:37:16+00:00",
-      "motivo": "alabanza sencilla",
-      "respuesta": "Gracias por estar ahí cada día. Que la Palabra de Jesús te acompañe y te bendiga.",
-      "por": "claude"
-    },
     "UgxH0qjA7NJLdqun5vZ4AaABAg": {
       "tipo": "responder",
       "publicado": "2026-11-06T17:03:35+00:00",
@@ -163,10 +154,13 @@
       "por": "claude"
     },
     "Ugw_jy40zzZWfQP--Bd4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-15T00:57:14+00:00",
       "desde": "2026-11-15T02:02:35.673145+01:00",
-      "listo": "2026-11-15T03:52:14+00:00"
+      "listo": "2026-11-15T03:52:14+00:00",
+      "motivo": "Solo «Amén» y emojis",
+      "respuesta": "",
+      "por": "claude"
     }
   },
   "respondidos": [
