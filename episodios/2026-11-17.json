@@ -129,5 +129,16 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente"
+  "revision": "rechazada",
+  "repintar": [
+    {
+      "escena": 1,
+      "corregir": "Fix the problem the reviewer found in the previous version (in Spanish): Imágenes: la escena 1 es acuarela y las 2 y 3 óleo (mezcla de estilos); Zaqueo, 'muy rico', aparece pobre en la escena 3 y mayor en la 2. Mejorable, no grave."
+    },
+    {
+      "escena": 3,
+      "corregir": "Fix the problem the reviewer found in the previous version (in Spanish): Imágenes: la escena 1 es acuarela y las 2 y 3 óleo (mezcla de estilos); Zaqueo, 'muy rico', aparece pobre en la escena 3 y mayor en la 2. Mejorable, no grave."
+    }
+  ],
+  "repintados": 1
 }
