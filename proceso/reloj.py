@@ -236,16 +236,27 @@ def otro_idioma(runs, ahora, fechas, suf, nombre, archivo, etiqueta):
         log(f"{etiqueta} {objetivo}: sin cupo de Gemini desde la última renovación; espero a la siguiente.")
         return
     es = leer(f"episodios/{objetivo}.json")
-    es_hecho = es.get("modo") == "diario" and (
-        es.get("youtube") or es.get("revision") in ("pendiente", "ok", "rechazada") or es.get("no_publicar"))
-    ultimo = objetivo == fechas[0] and ahora.hour >= 23
-    if not es_hecho and not ultimo:
-        log(f"{etiqueta} {objetivo}: espero a que esté el vídeo en español.")
+    motivo = espera_al_espanol(es, objetivo == fechas[0], ahora.hour)
+    if motivo:
+        log(f"{etiqueta} {objetivo}: {motivo}")
         return
     if reciente(runs, nombre, 100):
         log(f"{etiqueta} {objetivo}: hay una tirada en marcha o reciente; espero.")
         return
     lanzar(archivo, modo="diario", fecha=str(objetivo))
+
+
+def espera_al_espanol(es, es_manana, hora):
+    """El inglés y el portugués copian frase, reflexión e imágenes del español: esperan a que el español tenga el OK
+    del revisor (si no, cuando el español se rehace quedan desfasados; 17/11/2026). Para el vídeo de MAÑANA, desde
+    las 21:00 de Madrid basta con que el español esté hecho, y desde las 23:00 no se espera a nada.
+    Devuelve el motivo de la espera o "" si ya se puede grabar."""
+    diario = es.get("modo") == "diario"
+    aprobado = diario and bool(es.get("youtube") or es.get("revision") == "ok" or es.get("no_publicar"))
+    hecho = diario and es.get("revision") in ("pendiente", "rechazada")
+    if aprobado or (es_manana and hora >= 23) or (es_manana and hora >= 21 and hecho):
+        return ""
+    return "espero al visto bueno del revisor al español." if hecho else "espero a que esté el vídeo en español."
 
 
 def semana(runs, ahora):

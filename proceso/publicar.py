@@ -111,6 +111,64 @@ def pedir_repintar(fecha, idioma, reg, rev):
     return True
 
 
+def _momento(t):
+    try:
+        return dt.datetime.fromisoformat(t)
+    except (TypeError, ValueError):
+        return None
+
+
+def desfasado(es, otro):
+    """¿El vídeo en inglés/portugués se hizo con una versión del español que ya no es la buena? Devuelve el motivo
+    o "". El español manda: misma frase clave, misma reflexión y mismas imágenes en los tres canales."""
+    if not es.get("frase_clave") or not otro.get("generado"):
+        return ""
+    t_es, t_otro = _momento(es.get("generado")), _momento(otro.get("generado"))
+    posterior = bool(t_es and t_otro and t_es > t_otro)  # el español se rehízo después de hacer este vídeo
+    if "frase_es" in otro:
+        if otro["frase_es"] != es["frase_clave"]:
+            return "la frase clave del español ha cambiado"
+        if otro.get("reflexion_es", "") != es.get("reflexion", ""):
+            return "la reflexión del español ha cambiado"
+    elif posterior and es.get("rehechos"):  # registros anteriores al 15/11/2026: no guardaban qué copiaron
+        return "el español se rehízo después"
+    if posterior and es.get("repintados"):
+        return "el español repintó imágenes después"
+    return ""
+
+
+def arrastrar_idiomas(fecha, es):
+    """El español ya tiene el OK definitivo: si el inglés o el portugués de ese día se hicieron con una versión
+    anterior (17/11/2026: el español se rehízo y quedaron con otra frase y la imagen vieja), se rehacen una vez,
+    si quedan más de 3 h para publicar. Nunca bloquea."""
+    flujos = {"en": "evangelio-ingles.yml", "pt": "evangelio-portugues.yml"}
+    for idioma, flujo in flujos.items():
+        try:
+            if not ev_mod.CFG.get(idioma, {}).get("activo"):
+                continue
+            ruta = RAIZ / "episodios" / f"{fecha}-{idioma}.json"
+            otro = leer(ruta)
+            if (otro.get("modo") != "diario" or otro.get("no_publicar") or otro.get("rehecho_por_es")
+                    or otro.get("revision") not in ("pendiente", "ok")):
+                continue
+            motivo = desfasado(es, otro)
+            if not motivo:
+                continue
+            publica = dt.datetime.combine(dt.date.fromisoformat(fecha), ev_mod.hora_pub(idioma), ev_mod.MADRID)
+            if dt.datetime.now(ev_mod.MADRID) > publica - dt.timedelta(hours=3):
+                log(f"{idioma} {fecha}: {motivo}, pero ya no da tiempo a rehacerlo; se deja como está.")
+                continue
+            otro["rehecho_por_es"] = 1
+            otro["revision"] = "rechazada"
+            guardar(ruta, otro)
+            guardar_en_main(f"Rehacer {fecha}-{idioma}: {motivo}")
+            sh("gh", "release", "delete", f"{idioma}-{fecha}", "--yes", "--cleanup-tag", check=False)
+            sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
+            log(f"{idioma} {fecha}: {motivo}; lo rehago para que coincida con el español.")
+        except Exception as ex:
+            log(f"{idioma} {fecha}: no se pudo comprobar si coincide con el español ({ex})")
+
+
 def main():
     nombre = sys.argv[1].strip()
     fecha, idioma = avisos.idioma_de(nombre)
@@ -190,6 +248,8 @@ def main():
         except Exception as ex:
             log(f"Extras no completados ({ex})")
         guardar(ruta_reg, reg)
+        if idioma == "es":
+            arrastrar_idiomas(fecha, reg)
         return
     sh("gh", "release", "download", release, "-D", tmp, "-p", "video.mp4")
     video = tmp / "video.mp4"
@@ -220,6 +280,8 @@ def main():
         log(f"Listas/miniatura no completadas ({ex})")
     guardar(ruta_reg, reg)
     log(f"Subido: https://youtu.be/{vid} ({estado['privacyStatus']})")
+    if idioma == "es":
+        arrastrar_idiomas(fecha, reg)
     hora = ev_mod.hora_pub(idioma).strftime("%H:%M")
     cuando_yt = f"programado a las {hora}" if estado.get("publishAt") else f"queda {estado['privacyStatus']}"
     nota = "" if rev.get("por") == "Carlos" else "\n🔎 Revisado por el revisor: todo correcto."

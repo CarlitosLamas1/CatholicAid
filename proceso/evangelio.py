@@ -2353,6 +2353,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
             es_d = json.loads(es_reg.read_text(encoding="utf-8")) if es_reg.exists() else {}
             if es_d.get("modo") == "diario" and es_d.get("frase_clave"):
                 ev["frase_es"], ev["reflexion_es"] = es_d["frase_clave"], es_d.get("reflexion", "")
+                ev["copiado_de"] = es_d.get("generado", "")
         frase, reflexion = gancho_y_reflexion(frs, ev, g.get("origen") != "reglas")
     if not reflexion:  # nunca un vídeo sin reflexión: como el reparto, se reintenta salvo en el último intento
         if a.modo == "diario" and not ultimo_intento(idioma):
@@ -2467,6 +2468,10 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         registro["run"] = os.environ["GITHUB_RUN_ID"]
     if idioma != "es":
         registro.update({"idioma": idioma, "libro": libro, "cita_es": ev["cita_es"]})
+        if ev.get("frase_es"):  # de qué versión del español se copiaron frase, reflexión e imágenes: si el español
+            # se rehace después, «Publicar revisado» rehace también este vídeo (proceso/publicar.py, arrastrar_idiomas)
+            registro.update({"frase_es": ev["frase_es"], "reflexion_es": ev.get("reflexion_es", ""),
+                             "copiado_de": ev.get("copiado_de", "")})
     if CUPO_AGOTADO:
         registro["cupo_agotado"] = sorted(CUPO_AGOTADO)
     if RESERVA_PAGO:
@@ -2486,7 +2491,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     if a.modo == "diario" and hecho.get("modo") == "diario" and hecho.get("youtube", {}).get("id"):
         # Se rehace un vídeo ya subido (p. ej. para mejorarlo): al subir el nuevo, «Publicar revisado» borra el viejo
         registro["reemplaza"] = hecho["youtube"]["id"]
-    for k in ("rehechos", "descartados", "repintar", "repintados", "musica_bloqueada"):  # historial de versiones anteriores del mismo día
+    for k in ("rehechos", "descartados", "repintar", "repintados", "musica_bloqueada", "rehecho_por_es"):  # historial de versiones anteriores del mismo día
         if k in hecho:
             registro[k] = hecho[k]
 
