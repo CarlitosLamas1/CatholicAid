@@ -91,8 +91,28 @@ def canjear(codigo):
     if not cuentas:
         nombres = ", ".join(p["name"] for p in paginas) or "ninguna"
         raise RuntimeError(f"Ninguna de tus páginas ({nombres}) tiene una cuenta de Instagram profesional vinculada.")
-    guardar({"cuentas": cuentas})
+    try:  # qué permisos ha concedido Carlos (p. ej. pages_manage_posts para los Reels de Facebook)
+        permisos = sorted(x["permission"] for x in _get("me/permissions", access_token=largo).get("data", [])
+                          if x.get("status") == "granted")
+    except Exception:
+        permisos = []
+    print("Permisos concedidos:", ", ".join(permisos) or "desconocidos", flush=True)
+    guardar({"cuentas": cuentas, "permisos": permisos})
     return cuentas
+
+
+def facebook_permitido():
+    """La autorización guardada incluye publicar en las páginas de Facebook (pages_manage_posts)."""
+    try:
+        return "pages_manage_posts" in (leer().get("permisos") or [])
+    except Exception:
+        return False
+
+
+def facebook_activo(cfg):
+    """config «facebook.activo»: true = siempre; "auto" = en cuanto la autorización lo permita; false = nunca."""
+    activo = (cfg or {}).get("activo")
+    return activo is True or (activo == "auto" and facebook_permitido())
 
 
 def _cuenta(usuario=None):
@@ -164,6 +184,22 @@ def subir(video, texto, url=None, portada=None, usuario=None):
     pub = _post(GRAPH + f"{ig}/media_publish", {"creation_id": cid, "access_token": tok})
     enlace = _get(pub["id"], fields="permalink", access_token=tok).get("permalink", "")
     return pub["id"], enlace
+
+
+def subir_historia(imagen_url, usuario=None):
+    """Publica una imagen (la miniatura vertical con la frase del día) como historia. Devuelve el id.
+    Meta solo lo permite a algunos tipos de cuenta: si no deja, lanza RuntimeError y quien llama lo anota y sigue."""
+    d = _cuenta(usuario)
+    tok, ig = d["token"], d["ig_id"]
+    cont = _post(GRAPH + f"{ig}/media", {"media_type": "STORIES", "image_url": imagen_url, "access_token": tok})
+    for _ in range(20):
+        estado = _get(cont["id"], fields="status_code", access_token=tok)
+        if estado.get("status_code") in ("FINISHED", "ERROR", "EXPIRED"):
+            break
+        time.sleep(3)
+    if estado.get("status_code") != "FINISHED":
+        raise RuntimeError(f"Instagram no procesó la historia: {estado}")
+    return _post(GRAPH + f"{ig}/media_publish", {"creation_id": cont["id"], "access_token": tok})["id"]
 
 
 def borrar(media_id, usuario=None):

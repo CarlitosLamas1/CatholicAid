@@ -323,7 +323,9 @@
     "_nota": "Cuenta de Instagram por idioma (proceso/instagram.py, instagram-publicar.yml). Todas en la misma autorización de Meta.",
     "es": "catolicaid_es_official",
     "en": "catolicaid_en_official",
-    "pt": "catolicaid_pt_official"
+    "pt": "catolicaid_pt_official",
+    "_historias": "Tras cada Reel, la miniatura vertical con la frase del día como historia (15/11/2026). Si Meta no lo permite a la cuenta, queda anotado en el registro (instagram_historia_error) y no pasa nada.",
+    "historias": true
   },
   "tiktok": {
     "privacidad": "PUBLIC_TO_EVERYONE"
@@ -709,8 +711,8 @@
     "Chopin - Nocturne-op-55-no-1.ogg"
   ],
   "facebook": {
-    "_nota": "Reels también en las páginas de Facebook (CatolicAid y CatolicAid English), los publica «Publicar en Instagram» tras cada Reel. Necesita el permiso pages_manage_posts: Carlos vuelve a autorizar en docs/instagram.html y se pone activo=true.",
-    "activo": false
+    "_nota": "Reels también en las páginas de Facebook (CatolicAid y CatolicAid English), los publica «Publicar en Instagram» tras cada Reel. Necesita el permiso pages_manage_posts: Carlos vuelve a autorizar en docs/instagram.html. activo: true = siempre; \"auto\" = se enciende solo en cuanto la autorización guardada incluye ese permiso (15/11/2026); false = nunca.",
+    "activo": "auto"
   },
   "gasto": {
     "_nota": "Estimación del gasto de la clave de pago de Gemini para el parte diario (proceso/gasto.py). Precios aproximados en euros: por imagen pintada, por segundo de voz grabada con la clave de pago y un fijo por vídeo cuando el texto tiró de la reserva. Google no da el saldo por API: si Carlos dice cuánto saldo hay un día, se apunta en «saldo» ({\"euros\": 8.5, \"fecha\": \"AAAA-MM-DD\"}) y el parte estima lo que queda y avisa cuando baje de «avisar_por_debajo».",

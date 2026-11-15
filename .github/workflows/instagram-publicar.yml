@@ -163,7 +163,7 @@ jobs:
           reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
           # Facebook: el mismo Reel en la página vinculada (config facebook.activo). Nunca impide lo de Instagram.
           cfg_fb = json.loads(Path("config/personajes.json").read_text(encoding="utf-8")).get("facebook", {})
-          if cfg_fb.get("activo") and not d.get("facebook"):
+          if instagram.facebook_activo(cfg_fb) and not d.get("facebook"):
               try:
                   fid, fenlace = instagram.subir_facebook("t/video.mp4", texto, instagram.usuario_de(idioma))
                   print("Facebook:", idioma, fid, fenlace)
@@ -171,6 +171,17 @@ jobs:
               except Exception as ex:
                   print("Facebook no publicado:", ex)
                   d["facebook_error"] = str(ex)[:300]
+              reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+          # Historia con la frase del día (la miniatura vertical). Una vez por vídeo; nunca impide lo demás.
+          cfg_ig = json.loads(Path("config/personajes.json").read_text(encoding="utf-8")).get("instagram", {})
+          portada = os.environ.get("PORTADA_URL")
+          if cfg_ig.get("historias") and portada and not d.get("instagram_historia") and not d.get("instagram_historia_error"):
+              try:
+                  d["instagram_historia"] = instagram.subir_historia(portada, instagram.usuario_de(idioma))
+                  print("Historia de Instagram:", idioma, d["instagram_historia"])
+              except Exception as ex:
+                  print("Historia no publicada:", ex)
+                  d["instagram_historia_error"] = str(ex)[:300]
               reg.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
           PY
             then
