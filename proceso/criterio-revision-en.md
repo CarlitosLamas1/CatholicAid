@@ -22,7 +22,7 @@ Mismo criterio que el español, con estas diferencias. El revisor escribe `revis
 5. **tecnica**: duración ≤ 180 s, `lufs` entre -15 y -13. Audio: 10–20 caracteres por segundo por fragmento
    (el inglés es algo más rápido que el español; < 8 o > 22 es anómalo).
 6. **imagenes**: las del día del español (`dias/AAAA-MM-DD_eN.jpg`) o de la biblioteca; nunca imágenes nuevas.
-7. **metadatos**: título «“Frase” | Gospel of the day, Nov 8 (Luke 16:1-8)» (≤ 100 caracteres), cita en formato
+7. **metadatos**: título «“Frase” | Daily Gospel Reading, November 8, 2026 (Luke 16:1-8)» (≤ 100 caracteres; si no cabe, «Daily Gospel, …» o la fecha corta «Nov 8»), cita en formato
    inglés, todo en inglés, `gancho_segundos` 1,5 o 2,8, `subtitulos_karaoke: true`.
 
 ## JSON (igual que en español)

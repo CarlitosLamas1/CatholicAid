@@ -1569,18 +1569,25 @@ def _normal_palabra(w):
 def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
     titulo = {"en": "Gospel of the day · ", "pt": "Evangelho do dia · "}.get(IDIOMA, "Evangelio del día · ")
     fin_cabecera = next((f["inicio"] for f in frs if f.get("reflexion")), total - cierre)  # no durante la reflexión
+    acento = color_ass(color_tiempo(fecha))  # dorado; morado suave en Adviento y Cuaresma
+    dia = dia_liturgico(fecha, IDIOMA)  # «Domingo I de Adviento», «Inmaculada Concepción…»; "" en un día corriente
     eventos = [("Cabecera", gancho, fin_cabecera,
-                "{\\fs38}" + titulo + fecha_larga(fecha) + "\\N{\\fs56}" + ev["cita"])]
+                (("{\\fs34\\c" + acento + "}" + dia + "\\N{\\c&HFFFFFF&}") if dia else "")
+                + "{\\fs38}" + titulo + fecha_larga(fecha) + "\\N{\\fs56}" + ev["cita"])]
     if frase and gancho:
         # Gancho minimalista: velo oscuro muy suave sobre la imagen y la frase en serif fina, centrada.
         eventos.append(("Velo", 0, gancho, "{\\an7\\pos(0,0)\\p1\\fad(0,350)}"
                         f"m 0 0 l {W} 0 {W} {H} 0 {H}" + "{\\p0}"))
         limpio = frase.replace("{", "(").replace("}", ")")
         eventos.append(("Gancho", 0, gancho, "{\\fad(250,350)\\blur3}“" + limpio + "”"))
+        tiempo = etiqueta_tiempo(fecha, IDIOMA)
+        if tiempo:  # Adviento / Cuaresma: el nombre del tiempo, pequeño y en morado, sobre la frase
+            eventos.append(("Cabecera", 0, gancho, "{\\an8\\pos(540,330)\\fad(250,350)\\fs46\\c" + acento + "}"
+                            + tiempo.upper()))
     if cierre:
         # Cierre minimalista sobre el evangelista (o la escena oscurecida), arriba, en la pared despejada.
         eventos.append(("Gancho", total - cierre, total, "{\\an8\\pos(540,430)\\fad(300,400)\\blur2\\fs64}" + txt("cierre")
-                        + "\\N{\\fs40\\i0\\c" + color_ass("F5C542") + "}CatolicAid"))
+                        + "\\N{\\fs40\\i0\\c" + acento + "}CatolicAid"))
     for n_f, f in enumerate(frs):
         p = PJ[f["personaje"]]
         kar = CFG.get("karaoke", {})
@@ -1765,37 +1772,8 @@ TIEMPOS_PT = {"adviento": "Evangelho do dia · Advento", "navidad": "Evangelho d
               "ordinario": "Evangelho do dia · Tempo Comum"}
 
 
-def pascua(anio):
-    """Domingo de Pascua (calendario gregoriano, algoritmo de Meeus/Jones/Butcher)."""
-    a, b, c = anio % 19, anio // 100, anio % 100
-    d, e = b // 4, b % 4
-    g = (8 * b + 13) // 25
-    h = (19 * a + b - d - g + 15) % 30
-    i, k = c // 4, c % 4
-    l = (32 + 2 * e + 2 * i - h - k) % 7
-    m = (a + 11 * h + 19 * l) // 433
-    mes = (h + l - 7 * m + 90) // 25
-    return dt.date(anio, mes, (h + l - 7 * m + 33 * mes + 19) % 32)
-
-
-def tiempo_liturgico(fecha):
-    """adviento / navidad / cuaresma / pascua / ordinario (rito romano, Epifanía el 6 de enero)."""
-    navidad = dt.date(fecha.year, 12, 25)
-    adviento = navidad - dt.timedelta(days=(navidad.isoweekday() % 7 or 7) + 21)  # 4.º domingo antes de Navidad
-    if adviento <= fecha < navidad:
-        return "adviento"
-    if fecha >= navidad:
-        return "navidad"
-    epifania = dt.date(fecha.year, 1, 6)
-    bautismo = epifania + dt.timedelta(days=7 - epifania.isoweekday() % 7)  # domingo siguiente al 6 de enero
-    if fecha <= bautismo:
-        return "navidad"
-    p = pascua(fecha.year)
-    if p - dt.timedelta(days=46) <= fecha < p:
-        return "cuaresma"
-    if p <= fecha <= p + dt.timedelta(days=49):  # hasta Pentecostés
-        return "pascua"
-    return "ordinario"
+from liturgia import (color_tiempo, dia_liturgico, dias_para_navidad, etiqueta_tiempo,  # noqa: E402,F401
+                      pascua, tiempo_liturgico)
 
 
 def refresh_youtube(idioma="es"):
@@ -1919,10 +1897,11 @@ def titulo_youtube(ev, fecha, idioma="es"):
                     f" | Evangelho do dia {fecha.day}/{fecha.month} ({ev['cita']})",
                     f" | Evangelho {fecha.day}/{fecha.month} · {ev['cita']}"]
     elif idioma == "en":
-        mes = MONTHS[fecha.month - 1][:3]
-        base = f"Gospel of the day · {MONTHS[fecha.month - 1]} {fecha.day} · {ev['cita']}"
-        opciones = [f" | Gospel of the day, {MONTHS[fecha.month - 1]} {fecha.day} ({ev['cita']})",
-                    f" | Gospel of the day, {mes} {fecha.day} ({ev['cita']})", f" | Gospel {mes} {fecha.day} · {ev['cita']}"]
+        # «Daily Gospel» y la fecha completa (con año): así lo busca la gente en inglés («daily gospel november 29 2026»).
+        mes, largo = MONTHS[fecha.month - 1][:3], f"{MONTHS[fecha.month - 1]} {fecha.day}, {fecha.year}"
+        base = f"Daily Gospel Reading · {largo} · {ev['cita']}"
+        opciones = [f" | Daily Gospel Reading, {largo} ({ev['cita']})", f" | Daily Gospel, {largo} ({ev['cita']})",
+                    f" | Daily Gospel, {mes} {fecha.day} ({ev['cita']})", f" | Gospel {mes} {fecha.day} · {ev['cita']}"]
     else:
         fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
         base = f"Evangelio del día · {fecha_txt} · {ev['cita']}"
@@ -1942,13 +1921,29 @@ def titulo_youtube(ev, fecha, idioma="es"):
     return f"“{frase}”{resto}"
 
 
+def lineas_liturgicas(fecha, idioma="es"):
+    """Para la descripción: el nombre del día (domingos y fiestas) y, en Adviento, la cuenta atrás a la Navidad."""
+    lineas = []
+    dia = dia_liturgico(fecha, idioma)
+    if dia:
+        lineas.append(f"✝️ {dia}")
+    faltan = dias_para_navidad(fecha)
+    if faltan:
+        dias = {"es": ("día", "días"), "en": ("day", "days"), "pt": ("dia", "dias")}[idioma][faltan != 1]
+        lineas.append({"es": f"🕯️ Adviento · Camino a la Navidad: faltan {faltan} {dias}.",
+                       "en": f"🕯️ Advent · The road to Christmas: {faltan} {dias} to go.",
+                       "pt": f"🕯️ Advento · A caminho do Natal: faltam {faltan} {dias}."}[idioma])
+    return "\n".join(lineas) + ("\n\n" if lineas else "")
+
+
 def metadatos_youtube(ev, fecha, modo, idioma="es"):
     """Título, descripción, etiquetas y estado (privado, contenido sintético, programación) del vídeo."""
     titulo = titulo_youtube(ev, fecha, idioma)
+    liturgia_txt = lineas_liturgicas(fecha, idioma)
     if idioma == "pt":
         descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
                        f"Evangelho de {DIAS_PT[fecha.weekday()]}, {fecha.day} de {MESES_PT[fecha.month - 1]} de "
-                       f"{fecha.year}, lido com várias vozes.\n\n"
+                       f"{fecha.year}, lido com várias vozes.\n\n" + liturgia_txt
                        + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
                        f"📖 Texto: {ev.get('fuente_texto', 'Bíblia do Pe. Antônio Pereira de Figueiredo')}. "
                        "Calendário litúrgico: Vatican News.\n"
@@ -1960,20 +1955,23 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
             ev["cita"].split()[0], ev["cita"].split()[0])]
     elif idioma == "en":
         descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
-                       f"Gospel of {DAYS[fecha.weekday()]}, {MONTHS[fecha.month - 1]} {fecha.day}, {fecha.year}, "
-                       "read with several voices.\n\n"
+                       f"Today's Catholic Gospel reading for the Mass of {DAYS[fecha.weekday()]}, "
+                       f"{MONTHS[fecha.month - 1]} {fecha.day}, {fecha.year}, read aloud with several voices.\n\n"
+                       + liturgia_txt
                        + (f"🕊️ To meditate: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
                        f"📖 Text: {ev.get('fuente_texto', 'World English Bible')}. Liturgical calendar: Vatican News.\n"
                        "🎨 Images: scenes generated with AI and classic paintings (public domain).\n"
                        "🎙️ Voices generated with artificial intelligence.\n"
                        + (f"🎵 Music: {credito_musica(ev)}\n" if credito_musica(ev) else "") + "\n"
-                       "#Shorts #GospelOfTheDay #DailyGospel #Gospel #Catholic #WordOfGod")
-        etiquetas = ["gospel of the day", "daily gospel", "gospel", "catholic", "word of God", "bible",
+                       "#Shorts #DailyGospel #GospelOfTheDay #TodaysGospel #Catholic #WordOfGod")
+        etiquetas = ["daily gospel", "gospel of the day", "today's gospel", "gospel reading today",
+                     "daily mass readings", "catholic mass readings", "catholic", "word of God", "bible",
                      ev["cita"].split()[0]]
     else:
         fecha_txt = f"{fecha.day} de {MESES[fecha.month - 1]}"
         descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
                        f"Evangelio del {DIAS[fecha.weekday()]} {fecha_txt} de {fecha.year}, leído con varias voces.\n\n"
+                       + liturgia_txt
                        + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
                        f"📖 Texto: {ev.get('fuente_texto', 'Vatican News')}. Calendario litúrgico: Vatican News.\n"
                        "🎨 Imágenes: escenas generadas con IA y pinturas clásicas (dominio público)\n"
@@ -2104,8 +2102,13 @@ def fuente_serif(tam):
     return ImageFont.load_default(tam)
 
 
-def miniatura(img, frase, destino, tam=(1280, 720)):
-    """JPG con la imagen del día, la frase clave en serif fina con velo suave y «CatolicAid» en pequeño."""
+def _rgb(hexa):
+    return tuple(int(hexa[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def miniatura(img, frase, destino, tam=(1280, 720), acento="F5C542", etiqueta=""):
+    """JPG con la imagen del día, la frase clave en serif fina con velo suave y «CatolicAid» en pequeño.
+    acento: color de la marca (dorado; morado suave en Adviento y Cuaresma). etiqueta: «ADVIENTO», sobre la frase."""
     from PIL import Image, ImageDraw, ImageFilter
     w, h = tam
     base = Image.open(img).convert("RGB")
@@ -2153,9 +2156,13 @@ def miniatura(img, frase, destino, tam=(1280, 720)):
         d.text(((w - lw) / 2, y0 + k * alto), linea, font=f, fill=(255, 255, 255),
                stroke_width=max(1, tam_letra // 40), stroke_fill=(0, 0, 0))
     marca = fuente_serif(int(tam_letra * 0.45))
+    if etiqueta and lineas:
+        ew = d.textlength(etiqueta.upper(), font=marca)
+        d.text(((w - ew) / 2, y0 - tam_letra * 0.75), etiqueta.upper(), font=marca, fill=_rgb(acento),
+               stroke_width=1, stroke_fill=(0, 0, 0))
     mw = d.textlength("CatolicAid", font=marca)
     pos = (w - mw - h * 0.04, h * 0.04) if w > h else ((w - mw) / 2, h - tam_letra * 2.2)  # horizontal: esquina superior
-    d.text(pos, "CatolicAid", font=marca, fill=(245, 197, 66), stroke_width=1, stroke_fill=(0, 0, 0))
+    d.text(pos, "CatolicAid", font=marca, fill=_rgb(acento), stroke_width=1, stroke_fill=(0, 0, 0))
     base.save(destino, "JPEG", quality=90)
     return destino
 
@@ -2506,8 +2513,9 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     try:  # miniatura (YouTube 1280×720) y versión vertical (TikTok 1080×1920); si falla, se sigue sin ella
         img = imagen_miniatura(frs, frase, visuales, bl)
         if img:
-            mini = miniatura(img, frase, carpeta / "miniatura.jpg")
-            miniatura(img, frase, carpeta / "miniatura_vertical.jpg", (1080, 1920))
+            tono, tiempo = color_tiempo(fecha), etiqueta_tiempo(fecha, idioma)
+            mini = miniatura(img, frase, carpeta / "miniatura.jpg", acento=tono, etiqueta=tiempo)
+            miniatura(img, frase, carpeta / "miniatura_vertical.jpg", (1080, 1920), tono, tiempo)
             log(f"   Miniatura: {Path(img).name}")
     except Exception as e:
         log(f"   Miniatura no creada ({e})")
