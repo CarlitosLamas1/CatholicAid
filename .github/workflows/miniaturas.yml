@@ -1,0 +1,40 @@
+name: "Poner miniaturas"
+
+# Rehace y sube la miniatura de los vídeos de YouTube que no la tienen (los tres canales, la misma imagen en los tres).
+on:
+  workflow_dispatch:
+    inputs:
+      simular:
+        description: "Solo decir qué haría, sin subir nada"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: miniaturas
+  cancel-in-progress: false
+
+jobs:
+  miniaturas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Letra y Pillow
+        run: |
+          pip install -q --timeout 60 pillow
+          if [ ! -f /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf ]; then
+            timeout 300 sudo apt-get update -qq && timeout 300 sudo apt-get install -y -qq fonts-dejavu-core > /dev/null
+          fi
+          test -f /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf
+      - name: Miniaturas
+        run: python3 proceso/miniaturas.py ${{ inputs.simular && '--simular' || '' }}
+      - name: Guardar
+        if: always()
+        run: python3 proceso/guardar.py "Miniaturas puestas" episodios/
