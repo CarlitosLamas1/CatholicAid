@@ -134,6 +134,8 @@ class Gasto(unittest.TestCase):
         cfg = {"precios": self.P, "saldo": {"euros": 5, "fecha": "2026-11-15"}}
         r = gasto.resumen(dt.date(2026, 11, 15), [self.ES, self.PT, {"generado": "2026-10-30T10:00:00+01:00"}], cfg)
         self.assertEqual(r, {"hoy": 0.23, "mes": 0.23, "queda": 4.77})
+        cfg["saldo"]["fecha"] = "2026-11-15T02:00:00+01:00"  # el saldo se miró entre un vídeo y otro
+        self.assertEqual(gasto.resumen(dt.date(2026, 11, 15), [self.ES, self.PT], cfg)["queda"], 4.88)
         self.assertIsNone(gasto.resumen(dt.date(2026, 11, 15), [self.ES], {"precios": self.P})["queda"])
 
 

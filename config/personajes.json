@@ -718,6 +718,6 @@
     "_nota": "Estimación del gasto de la clave de pago de Gemini para el parte diario (proceso/gasto.py). Precios aproximados en euros: por imagen pintada, por segundo de voz grabada con la clave de pago y un fijo por vídeo cuando el texto tiró de la reserva. Google no da el saldo por API: si Carlos dice cuánto saldo hay un día, se apunta en «saldo» ({\"euros\": 8.5, \"fecha\": \"AAAA-MM-DD\"}) y el parte estima lo que queda y avisa cuando baje de «avisar_por_debajo».",
     "precios": {"imagen": 0.04, "voz_segundo": 0.0003, "texto": 0.01},
     "avisar_por_debajo": 3,
-    "saldo": {"euros": 10.52, "fecha": "2026-11-15", "_nota": "Dicho por Carlos el 15/11/2026 por la tarde."}
+    "saldo": {"euros": 10.52, "fecha": "2026-11-15T15:30:00+01:00", "_nota": "Dicho por Carlos el 15/11/2026 a las 15:30. Solo se descuenta lo grabado después de ese momento."}
   }
 }

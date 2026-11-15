@@ -12,8 +12,10 @@ import datetime as dt
 import json
 import re
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 RAIZ = Path(__file__).resolve().parent.parent
+MADRID = ZoneInfo("Europe/Madrid")
 PRECIOS = {"imagen": 0.04, "voz_segundo": 0.0003, "texto": 0.01}
 
 
@@ -40,11 +42,13 @@ def gasto_registro(reg, precios=None):
     return round(total, 4)
 
 
-def _dia(reg):
+def _momento(texto):
+    """Fecha («2026-11-15») o fecha y hora ISO -> datetime con zona (Madrid si no la trae); None si no vale."""
     try:
-        return dt.datetime.fromisoformat(reg["generado"]).date()
-    except (KeyError, TypeError, ValueError):
+        t = dt.datetime.fromisoformat(texto)
+    except (TypeError, ValueError):
         return None
+    return t if t.tzinfo else t.replace(tzinfo=MADRID)
 
 
 def resumen(hoy, registros=None, cfg=None):
@@ -60,18 +64,16 @@ def resumen(hoy, registros=None, cfg=None):
     precios = cfg.get("precios")
     de_hoy = de_mes = desde_saldo = 0.0
     saldo = cfg.get("saldo") or {}
-    try:
-        fecha_saldo = dt.date.fromisoformat(saldo["fecha"])
-    except (KeyError, TypeError, ValueError):
-        fecha_saldo = None
+    fecha_saldo = _momento(saldo.get("fecha"))  # solo cuenta lo grabado DESPUÉS de mirar el saldo
     for reg in registros:
-        dia = _dia(reg)
-        if not dia:
+        hecho = _momento(reg.get("generado"))
+        if not hecho:
             continue
+        dia = hecho.astimezone(MADRID).date()
         coste = gasto_registro(reg, precios)
         de_hoy += coste if dia == hoy else 0
         de_mes += coste if (dia.year, dia.month) == (hoy.year, hoy.month) else 0
-        desde_saldo += coste if fecha_saldo and dia >= fecha_saldo else 0
+        desde_saldo += coste if fecha_saldo and hecho > fecha_saldo else 0
     queda = round(float(saldo["euros"]) - desde_saldo, 2) if fecha_saldo and "euros" in saldo else None
     return {"hoy": round(de_hoy, 2), "mes": round(de_mes, 2), "queda": queda}
 
