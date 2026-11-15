@@ -1,0 +1,35 @@
+name: "Web"
+
+# Publica la web del proyecto (docs/) en GitHub Pages SOLO cuando cambia docs/.
+# Antes GitHub la reconstruía con cada guardado del repositorio (unas 100 veces al día).
+# Las direcciones no cambian: Google y TikTok las usan en sus revisiones.
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", ".github/workflows/web.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: web
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: despliegue
+        uses: actions/deploy-pages@v4

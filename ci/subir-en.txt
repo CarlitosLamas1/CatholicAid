@@ -1,4 +1,0 @@
-modo=subir
-fecha=2026-11-08
-run=42361888625
-solo_release=si
