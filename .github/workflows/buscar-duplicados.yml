@@ -1,0 +1,36 @@
+name: "Buscar duplicados"
+
+# Compara las últimas subidas de los tres canales de YouTube con los registros y dice qué vídeos sobran.
+# Sin datos, solo informa. Para borrar uno hay que dar el idioma y el identificador (y no puede estar en un registro).
+on:
+  workflow_dispatch:
+    inputs:
+      idioma:
+        description: "Para borrar: es, en o pt"
+        required: false
+      borrar:
+        description: "Para borrar: identificador del vídeo que sobra"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  buscar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Buscar o borrar
+        env:
+          IDIOMA: ${{ inputs.idioma }}
+          BORRAR: ${{ inputs.borrar }}
+        run: |
+          if [ -n "$BORRAR" ] && [ -n "$IDIOMA" ]; then
+            python3 proceso/duplicados.py --borrar "$IDIOMA" "$BORRAR"
+          fi
+          python3 proceso/duplicados.py
