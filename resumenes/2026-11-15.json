@@ -1,0 +1,38 @@
+{
+  "domingo": "2026-11-15",
+  "idioma": "es",
+  "dias": [
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-14",
+    "2026-11-15"
+  ],
+  "duracion_s": 651.2,
+  "titulo": "Evangelio de la semana · del 9 al 15 de noviembre de 2026 | Las lecturas del día con varias voces",
+  "capitulos": [
+    "0:00 Lunes 9 · Juan 2, 13-22 · “Destruid este templo, y en tres días lo levantaré”",
+    "1:27 Martes 10 · Lucas 17, 7-10 · “Somos siervos inútiles”",
+    "2:32 Miércoles 11 · Lucas 17, 11-19 · “Levántate, vete; tu fe te ha salvado”",
+    "3:52 Jueves 12 · Lucas 17, 20-25 · “El reino de Dios no viene con muestras de aparato”",
+    "5:00 Viernes 13 · Lucas 17, 26-37 · “Acordaos de la mujer de Lot”",
+    "7:03 Sábado 14 · Lucas 18, 1-8 · “Os aseguro que no tardará en hacerles justicia”",
+    "8:29 Domingo 15 · Mateo 25, 14-30 · “De la misma manera, el que había recibido dos ganó otros dos”"
+  ],
+  "youtube": {
+    "id": "D-h0xUelEBc",
+    "url": "https://youtu.be/D-h0xUelEBc",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-15T19:00:00Z",
+    "lista": {
+      "titulo": "Evangelio de la semana",
+      "error": "409"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
+  }
+}

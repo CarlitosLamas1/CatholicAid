@@ -1,0 +1,38 @@
+{
+  "domingo": "2026-11-15",
+  "idioma": "en",
+  "dias": [
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-14",
+    "2026-11-15"
+  ],
+  "duracion_s": 711.8,
+  "titulo": "Gospel of the week · November 9–15, 2026 | The daily Gospels read with several voices",
+  "capitulos": [
+    "0:00 Monday 9 · John 2:13-22 · “Destroy this temple, and in three days I will raise it up”",
+    "1:45 Tuesday 10 · Luke 17:7-10 · “We are unworthy servants”",
+    "2:53 Wednesday 11 · Luke 17:11-19 · “Your faith has healed you”",
+    "4:12 Thursday 12 · Luke 17:20-25 · “God’s Kingdom is within you”",
+    "5:32 Friday 13 · Luke 17:26-37 · “Whoever seeks to save his life loses it”",
+    "7:35 Saturday 14 · Luke 18:1-8 · “I tell you that he will avenge them quickly”",
+    "9:01 Sunday 15 · Matthew 25:14-30 · “he also who got the two gained another two”"
+  ],
+  "youtube": {
+    "id": "5pdQNOcMo8c",
+    "url": "https://youtu.be/5pdQNOcMo8c",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-15T19:00:00Z",
+    "lista": {
+      "titulo": "Gospel of the week",
+      "error": "409"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
+  }
+}
