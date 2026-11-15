@@ -76,7 +76,8 @@ def comprobar(reg):
         fin = frs[i + 1]["inicio"] if i + 1 < len(frs) else dur
         d = fin - f["inicio"]
         v = len(f["texto"]) / d if d > 0 else 0
-        if (d > 8 and v < 6) or (d > 3 and v > 30) or d <= 0:
+        lento = d > 8 and v < 6 and not f.get("reflexion")  # la reflexión incluye el cierre musical: no cuenta
+        if lento or (d > 3 and v > 30) or d <= 0:
             raros.append(f"fragmento {i + 1}: {v:.1f} car/s en {d:.1f} s")
     if raros:
         motivos.append("Audio anómalo: " + "; ".join(raros[:3]))
