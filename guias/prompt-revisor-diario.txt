@@ -37,9 +37,15 @@ PASO 4c · Canal en PORTUGUÉS (siempre DESPUÉS del inglés)
 3. Escribe revisiones/AAAA-MM-DD-pt.json con el mismo formato que el PASO 3 más "idioma": "pt" (motivos y avisos en español para Carlos). Commit solo de ese archivo con «Revisor: AAAA-MM-DD-pt OK» o «Revisor: AAAA-MM-DD-pt no OK» y push a main (pull --rebase antes; hasta 3 intentos).
 
 PASO 4d · Textos en portugués de los próximos días (solo si falta alguno)
-1. git pull --rebase origin main. Para cada cita de biblia/citas.json con fecha >= hoy, mira si biblia/figueiredo/revisada/<libro en minúsculas>.json tiene TODOS sus versículos (formato {"<capítulo>": {"<versículo>": "texto"}}, más _nota e _inicios). Si no falta ninguno, salta al PASO 5.
+1. git pull --rebase origin main. Para cada cita de biblia/citas.json con fecha >= hoy, mira si biblia/figueiredo/revisada/<libro en minúsculas>.json tiene TODOS sus versículos (formato {"<capítulo>": {"<versículo>": "texto"}}, más _nota e _inicios). Si no falta ninguno, salta al PASO 4e.
 2. Los que falten, revísalos partiendo de biblia/figueiredo/<libro>.json (OCR con errores: corrígelos) siguiendo guias/revision-portugues.md (fiel al sentido, portugués de Brasil actual, «vocês», sin mesóclise, comillas “ ” y ‘ ’, _inicios si la lectura empieza con Jesús ya hablando). Nunca resumir ni parafrasear. Usa los versículos ya revisados como ejemplo de estilo. json.dump con ensure_ascii=False, indent=1; valida el JSON.
 3. Añade en «Hecho» de guias/revision-portugues.md una línea con la fecha y las citas. Commit solo de biblia/figueiredo/revisada/ y guias/revision-portugues.md con «Revisor: textos en portugués» y push a main (pull --rebase antes; hasta 3 intentos).
+
+PASO 4e · Textos en ESPAÑOL de los próximos días (solo si falta alguno; normalmente los deja hechos el gestor semanal del domingo)
+El vídeo diario en español NO se graba si su texto no está revisado, así que este paso es su red de seguridad.
+1. git pull --rebase origin main. Para cada cita de biblia/citas.json con fecha >= hoy y <= hoy + 4 días, mira si biblia/revisada/<libro en minúsculas>.json (mateo, marcos, lucas, juan) tiene TODOS sus versículos (formato {"<capítulo>": {"<versículo>": "texto"}}, más _nota e _inicios). Una cita como «Lucas 19, 11-28» son los versículos 11 a 28 del capítulo 19; «Mateo 12, 46-50» igual; si tiene varios tramos («1-4. 9-10»), todos. Si no falta ninguno, salta al PASO 5.
+2. Los que falten, revísalos partiendo de biblia/torres-amat/<libro>.json (Torres Amat, 1836): fiel al sentido del original, sin resumir ni parafrasear ni añadir nada; ortografía y vocabulario actuales («dársele ha» -> «se le dará», «á» -> «a»); sin las glosas explicativas del traductor (lo que el original pone en cursiva o entre paréntesis como aclaración); comillas “ ” para el estilo directo y ‘ ’ para una cita dentro de otra, abriendo y cerrando bien aunque el discurso siga en el versículo siguiente (mira cómo lo hacen los versículos ya revisados y cópialo); trato de «vosotros». Si la lectura empieza con Jesús ya hablando (el primer versículo de la cita abre comillas sin decir quién habla), añade en "_inicios" la entrada "<capítulo>:<versículo>": "En aquel tiempo, dijo Jesús a sus discípulos:" (o a quien hable según el contexto). No toques los versículos que ya estaban revisados ni biblia/torres-amat/. json.dump con ensure_ascii=False, indent=1; valida el JSON y que las comillas “ ” queden equilibradas en el conjunto de la lectura.
+3. Commit solo de biblia/revisada/ con «Revisor: textos en español» y push a main (pull --rebase antes; hasta 3 intentos).
 
 PASO 5 · Comentarios de YouTube (siempre)
 1. git pull --rebase origin main. Lee comentarios/pendientes.json (si no existe o "comentarios" está vacío, salta al PASO 6) y comentarios/decisiones.json (un objeto {id: decisión}; si no existe, {}).
@@ -52,7 +58,7 @@ PASO 5 · Comentarios de YouTube (siempre)
 5. Si cambiaste algo: commit solo de comentarios/decisiones.json con el mensaje «Comentarios: decisiones» y push a main (pull --rebase antes; hasta 3 intentos).
 No publicas nada en YouTube: un workflow publica después, de una en una y con ritmo humano.
 
-En main solo puedes tocar revisiones/, comentarios/decisiones.json, biblia/figueiredo/revisada/ y guias/revision-portugues.md (PASO 4d): ni episodios/, ni proceso/, ni config/, ni .github/, ni el texto del Evangelio. Si ves un fallo en el código, menciónalo en "avisos" de la revisión.
+En main solo puedes tocar revisiones/, comentarios/decisiones.json, biblia/figueiredo/revisada/ y guias/revision-portugues.md (PASO 4d) y biblia/revisada/ (PASO 4e, solo versículos que faltan): ni episodios/, ni proceso/, ni config/, ni .github/, ni el texto del Evangelio. Si ves un fallo en el código, menciónalo en "avisos" de la revisión.
 
 PASO 6 · Reloj (SIEMPRE, al final)
 Despierta al workflow «Reloj» de GitHub, que lanza lo que falte (vídeo de mañana, publicación, TikTok, comentarios). Ejecuta exactamente:

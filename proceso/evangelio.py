@@ -363,6 +363,11 @@ NOMBRES_EN = {"Jesus", "Peter", "Simon", "John", "Mary", "God", "Jerusalem", "Ga
               "Martha", "Thomas", "Philip", "Andrew", "James", "Judas", "Zacchaeus", "Lazarus", "Elizabeth"}
 
 
+def texto_revisado(fuente):
+    """El texto en español viene entero de la versión revisada (no del Torres Amat de 1836 tal cual ni de otra fuente)."""
+    return "versión revisada" in (fuente or "")
+
+
 def texto_torres_amat(cita):
     return texto_biblia(cita, cargar_libro, RAIZ / "biblia" / "revisada", ortografia, "En aquel tiempo,", NOMBRES,
                         "Torres Amat (1836)")
@@ -2391,6 +2396,12 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
             except Exception as e:
                 log(f"   Torres Amat no disponible ({e}); uso el texto de Vatican News")
         ev.setdefault("fuente_texto", "Vatican News")
+        if a.modo == "diario" and not texto_revisado(ev["fuente_texto"]) and not ultimo_intento(idioma):
+            # El vídeo diario solo se graba con el texto revisado (lenguaje actual, comillas, «vosotros»). Si la
+            # revisión semanal no llegó, el revisor de cada hora la prepara (guía, PASO 4e) y se reintenta; solo en
+            # el último intento para el vídeo de mañana se acepta el Torres Amat sin revisar («dársele ha»).
+            raise RuntimeError(f"El texto de {ev['cita']} aún no está revisado ({ev['fuente_texto']}): no grabo el "
+                               "vídeo diario con el texto antiguo. Se reintenta en la próxima tirada.")
         libro = ev["cita"].split()[0]
     log(f"   {ev['cita']} · {ev['fuente_texto']} · {len(ev['texto'])} caracteres")
     if libro in CFG.get("narradores", {}):

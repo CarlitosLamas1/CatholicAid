@@ -2,6 +2,7 @@
 """Decisiones que no deben romperse: cuándo graban inglés y portugués, cuándo se rehacen, qué se limpia y cómo
 queda el título de YouTube. No usan red ni gastan cupo."""
 import datetime as dt
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -13,6 +14,7 @@ import gasto  # noqa: E402
 import mantenimiento  # noqa: E402
 import publicar  # noqa: E402
 import reloj  # noqa: E402
+import revision_reserva as reserva  # noqa: E402
 
 
 class EsperaAlEspanol(unittest.TestCase):
@@ -158,6 +160,45 @@ class Estadisticas(unittest.TestCase):
         self.assertEqual(estadisticas.decidir(["2.8"], "2.8"), (["2.8", "2.8"], "2.8"))
         self.assertEqual(estadisticas.decidir(["1.5"], "2.8")[1], None)
         self.assertEqual(estadisticas.decidir(["2.8"], None)[1], None)
+
+
+class RevisionDeReserva(unittest.TestCase):
+    REG = {"fecha": "2026-11-17", "modo": "diario", "revision": "pendiente", "generado": "2026-11-16T12:00:00+01:00",
+           "texto_evangelio": "En aquel tiempo, dijo Jesús: “Tu fe te ha salvado; vete en paz”.",
+           "frase_clave": "Tu fe te ha salvado", "reflexion": "Confía hoy en Él.", "duracion_s": 30, "lufs": -14.0,
+           "fragmentos": [{"personaje": "narrador", "inicio": 0, "texto": "Lectura del santo evangelio según san Lucas."},
+                          {"personaje": "narrador", "inicio": 5, "texto": "En aquel tiempo, dijo Jesús:"},
+                          {"personaje": "jesus", "inicio": 8, "texto": "“Tu fe te ha salvado; vete en paz”."},
+                          {"personaje": "narrador", "inicio": 13, "texto": "Palabra del Señor."},
+                          {"personaje": "narrador", "inicio": 16, "texto": "Confía hoy en Él.", "reflexion": True}]}
+    HORA = dt.time(0, 5)
+
+    def a_las(self, dia, hora):
+        return dt.datetime(2026, 11, dia, hora, 0, tzinfo=reserva.MADRID)
+
+    def test_video_correcto(self):
+        ok, motivos, avisos, _ = reserva.comprobar(self.REG)
+        self.assertTrue(ok, motivos)
+        self.assertIn("reserva", avisos[0])
+
+    def test_texto_cambiado_no_pasa(self):
+        mal = json.loads(json.dumps(self.REG))
+        mal["fragmentos"][2]["texto"] = "“Tu fe te ha salvado”."
+        self.assertFalse(reserva.comprobar(mal)[0])
+
+    def test_frase_inventada_no_pasa(self):
+        self.assertFalse(reserva.comprobar({**self.REG, "frase_clave": "Dios es amor"})[0])
+
+    def test_solo_cuando_urge_y_nadie_ha_revisado(self):
+        self.assertFalse(reserva.toca(self.REG, {}, self.a_las(16, 18), self.HORA))   # faltan 6 h: aún puede el revisor
+        self.assertTrue(reserva.toca(self.REG, {}, self.a_las(16, 21), self.HORA))    # faltan 3 h y lleva 9 h hecho
+        reciente = {**self.REG, "generado": "2026-11-16T20:00:00+01:00"}
+        self.assertFalse(reserva.toca(reciente, {}, self.a_las(16, 21), self.HORA))   # recién hecho: se espera
+        revisado = {"generado": self.REG["generado"], "ok": True}
+        self.assertFalse(reserva.toca(self.REG, revisado, self.a_las(16, 21), self.HORA))
+        vieja = {"generado": "2026-11-15T10:00:00+01:00", "ok": True}                 # veredicto de otra versión
+        self.assertTrue(reserva.toca(self.REG, vieja, self.a_las(16, 21), self.HORA))
+        self.assertFalse(reserva.toca({**self.REG, "revision": "ok"}, {}, self.a_las(16, 21), self.HORA))
 
 
 class Titulo(unittest.TestCase):

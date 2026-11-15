@@ -16,7 +16,11 @@ Nunca duplica: no lanza nada que esté en marcha o se haya lanzado hace poco. Ne
 import datetime as dt
 import json
 import subprocess
+import sys
+from pathlib import Path
 from zoneinfo import ZoneInfo
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 MADRID = ZoneInfo("Europe/Madrid")
 
@@ -120,6 +124,15 @@ def main():
         pendiente = misma and (reg.get("revision") == "pendiente" or (rev.get("ok") and not reg.get("youtube")))
         if pendiente and not reciente(runs, "Publicar revisado", 30):
             lanzar("publicar-revisado.yml", fecha=f"{f}-{suf}")
+
+    try:  # 2c. Red de seguridad: vídeos a punto de publicarse que el revisor no ha mirado (revisión mecánica)
+        import revision_reserva
+        sin_mirar = [n for n, _ in revision_reserva.pendientes(ahora)]
+        if sin_mirar and not reciente(runs, "Revisión de reserva", 30):
+            log(f"Sin veredicto y cerca de su hora: {', '.join(sin_mirar)}")
+            lanzar("revision-reserva.yml")
+    except Exception as e:
+        log(f"Revisión de reserva: no se pudo comprobar ({e})")
 
     # 3. TikTok e Instagram. Se lanzan hasta 2 h ANTES de la hora de publicación con «esperar»: el workflow
     # aguarda solo hasta la hora exacta (los cron de GitHub llegan tarde; así sale puntual). Y hasta 12 h después.

@@ -1,0 +1,35 @@
+name: "Revisión de reserva"
+
+# Red de seguridad: si faltan pocas horas para publicar y el revisor (rutina de Claude) no ha dicho nada, se hace una
+# revisión mecánica (texto idéntico, frase literal, duración, audio) para que el vídeo no se quede sin salir.
+# Lo lanza el Reloj solo cuando hace falta (proceso/revision_reserva.py).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: revision-reserva
+  cancel-in-progress: false
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Revisar
+        id: revisar
+        run: |
+          python3 proceso/revision_reserva.py | tee reserva.log
+          echo "nombres=$(sed -n -E 's/^Revisión de reserva: ([0-9-]+(-en|-pt)?) .*/\1/p' reserva.log | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
+      - name: Guardar
+        run: python3 proceso/guardar.py "Revisión de reserva: ${{ steps.revisar.outputs.nombres }}" revisiones/
+      - name: Aplicar el veredicto
+        if: steps.revisar.outputs.nombres != ''
+        run: |
+          for N in ${{ steps.revisar.outputs.nombres }}; do gh workflow run publicar-revisado.yml --ref main -f fecha="$N"; sleep 5; done

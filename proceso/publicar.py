@@ -308,7 +308,9 @@ def main():
         arrastrar_idiomas(fecha, reg)
     hora = ev_mod.hora_pub(idioma).strftime("%H:%M")
     cuando_yt = f"programado a las {hora}" if estado.get("publishAt") else f"queda {estado['privacyStatus']}"
-    nota = "" if rev.get("por") == "Carlos" else "\n🔎 Revisado por el revisor: todo correcto."
+    nota = {"Carlos": "", "reserva": "\n⚠️ Revisión automática de reserva (el revisor no respondió a tiempo): "
+                                     "texto, frase y audio comprobados; imágenes y voces sin mirar."
+            }.get(rev.get("por"), "\n🔎 Revisado por el revisor: todo correcto.")
     if idioma == "es":
         avisos.enviar(f"✅ {lengua} · Vídeo del <b>{avisos.e(cuando)}</b> aprobado y subido a YouTube ({cuando_yt}): "
                       f"{avisos.e(reg['youtube']['url'])}\n🎵📸 TikTok e Instagram se publican a las {hora}.{nota}")
