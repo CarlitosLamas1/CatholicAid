@@ -49,10 +49,9 @@ def conocidos():
 def subidas(tok, cuantas=50):
     """Las últimas subidas del canal (también privadas y programadas): [{id, titulo, estado, publica}]."""
     cab = {"Authorization": f"Bearer {tok}"}
-    canal = ev.http(ev.YT + "channels?part=contentDetails&mine=true", headers=cab)["items"][0]
-    lista = canal["contentDetails"]["relatedPlaylists"]["uploads"]
-    d = ev.http(ev.YT + f"playlistItems?part=contentDetails&maxResults={cuantas}&playlistId={lista}", headers=cab)
-    ids = [i["contentDetails"]["videoId"] for i in d.get("items", [])]
+    # search?forMine devuelve también los privados y programados (la lista «uploads» del canal no los enseña).
+    d = ev.http(ev.YT + f"search?part=id&forMine=true&type=video&order=date&maxResults={cuantas}", headers=cab)
+    ids = [i["id"]["videoId"] for i in d.get("items", []) if i.get("id", {}).get("videoId")]
     if not ids:
         return []
     v = ev.http(ev.YT + "videos?part=snippet,status&id=" + ",".join(ids), headers=cab)
