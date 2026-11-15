@@ -8,6 +8,10 @@ on:
         description: "Solo decir qué haría, sin subir nada"
         type: boolean
         default: false
+      todas:
+        description: "Rehacer también las que ya tienen miniatura"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -34,7 +38,7 @@ jobs:
           fi
           test -f /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf
       - name: Miniaturas
-        run: python3 proceso/miniaturas.py ${{ inputs.simular && '--simular' || '' }}
+        run: python3 proceso/miniaturas.py ${{ inputs.simular && '--simular' || '' }} ${{ inputs.todas && '--todas' || '' }}
       - name: Guardar
         if: always()
         run: python3 proceso/guardar.py "Miniaturas puestas" episodios/

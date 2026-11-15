@@ -49,13 +49,13 @@ def imagen_del_dia(fecha, es):
     return retrato if retrato.exists() else None
 
 
-def pendientes():
-    """[(nombre, idioma, registro)] de los vídeos subidos cuya miniatura no consta como puesta."""
+def pendientes(todas=False):
+    """[(nombre, idioma, registro)] de los vídeos subidos cuya miniatura no consta como puesta (o todos, con todas)."""
     lista = []
     for ruta in sorted((RAIZ / "episodios").glob("*.json")):
         reg = leer(ruta)
         yt = reg.get("youtube") or {}
-        if yt.get("id") and yt.get("miniatura") != "ok" and reg.get("frase_clave"):
+        if yt.get("id") and (todas or yt.get("miniatura") != "ok") and reg.get("frase_clave"):
             lista.append((ruta.stem, reg.get("idioma") or "es", reg))
     return lista
 
@@ -64,7 +64,7 @@ def main():
     simular = "--simular" in sys.argv
     tokens, tmp = {}, Path(tempfile.mkdtemp())
     puestas = 0
-    for nombre, idioma, reg in pendientes():
+    for nombre, idioma, reg in pendientes("--todas" in sys.argv):
         fecha = nombre[:10]
         es = leer(RAIZ / "episodios" / f"{fecha}.json") or reg
         if es.get("modo") != "diario":
@@ -74,9 +74,9 @@ def main():
             print(f"{nombre}: sin imagen para la miniatura; se deja")
             continue
         dia = dt.date.fromisoformat(fecha)
-        destino = tmp / f"{nombre}.jpg"
-        ev.miniatura(img, reg["frase_clave"], destino, acento=ev.color_tiempo(dia),
-                     etiqueta=ev.etiqueta_tiempo(dia, idioma))
+        destino, vertical = tmp / f"{nombre}.jpg", tmp / f"{nombre}-v.jpg"
+        ev.miniatura(img, reg["frase_clave"], vertical, (1080, 1920), ev.color_tiempo(dia), ev.etiqueta_tiempo(dia, idioma))
+        ev.miniatura_short(vertical, destino)  # la vertical en el centro: en Shorts se ve entera
         if simular:
             print(f"{nombre}: {img.name} · «{reg['frase_clave']}»")
             continue

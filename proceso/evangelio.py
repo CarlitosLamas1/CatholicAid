@@ -2172,6 +2172,26 @@ def miniatura(img, frase, destino, tam=(1280, 720), acento="F5C542", etiqueta=""
     return destino
 
 
+def miniatura_short(vertical, destino, tam=(1280, 720)):
+    """Miniatura de YouTube para un Short. YouTube la pide 16:9, pero en la cuadrícula de Shorts del canal (y en el
+    móvil) muestra solo la franja central vertical: con la miniatura horizontal se veía media frase cortada (15/11/2026).
+    Aquí la miniatura VERTICAL entera va en el centro, a toda altura, y los lados se rellenan con la misma imagen
+    desenfocada y oscurecida: en Shorts se ve exactamente la vertical y en vistas 16:9 (búsqueda, ordenador) queda
+    enmarcada, sin cortar nada."""
+    from PIL import Image, ImageEnhance, ImageFilter
+    w, h = tam
+    v = Image.open(vertical).convert("RGB")
+    escala = max(w / v.width, h / v.height)
+    fondo = v.resize((round(v.width * escala), round(v.height * escala)), Image.LANCZOS)
+    y = int((fondo.height - h) * 0.45)
+    fondo = fondo.crop(((fondo.width - w) // 2, y, (fondo.width - w) // 2 + w, y + h))
+    fondo = ImageEnhance.Brightness(fondo.filter(ImageFilter.GaussianBlur(28))).enhance(0.55)
+    centro = v.resize((round(v.width * h / v.height), h), Image.LANCZOS)
+    fondo.paste(centro, ((w - centro.width) // 2, 0))
+    fondo.save(destino, "JPEG", quality=92)
+    return destino
+
+
 def imagen_miniatura(frs, frase, visuales, bl):
     """La imagen del día de la escena donde está la frase clave; si no, la primera imagen del día."""
     escena = next((f["escena"] for f in frs if frase and frase in espacios(hablado(f["texto"]))), None)
@@ -2521,12 +2541,12 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     video = carpeta / "video.mp4"
     log(f"   video.mp4 · {video.stat().st_size / 1e6:.1f} MB")
     mini = None
-    try:  # miniatura (YouTube 1280×720) y versión vertical (TikTok 1080×1920); si falla, se sigue sin ella
+    try:  # miniatura vertical (TikTok, Instagram, Shorts) y la de YouTube a partir de ella; si falla, se sigue sin ella
         img = imagen_miniatura(frs, frase, visuales, bl)
         if img:
             tono, tiempo = color_tiempo(fecha), etiqueta_tiempo(fecha, idioma)
-            mini = miniatura(img, frase, carpeta / "miniatura.jpg", acento=tono, etiqueta=tiempo)
-            miniatura(img, frase, carpeta / "miniatura_vertical.jpg", (1080, 1920), tono, tiempo)
+            vertical = miniatura(img, frase, carpeta / "miniatura_vertical.jpg", (1080, 1920), tono, tiempo)
+            mini = miniatura_short(vertical, carpeta / "miniatura.jpg")  # YouTube: la vertical, sin cortes en Shorts
             log(f"   Miniatura: {Path(img).name}")
     except Exception as e:
         log(f"   Miniatura no creada ({e})")
