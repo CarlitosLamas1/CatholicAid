@@ -16,7 +16,7 @@ Mismo criterio que el español, con estas diferencias. El revisor escribe `revis
    WEB no trae (p. ej. Lucas 17,36). La unión de los fragmentos debe ser idéntica al texto (sin comillas ni espacios).
 2. **voces**: palabras de Jesús en `jesus`, narración en `narrador`, etc. Comillas ‘ ’ dentro de un discurso:
    sigue el mismo personaje. Los apóstrofos (don’t, Father’s) NO son comillas.
-3. **frase_clave**: literal, de Jesús, en inglés, 3–12 palabras.
+3. **frase_clave**: literal, de Jesús, en inglés, 3–12 palabras. Es el mismo pasaje que la del español del día: si es floja, se corrige en el español (y este vídeo se rehace solo detrás); aquí basta con ⚠️.
 4. **reflexion**: en inglés americano, 1–2 frases (≤ 35 palabras) o una pregunta, de tú (you), fiel a la doctrina,
    sin comillas, sin política. No es parte del Evangelio.
 5. **tecnica**: duración ≤ 180 s, `lufs` entre -15 y -13. Audio: 10–20 caracteres por segundo por fragmento

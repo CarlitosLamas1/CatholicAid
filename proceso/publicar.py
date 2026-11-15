@@ -82,6 +82,31 @@ def repintar_de_avisos(rev, fecha):
              + " ".join(t)} for n, t in sorted(pedidas.items())]
 
 
+FRASE_FLOJA = re.compile(r"frase clave.*\b(floja|no se entiende|se entiende a medias|depende del contexto)", re.I)
+
+
+def da_tiempo(fecha, idioma="es", horas=3):
+    """Quedan más de «horas» para la hora de publicación de ese día: da tiempo a rehacer y revisar otra vez."""
+    publica = dt.datetime.combine(dt.date.fromisoformat(fecha), ev_mod.hora_pub(idioma), ev_mod.MADRID)
+    return dt.datetime.now(ev_mod.MADRID) <= publica - dt.timedelta(hours=horas)
+
+
+def pedir_otra_frase(fecha, idioma, reg, rev):
+    """El revisor ve que la frase clave no se entiende sola ("cambiar_frase": true, o lo dice en sus avisos): se
+    apunta como descartada y la nueva tirada elige otra. Una sola vez por día y solo en español (el inglés y el
+    portugués copian la del español y se rehacen detrás). Devuelve True si hay que rehacer."""
+    textos = [t for t in (rev.get("avisos") or []) + (rev.get("motivos") or []) if isinstance(t, str)]
+    pide = bool(rev.get("cambiar_frase")) or any(FRASE_FLOJA.search(t) for t in textos)
+    if idioma != "es" or not pide or not reg.get("frase_clave") or reg.get("frases_descartadas"):
+        return False
+    if not da_tiempo(fecha):
+        log("Cambiar la frase clave: ya no da tiempo antes de publicar; se deja como está.")
+        return False
+    reg["frases_descartadas"] = [reg["frase_clave"]]
+    log(f"Frase clave descartada («{reg['frase_clave']}»): el vídeo se rehace con otra.")
+    return True
+
+
 def pedir_repintar(fecha, idioma, reg, rev):
     """El revisor pide repintar escenas (rev["repintar"] = [{"escena": n, "corregir": "..."}]): se borran esas imágenes
     del día y la nueva tirada las pinta otra vez con la corrección. Una sola vez por día, solo en español (el inglés
@@ -91,9 +116,7 @@ def pedir_repintar(fecha, idioma, reg, rev):
         pedidas = repintar_de_avisos(rev, fecha)
     if idioma != "es" or not pedidas or reg.get("repintados", 0) >= 1:
         return False
-    publicar = dt.datetime.combine(dt.date.fromisoformat(fecha), ev_mod.hora_pub(),
-                                   ev_mod.MADRID)
-    if dt.datetime.now(ev_mod.MADRID) > publicar - dt.timedelta(hours=3):
+    if not da_tiempo(fecha):
         log("Repintar: ya no da tiempo antes de publicar; se deja como está.")
         return False
     borradas = []
@@ -154,8 +177,7 @@ def arrastrar_idiomas(fecha, es):
             motivo = desfasado(es, otro)
             if not motivo:
                 continue
-            publica = dt.datetime.combine(dt.date.fromisoformat(fecha), ev_mod.hora_pub(idioma), ev_mod.MADRID)
-            if dt.datetime.now(ev_mod.MADRID) > publica - dt.timedelta(hours=3):
+            if not da_tiempo(fecha, idioma):
                 log(f"{idioma} {fecha}: {motivo}, pero ya no da tiempo a rehacerlo; se deja como está.")
                 continue
             otro["rehecho_por_es"] = 1
@@ -202,14 +224,16 @@ def main():
     if rev.get("ok") and reg.get("revision") == "rechazada" and reg.get("repintar"):
         log(f"El {nombre} se está rehaciendo con imágenes repintadas; espero a la nueva versión.")
         return
-    repintar = (rev.get("ok") or reg.get("rehechos", 0) < MAX_REHECHOS) and pedir_repintar(fecha, idioma, reg, rev)
-    if rev.get("ok") and repintar:  # aprobado, pero con imágenes que se pueden arreglar: se repintan y se revisa otra vez
+    mejorable = rev.get("ok") or reg.get("rehechos", 0) < MAX_REHECHOS
+    repintar = mejorable and pedir_repintar(fecha, idioma, reg, rev)
+    otra_frase = mejorable and pedir_otra_frase(fecha, idioma, reg, rev)
+    if rev.get("ok") and (repintar or otra_frase):  # aprobado, pero mejorable: se arregla y se revisa otra vez
         reg["revision"] = "rechazada"
         guardar(ruta_reg, reg)
-        guardar_en_main(f"Repintar imágenes: {nombre}", ruta_reg, reg)
+        guardar_en_main(("Repintar imágenes" if repintar else "Cambiar la frase clave") + f": {nombre}", ruta_reg, reg)
         sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
         sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
-        log(f"Revisión OK con imágenes a repintar: rehago el vídeo del {nombre}.")
+        log(f"Revisión OK con imágenes o frase mejorables: rehago el vídeo del {nombre}.")
         return
 
     if not rev.get("ok"):

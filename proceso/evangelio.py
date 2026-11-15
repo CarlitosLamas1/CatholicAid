@@ -561,10 +561,22 @@ INICIOS_DEBILES = {"no", "sí", "si", "pero", "mas", "y", "e", "o", "porque", "p
                    "yes", "but", "and", "or", "for", "so", "then", "now", "nay", "truly"}
 
 
+# Empiezan remitiendo a lo anterior: fuera de la lectura no se entienden («De la misma manera, el que había recibido
+# dos ganó otros dos», 15/11/2026: salió en el título de los tres canales).
+DEPENDIENTE = re.compile(
+    r"^(de la misma manera|del mismo modo|de igual modo|de igual manera|igualmente|asimismo|también|después|luego|"
+    r"en cambio|sin embargo|"
+    r"he also|she also|they also|likewise|in the same way|in like manner|afterwards?|also|"
+    r"do mesmo modo|da mesma forma|da mesma maneira|também|depois|em seguida|no entanto)\b", re.I)
+
+
 def frase_valida(frase, pregunta=True):
-    """Frase clave que se entiende sola: 4–12 palabras, sin «…», sin empezar con una muletilla corta («No, por cierto»)."""
+    """Frase clave que se entiende sola: 4–12 palabras, sin «…», sin empezar con una muletilla corta («No, por cierto»)
+    ni remitiendo a lo anterior («De la misma manera…»)."""
     ws = re.findall(r"\w+", frase)
     if not 4 <= len(ws) <= 12 or "…" in frase:
+        return False
+    if DEPENDIENTE.match(frase.strip()):
         return False
     if ws[0].lower() in INICIOS_DEBILES and len(ws) < 7:
         return False
@@ -581,7 +593,7 @@ NARRACION = re.compile(r"^(había|hubo|un hombre|una mujer|cierto|entonces|mient
 MANDA_DECIR = re.compile(r"(decid|di|diréis|dirás|say|tell them|you shall say)\s*[:,]?\s*$", re.I)
 
 
-def frase_de_reserva(frs, texto=""):
+def frase_de_reserva(frs, texto="", descartadas=()):
     """Si Gemini falla: una frase de Jesús que se entienda sola, NUNCA vacía ni cortada (copiada tal cual).
     Prefiere enseñanzas y mandatos («os digo», imperativos, «así también vosotros…», y lo que Jesús manda decir a los
     oyentes: «Somos siervos inútiles») frente a la narración de una parábola. Por escalones: cláusula de 4–12 palabras
@@ -604,7 +616,7 @@ def frase_de_reserva(frs, texto=""):
             anuncia = x.rstrip().endswith(":") or "…" in sep  # introduce una cita («…, saying,»): se queda a medias
             x = espacios(hablado(x)).strip(" ,;:")
             ws = x.split() if re.search(r"\w", x) else []  # palabras reales (don’t cuenta como una)
-            if not ws or "…" in x or anuncia:
+            if not ws or "…" in x or anuncia or x in descartadas or DEPENDIENTE.match(x):
                 continue
             nota = 3 * bool(mandada or ENSENANZA.search(x)) - 3 * bool(NARRACION.search(x)) + (k == 0 and mandada)
             nota -= x[0].islower() + 2 * x.endswith("?")
@@ -625,7 +637,8 @@ def frase_de_reserva(frs, texto=""):
         return frase
     completas = [espacios(hablado(x)).strip(" ,;:") for p, _ in piezas for x in re.split(r"(?<=[.?!])\s+", p)
                  if "…" not in x and re.search(r"\w", x)]
-    return min(completas, key=len) if completas else ""
+    utiles = [x for x in completas if x not in descartadas and not DEPENDIENTE.match(x)]
+    return min(utiles or completas, key=len) if completas else ""
 
 
 def gancho_y_reflexion(frs, ev, fiable=True):
@@ -705,11 +718,24 @@ LEITURA COMPLETA (contexto):
                    f"For \"frase_clave\", choose the SAME passage (the same words of the same verse) as it appears in the "
                    f"text above, copied LITERALLY from it (same length and cut as far as possible). For \"reflexion\", "
                    f"translate the Spanish reflection faithfully and naturally into {lengua} (same meaning, same question).")
+    descartadas = [espacios(x) for x in ev.get("frases_descartadas") or []]
+    prompt += {"en": '\n\nAlso give, in "alternativas", two OTHER different sentences of Jesus that meet the same '
+                     'conditions (literal, 4 to 12 words, understood on their own), best first, in case the first one '
+                     'cannot be used.',
+               "pt": '\n\nDê também, em "alternativas", OUTRAS duas frases diferentes de Jesus com as mesmas condições '
+                     '(literais, de 4 a 12 palavras, que se entendam sozinhas), a melhor primeiro, caso a primeira não '
+                     'possa ser usada.'}.get(
+        IDIOMA, '\n\nDa además, en "alternativas", OTRAS dos frases distintas de Jesús con las mismas condiciones '
+                '(literales, de 4 a 12 palabras, que se entiendan solas), la mejor primero, por si la primera no vale.')
+    if descartadas:  # el revisor vio que no se entendía sola: se elige otra (proceso/publicar.py, pedir_otra_frase)
+        prompt += ("\n\nNO elijas ninguna de estas frases, ya descartadas porque no se entienden solas:\n"
+                   + "\n".join(f"- {x}" for x in descartadas))
     clave = f"gancho_{huella(prompt)}.json"
     previo = cache_leer(clave)
     if previo:
         return tuple(previo)
-    esquema = {"type": "OBJECT", "properties": {"frase_clave": {"type": "STRING"}, "reflexion": {"type": "STRING"}},
+    esquema = {"type": "OBJECT", "properties": {"frase_clave": {"type": "STRING"}, "reflexion": {"type": "STRING"},
+                                                "alternativas": {"type": "ARRAY", "items": {"type": "STRING"}}},
                "required": ["frase_clave", "reflexion"]}
     base = [espacios(s) for s in fuente]
     frase_ok, reflexion_ok = "", ""
@@ -724,13 +750,17 @@ LEITURA COMPLETA (contexto):
                                                      "responseSchema": esquema, "temperature": 0.4}})
             partes = r["candidates"][0]["content"]["parts"]
             d = json.loads(next(p["text"] for p in reversed(partes) if "text" in p))
-            frase = espacios(hablado(d.get("frase_clave", ""))).strip(" ,;:")
             reflexion = espacios(hablado(d.get("reflexion", "")))
-            anuncia = any(re.search(re.escape(frase) + r"\s*:", s) for s in base)  # «…, decid:» se queda a medias
-            if not frase_ok and frase and frase_valida(frase) and not anuncia and any(frase in s for s in base):
-                frase_ok = frase
-            elif not frase_ok:
-                log(f"   {modelo}: la frase clave no es literal o no se entiende sola ({frase[:60]}); se descarta")
+            for cruda in [d.get("frase_clave", "")] + [x for x in d.get("alternativas") or [] if isinstance(x, str)]:
+                frase = espacios(hablado(cruda)).strip(" ,;:")
+                anuncia = any(re.search(re.escape(frase) + r"\s*:", s) for s in base)  # «…, decid:» se queda a medias
+                if frase_ok or not frase:
+                    continue
+                if (frase_valida(frase) and not anuncia and frase not in descartadas
+                        and any(frase in s for s in base)):
+                    frase_ok = frase
+                else:
+                    log(f"   {modelo}: la frase «{frase[:60]}» no es literal o no se entiende sola; se descarta")
             if not reflexion_ok and reflexion and len(reflexion.split()) <= 45:
                 reflexion_ok = reflexion
             elif not reflexion_ok:
@@ -740,7 +770,7 @@ LEITURA COMPLETA (contexto):
     if frase_ok and reflexion_ok:
         cache_guardar(clave, [frase_ok, reflexion_ok])
     if not frase_ok and fiable:
-        frase_ok = frase_de_reserva(frs, hablado(ev["texto"]))
+        frase_ok = frase_de_reserva(frs, hablado(ev["texto"]), descartadas)
     return frase_ok, reflexion_ok
 
 
@@ -2348,6 +2378,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         frase, reflexion = previo_reg["frase_clave"], previo_reg["reflexion"]
         log(f"   Frase y reflexión reutilizadas de {a.reutilizar}")
     else:
+        if idioma == "es":  # frases que el revisor descartó en la versión anterior de este mismo día
+            ev["frases_descartadas"] = hecho.get("frases_descartadas") or []
         if idioma != "es":  # misma frase y reflexión que el español del día (coherencia entre canales)
             es_reg = RAIZ / "episodios" / f"{fecha}.json"
             es_d = json.loads(es_reg.read_text(encoding="utf-8")) if es_reg.exists() else {}
@@ -2491,7 +2523,8 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     if a.modo == "diario" and hecho.get("modo") == "diario" and hecho.get("youtube", {}).get("id"):
         # Se rehace un vídeo ya subido (p. ej. para mejorarlo): al subir el nuevo, «Publicar revisado» borra el viejo
         registro["reemplaza"] = hecho["youtube"]["id"]
-    for k in ("rehechos", "descartados", "repintar", "repintados", "musica_bloqueada", "rehecho_por_es"):  # historial de versiones anteriores del mismo día
+    for k in ("rehechos", "descartados", "repintar", "repintados", "musica_bloqueada", "rehecho_por_es",
+              "frases_descartadas"):  # historial de versiones anteriores del mismo día
         if k in hecho:
             registro[k] = hecho[k]
 

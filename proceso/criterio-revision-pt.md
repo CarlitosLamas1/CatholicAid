@@ -16,7 +16,7 @@ portugués; el español y el inglés no se ven afectados. Revisa siempre DESPUÉ
    los fragmentos debe ser idéntica al texto (sin comillas ni espacios).
 2. **voces**: palabras de Jesús en `jesus`, narración en `narrador`, etc. Comillas ‘ ’ dentro de un discurso:
    sigue el mismo personaje.
-3. **frase_clave**: literal, de Jesús, en portugués, 3–12 palabras, que se entienda sola.
+3. **frase_clave**: literal, de Jesús, en portugués, 3–12 palabras, que se entienda sola. Es el mismo pasaje que la del español del día: si es floja, se corrige en el español (y este vídeo se rehace solo detrás); aquí basta con ⚠️.
 4. **reflexion**: en portugués de Brasil, 1–2 frases (≤ 45 palabras) o una pregunta, tratando de «você», fiel a la
    doctrina, sin comillas, sin política. No es parte del Evangelio.
 5. **tecnica**: duración ≤ 180 s, `lufs` entre -15.5 y -12.5 (⚠️ si fuera). Audio: lo normal son 9–19 caracteres por segundo en

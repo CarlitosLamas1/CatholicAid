@@ -75,6 +75,33 @@ class Mantenimiento(unittest.TestCase):
         self.assertEqual(mantenimiento.imagenes_viejas(nombres, self.HOY), {"2026-09": nombres[:2]})
 
 
+class FraseClave(unittest.TestCase):
+    def test_se_entienden_solas(self):
+        for f in ("Recobra la vista; tu fe te ha salvado", "Hoy ha sido día de salvación para esta casa",
+                  "Receive your sight. Your faith has healed you.", "Acordaos de la mujer de Lot."):
+            self.assertTrue(ev.frase_valida(f), f)
+
+    def test_dependen_de_lo_anterior(self):
+        for f in ("De la misma manera, el que había recibido dos ganó otros dos.",
+                  "he also who got the two gained another two.",
+                  "Do mesmo modo, o que tinha recebido dois ganhou outros dois."):
+            self.assertFalse(ev.frase_valida(f), f)
+
+    def test_longitud(self):
+        self.assertFalse(ev.frase_valida("Venid a mí"))
+        self.assertFalse(ev.frase_valida("palabra " * 13))
+
+    def test_el_revisor_pide_otra(self):
+        self.assertTrue(publicar.FRASE_FLOJA.search("La frase clave («Do mesmo modo…») es floja: no se entiende sola."))
+        self.assertFalse(publicar.FRASE_FLOJA.search("La frase clave es corta pero literal y se entiende; aceptable."))
+
+    def test_la_reserva_no_repite_la_descartada(self):
+        frs = [{"personaje": "jesus", "texto": "Pedid y se os dará. Buscad y hallaréis lo que buscáis."}]
+        primera = ev.frase_de_reserva(frs)
+        self.assertTrue(primera)
+        self.assertNotEqual(ev.frase_de_reserva(frs, "", (primera,)), primera)
+
+
 class Titulo(unittest.TestCase):
     def test_cabe_en_100_y_lleva_cita(self):
         for idioma, cita in (("es", "Lucas 19, 1-10"), ("en", "Luke 19:1-10"), ("pt", "Lucas 19,1-10")):
