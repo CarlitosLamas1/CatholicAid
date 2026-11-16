@@ -1,0 +1,20 @@
+name: Visitas por vídeo
+
+# Solo lectura: muestra en el registro las visitas de cada vídeo con su hora de publicación (no guarda nada).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visitas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 proceso/visitas_videos.py
