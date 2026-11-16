@@ -2,20 +2,23 @@
   "fecha": "2026-11-18",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-16T20:52:59+01:00",
-  "revisado": "2026-11-16T21:32:47+01:00",
+  "generado": "2026-11-16T21:53:18+01:00",
+  "revisado": "2026-11-16T22:32:43+01:00",
   "motivos": [],
   "avisos": [
-    "La frase clave sigue siendo larga (25 palabras, máximo 14) y solo cuenta el regreso del amo en la parábola: no se entiende sola. Ya se rehízo una vez con otra frase, así que no se pide de nuevo."
+    "Frase clave floja: tiene 24 palabras (máximo 14) y empieza con «Cuando volvió…», no se entiende sola; se pide cambiarla.",
+    "Sincronía: la voz de Jesús se cortó sin poder escucharla (sincronia.ok falso); el programa puede rehacerlo.",
+    "Imágenes: ya repintadas una vez; ahora el noble es un hombre corriente y Jesús solo sale en la escena 4. Aceptable."
   ],
   "puntos": {
     "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 19, 11-28 coincide con citas.json",
-    "voces": "✅ Jesús dice la parábola entera; narrador el resto",
-    "frase_clave": "⚠️ literal y de Jesús, pero 25 palabras y describe un detalle del relato",
-    "reflexion": "✅ cálida, doctrinal y ligada a la lectura (33 palabras)",
-    "tecnica": "✅ 134,2 s; -13,9 LUFS",
-    "audio": "✅ más lento: fragmento 6 'Palabra del Señor.' (2,8 s, 6,4 c/s, corto: normal); más rápido: fragmento 3 (18,4 c/s)",
-    "imagenes": "✅ repintadas: el amo ya es un hombre corriente, distinto de Jesús; devocionales y sin defectos graves",
-    "metadatos": "✅ fecha, cita y título 'según san Lucas' coherentes"
-  }
+    "voces": "✅ Jesús dice la parábola, narrador correcto",
+    "frase_clave": "⚠️ literal y de Jesús, pero 24 palabras y no se entiende sola",
+    "reflexion": "✅ cálida, católica, 33 palabras",
+    "tecnica": "⚠️ 140 s; -13,9 LUFS; sincronía no ok (corte de jesus sin oír)",
+    "audio": "✅ más lento: Palabra del Señor 4,7 c/s (corto); más rápido: 19,6 c/s (frag. 3)",
+    "imagenes": "✅ óleo coherente, nada inapropiado; Jesús solo en escena 4",
+    "metadatos": "✅ título Lucas coherente con la cita"
+  },
+  "cambiar_frase": true
 }
