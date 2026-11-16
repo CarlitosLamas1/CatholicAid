@@ -8,7 +8,12 @@ on:
     inputs:
       fecha:
         description: "Fecha AAAA-MM-DD de un vídeo cuya release siga existiendo"
-        required: true
+        required: false
+        default: ""
+      estado:
+        description: "Solo consultar el estado de este publish_id (no sube nada)"
+        required: false
+        default: ""
       idioma:
         description: "es, en o pt"
         required: false
@@ -32,7 +37,11 @@ jobs:
       TIKTOK_CUENTA: ${{ inputs.idioma }}
     steps:
       - uses: actions/checkout@v4
+      - name: Consultar estado
+        if: inputs.estado != ''
+        run: python3 proceso/tiktok.py estado "${{ inputs.estado }}"
       - name: Subir como borrador
+        if: inputs.estado == ''
         run: |
           L="${{ inputs.idioma }}"; F="${{ inputs.fecha }}"
           if [ "$L" = "es" ]; then REL="tiktok-$F"; else REL="$L-$F"; fi

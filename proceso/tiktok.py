@@ -9,6 +9,7 @@ Uso:
   python3 proceso/tiktok.py canjear <código>    -> canjea el código y guarda el permiso cifrado
   python3 proceso/tiktok.py comprobar           -> renueva el permiso y muestra la cuenta conectada
   python3 proceso/tiktok.py subir <video.mp4> "<texto>"
+  python3 proceso/tiktok.py estado <publish_id>    -> estado de una subida (borrador o publicación)
   python3 proceso/tiktok.py borrador <video.mp4>   -> lo deja como borrador en la app (sin texto; lo programa su dueño)
 Cuenta: TIKTOK_CUENTA=es (por defecto, @catolicaid, secretos/tiktok.enc) o en (@catolicaid_en, secretos/tiktok-en.enc).
 Las dos usan la misma app de TikTok (mismas claves).
@@ -203,5 +204,7 @@ if __name__ == "__main__":
         print(subir(sys.argv[2], sys.argv[3]))
     elif orden == "borrador":
         print(subir_borrador(sys.argv[2]))
+    elif orden == "estado":
+        print(_api("post/publish/status/fetch/", acceso(), {"publish_id": sys.argv[2]}))
     else:
         print(__doc__)
