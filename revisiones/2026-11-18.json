@@ -2,37 +2,36 @@
   "fecha": "2026-11-18",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-16T13:14:15+01:00",
-  "revisado": "2026-11-16T13:40:00+01:00",
+  "generado": "2026-11-16T13:51:37+01:00",
+  "revisado": "2026-11-16T14:40:00+01:00",
   "motivos": [],
   "avisos": [
-    "La frase clave tiene 18 palabras (máximo 14) y solo es el arranque de la parábola: no se entiende sola. Mejor «A todo el que tiene, se le dará».",
-    "En las escenas 1, 2 y 3 el señor de la parábola se parece mucho a Jesús (barba, pelo largo, túnica granate y dorada) y puede confundirse con Él.",
-    "La sincronía de subtítulos marca ok=false (el corte del personaje jesús no se pudo escuchar): el sistema ya rehace una vez por esto."
+    "Imágenes: en las escenas 1, 2 y 3 (parábola) el noble/amo se parece a Jesús (mismo rostro y túnica burdeos); se pide repintar.",
+    "Frase clave de 18 palabras (más de 14) y solo describe el inicio de la parábola; mejorable, no grave.",
+    "Sincronía: el corte del personaje jesús no se pudo escuchar (cortes_sin_oir), sincronia.ok es falso; el programa decidirá si rehace."
   ],
   "puntos": {
-    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 19, 11-28 coincide con citas.json.",
-    "voces": "✅ La parábola va entera a jesus y la narración al narrador.",
-    "frase_clave": "⚠️ Literal y de Jesús, pero 18 palabras y solo un detalle del relato.",
-    "reflexion": "✅ 29 palabras, cálida y ligada a la lectura.",
-    "tecnica": "✅ 157,6 s; -14,0 LUFS.",
-    "audio": "✅ Más lento: fragmento 6 («Palabra del Señor.», corto) 3,1 car/s, normal; fragmento 0 (título) 7,2; los largos entre 12 y 18 car/s.",
-    "imagenes": "⚠️ Devocionales y sin deformaciones; en las escenas 1-3 el señor parece Jesús.",
-    "metadatos": "✅ Fecha, cita y título (Lucas) coherentes."
+    "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 19, 11-28 coincide con citas.json",
+    "voces": "✅ parábola dicha por Jesús, narrador en el resto",
+    "frase_clave": "⚠️ literal y de Jesús, pero 18 palabras y describe un detalle del relato",
+    "reflexion": "✅ cálida, católica, 32 palabras",
+    "tecnica": "✅ 155,3 s; -14,0 LUFS; ⚠️ sincronia.ok falso",
+    "audio": "✅ más lento: Palabra del Señor 4,1 c/s (corto); más rápido: 16,2 c/s (frag. 3)",
+    "imagenes": "⚠️ el amo de la parábola parece Jesús en las escenas 1-3; nada inapropiado",
+    "metadatos": "✅ título Lucas coherente con la cita"
   },
   "repintar": [
     {
       "escena": 1,
-      "corregir": "Jesus must not appear; the nobleman is an ordinary wealthy man with short hair and a short trimmed beard, rich non-red robes, clearly different from Jesus"
+      "corregir": "Jesus must not appear; the nobleman/master of the parable is an ordinary wealthy man with a different face, short dark hair, and different clothes (not burgundy robe), no halo"
     },
     {
       "escena": 2,
-      "corregir": "Jesus must not appear; the king is an ordinary man with short hair, short trimmed beard, rich royal robes and a simple crown, clearly different from Jesus"
+      "corregir": "Jesus must not appear; the nobleman/master of the parable is an ordinary wealthy man with a different face, short dark hair, and different clothes (not burgundy robe), no halo"
     },
     {
       "escena": 3,
-      "corregir": "Jesus must not appear; the king is an ordinary man with short hair, short trimmed beard, rich royal robes and a simple crown, clearly different from Jesus"
+      "corregir": "Jesus must not appear; the nobleman/master of the parable is an ordinary wealthy man with a different face, short dark hair, and different clothes (not burgundy robe), no halo"
     }
-  ],
-  "cambiar_frase": true
+  ]
 }
