@@ -135,7 +135,7 @@
     ],
     "ok": false
   },
-  "revision": "pendiente",
+  "revision": "ok",
   "cupo_agotado": [
     "gemini-2.5-flash-preview-tts",
     "gemini-3.7-flash",
@@ -166,5 +166,13 @@
   "frases_descartadas": [
     "Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después."
   ],
-  "rehechos": 1
+  "rehechos": 1,
+  "youtube": {
+    "id": "7rQ7Qf3wWHE",
+    "url": "https://youtu.be/7rQ7Qf3wWHE",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-18T06:30:00Z"
+  }
 }
