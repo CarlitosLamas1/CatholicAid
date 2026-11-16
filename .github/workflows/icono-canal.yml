@@ -1,0 +1,30 @@
+name: Propuesta de icono
+
+# A mano: Gemini propone un icono para las cuentas y Nano Banana lo pinta (céntimos). Sube el resultado como archivo del run.
+on:
+  workflow_dispatch:
+    inputs:
+      idea:
+        description: "Indicación opcional para Gemini (vacío = libre)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  icono:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+      IDEA: ${{ inputs.idea }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Proponer y pintar
+        run: python3 proceso/icono.py salida --idea "$IDEA"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: icono-propuesta
+          path: salida/
