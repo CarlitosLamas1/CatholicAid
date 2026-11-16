@@ -2,6 +2,7 @@
 """CatolicAid · Propuesta de icono del canal: Gemini (texto) propone el concepto y Nano Banana lo pinta.
 
 Uso: python3 proceso/icono.py salida_dir [--idea "texto"]   (deja propuesta.png y propuesta.json en salida_dir)
+     python3 proceso/icono.py salida_dir --prompts icono/prompts.json --ref icono/banner-referencia.jpg  (pinta cada variante)
 Texto con GEMINI_API_KEY (gratis); imagen con GEMINI_API_KEY_IMAGENES (de pago, céntimos).
 """
 import argparse
@@ -55,8 +56,13 @@ def pedir_concepto(idea_extra=""):
     raise SystemExit(f"Gemini no propone icono: {ult}")
 
 
-def pintar(prompt, destino):
-    cuerpo = {"contents": [{"parts": [{"text": prompt + "\nSquare 1:1 app icon. No text, no letters, no watermark."}]}],
+def pintar(prompt, destino, ref=None):
+    partes = []
+    if ref:
+        partes += [{"text": "Style reference (the channel banner): copy ONLY its watercolor technique, soft palette and light. "
+                            "Do NOT copy its text, its composition or its birds."}, imagenes._referencia(ref)]
+    partes.append({"text": prompt + "\nSquare 1:1 app icon. No text, no letters, no watermark."})
+    cuerpo = {"contents": [{"parts": partes}],
               "generationConfig": {"responseModalities": ["IMAGE"], "imageConfig": {"aspectRatio": "1:1"}}}
     m = imagenes.modelo()
     r = imagenes._http(f"{imagenes.API}models/{m}:generateContent", cuerpo)
@@ -71,9 +77,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("salida")
     ap.add_argument("--idea", default="")
+    ap.add_argument("--prompts", default="", help="JSON con «comun» y «variantes»: pinta cada una (sin pedir concepto a Gemini)")
+    ap.add_argument("--ref", default="", help="imagen de referencia de estilo (el banner)")
     a = ap.parse_args()
     out = Path(a.salida)
     out.mkdir(parents=True, exist_ok=True)
+    if a.prompts:
+        cfg = json.loads(Path(a.prompts).read_text(encoding="utf-8"))
+        for clave, texto in cfg["variantes"].items():
+            m = pintar(f"{cfg['comun']} {texto}", out / f"{clave}.png", a.ref or None)
+            print(f"{clave}: pintado con {m}", flush=True)
+        return
     d = pedir_concepto(a.idea)
     print(json.dumps(d, ensure_ascii=False, indent=2), flush=True)
     d["modelo_imagen"] = pintar(d["prompt_imagen"], out / "propuesta.png")

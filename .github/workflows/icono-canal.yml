@@ -8,6 +8,10 @@ on:
         description: "Indicación opcional para Gemini (vacío = libre)"
         required: false
         default: ""
+      variantes:
+        description: "true = pintar las variantes de icono/prompts.json con el banner como referencia (sin pedir concepto)"
+        required: false
+        default: "false"
 
 permissions:
   contents: read
@@ -22,8 +26,16 @@ jobs:
       IDEA: ${{ inputs.idea }}
     steps:
       - uses: actions/checkout@v4
+      - name: Instalar ffmpeg
+        if: inputs.variantes == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
       - name: Proponer y pintar
-        run: python3 proceso/icono.py salida --idea "$IDEA"
+        run: |
+          if [ "${{ inputs.variantes }}" = "true" ]; then
+            python3 proceso/icono.py salida --prompts icono/prompts.json --ref icono/banner-referencia.jpg
+          else
+            python3 proceso/icono.py salida --idea "$IDEA"
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: icono-propuesta
