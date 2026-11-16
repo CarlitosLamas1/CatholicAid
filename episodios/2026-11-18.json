@@ -4,23 +4,21 @@
   "cita": "Lucas 19, 11-28",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/18.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
-  "guion": "gemini-3.8-flash",
+  "guion": "gemini-3.7-flash",
   "voces": "gemini",
   "peticiones_voz": 8,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 170.0,
+  "duracion_s": 152.1,
   "imagenes": [
     "dias/2026-11-18_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-18_e1.jpg",
-    "biblioteca/D10",
-    "biblioteca/D04",
-    "dias/2026-11-18_e2.jpg",
+    "biblioteca/D05",
     "biblioteca/D02",
+    "dias/2026-11-18_e2.jpg",
     "biblioteca/D08",
     "dias/2026-11-18_e3.jpg",
-    "biblioteca/D06",
-    "biblioteca/D05",
+    "biblioteca/D01",
     "biblioteca/D07",
     "dias/2026-11-18_e4.jpg",
     "evangelistas/lucas.jpg",
@@ -28,7 +26,7 @@
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después.",
-  "reflexion": "Dios te ha confiado grandes dones no para que los guardes por miedo, sino para multiplicarlos con amor y entrega. ¿Qué frutos estás dando hoy con lo que Él ha puesto en tus manos?",
+  "reflexion": "Dios te ha confiado dones preciosos para amar y servir a los demás. No dejes que el miedo te paralice: haz fructificar hoy lo que el Señor ha puesto en tus manos.",
   "lufs": -13.9,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
@@ -36,8 +34,8 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "A noble nobleman distributes silver coins to his servants in a grand classical hall before embarking on a journey.",
-      "busqueda": "parable talents servants",
+      "descripcion": "A noble master in elegant robes entrusts silver coins to his servants in a grand hall before departing on his journey.",
+      "busqueda": "parable ten minas",
       "personajes": [
         "hombre",
         "multitud"
@@ -45,25 +43,24 @@
     },
     {
       "numero": 2,
-      "descripcion": "The newly crowned king warmly commends and rewards his diligent servants who present the gained silver coins with joy.",
-      "busqueda": "parable faithful servant",
+      "descripcion": "The returned king in royal garments warmly commends a faithful servant who joyfully presents his earned silver minas.",
+      "busqueda": "talents parable",
       "personajes": [
-        "hombre",
-        "multitud"
+        "hombre"
       ]
     },
     {
       "numero": 3,
-      "descripcion": "A fearful servant presents a single coin wrapped in a cloth before the seated king in the palace council.",
-      "busqueda": "parable silver coin",
+      "descripcion": "A fearful servant humbly holds out a single silver coin wrapped in a cloth before the solemn king seated on his throne.",
+      "busqueda": "parable of pounds",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 4,
-      "descripcion": "Jesus walks resolutely ahead of his disciples on a sunlit ascending path leading toward the distant city of Jerusalem.",
-      "busqueda": "Jesus road Jerusalem",
+      "descripcion": "Jesus walks resolutely at the head of the path toward Jerusalem, followed faithfully by his disciples under the warm morning light.",
+      "busqueda": "Jesus to Jerusalem",
       "personajes": [
         "jesus",
         "apostol"
@@ -76,66 +73,64 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 3.38,
+      "inicio": 3.4,
       "texto": "Lectura del santo Evangelio según san Lucas."
     },
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 7.5,
+      "inicio": 8.45,
       "texto": "En aquel tiempo, mientras ellos escuchaban esto, añadió una parábola, porque estaba cerca de Jerusalén y creían que el reino de Dios se iba a manifestar enseguida. Dijo, pues:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 21.23,
+      "inicio": 22.05,
       "texto": "“Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después. Convocó a diez de sus siervos, les dio diez minas de plata y les dijo: ‘Negociad con ellas hasta que yo vuelva’. Pero sus conciudadanos lo aborrecían y enviaron tras él una embajada que dijera: ‘No queremos que este sea nuestro rey’."
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 47.41,
+      "inicio": 46.0,
       "texto": "Cuando volvió, ya investido del reino, mandó llamar a los siervos a quienes había dado el dinero, para saber lo que había negociado cada uno. Se presentó el primero y dijo: ‘Señor, tu mina ha producido diez minas’. Le respondió: ‘Bien, buen siervo; ya que has sido fiel en lo poco, tendrás mando sobre diez ciudades’. Llegó el segundo y dijo: ‘Señor, tu mina ha producido cinco minas’. Y también a este le dijo: ‘Tú también estarás al mando de cinco ciudades’."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 82.58,
+      "inicio": 76.19,
       "texto": "Vino otro y dijo: ‘Señor, aquí tienes tu mina de plata, que he guardado envuelta en un pañuelo, porque tuve miedo de ti, ya que eres un hombre austero: tomas lo que no has depositado y siegas lo que no has sembrado’. El amo le dice: ‘¡Mal siervo! Por tu propia boca te condeno. Sabías que soy un hombre duro y austero, que tomo lo que no he depositado y siego lo que no he sembrado; ¿por qué, pues, no pusiste mi dinero en el banco, para que yo, al volver, lo recobrase con los intereses?’. Y dijo a los presentes: ‘Quitadle la mina y dádsela al que tiene diez’. Le replicaron: ‘Señor, ya tiene diez minas’. ‘Os digo que a todo el que tiene, se le dará; pero al que no tiene, aun lo que parece que tiene se le quitará. Y en cuanto a aquellos enemigos míos que no me quisieron por rey, traedlos acá y matadlos en mi presencia’”."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 143.92,
+      "inicio": 124.0,
       "texto": "Después de decir esto, Jesús siguió su camino hacia Jerusalén, caminando delante de todos."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 151.14,
+      "inicio": 131.69,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 155.1,
-      "texto": "Dios te ha confiado grandes dones no para que los guardes por miedo, sino para multiplicarlos con amor y entrega. ¿Qué frutos estás dando hoy con lo que Él ha puesto en tus manos?",
+      "inicio": 135.29,
+      "texto": "Dios te ha confiado dones preciosos para amar y servir a los demás. No dejes que el miedo te paralice: haz fructificar hoy lo que el Señor ha puesto en tus manos.",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-16T18:53:09+01:00",
+  "generado": "2026-11-16T19:19:06+01:00",
   "estilo_imagenes": "oleo",
-  "run": "43918903021",
+  "run": "43908752951",
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
   "sincronia": {
     "frases_oidas": 8,
     "frases_por_pausas": [],
-    "cortes_sin_oir": [
-      "narrador"
-    ],
-    "ok": false
+    "cortes_sin_oir": [],
+    "ok": true
   },
   "revision": "pendiente",
   "cupo_agotado": [
