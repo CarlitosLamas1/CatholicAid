@@ -94,7 +94,7 @@ def aplicar_idioma(idioma):
 
 
 def a_hora(v):
-    """hora_publicacion de config: «00:05» (o un número de hora, como antes) -> dt.time."""
+    """hora_publicacion de config: «07:30» (o un número de hora, como antes) -> dt.time."""
     if isinstance(v, str) and ":" in v:
         h, m = v.split(":")[:2]
         return dt.time(int(h), int(m))

@@ -1,0 +1,32 @@
+name: Reprogramar en YouTube
+
+# A mano: pasa los vídeos ya programados de esas fechas (es, en, pt) a la hora_publicacion actual de config.
+on:
+  workflow_dispatch:
+    inputs:
+      fechas:
+        description: "Fechas AAAA-MM-DD separadas por espacios"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar-revisado
+  cancel-in-progress: false
+
+jobs:
+  reprogramar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reprogramar
+        run: python3 proceso/reprogramar.py ${{ inputs.fechas }}
+      - name: Guardar
+        if: always()
+        run: python3 proceso/guardar.py "YouTube: reprogramado a la hora nueva" episodios/

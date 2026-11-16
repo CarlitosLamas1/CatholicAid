@@ -2,13 +2,14 @@ name: Publicar en TikTok
 
 # Cada mañana publica en TikTok el vídeo del día que dejó preparado «Evangelio diario» la tarde anterior:
 # en español (@catolicaid) y, si está conectada, en inglés (@catolicaid_en, release en-AAAA-MM-DD).
-# Respaldo: 23:10 UTC = 00:10 en España en invierno (hora_publicacion 00:05) y reintento a la 01:00 UTC.
+# Respaldo: 06:40 UTC (07:40 en España en invierno, 08:40 en verano; hora_publicacion 07:30) y reintento a las
+# 08:30 UTC. Los dos quedan SIEMPRE después de las 07:30 de Madrid: un cron no espera, publica al llegar.
 # Lo normal es que lo lance antes el Reloj y espere a la hora exacta.
 # Los cron de GitHub se retrasan: el Reloj lo lanza igualmente desde la hora de publicación.
 on:
   schedule:
-    - cron: "10 23 * * *"
-    - cron: "0 1 * * *"
+    - cron: "40 6 * * *"
+    - cron: "30 8 * * *"
   workflow_dispatch:
     inputs:
       fecha:

@@ -108,7 +108,7 @@ def toca(reg, rev, ahora, hora_pub):
 
 
 def hora_publicacion(cfg, idioma):
-    v = cfg.get("hora_publicacion" + ("" if idioma == "es" else f"_{idioma}"), cfg.get("hora_publicacion", "00:05"))
+    v = cfg.get("hora_publicacion" + ("" if idioma == "es" else f"_{idioma}"), cfg.get("hora_publicacion", "07:30"))
     return dt.time(*map(int, v.split(":")[:2])) if isinstance(v, str) else dt.time(int(v))
 
 
