@@ -9,3 +9,26 @@ h2 { font-size: 1.25rem; margin-top: 2rem; }
 a { color: var(--acento); }
 .en { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--suave) 40%, transparent); color: var(--suave); }
 footer { margin-top: 3rem; font-size: 0.95rem; }
+
+/* Web completa (16/11/2026) */
+.cabecera { background: color-mix(in srgb, var(--fondo) 92%, var(--texto)); border-bottom: 1px solid color-mix(in srgb, var(--suave) 35%, transparent); }
+.cabecera .barra { max-width: 920px; margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
+.marca { display: flex; align-items: center; gap: 10px; color: var(--texto); text-decoration: none; font-weight: bold; font-size: 1.15rem; }
+.marca img { width: 38px; height: 38px; border-radius: 50%; }
+.cabecera nav { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.95rem; }
+.cabecera nav a { text-decoration: none; }
+.cabecera nav a[aria-current="page"] { font-weight: bold; text-decoration: underline; }
+main.ancha { max-width: 920px; }
+.hero { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin: 8px 0 12px; }
+.hero img { width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 2px 14px rgba(0,0,0,.25); }
+.hero h1 { margin-bottom: 6px; }
+.botones { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0; }
+.boton { display: inline-block; padding: 8px 16px; border-radius: 999px; background: var(--acento); color: #fff; text-decoration: none; font-size: 0.95rem; }
+.video { position: relative; width: 100%; max-width: 360px; aspect-ratio: 9 / 16; margin: 12px 0; border-radius: 12px; overflow: hidden; background: #000; }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 12px 0; }
+.tarjeta { border: 1px solid color-mix(in srgb, var(--suave) 40%, transparent); border-radius: 12px; padding: 14px 16px; }
+.tarjeta h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.tarjeta p { margin: 4px 0; font-size: 0.95rem; }
+details { margin: 10px 0; }
+summary { cursor: pointer; font-weight: bold; }
