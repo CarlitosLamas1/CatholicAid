@@ -4,30 +4,30 @@
   "cita": "Lucas 19, 11-28",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/18.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
-  "guion": "gemini-3.5-flash",
+  "guion": "gemini-3.8-flash",
   "voces": "gemini",
   "peticiones_voz": 8,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 157.6,
+  "duracion_s": 155.3,
   "imagenes": [
     "dias/2026-11-18_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-18_e1.jpg",
+    "biblioteca/D07",
+    "biblioteca/D05",
+    "dias/2026-11-18_e2.jpg",
+    "biblioteca/D10",
+    "dias/2026-11-18_e3.jpg",
+    "biblioteca/D06",
     "biblioteca/D02",
     "biblioteca/D08",
-    "dias/2026-11-18_e2.jpg",
-    "biblioteca/D01",
-    "dias/2026-11-18_e3.jpg",
-    "biblioteca/D10",
-    "biblioteca/D07",
-    "biblioteca/D04",
     "dias/2026-11-18_e4.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/D10",
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después.",
-  "reflexion": "Dios te ha confiado dones valiosos para ponerlos al servicio de los demás sin dejarte llevar por el miedo. ¿Cómo vas a multiplicar hoy su gracia en tu vida?",
+  "reflexion": "Dios no te pide éxitos deslumbrantes, sino fidelidad y entrega con lo que ha puesto en tus manos. No entierres tus dones por miedo: ¿te atreves hoy a hacerlos fructificar por amor?",
   "lufs": -14.0,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
@@ -35,32 +35,32 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "A noble gentleman giving silver coins to his household servants before setting off on a long journey.",
-      "busqueda": "nobleman departing journey",
+      "descripcion": "A noble gentleman in dignified robes distributes silver coins into the hands of his servants gathered in a stately hall before departing.",
+      "busqueda": "parable talents nobleman",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 2,
-      "descripcion": "A newly crowned king seated in his hall, warmly receiving a faithful servant who presents abundant silver coins.",
-      "busqueda": "king account servants",
+      "descripcion": "A newly crowned king warmly commends a faithful servant who presents bags of silver coins gained through diligent trading.",
+      "busqueda": "faithful servant reckoning",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 3,
-      "descripcion": "A fearful servant holding out a single silver coin wrapped in a cloth before the stern master.",
-      "busqueda": "servant returning coin",
+      "descripcion": "A fearful servant returns a single silver coin wrapped in a cloth before the seated king and onlookers in the royal court.",
+      "busqueda": "parable talents cloth",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 4,
-      "descripcion": "Jesus walking steadfastly ahead of his disciples along a winding sunny road leading towards Jerusalem.",
-      "busqueda": "jesus jerusalem road",
+      "descripcion": "Jesus walks determinedly ahead on a sunlit road toward Jerusalem, with his disciples following behind him on the dusty trail.",
+      "busqueda": "Jesus leading disciples",
       "personajes": [
         "jesus",
         "apostol"
@@ -79,50 +79,50 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 9.47,
+      "inicio": 8.47,
       "texto": "En aquel tiempo, mientras ellos escuchaban esto, añadió una parábola, porque estaba cerca de Jerusalén y creían que el reino de Dios se iba a manifestar enseguida. Dijo, pues:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 23.89,
+      "inicio": 22.0,
       "texto": "“Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después. Convocó a diez de sus siervos, les dio diez minas de plata y les dijo: ‘Negociad con ellas hasta que yo vuelva’. Pero sus conciudadanos lo aborrecían y enviaron tras él una embajada que dijera: ‘No queremos que este sea nuestro rey’."
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 46.82,
+      "inicio": 45.45,
       "texto": "Cuando volvió, ya investido del reino, mandó llamar a los siervos a quienes había dado el dinero, para saber lo que había negociado cada uno. Se presentó el primero y dijo: ‘Señor, tu mina ha producido diez minas’. Le respondió: ‘Bien, buen siervo; ya que has sido fiel en lo poco, tendrás mando sobre diez ciudades’. Llegó el segundo y dijo: ‘Señor, tu mina ha producido cinco minas’. Y también a este le dijo: ‘Tú también estarás al mando de cinco ciudades’."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 72.52,
+      "inicio": 73.81,
       "texto": "Vino otro y dijo: ‘Señor, aquí tienes tu mina de plata, que he guardado envuelta en un pañuelo, porque tuve miedo de ti, ya que eres un hombre austero: tomas lo que no has depositado y siegas lo que no has sembrado’. El amo le dice: ‘¡Mal siervo! Por tu propia boca te condeno. Sabías que soy un hombre duro y austero, que tomo lo que no he depositado y siego lo que no he sembrado; ¿por qué, pues, no pusiste mi dinero en el banco, para que yo, al volver, lo recobrase con los intereses?’. Y dijo a los presentes: ‘Quitadle la mina y dádsela al que tiene diez’. Le replicaron: ‘Señor, ya tiene diez minas’. ‘Os digo que a todo el que tiene, se le dará; pero al que no tiene, aun lo que parece que tiene se le quitará. Y en cuanto a aquellos enemigos míos que no me quisieron por rey, traedlos acá y matadlos en mi presencia’”."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 125.07,
+      "inicio": 127.05,
       "texto": "Después de decir esto, Jesús siguió su camino hacia Jerusalén, caminando delante de todos."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 134.03,
+      "inicio": 134.19,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 139.75,
-      "texto": "Dios te ha confiado dones valiosos para ponerlos al servicio de los demás sin dejarte llevar por el miedo. ¿Cómo vas a multiplicar hoy su gracia en tu vida?",
+      "inicio": 138.54,
+      "texto": "Dios no te pide éxitos deslumbrantes, sino fidelidad y entrega con lo que ha puesto en tus manos. No entierres tus dones por miedo: ¿te atreves hoy a hacerlos fructificar por amor?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-16T13:14:15+01:00",
+  "generado": "2026-11-16T13:51:37+01:00",
   "estilo_imagenes": "oleo",
-  "run": "43858770634",
+  "run": "43867610953",
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
@@ -136,9 +136,11 @@
   },
   "revision": "pendiente",
   "cupo_agotado": [
-    "gemini-flash-latest"
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
   ],
   "reserva_pago": [
-    "gemini-flash-latest"
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
   ]
 }
