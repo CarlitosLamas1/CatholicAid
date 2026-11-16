@@ -154,10 +154,14 @@
       "por": "claude"
     },
     "Ugz1Rmg8GU63JzSuygN4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "delicado",
       "publicado": "2026-11-16T15:37:02+00:00",
       "desde": "2026-11-16T17:33:43.729831+01:00",
-      "listo": "2026-11-16T19:20:02+00:00"
+      "listo": "2026-11-16T19:20:02+00:00",
+      "motivo": "súplica de protección para todos; mejor que responda Carlos",
+      "respuesta": "",
+      "por": "claude",
+      "avisado": true
     }
   },
   "respondidos": [
