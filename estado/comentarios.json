@@ -1,14 +1,5 @@
 {
   "vistos": {
-    "UgxH0qjA7NJLdqun5vZ4AaABAg": {
-      "tipo": "responder",
-      "publicado": "2026-11-06T17:03:35+00:00",
-      "desde": "2026-11-06T18:33:23.684428+01:00",
-      "listo": "2026-11-06T19:49:35+00:00",
-      "motivo": "alabanza sencilla",
-      "respuesta": "Amén. Que Jesús te bendiga hoy y siempre; gracias por escuchar el Evangelio con nosotros.",
-      "por": "claude"
-    },
     "Ugycp9wQlFjWd9xcmEZ4AaABAg": {
       "tipo": "ignorar",
       "publicado": "2026-11-07T02:15:40+00:00",
@@ -161,6 +152,12 @@
       "motivo": "Solo «Amén» y emojis",
       "respuesta": "",
       "por": "claude"
+    },
+    "Ugz1Rmg8GU63JzSuygN4AaABAg": {
+      "tipo": "pendiente",
+      "publicado": "2026-11-16T15:37:02+00:00",
+      "desde": "2026-11-16T17:33:43.729831+01:00",
+      "listo": "2026-11-16T19:20:02+00:00"
     }
   },
   "respondidos": [
