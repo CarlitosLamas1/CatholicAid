@@ -56,11 +56,11 @@ def pedir_concepto(idea_extra=""):
     raise SystemExit(f"Gemini no propone icono: {ult}")
 
 
-def pintar(prompt, destino, ref=None):
+def pintar(prompt, destino, refs=()):
+    """refs: [(texto que explica la referencia, ruta)]."""
     partes = []
-    if ref:
-        partes += [{"text": "Style reference (the channel banner): copy ONLY its watercolor technique, soft palette and light. "
-                            "Do NOT copy its text, its composition or its birds."}, imagenes._referencia(ref)]
+    for rol, ruta in refs:
+        partes += [{"text": rol}, imagenes._referencia(ruta)]
     partes.append({"text": prompt + "\nSquare 1:1 app icon. No text, no letters, no watermark."})
     cuerpo = {"contents": [{"parts": partes}],
               "generationConfig": {"responseModalities": ["IMAGE"], "imageConfig": {"aspectRatio": "1:1"}}}
@@ -84,8 +84,12 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     if a.prompts:
         cfg = json.loads(Path(a.prompts).read_text(encoding="utf-8"))
+        refs = [(r["rol"], RAIZ / r["ruta"]) for r in cfg.get("referencias", [])]
+        if a.ref and not refs:
+            refs = [("Style reference (the channel banner): copy ONLY its watercolor technique, soft palette and light. "
+                     "Do NOT copy its text, its composition or its birds.", a.ref)]
         for clave, texto in cfg["variantes"].items():
-            m = pintar(f"{cfg['comun']} {texto}", out / f"{clave}.png", a.ref or None)
+            m = pintar(f"{cfg['comun']} {texto}", out / f"{clave}.png", refs)
             print(f"{clave}: pintado con {m}", flush=True)
         return
     d = pedir_concepto(a.idea)
