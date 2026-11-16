@@ -68,6 +68,24 @@ class Guardar(unittest.TestCase):
         self.assertTrue((c / "episodios" / "otro.json").exists())
         self.assertNotIn("revision", json.loads((c / "episodios" / "dia.json").read_text()))
 
+    def test_imagen_borrada_y_cambiada(self):
+        """Repintar borra imágenes (JPG) que ya están en main: guardar no puede leerlas como texto."""
+        a = clonar(self.origen, self.tmp / "a")
+        (a / "biblioteca").mkdir()
+        (a / "biblioteca" / "e1.jpg").write_bytes(b"\xff\xd8\xff\xe0 JPG de prueba \xfe\xff")
+        (a / "biblioteca" / "e2.jpg").write_bytes(b"\xff\xd8\xff\xe1 otra \x80\x81")
+        self.assertEqual(guardar(a, "imágenes", "biblioteca/").returncode, 0)
+        b = clonar(self.origen, self.tmp / "b")
+        (b / "biblioteca" / "e1.jpg").unlink()
+        (b / "biblioteca" / "e2.jpg").write_bytes(b"\xff\xd8\xff\xe1 repintada \x90")
+        (b / "episodios" / "dia.json").write_text(json.dumps({"fecha": "2026-01-01", "revision": "pendiente", "repintados": [1]}))
+        r = guardar(b, "repintar", "biblioteca/", "episodios/")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        c = clonar(self.origen, self.tmp / "c")
+        self.assertFalse((c / "biblioteca" / "e1.jpg").exists())
+        self.assertEqual((c / "biblioteca" / "e2.jpg").read_bytes(), b"\xff\xd8\xff\xe1 repintada \x90")
+        self.assertEqual(json.loads((c / "episodios" / "dia.json").read_text())["repintados"], [1])
+
     def test_nada_que_guardar(self):
         a = clonar(self.origen, self.tmp / "a")
         r = guardar(a, "nada", "episodios/", "no-existe/")

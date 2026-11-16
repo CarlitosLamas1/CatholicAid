@@ -20,7 +20,8 @@ def git(*args, check=True):
 
 
 def anterior(ruta):
-    r = subprocess.run(["git", "show", f"HEAD:{ruta}"], capture_output=True, text=True)
+    """Contenido de la ruta en HEAD, en BYTES (puede ser una imagen: leerla como texto rompía el guardado, 16/11/2026)."""
+    r = subprocess.run(["git", "show", f"HEAD:{ruta}"], capture_output=True)
     return r.stdout if r.returncode == 0 else None
 
 
