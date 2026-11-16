@@ -133,7 +133,7 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente",
+  "revision": "rechazada",
   "cupo_agotado": [
     "gemini-2.5-flash-preview-tts",
     "gemini-3.5-flash",
@@ -149,5 +149,23 @@
     "gemini-3.7-flash",
     "gemini-3.8-flash",
     "gemini-flash-latest"
+  ],
+  "repintar": [
+    {
+      "escena": 1,
+      "corregir": "Jesus must not appear; the nobleman/master is an ordinary man in plain dark everyday clothes, not wearing a crimson robe with gold trim, no halo, different face from Jesus"
+    },
+    {
+      "escena": 2,
+      "corregir": "Jesus must not appear; the nobleman/master is an ordinary man in plain dark everyday clothes, not wearing a crimson robe with gold trim, no halo, different face from Jesus"
+    },
+    {
+      "escena": 3,
+      "corregir": "Jesus must not appear; the nobleman/master is an ordinary man in plain dark everyday clothes, not wearing a crimson robe with gold trim, no halo, different face from Jesus"
+    }
+  ],
+  "repintados": 1,
+  "frases_descartadas": [
+    "Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después."
   ]
 }
