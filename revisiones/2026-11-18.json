@@ -2,30 +2,35 @@
   "fecha": "2026-11-18",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-16T12:10:11+01:00",
-  "revisado": "2026-11-16T12:40:00+01:00",
+  "generado": "2026-11-16T13:14:15+01:00",
+  "revisado": "2026-11-16T13:40:00+01:00",
   "motivos": [],
   "avisos": [
-    "La frase clave tiene 18 palabras (máximo 14) y solo es el arranque de la parábola, no se entiende sola: conviene otra, p. ej. «A todo el que tiene, se le dará».",
-    "En las imágenes de las escenas 1 y 2 el señor de la parábola se parece mucho a Jesús (barba, pelo largo, túnica granate y dorada) y podría confundirse con Él."
+    "La frase clave tiene 18 palabras (máximo 14) y solo es el arranque de la parábola: no se entiende sola. Mejor «A todo el que tiene, se le dará».",
+    "En las escenas 1, 2 y 3 el señor de la parábola se parece mucho a Jesús (barba, pelo largo, túnica granate y dorada) y puede confundirse con Él.",
+    "La sincronía de subtítulos marca ok=false (el corte del personaje jesús no se pudo escuchar): el sistema ya rehace una vez por esto."
   ],
   "puntos": {
     "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 19, 11-28 coincide con citas.json.",
-    "voces": "✅ La parábola va a jesus y la narración al narrador.",
+    "voces": "✅ La parábola va entera a jesus y la narración al narrador.",
     "frase_clave": "⚠️ Literal y de Jesús, pero 18 palabras y solo un detalle del relato.",
-    "reflexion": "✅ Cálida, correcta y ligada a la lectura.",
-    "tecnica": "✅ 160,1 s; -13,8 LUFS.",
-    "audio": "✅ Más lento: fragmento 6 («Palabra del Señor.», corto) 4,5 car/s, normal; más rápido: fragmento 4, 15,9 car/s; los largos entre 11 y 16.",
-    "imagenes": "⚠️ Devocionales y sin deformaciones; escenas 1-2 con el señor parecido a Jesús (la escena 3 también algo).",
+    "reflexion": "✅ 29 palabras, cálida y ligada a la lectura.",
+    "tecnica": "✅ 157,6 s; -14,0 LUFS.",
+    "audio": "✅ Más lento: fragmento 6 («Palabra del Señor.», corto) 3,1 car/s, normal; fragmento 0 (título) 7,2; los largos entre 12 y 18 car/s.",
+    "imagenes": "⚠️ Devocionales y sin deformaciones; en las escenas 1-3 el señor parece Jesús.",
     "metadatos": "✅ Fecha, cita y título (Lucas) coherentes."
   },
   "repintar": [
     {
       "escena": 1,
-      "corregir": "Jesus must not appear; the nobleman is an ordinary wealthy man with short hair, clean-shaven or short trimmed beard, rich non-red robes, clearly different from Jesus"
+      "corregir": "Jesus must not appear; the nobleman is an ordinary wealthy man with short hair and a short trimmed beard, rich non-red robes, clearly different from Jesus"
     },
     {
       "escena": 2,
+      "corregir": "Jesus must not appear; the king is an ordinary man with short hair, short trimmed beard, rich royal robes and a simple crown, clearly different from Jesus"
+    },
+    {
+      "escena": 3,
       "corregir": "Jesus must not appear; the king is an ordinary man with short hair, short trimmed beard, rich royal robes and a simple crown, clearly different from Jesus"
     }
   ],
