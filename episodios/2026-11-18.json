@@ -1,263 +1,136 @@
 {
   "fecha": "2026-11-18",
-  "modo": "prueba",
+  "modo": "diario",
   "cita": "Lucas 19, 11-28",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/18.html",
-  "texto_fuente": "Torres Amat (1836), ortografía actualizada",
-  "guion": "gemini-3.8-flash",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.5-flash",
   "voces": "gemini",
-  "peticiones_voz": 27,
+  "peticiones_voz": 8,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 170.0,
+  "duracion_s": 153.6,
   "imagenes": [
     "dias/2026-11-18_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-18_e1.jpg",
-    "biblioteca/D05",
-    "biblioteca/D08",
-    "dias/2026-11-18_e2.jpg",
-    "biblioteca/D01",
     "biblioteca/D02",
+    "biblioteca/D01",
+    "dias/2026-11-18_e2.jpg",
+    "biblioteca/D07",
     "dias/2026-11-18_e3.jpg",
-    "biblioteca/D06",
     "biblioteca/D04",
-    "dias/2026-11-18_e4.jpg",
     "biblioteca/D10",
+    "biblioteca/D08",
+    "dias/2026-11-18_e4.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/D10",
     "evangelistas/lucas.jpg"
   ],
-  "frase_clave": "a todo aquel que tiene, dársele ha, y se hará rico",
-  "reflexion": "Dios te ha colmado de dones para ponerlos al servicio del Reino y hacerlos fructificar con generosidad. No te dejes vencer por el miedo: ¿cómo estás multiplicando hoy la gracia que has recibido?",
-  "lufs": -14.0,
+  "frase_clave": "Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después.",
+  "reflexion": "Dios ha puesto en tus manos dones preciosos no para esconderlos por miedo, sino para compartirlos. ¿Qué talento estás haciendo fructificar hoy por amor al Señor?",
+  "lufs": -13.9,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "A noble master in fine robes delivers silver coins into the hands of his servants before departing from his palace.",
-      "busqueda": "parable ten minas",
+      "descripcion": "A nobleman in elegant robes distributing silver coins to his servants in a courtyard before taking his journey.",
+      "busqueda": "nobleman coins",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 2,
-      "descripcion": "The returning ruler sits with dignity as faithful servants joyfully present their earnings of silver coins.",
-      "busqueda": "faithful servant accountability",
+      "descripcion": "A newly crowned king seated on a throne, listening intently and smiling at his loyal servants presenting their gained coins.",
+      "busqueda": "king servants",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 3,
-      "descripcion": "An anxious servant produces a single silver coin kept wrapped in a cloth, while the master addresses the gathered bystanders.",
-      "busqueda": "wicked servant parable",
+      "descripcion": "The king addressing an unfaithful servant who nervously hands back a single silver coin wrapped in a cloth.",
+      "busqueda": "king servant",
       "personajes": [
-        "hombre",
-        "multitud"
+        "hombre"
       ]
     },
     {
       "numero": 4,
-      "descripcion": "Jesus speaks with solemn purpose to the listening crowd before walking ahead along the sunlit path toward Jerusalem.",
-      "busqueda": "Jesus road Jerusalem",
+      "descripcion": "Jesus walking purposefully at the head of a group of disciples along a dusty path toward Jerusalem under bright morning sunlight.",
+      "busqueda": "jesus jerusalem",
       "personajes": [
-        "jesus"
+        "jesus",
+        "apostol"
       ]
     }
   ],
   "titulo": "Lectura del santo Evangelio según san Lucas.",
-  "texto_evangelio": "En aquel tiempo, mientras escuchaban estas cosas los circunstantes, añadió una parábola, atento a que se hallaba vecino a Jerusalén, y las gentes creían que luego se había de manifestar el reino de Dios. Dijo pues: Un hombre de ilustre nacimiento marchóse a una region remota para recibir la investidura de el reino, y volver con ella. Con cuyo motivo, convocados diez de sus criados, dióles diez minas o marcos de plata, diciéndoles: Negociad con ellas hasta mi vuelta. Es de saber que sus naturales le aborrecian; y así despacharon tras de él embajadores, diciendo: No queremos a ese por nuestro rey. Pero habiendo vuelto recibida la investidura del reino, mandó luego llamará los criados, a quienes había dado su dinero, para informarse de lo que había negociado cada uno. Vino pues el primero, y dijo: Señor, tu marco ha rendido diez marcos. Respondióle: Bien está, buen criado, ya que en esto poco has sido fiel, tendrás mando sobre diez ciudades. Llegó el segundo, y dijo: Señor, tu marco ha dado de ganancia cinco marcos. Dijo asimismo a este: Tú tendras también el gobierno de cinco ciudades. Vino otro, y dijo: Señor, aquí tienes tu marco de plata, el cual he guardado envuelto en un pañuelo; porque tuve miedo de ti, por cuanto eres hombre de un natural austero: tomas lo que no has depositado, y siegas lo que no has sembrado. Dicele el amo: ¡Oh mal siervo! por tu propia boca te condeno: sabias que yo soy un hombre duro y austero, que me llevo lo que no deposité, y siego lo que no he sembrado; ¿pues cómo no pusiste mi dinero en el banco, para que yo en volviendo lo recobrase con los intereses? Por lo que dijo a los asistentes: Quitadle el marco, y dádsele al que, tiene diez marcos. Replicáronle: Señor, que tiene ya diez marcos. Yo os declaro, respondió Jesús, que a todo aquel que tiene, dársele ha, y se hará rico; pero al que no tiene, aun lo que parece que tiene, se le ha de quitar. Pero en órden a aquellos enemigos mios, que no me han querido por rey, conducidlos acá, y quitadles la vida en mi presencia. Después de haber dicho Jesús estas cosas, prosiguió su viage a Jerusalén, e iba él delante de todos.",
+  "texto_evangelio": "En aquel tiempo, mientras ellos escuchaban esto, añadió una parábola, porque estaba cerca de Jerusalén y creían que el reino de Dios se iba a manifestar enseguida. Dijo, pues: “Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después. Convocó a diez de sus siervos, les dio diez minas de plata y les dijo: ‘Negociad con ellas hasta que yo vuelva’. Pero sus conciudadanos lo aborrecían y enviaron tras él una embajada que dijera: ‘No queremos que este sea nuestro rey’. Cuando volvió, ya investido del reino, mandó llamar a los siervos a quienes había dado el dinero, para saber lo que había negociado cada uno. Se presentó el primero y dijo: ‘Señor, tu mina ha producido diez minas’. Le respondió: ‘Bien, buen siervo; ya que has sido fiel en lo poco, tendrás mando sobre diez ciudades’. Llegó el segundo y dijo: ‘Señor, tu mina ha producido cinco minas’. Y también a este le dijo: ‘Tú también estarás al mando de cinco ciudades’. Vino otro y dijo: ‘Señor, aquí tienes tu mina de plata, que he guardado envuelta en un pañuelo, porque tuve miedo de ti, ya que eres un hombre austero: tomas lo que no has depositado y siegas lo que no has sembrado’. El amo le dice: ‘¡Mal siervo! Por tu propia boca te condeno. Sabías que soy un hombre duro y austero, que tomo lo que no he depositado y siego lo que no he sembrado; ¿por qué, pues, no pusiste mi dinero en el banco, para que yo, al volver, lo recobrase con los intereses?’. Y dijo a los presentes: ‘Quitadle la mina y dádsela al que tiene diez’. Le replicaron: ‘Señor, ya tiene diez minas’. ‘Os digo que a todo el que tiene, se le dará; pero al que no tiene, aun lo que parece que tiene se le quitará. Y en cuanto a aquellos enemigos míos que no me quisieron por rey, traedlos acá y matadlos en mi presencia’”. Después de decir esto, Jesús siguió su camino hacia Jerusalén, caminando delante de todos.",
   "fragmentos": [
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 3.32,
+      "inicio": 3.4,
       "texto": "Lectura del santo Evangelio según san Lucas."
     },
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 6.97,
-      "texto": "En aquel tiempo, mientras escuchaban estas cosas los circunstantes, añadió una parábola, atento a que se hallaba vecino a Jerusalén, y las gentes creían que luego se había de manifestar el reino de Dios. Dijo pues: Un hombre de ilustre nacimiento marchóse a una region remota para recibir la investidura de el reino, y volver con ella. Con cuyo motivo, convocados diez de sus criados, dióles diez minas o marcos de plata, diciéndoles:"
-    },
-    {
-      "personaje": "hombre",
-      "escena": 1,
-      "inicio": 34.73,
-      "texto": "Negociad con ellas hasta mi vuelta."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 1,
-      "inicio": 38.04,
-      "texto": "Es de saber que sus naturales le aborrecian; y así despacharon tras de él embajadores, diciendo:"
-    },
-    {
-      "personaje": "multitud",
-      "escena": 1,
-      "inicio": 45.62,
-      "texto": "No queremos a ese por nuestro rey."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 2,
-      "inicio": 48.63,
-      "texto": "Pero habiendo vuelto recibida la investidura del reino, mandó luego llamará los criados, a quienes había dado su dinero, para informarse de lo que había negociado cada uno. Vino pues el primero, y dijo:"
-    },
-    {
-      "personaje": "hombre",
-      "escena": 2,
-      "inicio": 59.78,
-      "texto": "Señor, tu marco ha rendido diez marcos."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 2,
-      "inicio": 64.66,
-      "texto": "Respondióle:"
-    },
-    {
-      "personaje": "hombre",
-      "escena": 2,
-      "inicio": 65.81,
-      "texto": "Bien está, buen criado, ya que en esto poco has sido fiel, tendrás mando sobre diez ciudades."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 2,
-      "inicio": 72.69,
-      "texto": "Llegó el segundo, y dijo:"
-    },
-    {
-      "personaje": "hombre",
-      "escena": 2,
-      "inicio": 74.75,
-      "texto": "Señor, tu marco ha dado de ganancia cinco marcos."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 2,
-      "inicio": 79.7,
-      "texto": "Dijo asimismo a este:"
-    },
-    {
-      "personaje": "hombre",
-      "escena": 2,
-      "inicio": 81.49,
-      "texto": "Tú tendras también el gobierno de cinco ciudades."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 3,
-      "inicio": 85.98,
-      "texto": "Vino otro, y dijo:"
-    },
-    {
-      "personaje": "hombre",
-      "escena": 3,
-      "inicio": 87.69,
-      "texto": "Señor, aquí tienes tu marco de plata, el cual he guardado envuelto en un pañuelo; porque tuve miedo de ti, por cuanto eres hombre de un natural austero: tomas lo que no has depositado, y siegas lo que no has sembrado."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 3,
-      "inicio": 99.74,
-      "texto": "Dicele el amo:"
-    },
-    {
-      "personaje": "hombre",
-      "escena": 3,
-      "inicio": 100.97,
-      "texto": "¡Oh mal siervo! por tu propia boca te condeno: sabias que yo soy un hombre duro y austero, que me llevo lo que no deposité, y siego lo que no he sembrado; ¿pues cómo no pusiste mi dinero en el banco, para que yo en volviendo lo recobrase con los intereses?"
-    },
-    {
-      "personaje": "narrador",
-      "escena": 3,
-      "inicio": 115.1,
-      "texto": "Por lo que dijo a los asistentes:"
-    },
-    {
-      "personaje": "hombre",
-      "escena": 3,
-      "inicio": 117.21,
-      "texto": "Quitadle el marco, y dádsele al que, tiene diez marcos."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 3,
-      "inicio": 122.49,
-      "texto": "Replicáronle:"
-    },
-    {
-      "personaje": "multitud",
-      "escena": 3,
-      "inicio": 123.65,
-      "texto": "Señor, que tiene ya diez marcos."
+      "inicio": 8.01,
+      "texto": "En aquel tiempo, mientras ellos escuchaban esto, añadió una parábola, porque estaba cerca de Jerusalén y creían que el reino de Dios se iba a manifestar enseguida. Dijo, pues:"
     },
     {
       "personaje": "jesus",
-      "escena": 4,
-      "inicio": 125.97,
-      "texto": "Yo os declaro,"
-    },
-    {
-      "personaje": "narrador",
-      "escena": 4,
-      "inicio": 127.57,
-      "texto": "respondió Jesús,"
+      "escena": 1,
+      "inicio": 22.39,
+      "texto": "“Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después. Convocó a diez de sus siervos, les dio diez minas de plata y les dijo: ‘Negociad con ellas hasta que yo vuelva’. Pero sus conciudadanos lo aborrecían y enviaron tras él una embajada que dijera: ‘No queremos que este sea nuestro rey’."
     },
     {
       "personaje": "jesus",
-      "escena": 4,
-      "inicio": 128.89,
-      "texto": "que a todo aquel que tiene, dársele ha, y se hará rico; pero al que no tiene, aun lo que parece que tiene, se le ha de quitar. Pero en órden a aquellos enemigos mios, que no me han querido por rey, conducidlos acá, y quitadles la vida en mi presencia."
+      "escena": 2,
+      "inicio": 45.38,
+      "texto": "Cuando volvió, ya investido del reino, mandó llamar a los siervos a quienes había dado el dinero, para saber lo que había negociado cada uno. Se presentó el primero y dijo: ‘Señor, tu mina ha producido diez minas’. Le respondió: ‘Bien, buen siervo; ya que has sido fiel en lo poco, tendrás mando sobre diez ciudades’. Llegó el segundo y dijo: ‘Señor, tu mina ha producido cinco minas’. Y también a este le dijo: ‘Tú también estarás al mando de cinco ciudades’."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 77.04,
+      "texto": "Vino otro y dijo: ‘Señor, aquí tienes tu mina de plata, que he guardado envuelta en un pañuelo, porque tuve miedo de ti, ya que eres un hombre austero: tomas lo que no has depositado y siegas lo que no has sembrado’. El amo le dice: ‘¡Mal siervo! Por tu propia boca te condeno. Sabías que soy un hombre duro y austero, que tomo lo que no he depositado y siego lo que no he sembrado; ¿por qué, pues, no pusiste mi dinero en el banco, para que yo, al volver, lo recobrase con los intereses?’. Y dijo a los presentes: ‘Quitadle la mina y dádsela al que tiene diez’. Le replicaron: ‘Señor, ya tiene diez minas’. ‘Os digo que a todo el que tiene, se le dará; pero al que no tiene, aun lo que parece que tiene se le quitará. Y en cuanto a aquellos enemigos míos que no me quisieron por rey, traedlos acá y matadlos en mi presencia’”."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 144.04,
-      "texto": "Después de haber dicho Jesús estas cosas, prosiguió su viage a Jerusalén, e iba él delante de todos."
+      "inicio": 127.67,
+      "texto": "Después de decir esto, Jesús siguió su camino hacia Jerusalén, caminando delante de todos."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 151.99,
+      "inicio": 134.64,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 154.32,
-      "texto": "Dios te ha colmado de dones para ponerlos al servicio del Reino y hacerlos fructificar con generosidad. No te dejes vencer por el miedo: ¿cómo estás multiplicando hoy la gracia que has recibido?",
+      "inicio": 138.47,
+      "texto": "Dios ha puesto en tus manos dones preciosos no para esconderlos por miedo, sino para compartirlos. ¿Qué talento estás haciendo fructificar hoy por amor al Señor?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-15T12:37:30+01:00",
+  "generado": "2026-11-16T11:13:08+01:00",
   "estilo_imagenes": "oleo",
-  "run": "43706811939",
-  "cupo_agotado": [
-    "gemini-2.5-flash-preview-tts",
-    "gemini-3.7-flash"
-  ],
-  "reserva_pago": [
-    "gemini-2.5-flash-preview-tts",
-    "gemini-3.7-flash"
-  ],
+  "run": "43840720899",
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
   "sincronia": {
-    "frases_oidas": 26,
-    "frases_por_pausas": [
-      "Dijo asimismo a este:"
-    ],
-    "cortes_sin_oir": [
-      "jesus",
-      "narrador"
-    ],
-    "ok": false
-  }
+    "frases_oidas": 8,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
 }
