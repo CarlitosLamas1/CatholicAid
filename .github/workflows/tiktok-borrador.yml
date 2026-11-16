@@ -1,0 +1,41 @@
+name: Probar borrador de TikTok
+
+# Prueba (a mano): deja un vídeo ya hecho como BORRADOR en la bandeja de TikTok de la cuenta (permiso video.upload),
+# para comprobar que llega, que se puede programar dentro de la app y que no exige cuenta privada.
+# No toca el registro, no borra la release y no avisa por Telegram.
+on:
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha AAAA-MM-DD de un vídeo cuya release siga existiendo"
+        required: true
+      idioma:
+        description: "es, en o pt"
+        required: false
+        default: "es"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tiktok
+  cancel-in-progress: false
+
+jobs:
+  borrador:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+      TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+      TIKTOK_CUENTA: ${{ inputs.idioma }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Subir como borrador
+        run: |
+          L="${{ inputs.idioma }}"; F="${{ inputs.fecha }}"
+          if [ "$L" = "es" ]; then REL="tiktok-$F"; else REL="$L-$F"; fi
+          rm -rf t && mkdir -p t && gh release download "$REL" -D t -p video.mp4
+          python3 proceso/tiktok.py comprobar
+          python3 proceso/tiktok.py borrador t/video.mp4

@@ -9,6 +9,7 @@ Uso:
   python3 proceso/tiktok.py canjear <código>    -> canjea el código y guarda el permiso cifrado
   python3 proceso/tiktok.py comprobar           -> renueva el permiso y muestra la cuenta conectada
   python3 proceso/tiktok.py subir <video.mp4> "<texto>"
+  python3 proceso/tiktok.py borrador <video.mp4>   -> lo deja como borrador en la app (sin texto; lo programa su dueño)
 Cuenta: TIKTOK_CUENTA=es (por defecto, @catolicaid, secretos/tiktok.enc) o en (@catolicaid_en, secretos/tiktok-en.enc).
 Las dos usan la misma app de TikTok (mismas claves).
 """
@@ -127,6 +128,34 @@ def cuenta(token):
         return json.loads(r.read()).get("data", {}).get("user", {})
 
 
+def _trozos(tam):
+    """TikTok: un solo envío solo hasta 64 MB; si no, trozos de 10 MB (el último se queda con el resto)."""
+    trozo = tam if tam <= 60_000_000 else 10_000_000
+    return trozo, max(1, tam // trozo)
+
+
+def _enviar(upload_url, contenido, trozo, n):
+    tam = len(contenido)
+    for i in range(n):
+        ini = i * trozo
+        fin = tam if i == n - 1 else ini + trozo
+        req = urllib.request.Request(upload_url, data=contenido[ini:fin], method="PUT",
+                                     headers={"Content-Type": "video/mp4", "Content-Length": str(fin - ini),
+                                              "Content-Range": f"bytes {ini}-{fin - 1}/{tam}"})
+        with urllib.request.urlopen(req, timeout=600):
+            pass
+
+
+def _esperar_estado(token, publish_id):
+    estado = "PROCESSING"
+    for _ in range(30):
+        time.sleep(10)
+        estado = _api("post/publish/status/fetch/", token, {"publish_id": publish_id}).get("status", estado)
+        if estado in ("PUBLISH_COMPLETE", "FAILED", "SEND_TO_USER_INBOX"):
+            break
+    return estado
+
+
 def subir(video, texto, privacidad="PUBLIC_TO_EVERYONE"):
     """Publica directamente el vídeo. Si la privacidad pedida no está permitida (app sin aprobar o cuenta
     privada), usa la más restrictiva disponible. Devuelve (publish_id, estado, privacidad usada)."""
@@ -136,30 +165,29 @@ def subir(video, texto, privacidad="PUBLIC_TO_EVERYONE"):
     if privacidad not in opciones:
         privacidad = "SELF_ONLY" if "SELF_ONLY" in opciones else (opciones[0] if opciones else "SELF_ONLY")
     contenido = Path(video).read_bytes()
-    tam = len(contenido)
-    # TikTok: un solo envío solo hasta 64 MB; si no, trozos de 10 MB (el último se queda con el resto).
-    trozo = tam if tam <= 60_000_000 else 10_000_000
-    n = max(1, tam // trozo)
+    trozo, n = _trozos(len(contenido))
     datos = _api("post/publish/video/init/", token, {
         "post_info": {"title": texto[:2200], "privacy_level": privacidad, "disable_duet": False,
                       "disable_stitch": False, "disable_comment": False, "video_cover_timestamp_ms": 3000,
                       "is_aigc": True},
-        "source_info": {"source": "FILE_UPLOAD", "video_size": tam, "chunk_size": trozo, "total_chunk_count": n}})
-    for i in range(n):
-        ini = i * trozo
-        fin = tam if i == n - 1 else ini + trozo
-        req = urllib.request.Request(datos["upload_url"], data=contenido[ini:fin], method="PUT",
-                                     headers={"Content-Type": "video/mp4", "Content-Length": str(fin - ini),
-                                              "Content-Range": f"bytes {ini}-{fin - 1}/{tam}"})
-        with urllib.request.urlopen(req, timeout=600):
-            pass
-    estado = "PROCESSING"
-    for _ in range(30):
-        time.sleep(10)
-        estado = _api("post/publish/status/fetch/", token, {"publish_id": datos["publish_id"]}).get("status", estado)
-        if estado in ("PUBLISH_COMPLETE", "FAILED", "SEND_TO_USER_INBOX"):
-            break
-    return datos["publish_id"], estado, privacidad
+        "source_info": {"source": "FILE_UPLOAD", "video_size": len(contenido), "chunk_size": trozo,
+                        "total_chunk_count": n}})
+    _enviar(datos["upload_url"], contenido, trozo, n)
+    return datos["publish_id"], _esperar_estado(token, datos["publish_id"]), privacidad
+
+
+def subir_borrador(video):
+    """Deja el vídeo como BORRADOR en la bandeja de TikTok del dueño (permiso video.upload): él lo abre desde la
+    notificación, ajusta y publica o lo programa dentro de la app. No admite texto ni privacidad (los pone él) y
+    no exige cuenta privada. Máximo 5 pendientes por cuenta cada 24 h. Devuelve (publish_id, estado)."""
+    token = acceso()
+    contenido = Path(video).read_bytes()
+    trozo, n = _trozos(len(contenido))
+    datos = _api("post/publish/inbox/video/init/", token, {
+        "source_info": {"source": "FILE_UPLOAD", "video_size": len(contenido), "chunk_size": trozo,
+                        "total_chunk_count": n}})
+    _enviar(datos["upload_url"], contenido, trozo, n)
+    return datos["publish_id"], _esperar_estado(token, datos["publish_id"])
 
 
 if __name__ == "__main__":
@@ -173,5 +201,7 @@ if __name__ == "__main__":
         print("Cuenta conectada:", cuenta(acceso()).get("display_name"))
     elif orden == "subir":
         print(subir(sys.argv[2], sys.argv[3]))
+    elif orden == "borrador":
+        print(subir_borrador(sys.argv[2]))
     else:
         print(__doc__)
