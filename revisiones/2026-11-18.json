@@ -2,21 +2,21 @@
   "fecha": "2026-11-18",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-16T11:13:08+01:00",
-  "revisado": "2026-11-16T11:40:00+01:00",
+  "generado": "2026-11-16T12:10:11+01:00",
+  "revisado": "2026-11-16T12:40:00+01:00",
   "motivos": [],
   "avisos": [
-    "La frase clave tiene 18 palabras (máximo 14) y solo cuenta el arranque de la parábola, sin mensaje por sí sola: conviene otra, p. ej. «A todo el que tiene, se le dará».",
-    "En las imágenes de las escenas 1 y 2 el señor de la parábola tiene un aspecto muy parecido al de Jesús (barba, pelo largo, túnica granate y dorada): podría confundirse con Él."
+    "La frase clave tiene 18 palabras (máximo 14) y solo es el arranque de la parábola, no se entiende sola: conviene otra, p. ej. «A todo el que tiene, se le dará».",
+    "En las imágenes de las escenas 1 y 2 el señor de la parábola se parece mucho a Jesús (barba, pelo largo, túnica granate y dorada) y podría confundirse con Él."
   ],
   "puntos": {
     "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 19, 11-28 coincide con citas.json.",
-    "voces": "✅ La parábola entera va a jesus y la narración al narrador.",
+    "voces": "✅ La parábola va a jesus y la narración al narrador.",
     "frase_clave": "⚠️ Literal y de Jesús, pero 18 palabras y solo un detalle del relato.",
-    "reflexion": "✅ Cálida, doctrinalmente correcta y ligada a la lectura (talentos).",
-    "tecnica": "✅ 153,6 s; -13,9 LUFS.",
-    "audio": "✅ Más lento: fragmento 6 («Palabra del Señor.», corto) 4,7 car/s, normal; más rápido: fragmento 4, 16,3 car/s; los largos entre 12 y 16.",
-    "imagenes": "⚠️ Apropiadas y devocionales, sin deformaciones; escenas 1-2 con el señor parecido a Jesús; escena 4 correcta.",
+    "reflexion": "✅ Cálida, correcta y ligada a la lectura.",
+    "tecnica": "✅ 160,1 s; -13,8 LUFS.",
+    "audio": "✅ Más lento: fragmento 6 («Palabra del Señor.», corto) 4,5 car/s, normal; más rápido: fragmento 4, 15,9 car/s; los largos entre 11 y 16.",
+    "imagenes": "⚠️ Devocionales y sin deformaciones; escenas 1-2 con el señor parecido a Jesús (la escena 3 también algo).",
     "metadatos": "✅ Fecha, cita y título (Lucas) coherentes."
   },
   "repintar": [
