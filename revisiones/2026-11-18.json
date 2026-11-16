@@ -2,35 +2,31 @@
   "fecha": "2026-11-18",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-16T14:55:42+01:00",
-  "revisado": "2026-11-16T15:40:00+01:00",
+  "generado": "2026-11-16T15:50:55+01:00",
+  "revisado": "2026-11-16T16:45:00+01:00",
   "motivos": [],
   "avisos": [
-    "Imágenes: en las escenas 1, 2 y 3 el amo de la parábola tiene el rostro y la túnica burdeos de Jesús; se pide repintar.",
-    "Frase clave de 18 palabras y solo describe el comienzo de la parábola: no se entiende sola; se pide otra."
+    "Frase clave de 18 palabras que solo describe el comienzo de la parábola: no se entiende sola; se pide otra.",
+    "Imágenes: en las escenas 1 y 2 el amo de la parábola se parece a Jesús (túnica burdeos y manto dorado); se pide repintar."
   ],
   "puntos": {
     "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 19, 11-28 coincide con citas.json",
     "voces": "✅ parábola dicha por Jesús, narrador en el resto",
-    "frase_clave": "⚠️ literal y de Jesús, pero 18 palabras y describe un detalle del relato",
-    "reflexion": "✅ cálida, católica, unas 33 palabras",
-    "tecnica": "✅ 155,9 s; -13,9 LUFS; sincronía ok",
-    "audio": "✅ más lento: «Palabra del Señor» 4,1 c/s (corto); más rápido: 16,1 c/s (frag. 4)",
-    "imagenes": "⚠️ el amo parece Jesús en las escenas 1-3; nada inapropiado",
+    "frase_clave": "⚠️ literal y de Jesús, pero 18 palabras y solo describe un detalle del relato",
+    "reflexion": "✅ cálida, católica, unas 30 palabras",
+    "tecnica": "✅ 148,9 s; -13,9 LUFS; sincronía ok",
+    "audio": "✅ más lento: «Palabra del Señor» 5,8 c/s (fragmento corto); más rápido: 16,4 c/s (frag. 4)",
+    "imagenes": "⚠️ el amo parece Jesús en escenas 1-2; nada inapropiado",
     "metadatos": "✅ título Lucas coherente con la cita"
   },
   "repintar": [
     {
       "escena": 1,
-      "corregir": "Jesus must not appear; the nobleman/master of the parable is an ordinary wealthy man with a different face, short dark hair, clean-shaven or short beard, and different clothes (not a burgundy robe), no halo"
+      "corregir": "Jesus must not appear; the nobleman/master of the parable is an ordinary wealthy man with a different face, short dark hair, clean-shaven or short beard, and different clothes (not a burgundy robe, no gold-trimmed cloak), no halo"
     },
     {
       "escena": 2,
-      "corregir": "Jesus must not appear; the nobleman/master of the parable is an ordinary wealthy man with a different face, short dark hair, clean-shaven or short beard, and different clothes (not a burgundy robe), no halo"
-    },
-    {
-      "escena": 3,
-      "corregir": "Jesus must not appear; the nobleman/master of the parable is an ordinary wealthy man with a different face, short dark hair, clean-shaven or short beard, and different clothes (not a burgundy robe), no halo"
+      "corregir": "Jesus must not appear; the nobleman/master of the parable is an ordinary wealthy man with a different face, short dark hair, clean-shaven or short beard, and different clothes (not a burgundy robe, no gold-trimmed cloak), no halo"
     }
   ],
   "cambiar_frase": true
