@@ -8,59 +8,61 @@
   "voces": "gemini",
   "peticiones_voz": 8,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 155.3,
+  "duracion_s": 155.9,
   "imagenes": [
     "dias/2026-11-18_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-18_e1.jpg",
-    "biblioteca/D07",
     "biblioteca/D05",
-    "dias/2026-11-18_e2.jpg",
-    "biblioteca/D10",
-    "dias/2026-11-18_e3.jpg",
-    "biblioteca/D06",
-    "biblioteca/D02",
     "biblioteca/D08",
+    "dias/2026-11-18_e2.jpg",
+    "biblioteca/D01",
+    "dias/2026-11-18_e3.jpg",
+    "biblioteca/D07",
+    "biblioteca/D02",
+    "biblioteca/D06",
     "dias/2026-11-18_e4.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/D10",
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después.",
-  "reflexion": "Dios no te pide éxitos deslumbrantes, sino fidelidad y entrega con lo que ha puesto en tus manos. No entierres tus dones por miedo: ¿te atreves hoy a hacerlos fructificar por amor?",
-  "lufs": -14.0,
+  "reflexion": "Dios te ha confiado dones preciosos para amar y servir, no para esconderlos por miedo. Haz fructificar tu vida con generosidad. ¿Qué talento puedes poner hoy al servicio de los demás?",
+  "lufs": -13.9,
   "gancho_segundos": 2.8,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "A noble gentleman in dignified robes distributes silver coins into the hands of his servants gathered in a stately hall before departing.",
-      "busqueda": "parable talents nobleman",
+      "descripcion": "A noble lord distributes silver minas to his servants in a grand hall before departing on a long journey.",
+      "busqueda": "parable talents",
       "personajes": [
-        "hombre"
+        "hombre",
+        "multitud"
       ]
     },
     {
       "numero": 2,
-      "descripcion": "A newly crowned king warmly commends a faithful servant who presents bags of silver coins gained through diligent trading.",
-      "busqueda": "faithful servant reckoning",
+      "descripcion": "The newly crowned king warmly commends and rewards his faithful servant, who presents his earned minas with joy.",
+      "busqueda": "faithful servant",
       "personajes": [
         "hombre"
       ]
     },
     {
       "numero": 3,
-      "descripcion": "A fearful servant returns a single silver coin wrapped in a cloth before the seated king and onlookers in the royal court.",
-      "busqueda": "parable talents cloth",
+      "descripcion": "A fearful servant returns a single silver coin wrapped in a cloth before the stern master seated in his court.",
+      "busqueda": "parable minas",
       "personajes": [
-        "hombre"
+        "hombre",
+        "multitud"
       ]
     },
     {
       "numero": 4,
-      "descripcion": "Jesus walks determinedly ahead on a sunlit road toward Jerusalem, with his disciples following behind him on the dusty trail.",
-      "busqueda": "Jesus leading disciples",
+      "descripcion": "Jesus walks resolutely ahead along a sunlit dusty path toward Jerusalem, leading his disciples.",
+      "busqueda": "road to Jerusalem",
       "personajes": [
         "jesus",
         "apostol"
@@ -79,68 +81,70 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 8.47,
+      "inicio": 7.38,
       "texto": "En aquel tiempo, mientras ellos escuchaban esto, añadió una parábola, porque estaba cerca de Jerusalén y creían que el reino de Dios se iba a manifestar enseguida. Dijo, pues:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 22.0,
+      "inicio": 20.19,
       "texto": "“Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después. Convocó a diez de sus siervos, les dio diez minas de plata y les dijo: ‘Negociad con ellas hasta que yo vuelva’. Pero sus conciudadanos lo aborrecían y enviaron tras él una embajada que dijera: ‘No queremos que este sea nuestro rey’."
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 45.45,
+      "inicio": 45.31,
       "texto": "Cuando volvió, ya investido del reino, mandó llamar a los siervos a quienes había dado el dinero, para saber lo que había negociado cada uno. Se presentó el primero y dijo: ‘Señor, tu mina ha producido diez minas’. Le respondió: ‘Bien, buen siervo; ya que has sido fiel en lo poco, tendrás mando sobre diez ciudades’. Llegó el segundo y dijo: ‘Señor, tu mina ha producido cinco minas’. Y también a este le dijo: ‘Tú también estarás al mando de cinco ciudades’."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 73.81,
+      "inicio": 76.56,
       "texto": "Vino otro y dijo: ‘Señor, aquí tienes tu mina de plata, que he guardado envuelta en un pañuelo, porque tuve miedo de ti, ya que eres un hombre austero: tomas lo que no has depositado y siegas lo que no has sembrado’. El amo le dice: ‘¡Mal siervo! Por tu propia boca te condeno. Sabías que soy un hombre duro y austero, que tomo lo que no he depositado y siego lo que no he sembrado; ¿por qué, pues, no pusiste mi dinero en el banco, para que yo, al volver, lo recobrase con los intereses?’. Y dijo a los presentes: ‘Quitadle la mina y dádsela al que tiene diez’. Le replicaron: ‘Señor, ya tiene diez minas’. ‘Os digo que a todo el que tiene, se le dará; pero al que no tiene, aun lo que parece que tiene se le quitará. Y en cuanto a aquellos enemigos míos que no me quisieron por rey, traedlos acá y matadlos en mi presencia’”."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 127.05,
+      "inicio": 127.98,
       "texto": "Después de decir esto, Jesús siguió su camino hacia Jerusalén, caminando delante de todos."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 134.19,
+      "inicio": 135.5,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 4,
-      "inicio": 138.54,
-      "texto": "Dios no te pide éxitos deslumbrantes, sino fidelidad y entrega con lo que ha puesto en tus manos. No entierres tus dones por miedo: ¿te atreves hoy a hacerlos fructificar por amor?",
+      "inicio": 139.9,
+      "texto": "Dios te ha confiado dones preciosos para amar y servir, no para esconderlos por miedo. Haz fructificar tu vida con generosidad. ¿Qué talento puedes poner hoy al servicio de los demás?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-16T13:51:37+01:00",
+  "generado": "2026-11-16T14:55:42+01:00",
   "estilo_imagenes": "oleo",
-  "run": "43867610953",
+  "run": "43876967068",
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
   "sincronia": {
     "frases_oidas": 8,
     "frases_por_pausas": [],
-    "cortes_sin_oir": [
-      "jesus"
-    ],
-    "ok": false
+    "cortes_sin_oir": [],
+    "ok": true
   },
   "revision": "pendiente",
   "cupo_agotado": [
+    "gemini-2.5-flash-preview-tts",
     "gemini-3.7-flash",
-    "gemini-3.8-flash"
+    "gemini-3.8-flash",
+    "gemini-flash-latest"
   ],
   "reserva_pago": [
+    "gemini-2.5-flash-preview-tts",
     "gemini-3.7-flash",
-    "gemini-3.8-flash"
+    "gemini-3.8-flash",
+    "gemini-flash-latest"
   ]
 }
