@@ -2,21 +2,21 @@
   "fecha": "2026-11-18",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-16T16:56:54+01:00",
-  "revisado": "2026-11-16T17:40:00+01:00",
+  "generado": "2026-11-16T19:19:06+01:00",
+  "revisado": "2026-11-16T19:33:04+01:00",
   "motivos": [],
   "avisos": [
     "Frase clave de 18 palabras que solo describe el comienzo de la parábola: no se entiende sola; se pide otra.",
     "Imágenes: en las escenas 1 y 2 el amo de la parábola sigue pareciéndose a Jesús (túnica burdeos y manto dorado); se pide repintar.",
-    "Subtítulos: la sincronía marca ok falso (no se pudo escuchar el corte de jesus)."
+    "Aviso al gestor: este vídeo se ha regenerado varias veces el 16/11 sin que se aplicaran 'repintar' ni 'cambiar_frase' (sin repintados ni frases_descartadas en el registro): posible bucle de rehacer."
   ],
   "puntos": {
     "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 19, 11-28 coincide con citas.json",
     "voces": "✅ parábola dicha por Jesús, narrador en el resto",
     "frase_clave": "⚠️ literal y de Jesús, pero 18 palabras y solo describe un detalle del relato",
     "reflexion": "✅ cálida, católica, unas 33 palabras",
-    "tecnica": "✅ 153 s; -14,0 LUFS; ⚠️ sincronia.ok falso",
-    "audio": "✅ más lento: «Palabra del Señor» 5,1 c/s (fragmento corto); más rápido: 16,7 c/s (frag. 2)",
+    "tecnica": "✅ 152,1 s; -13,9 LUFS; sincronía ok",
+    "audio": "✅ más lento: «Palabra del Señor» 5,0 c/s (corto); más rápido: 17,3 c/s (frag. 4)",
     "imagenes": "⚠️ el amo parece Jesús en escenas 1-2; nada inapropiado",
     "metadatos": "✅ título Lucas coherente con la cita"
   },
