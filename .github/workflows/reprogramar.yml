@@ -29,4 +29,5 @@ jobs:
         run: python3 proceso/reprogramar.py ${{ inputs.fechas }}
       - name: Guardar
         if: always()
-        run: python3 proceso/guardar.py "YouTube: reprogramado a la hora nueva" episodios/
+        run: |
+          python3 proceso/guardar.py "YouTube - reprogramado a la hora nueva" episodios/
