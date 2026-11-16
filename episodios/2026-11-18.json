@@ -133,7 +133,7 @@
     ],
     "ok": false
   },
-  "revision": "pendiente",
+  "revision": "rechazada",
   "cupo_agotado": [
     "gemini-2.5-flash-preview-tts",
     "gemini-3.5-flash",
@@ -167,5 +167,6 @@
   "repintados": 1,
   "frases_descartadas": [
     "Un hombre de noble linaje marchó a una región lejana para recibir la investidura real y volver después."
-  ]
+  ],
+  "rehechos": 1
 }
