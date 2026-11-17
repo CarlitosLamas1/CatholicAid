@@ -30,3 +30,10 @@ jobs:
           PY
       - name: Pruebas
         run: python3 -m unittest discover -s pruebas_codigo -p "prueba_*.py" -v
+      - name: La rama «reloj» arranca el Reloj con el script de main
+        run: |
+          # La marca horaria de la rutina es un push a esa rama y GitHub usa SU reloj.yml. Si lleva una copia antigua
+          # (el 17/11/2026 hacía una sola pasada por hora en vez de cuatro), el Reloj reacciona tarde.
+          git fetch -q origin reloj
+          git show origin/reloj:.github/workflows/reloj.yml | grep -q "proceso/reloj_tirada.sh" \
+            || { echo "::error::La rama reloj no usa proceso/reloj_tirada.sh: actualiza su .github/workflows/reloj.yml"; exit 1; }

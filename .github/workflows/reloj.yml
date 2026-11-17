@@ -6,6 +6,9 @@ name: Reloj
 # lo que hace). Lo despierta cada hora la marca que sube la rutina «Revisor diario» a la rama «reloj» (puntual): esa
 # tirada mira 4 veces, cada 10 minutos (media hora). Los cron son solo respaldo por si la rutina falla y hacen una
 # única pasada. Solo hay una tirada a la vez (concurrency).
+# OJO: la marca horaria es un push a la rama «reloj» y GitHub usa el reloj.yml DE ESA RAMA, no el de main. Esa copia es
+# un envoltorio fino que llama a proceso/reloj_tirada.sh (en main): la lógica no se duplica. Si se toca cómo arranca el
+# Reloj, hay que actualizar también esa copia (comprobaciones.yml avisa si se desincroniza).
 on:
   push:
     branches: [reloj]
@@ -33,14 +36,4 @@ jobs:
         with:
           ref: main
       - name: Mirar (4 pasadas cada 10 minutos; una sola si lo arranca el cron de respaldo)
-        run: |
-          PASADAS=4
-          [ "${{ github.event_name }}" = "schedule" ] && PASADAS=1
-          for N in $(seq 1 $PASADAS); do
-            git fetch -q origin main && git reset -q --hard origin/main || true
-            echo "::group::Pasada $N de $PASADAS · $(TZ=Europe/Madrid date '+%d/%m %H:%M')"
-            timeout 300 python3 proceso/reloj.py || echo "La pasada falló; sigo con la siguiente."
-            echo "::endgroup::"
-            [ "$N" -lt "$PASADAS" ] && sleep 600
-          done
-          exit 0
+        run: bash proceso/reloj_tirada.sh "${{ github.event_name }}"
