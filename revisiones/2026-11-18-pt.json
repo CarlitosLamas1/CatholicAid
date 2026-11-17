@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-18",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-17T09:59:57+01:00",
+  "revisado": "2026-11-17T10:45:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave es floja (cuenta el relato de la parábola, no se entiende sola); es la misma que la del español, que ya está aprobado.",
+    "Sincronía de subtítulos: el narrador se cortó sin poder escucharlo (sincronia.ok falso); el sistema puede rehacerlo una vez."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a Figueiredo revisado (Lucas 19,11-28)",
+    "voces": "✅ Jesús dice la parábola, narrador el resto",
+    "frase_clave": "⚠️ literal y de Jesús, pero floja",
+    "reflexion": "✅ fiel y cálida",
+    "tecnica": "✅ 164.3 s, -14.1 LUFS",
+    "audio": "✅ fragmentos largos entre 12 y 15 c/s",
+    "imagenes": "✅ reutilizadas del español y biblioteca",
+    "metadatos": "✅ título, cita y gancho 2,8 s correctos"
+  }
+}
