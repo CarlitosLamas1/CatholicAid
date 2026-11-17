@@ -1,0 +1,120 @@
+{
+  "fecha": "2026-11-19",
+  "modo": "diario",
+  "cita": "Lucas 19,41-44",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/19.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 6,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 68.5,
+  "imagenes": [
+    "dias/2026-11-19_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-19_e1.jpg",
+    "dias/2026-11-19_e2.jpg",
+    "dias/2026-11-19_e3.jpg",
+    "biblioteca/D10",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R01",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "não reconheceste o tempo em que foste visitada.",
+  "reflexion": "Jesus chora porque não o deixamos trazer sua paz ao nosso coração. Hoje Ele passa ao seu lado e o visita: saberá reconhecer sua passagem e acolher o seu amor em sua vida?",
+  "lufs": -14.3,
+  "gancho_segundos": 1.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus stands on the Mount of Olives overlooking the city of Jerusalem in warm daylight, looking upon it with tender emotion.",
+      "busqueda": "Jesus weeps Jerusalem",
+      "personajes": [
+        "jesus"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Close-up of Jesus weeping with profound sorrow and immense compassion, yearning for peace to reach the hearts of the people.",
+      "busqueda": "Jesus weeping compassion",
+      "personajes": [
+        "jesus"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus gazes toward the majestic walls and stones of Jerusalem with quiet sadness under a vast sky.",
+      "busqueda": "Jerusalem Mount Olives",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
+  "texto_evangelio": "Naquele tempo, quando Jesus chegou perto de Jerusalém e viu a cidade, chorou sobre ela, dizendo: “Ah, se ao menos neste dia, que agora te foi dado, também tu conhecesses o que te traz a paz! Mas agora isso está escondido aos teus olhos. Pois virá para ti um tempo funesto, em que os teus inimigos te cercarão de trincheiras, te sitiarão e te apertarão por todos os lados. Eles derrubarão por terra a ti e aos teus filhos que estão dentro de ti, e não deixarão em ti pedra sobre pedra, porque não reconheceste o tempo em que foste visitada”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 2.1,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.21,
+      "texto": "Naquele tempo, quando Jesus chegou perto de Jerusalém e viu a cidade, chorou sobre ela, dizendo:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 14.76,
+      "texto": "“Ah, se ao menos neste dia, que agora te foi dado, também tu conhecesses o que te traz a paz! Mas agora isso está escondido aos teus olhos."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 27.03,
+      "texto": "Pois virá para ti um tempo funesto, em que os teus inimigos te cercarão de trincheiras, te sitiarão e te apertarão por todos os lados. Eles derrubarão por terra a ti e aos teus filhos que estão dentro de ti, e não deixarão em ti pedra sobre pedra, porque não reconheceste o tempo em que foste visitada”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 47.82,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 51.35,
+      "texto": "Jesus chora porque não o deixamos trazer sua paz ao nosso coração. Hoje Ele passa ao seu lado e o visita: saberá reconhecer sua passagem e acolher o seu amor em sua vida?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-17T12:41:12+01:00",
+  "run": "44075109953",
+  "idioma": "pt",
+  "libro": "Lucas",
+  "cita_es": "Lucas 19, 41-44",
+  "frase_es": "no has conocido el tiempo en que Dios te ha visitado.",
+  "reflexion_es": "Jesús llora porque no le dejamos traer su paz a nuestro corazón. Hoy pasa a tu lado y te visita: ¿sabrás reconocer su paso y acoger su amor en tu vida?",
+  "copiado_de": "2026-11-17T09:40:00+01:00",
+  "cupo_agotado": [
+    "gemini-3.8-flash"
+  ],
+  "reserva_pago": [
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ],
+  "sincronia": {
+    "frases_oidas": 6,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
