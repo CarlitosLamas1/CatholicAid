@@ -492,7 +492,11 @@ REGLAS:
    - "busqueda": 1 a 3 palabras en inglés para encontrar un cuadro clásico de esa escena (ej.: "good shepherd", "Pharisees").
    - "descripcion": en inglés, 1 o 2 frases que describan la imagen a pintar: quién aparece, qué hace, dónde y con qué emoción. Debe mostrar lo que narra el Evangelio en ese momento, de forma bella, tierna e íntima (nunca violenta). Muestra exactamente a los personajes y la acción de esa escena: si Jesús cuenta una parábola, pinta la escena de la parábola con sus personajes (p. ej. el administrador ante los deudores, el sembrador en el campo), nunca a alguien ajeno al relato ni a una persona leyendo.
    - "personajes": claves de los personajes que se ven en la imagen (por ejemplo ["jesus"]).
-   - "estilo": "oleo" para escenas de interior, noche o recogimiento; "acuarela" para escenas al aire libre y luminosas.{biblioteca}{escenas_fijas}
+   - "estilo": "oleo" para escenas de interior, noche o recogimiento; "acuarela" para escenas al aire libre y luminosas.
+   En "reparto_visual" describe UNA vez, en inglés, a cada persona que se ve en las imágenes y no está en la lista de
+   PERSONAJES (Zaqueo, el ciego, el amo y los siervos de la parábola, el leproso…): "nombre" (en inglés, el mismo que
+   uses en las descripciones de las escenas, p. ej. "Zacchaeus") y "aspecto": edad, complexión, cara, pelo, barba y
+   ropa con sus colores, en una frase concreta. Así se pinta igual en todas las escenas.{biblioteca}{escenas_fijas}
 
 TEXTO:
 {texto}"""
@@ -507,7 +511,9 @@ TEXTO:
             "personajes": {"type": "ARRAY", "items": {"type": "STRING", "enum": list(PJ)}},
             "estilo": {"type": "STRING", "enum": ["oleo", "acuarela"]},
             "clip": {"type": "STRING", "enum": list(clips) + ["ninguno"]}},
-            "required": ["numero", "busqueda"]}}},
+            "required": ["numero", "busqueda"]}},
+        "reparto_visual": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+            "nombre": {"type": "STRING"}, "aspecto": {"type": "STRING"}}, "required": ["nombre", "aspecto"]}}},
         "required": ["fragmentos", "escenas"]}
     for modelo in modelos_texto():
         try:
@@ -646,6 +652,21 @@ def frase_de_reserva(frs, texto="", descartadas=()):
     return min(utiles or completas, key=len) if completas else ""
 
 
+def literal_en(frase, textos):
+    """La frase tal como está en el texto si coinciden TODAS sus palabras, en orden y seguidas, aunque Gemini haya
+    puesto o quitado una coma o un signo («Os digo que a todo el que tiene, se le dará» frente a «…tiene se le dará»).
+    Las palabras no se tocan nunca; solo se recuperan los signos del texto. "" si no está."""
+    ws = re.findall(r"\w+", frase)
+    if not ws:
+        return ""
+    patron = re.compile(r"(?<!\w)" + r"[^\w]+".join(map(re.escape, ws)) + r"(?!\w)[?!.]?", re.I)
+    for t in textos:
+        m = patron.search(t)
+        if m:
+            return m.group(0).strip(" ,;:")
+    return ""
+
+
 def gancho_y_reflexion(frs, ev, fiable=True):
     """Gemini elige la frase clave (literal, de las palabras de Jesús) y escribe una reflexión breve.
     La frase se valida: tiene que estar tal cual en el texto. El Evangelio no se toca.
@@ -743,6 +764,9 @@ LEITURA COMPLETA (contexto):
                                                 "alternativas": {"type": "ARRAY", "items": {"type": "STRING"}}},
                "required": ["frase_clave", "reflexion"]}
     base = [espacios(s) for s in fuente]
+    # También vale lo que dicen los personajes DENTRO de las palabras de Jesús (el rey de la parábola: «a todo el que
+    # tiene, se le dará»): el 18/11/2026 se rechazaron así todas las buenas y salió una frase de narración de 25 palabras.
+    base += [espacios(hablado(f["texto"])) for f in frs if f["personaje"] == "jesus"]
     frase_ok, reflexion_ok = "", ""
     reserva = [m for m in CFG.get("comentarios", {}).get("modelos", [])]  # lite: último recurso para no quedarse sin reflexión
     modelos = modelos_texto()
@@ -758,6 +782,7 @@ LEITURA COMPLETA (contexto):
             reflexion = espacios(hablado(d.get("reflexion", "")))
             for cruda in [d.get("frase_clave", "")] + [x for x in d.get("alternativas") or [] if isinstance(x, str)]:
                 frase = espacios(hablado(cruda)).strip(" ,;:")
+                frase = literal_en(frase, base) or frase  # mismas palabras con otra coma: se usa la del texto
                 anuncia = any(re.search(re.escape(frase) + r"\s*:", s) for s in base)  # «…, decid:» se queda a medias
                 if frase_ok or not frase:
                     continue
@@ -1138,8 +1163,10 @@ def estilo_del_dia(info, previo=""):
     return max(dict.fromkeys(pedidos), key=pedidos.count)
 
 
-def imagen_hermana(fecha, n):
-    """Otra imagen ya pintada del mismo día: la de la escena anterior más cercana o, si no hay, la siguiente."""
+def imagen_hermana(fecha, n, preferidas=()):
+    """Otra imagen ya pintada del mismo día: la primera de «preferidas» que exista (escenas con el mismo personaje
+    secundario: así Zaqueo se copia de una imagen donde sale Zaqueo) o, si no, la de la escena anterior más cercana
+    o la siguiente."""
     hechas = {}
     for p in (RAIZ / "biblioteca" / "dias").glob(f"{fecha}_e*.*"):
         m = re.search(r"_e(\d+)\.(jpg|png)$", p.name)
@@ -1147,11 +1174,23 @@ def imagen_hermana(fecha, n):
             hechas[int(m.group(1))] = p
     if not hechas:
         return None
+    for k in preferidas:
+        if k in hechas:
+            return hechas[k]
     antes = [k for k in hechas if k < n]
     return hechas[max(antes)] if antes else hechas[min(hechas)]
 
 
-def generar_imagenes_dia(info, escenas, fecha, correcciones=None, estilo=None):
+def en_escena(nombre, descripcion):
+    """¿Sale este personaje secundario en la descripción? (Por su nombre o por su primera palabra con sentido:
+    «Zacchaeus», «the rich master» → «master».)"""
+    d = descripcion.lower()
+    claves = [nombre.lower()] + [w for w in re.findall(r"[a-z]+", nombre.lower())
+                                 if len(w) > 3 and w not in {"the", "with", "from", "young", "old"}]
+    return any(re.search(r"\b" + re.escape(c) + r"\b", d) for c in claves)
+
+
+def generar_imagenes_dia(info, escenas, fecha, correcciones=None, estilo=None, reparto=None):
     """Pinta con Nano Banana (API de pago) una imagen por escena y la guarda en biblioteca/dias/.
     Si ya existe (o falla), no hace nada: el proceso sigue con la biblioteca.
     correcciones: {escena: texto} que pidió el revisor al mandar repintar (publicar.py borra la imagen mala).
@@ -1165,6 +1204,7 @@ def generar_imagenes_dia(info, escenas, fecha, correcciones=None, estilo=None):
     if opciones.get("modelo"):
         imagenes.PREFERIDOS = [opciones["modelo"]]
     datos = {int(e["numero"]): e for e in info}
+    reparto = [r for r in reparto or [] if r.get("nombre") and r.get("aspecto")]
     hechas = 0
     for n in escenas:
         e = datos.get(n, {})
@@ -1179,11 +1219,17 @@ def generar_imagenes_dia(info, escenas, fecha, correcciones=None, estilo=None):
         if e.get("personajes") and "jesus" not in e["personajes"]:  # p. ej. una parábola: Jesús la cuenta, pero no sale en ella
             escena += ("\nJesus does NOT appear in this scene, and nobody in it looks or dresses like Him "
                        "(no white tunic with a red or blue mantle, no halo).")
+        salen = [r for r in reparto if en_escena(r["nombre"], e["descripcion"])]
+        if salen:  # el mismo aspecto en todas las escenas (el 17/11/2026 Zaqueo cambiaba de una imagen a otra)
+            escena += ("\nRecurring people of this story: paint them EXACTLY like this, the same face, age, hair, beard "
+                       "and clothing as in the other scenes: " + "; ".join(f"{r['nombre']}: {r['aspecto']}" for r in salen))
+        mismas = [k for k in sorted(datos) if k != n and any(en_escena(r["nombre"], datos[k].get("descripcion", ""))
+                                                             for r in salen)]
         if correcciones.get(n):
             escena += f"\nIMPORTANT CORRECTION (a previous version was wrong): {correcciones[n]}"
             log(f"   Escena {n}: se repinta con la corrección del revisor: {correcciones[n]}")
         try:
-            modelo = imagenes.generar(escena, destino, refs, estilo, anterior=imagen_hermana(fecha, n))
+            modelo = imagenes.generar(escena, destino, refs, estilo, anterior=imagen_hermana(fecha, n, mismas))
             hechas += 1
             log(f"   Imagen IA escena {n} ({modelo}): {e['descripcion'][:90]}")
         except Exception as ex:
@@ -1576,6 +1622,8 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
     fin_cabecera = next((f["inicio"] for f in frs if f.get("reflexion")), total - cierre)  # no durante la reflexión
     acento = color_ass(color_tiempo(fecha))  # dorado; morado suave en Adviento y Cuaresma
     dia = dia_liturgico(fecha, IDIOMA)  # «Domingo I de Adviento», «Inmaculada Concepción…»; "" en un día corriente
+    sub = {"tamano": 60, "tamano_reflexion": 56, "tamano_nombre": 40, "linea": 26, "linea_reflexion": 24, "borde": 5,
+           "sombra": 3, **(CFG.get("subtitulos") or {})}
     eventos = [("Cabecera", gancho, fin_cabecera,
                 (("{\\fs34\\c" + acento + "}" + dia + "\\N{\\c&HFFFFFF&}") if dia else "")
                 + "{\\fs38}" + titulo + fecha_larga(fecha) + "\\N{\\fs56}" + ev["cita"])]
@@ -1603,11 +1651,11 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
         t, dur = f["inicio"], f["fin"] - f["inicio"]
         nombre = ""
         if p.get("nombre"):
-            nombre = "{\\fs40\\c" + color_ass(p["color"]) + "}" + p["nombre"].upper() + "\\N"
-        estilo = "{\\fs60\\c" + color_ass(p.get("color_texto", "FFFFFF")) + "}"
+            nombre = "{\\fs" + str(sub["tamano_nombre"]) + "\\c" + color_ass(p["color"]) + "}" + p["nombre"].upper() + "\\N"
+        estilo = "{\\fs" + str(sub["tamano"]) + "\\c" + color_ass(p.get("color_texto", "FFFFFF")) + "}"
         base = p.get("color_texto", "FFFFFF")
         if f.get("reflexion"):
-            nombre, estilo, base = "", "{\\fs56\\i1\\c" + color_ass("F3E6C4") + "}", "F3E6C4"
+            nombre, estilo, base = "", "{\\fs" + str(sub["tamano_reflexion"]) + "\\i1\\c" + color_ass("F3E6C4") + "}", "F3E6C4"
         if not kar.get("activo"):
             for tr in trozos:
                 d = dur * len(tr) / largo
@@ -1624,7 +1672,7 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
         k = 0
         for n_tr, tr in enumerate(trozos):
             ws = tr.split()
-            cortes = cortes_de_linea(ws, 24 if f.get("reflexion") else 26)
+            cortes = cortes_de_linea(ws, sub["linea_reflexion"] if f.get("reflexion") else sub["linea"])
             for j in range(len(ws)):
                 a = tiempos[k + j][0] if j else (tiempos[k][0] if n_tr else f["inicio"])
                 b = tiempos[k + j + 1][0] if j + 1 < len(ws) else tiempos[k + j][1]
@@ -1641,7 +1689,8 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, "
         "Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
         "Alignment, MarginL, MarginR, MarginV, Encoding\n"
-        "Style: Texto,DejaVu Sans,60,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,5,3,8,"
+        f"Style: Texto,DejaVu Sans,{sub['tamano']},&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,"
+        f"{sub['borde']},{sub['sombra']},8,"
         "110,110,1185,1\n"
         "Style: Cabecera,DejaVu Sans,44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,4,2,8,"
         "60,60,120,1\n"
@@ -2111,6 +2160,39 @@ def _rgb(hexa):
     return tuple(int(hexa[i:i + 2], 16) for i in (0, 2, 4))
 
 
+def momentos_hoja(total, gancho=0.0, cierre=0.0, n=8):
+    """Segundos de los fotogramas de la hoja del revisor: uno en mitad del gancho (si hay) y el resto repartidos por
+    la lectura, sin el cierre."""
+    ini, fin = gancho, max(gancho + 1, total - cierre)
+    resto = n - (1 if gancho else 0)
+    tiempos = [ini + (fin - ini) * (k + 0.5) / resto for k in range(resto)]
+    return [round(x, 2) for x in ([gancho / 2] if gancho else []) + tiempos]
+
+
+def hoja_de_fotogramas(video, total, gancho, cierre, destino, carpeta):
+    """8 fotogramas del vídeo final en una sola imagen (4 × 2, con el segundo en cada uno), ~150 KB.
+    La rutina del revisor la abre para ver si un personaje cambia de aspecto entre escenas, si los subtítulos se leen
+    y si algo desentona. Se guarda en fotogramas/ (el mantenimiento borra las de más de 7 días)."""
+    from PIL import Image, ImageDraw, ImageFont
+    w, h = 270, 480
+    hoja = Image.new("RGB", (4 * w, 2 * h), "black")
+    try:
+        letra = ImageFont.truetype("DejaVuSans-Bold.ttf", 22)
+    except Exception:
+        letra = ImageFont.load_default()
+    for k, t in enumerate(momentos_hoja(total, gancho, cierre)):
+        foto = carpeta / f"hoja_{k}.jpg"
+        ffmpeg("-ss", f"{t:.2f}", "-i", video, "-frames:v", "1", "-vf", f"scale={w}:{h}", foto)
+        im = Image.open(foto).convert("RGB")
+        d = ImageDraw.Draw(im)
+        d.rectangle((0, 0, 74, 30), fill="black")
+        d.text((6, 3), f"{t:.0f} s", fill="white", font=letra)
+        hoja.paste(im, ((k % 4) * w, (k // 4) * h))
+    destino.parent.mkdir(exist_ok=True)
+    hoja.save(destino, quality=82, optimize=True)
+    return destino
+
+
 def miniatura(img, frase, destino, tam=(1280, 720), acento="F5C542", etiqueta=""):
     """JPG con la imagen del día, la frase clave en serif fina con velo suave y «CatolicAid» en pequeño.
     acento: color de la marca (dorado; morado suave en Adviento y Cuaresma). etiqueta: «ADVIENTO», sobre la frase."""
@@ -2302,11 +2384,17 @@ def aviso_sin_cupo(fecha, idioma, modo, error):
     ruta.write_text(json.dumps(previo, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def gancho_del_dia(fecha):
-    """Prueba A/B del gancho: días pares e impares con distinta duración (config gancho_ab)."""
+def gancho_del_dia(fecha, frase=""):
+    """Cuánto dura la frase clave en pantalla. Desde el 17/11/2026 (Carlos: «apenas dura y no se aprecia», público
+    mayor) según lo que hay que leer: gancho.base + gancho.por_palabra × palabras, entre gancho.minimo y gancho.maximo
+    (3–5 s). Si se vuelve a poner gancho_ab, manda la prueba A/B de días pares e impares."""
     ab = CFG.get("gancho_ab")
     if ab:
         return float(ab["par"] if fecha.day % 2 == 0 else ab["impar"])
+    g = CFG.get("gancho") or {}
+    if frase and g:
+        s = g.get("base", 1.5) + g.get("por_palabra", 0.3) * len(re.findall(r"\w+", frase))
+        return round(min(g.get("maximo", 5.0), max(g.get("minimo", 3.0), s)), 1)
     return float(CFG.get("gancho_segundos", 2.0))
 
 
@@ -2470,7 +2558,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     log("3/6 Voces")
     motor, pistas = generar_audio(frs, carpeta)
     total = montar_audio(frs, pistas, carpeta)
-    gancho = gancho_del_dia(fecha) if frase else 0.0
+    gancho = gancho_del_dia(fecha, frase) if frase else 0.0
     cierre = float(CFG.get("cierre_segundos", 0))
     limite = CFG.get("duracion_maxima", 170) - gancho - cierre
     if total > limite:  # Shorts: 3 minutos como máximo. Se acelera lo justo (sin cambiar el tono).
@@ -2511,7 +2599,11 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
     if idioma == "es":  # el inglés reutiliza las imágenes del día del español: no se pinta nada
         correcciones = {str(x.get("escena")): x.get("corregir", "") for x in hecho.get("repintar") or [] if x.get("escena")}
         estilo_dia = estilo_del_dia(g.get("escenas", []), hecho.get("estilo_imagenes", ""))
-        generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha, correcciones, estilo_dia)
+        if hecho.get("reparto_visual") and any(archivo_clip(f"{fecha}_e{e.get('numero')}", "dias")
+                                               for e in g.get("escenas", [])):
+            g["reparto_visual"] = hecho["reparto_visual"]  # quedan imágenes de antes: el mismo aspecto que ellas
+        generar_imagenes_dia(g.get("escenas", []), sorted({b["escena"] for b in bl}), fecha, correcciones, estilo_dia,
+                             g.get("reparto_visual"))
     presentes = {f["personaje"] for f in frs} | {k for e in g.get("escenas", []) for k in (e.get("personajes") or [])}
     visuales = elegir_visuales(bl, g.get("escenas", []), fecha, carpeta, retrato, presentes)
 
@@ -2540,6 +2632,11 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
            "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", "video.mp4", cwd=carpeta)
     video = carpeta / "video.mp4"
     log(f"   video.mp4 · {video.stat().st_size / 1e6:.1f} MB")
+    hoja = None
+    try:  # para el revisor: ve el vídeo montado (gancho, subtítulos, imágenes seguidas) y no solo las imágenes sueltas
+        hoja = hoja_de_fotogramas(video, total, gancho, cierre, RAIZ / "fotogramas" / f"{fecha}{suf}.jpg", carpeta)
+    except Exception as e:
+        log(f"   Hoja de fotogramas no creada ({e})")
     mini = None
     try:  # miniatura vertical (TikTok, Instagram, Shorts) y la de YouTube a partir de ella; si falla, se sigue sin ella
         img = imagen_miniatura(frs, frase, visuales, bl)
@@ -2557,6 +2654,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
                 "frase_clave": frase, "reflexion": reflexion, "lufs": lufs,
                 "gancho_segundos": gancho, "subtitulos_karaoke": bool(CFG.get("karaoke", {}).get("activo")),
                 "miniatura": Path(mini).name if mini else None,
+                "fotogramas": str(hoja.relative_to(RAIZ)) if hoja else None,
                 "escenas": [{k: e.get(k) for k in ("numero", "descripcion", "busqueda", "personajes")}
                             for e in g.get("escenas", [])],
                 "titulo": ev["titulo"], "texto_evangelio": ev["texto"],
@@ -2566,6 +2664,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
                 "generado": dt.datetime.now(MADRID).isoformat(timespec="seconds")}
     if idioma == "es":
         registro["estilo_imagenes"] = estilo_dia
+        registro["reparto_visual"] = g.get("reparto_visual") or []
     if os.environ.get("GITHUB_RUN_ID"):  # para encontrar después la copia del vídeo (resumen semanal)
         registro["run"] = os.environ["GITHUB_RUN_ID"]
     if idioma != "es":

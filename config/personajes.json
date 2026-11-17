@@ -15,7 +15,17 @@
   "texto": "torres-amat",
   "pausa_tts_segundos": 21,
   "pausa_entre_voces": 0.35,
-  "caracteres_por_subtitulo": 46,
+  "_subtitulos": "17/11/2026, pensado para el público mayor (47 % de más de 65 años): letra más grande (68 en vez de 60; reflexión 62 en vez de 56), borde y sombra más marcados y líneas más cortas para que quepan. Trozos de 40 caracteres en vez de 46.",
+  "subtitulos": {
+    "tamano": 68,
+    "tamano_reflexion": 62,
+    "tamano_nombre": 44,
+    "linea": 22,
+    "linea_reflexion": 21,
+    "borde": 6,
+    "sombra": 4
+  },
+  "caracteres_por_subtitulo": 40,
   "karaoke": {
     "_nota": "Subtítulos karaoke: se resalta la palabra que se lee. Desde el 11/11/2026 (Carlos vio desfase en inglés) los tiempos salen del audio real: faster-whisper transcribe la pista de voz y se empareja con el texto exacto (alinear_audio en evangelio.py). Si no está instalado o reconoce menos del 60 %, se vuelve al reparto por longitud.",
     "activo": true,
@@ -38,10 +48,12 @@
   "hora_publicacion_pt": "07:30",
   "max_segundos_imagen": 16,
   "gancho_segundos": 2.8,
-  "_gancho_ab": "Prueba A/B del gancho (desde la rama mejoras-ingles): días pares e impares con distinta duración. Si se quita gancho_ab, se usa gancho_segundos. Cómo compararlo: guias/gancho-ab.md.",
-  "gancho_ab": {
-    "par": 2.8,
-    "impar": 1.5
+  "_gancho": "Desde el 17/11/2026 (Carlos: la frase clave apenas duraba y no se apreciaba; público mayor) el gancho dura según lo que hay que leer: base + por_palabra × palabras, entre minimo y maximo (3–5 s). Termina la prueba A/B de 1,5/2,8 s; si se quiere repetir, volver a poner gancho_ab {par, impar} (manda sobre esto). gancho_segundos solo queda de reserva.",
+  "gancho": {
+    "base": 1.5,
+    "por_palabra": 0.3,
+    "minimo": 3.0,
+    "maximo": 5.0
   },
   "cierre_segundos": 2.5,
   "_reflexion_reserva": "Solo si Gemini no puede escribir la reflexión en el ÚLTIMO intento del día (antes se reintenta): nunca sale un vídeo sin reflexión.",

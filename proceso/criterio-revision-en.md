@@ -21,9 +21,9 @@ Mismo criterio que el español, con estas diferencias. El revisor escribe `revis
    sin comillas, sin política. No es parte del Evangelio.
 5. **tecnica**: duración ≤ 180 s, `lufs` entre -15 y -13. Audio: 10–20 caracteres por segundo por fragmento
    (el inglés es algo más rápido que el español; < 8 o > 22 es anómalo).
-6. **imagenes**: las del día del español (`dias/AAAA-MM-DD_eN.jpg`) o de la biblioteca; nunca imágenes nuevas.
+6. **imagenes**: las del día del español (`dias/AAAA-MM-DD_eN.jpg`) o de la biblioteca; nunca imágenes nuevas. Si el registro tiene `fotogramas` (fotogramas/AAAA-MM-DD-en.jpg), ábrela: 8 fotogramas del vídeo montado; comprueba que la frase y los subtítulos se leen (⚠️ si no).
 7. **metadatos**: título «“Frase” | Daily Gospel Reading, November 8, 2026 (Luke 16:1-8)» (≤ 100 caracteres; si no cabe, «Daily Gospel, …» o la fecha corta «Nov 8»), cita en formato
-   inglés, todo en inglés, `gancho_segundos` 1,5 o 2,8, `subtitulos_karaoke: true`.
+   inglés, todo en inglés, `gancho_segundos` entre 3 y 5 (según lo larga que sea la frase), `subtitulos_karaoke: true`.
 
 ## JSON (igual que en español)
 ```json

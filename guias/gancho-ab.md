@@ -21,3 +21,5 @@ Cada episodio lo anota en su registro: `"gancho_segundos"` en `episodios/AAAA-MM
 4. Con al menos 8–10 vídeos por grupo: si un grupo gana por más de 3–4 puntos en «se quedaron viendo» sin perder
    duración media, se fija esa duración (`gancho_segundos` en la config y se quita `gancho_ab`).
    Si la diferencia es menor, no es significativa: se deja 2,8 s.
+
+> **Terminada el 17/11/2026.** Carlos vio que la frase apenas se apreciaba: ahora el gancho dura de 3 a 5 s según las palabras de la frase (`gancho` en config). Para repetir la prueba, volver a poner `gancho_ab`.

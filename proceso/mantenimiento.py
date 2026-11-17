@@ -84,6 +84,32 @@ def archivar_imagenes(hoy):
     return archivadas
 
 
+DIAS_FOTOGRAMAS = 7
+
+
+def fotogramas_viejos(nombres, hoy, dias=DIAS_FOTOGRAMAS):
+    """Hojas de fotogramas del revisor (fotogramas/AAAA-MM-DD[-en|-pt].jpg) de vídeos de hace más de «dias» días."""
+    limite = hoy - dt.timedelta(days=dias)
+    viejos = []
+    for n in sorted(nombres):
+        m = re.match(r"(\d{4}-\d{2}-\d{2})(-en|-pt)?\.jpg$", n)
+        if m and dt.date.fromisoformat(m.group(1)) < limite:
+            viejos.append(n)
+    return viejos
+
+
+def borrar_fotogramas(hoy):
+    """Solo le sirven al revisor mientras el vídeo está pendiente: fuera del repositorio a la semana."""
+    carpeta = RAIZ / "fotogramas"
+    if not carpeta.exists():
+        return 0
+    viejos = fotogramas_viejos([p.name for p in carpeta.iterdir()], hoy)
+    for n in viejos:
+        (carpeta / n).unlink()
+    log(f"Hojas de fotogramas borradas: {len(viejos)}")
+    return len(viejos)
+
+
 def buscar_sobrantes():
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import duplicados
@@ -129,6 +155,7 @@ def main():
     estado = {"fecha": str(hoy)}
     for clave, paso in (("releases_borradas", lambda: limpiar_releases(hoy)),
                         ("imagenes_archivadas", lambda: archivar_imagenes(hoy)),
+                        ("fotogramas_borrados", lambda: borrar_fotogramas(hoy)),
                         ("sobrantes", buscar_sobrantes)):
         try:
             estado[clave] = paso()

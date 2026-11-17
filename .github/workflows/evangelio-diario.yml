@@ -139,7 +139,7 @@ jobs:
       - name: Guardar registro del episodio
         if: success()
         run: |
-          python3 proceso/guardar.py "Registro del episodio $(ls -t episodios | head -1)" episodios/ biblia/ musica/ biblioteca/dias/
+          python3 proceso/guardar.py "Registro del episodio $(ls -t episodios | head -1)" episodios/ biblia/ musica/ biblioteca/dias/ fotogramas/
 
       - name: Dejar el vídeo listo (al crearse, arranca el revisor en la nube; TikTok a las 7:00 si da el OK)
         if: success() && (github.event_name == 'schedule' || inputs.modo == 'diario')

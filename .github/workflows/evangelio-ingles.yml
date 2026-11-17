@@ -150,7 +150,7 @@ jobs:
       - name: Guardar registro del episodio
         if: always()
         run: |
-          python3 proceso/guardar.py "Registro del episodio en inglés" episodios/
+          python3 proceso/guardar.py "Registro del episodio en inglés" episodios/ fotogramas/
 
       - name: Dejar el vídeo listo para el revisor
         if: success() && (github.event_name == 'schedule' || inputs.modo == 'diario')

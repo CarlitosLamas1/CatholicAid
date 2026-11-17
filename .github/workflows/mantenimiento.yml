@@ -40,4 +40,4 @@ jobs:
         run: python3 proceso/mantenimiento.py ${{ inputs.estadisticas && '--estadisticas' || '' }} ${{ inputs.copia && '--copia' || '' }}
       - name: Guardar
         if: always()
-        run: python3 proceso/guardar.py "Mantenimiento diario" estado/ biblioteca/dias/ config/
+        run: python3 proceso/guardar.py "Mantenimiento diario" estado/ biblioteca/dias/ config/ fotogramas/

@@ -1,0 +1,30 @@
+name: Vista de subtítulos
+
+# Fotogramas de prueba de subtítulos y gancho con los ajustes actuales frente a los de antes, a partir de un vídeo ya
+# hecho. No gasta voces ni imágenes ni sube nada.
+on:
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha de un vídeo en español ya hecho (AAAA-MM-DD)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  vista:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Herramientas
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu > /dev/null
+          pip install -q pillow
+      - name: Vista
+        run: python3 proceso/vista_subtitulos.py "${{ inputs.fecha }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vista-subtitulos
+          path: vista/*.jpg
