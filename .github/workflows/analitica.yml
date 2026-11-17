@@ -1,0 +1,33 @@
+name: Analítica de YouTube
+
+# Solo lectura de YouTube: retención (% visto), suscriptores, fuentes de tráfico, países y edades de los vídeos
+# diarios, junto a lo que tenía cada vídeo (frase, duración, gancho). Guarda estado/analitica-<idioma>.json.
+# Necesita el permiso yt-analytics.readonly (reconectar YouTube una vez, 17/11/2026).
+on:
+  workflow_dispatch:
+    inputs:
+      idioma:
+        description: "Canal"
+        default: "es"
+        type: choice
+        options: [es, en, pt]
+      dias:
+        description: "Días hacia atrás"
+        default: "28"
+
+permissions:
+  contents: write
+
+jobs:
+  analitica:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 proceso/analitica.py "${{ inputs.idioma }}" "${{ inputs.dias }}"
+      - name: Guardar
+        run: python3 proceso/guardar.py "Analítica de YouTube (${{ inputs.idioma }})" estado/

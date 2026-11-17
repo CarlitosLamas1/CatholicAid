@@ -24,7 +24,8 @@ CANAL = os.environ.get("CANAL", "es").strip() or "es"
 FICHERO = RAIZ / "secretos" / ("youtube.enc" if CANAL == "es" else f"youtube-{CANAL}.enc")
 REDIRECT = "http://localhost"
 ALCANCES = ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.readonly",
-            "https://www.googleapis.com/auth/youtube.force-ssl"]
+            "https://www.googleapis.com/auth/youtube.force-ssl",
+            "https://www.googleapis.com/auth/yt-analytics.readonly"]  # 17/11/2026: retención, fuentes y países
 
 
 def _openssl(args, entrada):
