@@ -1,0 +1,88 @@
+{
+  "idioma": "pt",
+  "desde": "2026-10-19",
+  "hasta": "2026-11-16",
+  "videos": [
+    {
+      "fecha": "2026-11-14",
+      "dia": "sábado",
+      "cita": "Lucas 18,1-8",
+      "frase": "Eu digo a vocês que ele lhes fará justiça bem depressa.",
+      "palabras_frase": 11,
+      "duracion_s": 91.8,
+      "gancho_s": 2.8,
+      "estilo": null,
+      "imagenes_dia": 5,
+      "id": "CleYEbWWbjE",
+      "visitas": 64,
+      "segundos_vistos": 56,
+      "porcentaje_visto": 61.6,
+      "suscriptores": 1,
+      "gustas": 4
+    },
+    {
+      "fecha": "2026-11-15",
+      "dia": "domingo",
+      "cita": "Mateus 25,14-30",
+      "frase": "Do mesmo modo, o que tinha recebido dois ganhou outros dois.",
+      "palabras_frase": 11,
+      "duracion_s": 165.1,
+      "gancho_s": 1.5,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "yo50l3YRCeE",
+      "visitas": 19,
+      "segundos_vistos": 70,
+      "porcentaje_visto": 42.2,
+      "suscriptores": 1,
+      "gustas": 1
+    },
+    {
+      "fecha": "2026-11-16",
+      "dia": "lunes",
+      "cita": "Lucas 18,35-43",
+      "frase": "Veja! A sua fé o salvou.",
+      "palabras_frase": 6,
+      "duracion_s": 101.8,
+      "gancho_s": 2.8,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "DX9XWFkjAJc",
+      "visitas": 12,
+      "segundos_vistos": 19,
+      "porcentaje_visto": 18.7,
+      "suscriptores": 0,
+      "gustas": 0
+    }
+  ],
+  "fuentes": [
+    {
+      "insightTrafficSourceType": "YT_SEARCH",
+      "views": 109
+    },
+    {
+      "insightTrafficSourceType": "SHORTS",
+      "views": 23
+    },
+    {
+      "insightTrafficSourceType": "YT_CHANNEL",
+      "views": 3
+    },
+    {
+      "insightTrafficSourceType": "EXT_URL",
+      "views": 1
+    },
+    {
+      "insightTrafficSourceType": "NO_LINK_OTHER",
+      "views": 0
+    }
+  ],
+  "paises": [
+    {
+      "country": "BR",
+      "views": 37
+    }
+  ],
+  "edades": [],
+  "generado": "2026-11-17T21:44:03+01:00"
+}
