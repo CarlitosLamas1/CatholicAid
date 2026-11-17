@@ -63,6 +63,17 @@ def guardar_en_main(mensaje, ruta_reg=None, reg=None):
     return r.returncode == 0
 
 
+def anotar_para_rehacer(mensaje, ruta_reg=None, reg=None):
+    """Guarda en main lo que impide que el rehacer se repita (frase descartada, imágenes repintadas, «rehecho»…) y dice
+    si se pudo. Si NO se pudo, hay que NO relanzar el vídeo: sin esas marcas en main, la nueva tirada sale igual, el
+    revisor pide lo mismo y se vuelve a rehacer cada hora gastando voces e imágenes (16/11/2026: seis vueltas por un
+    fallo al guardar). Se vuelve a intentar en la siguiente pasada."""
+    if guardar_en_main(mensaje, ruta_reg, reg):
+        return True
+    log("No pude anotarlo en main: NO relanzo el vídeo (lo intento en la próxima pasada).")
+    return False
+
+
 IMAGEN = re.compile(r"\b(imagen|im[aá]genes|plano|cuadro|pintura)\b", re.I)
 ESCENA = re.compile(r"\b(?:escena\s*|e)(\d)\b", re.I)
 SIN_ARREGLO = re.compile(r"\bPNG\b|biblioteca/|evangelistas/|reutiliza", re.I)
@@ -183,7 +194,8 @@ def arrastrar_idiomas(fecha, es):
             otro["rehecho_por_es"] = 1
             otro["revision"] = "rechazada"
             guardar(ruta, otro)
-            guardar_en_main(f"Rehacer {fecha}-{idioma}: {motivo}")
+            if not anotar_para_rehacer(f"Rehacer {fecha}-{idioma}: {motivo}"):
+                continue
             sh("gh", "release", "delete", f"{idioma}-{fecha}", "--yes", "--cleanup-tag", check=False)
             sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
             log(f"{idioma} {fecha}: {motivo}; lo rehago para que coincida con el español.")
@@ -230,7 +242,8 @@ def main():
     if rev.get("ok") and (repintar or otra_frase):  # aprobado, pero mejorable: se arregla y se revisa otra vez
         reg["revision"] = "rechazada"
         guardar(ruta_reg, reg)
-        guardar_en_main(("Repintar imágenes" if repintar else "Cambiar la frase clave") + f": {nombre}", ruta_reg, reg)
+        if not anotar_para_rehacer(("Repintar imágenes" if repintar else "Cambiar la frase clave") + f": {nombre}", ruta_reg, reg):
+            return
         sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
         sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
         log(f"Revisión OK con imágenes o frase mejorables: rehago el vídeo del {nombre}.")
@@ -242,7 +255,8 @@ def main():
             reg["rehechos"] = n + 1
             reg["revision"] = "rechazada"
             guardar(ruta_reg, reg)
-            guardar_en_main(f"Revisión no OK: rehacer {nombre}", ruta_reg, reg)
+            if not anotar_para_rehacer(f"Revisión no OK: rehacer {nombre}", ruta_reg, reg):
+                return
             sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
             sh("gh", "workflow", "run", flujo, "-f", f"fecha={fecha}", "-f", "modo=diario")
             log(f"Revisión no OK: rehago el vídeo del {nombre}.")
