@@ -164,10 +164,13 @@
       "por": "claude"
     },
     "UgzX6IGQo58lZJKACJh4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "responder",
       "publicado": "2026-11-17T18:04:54+00:00",
       "desde": "2026-11-17T19:33:48.765831+01:00",
-      "listo": "2026-11-17T19:32:54+00:00"
+      "listo": "2026-11-17T19:32:54+00:00",
+      "motivo": "alabanza sencilla",
+      "respuesta": "¡Gloria a Él por siempre! Gracias por acompañarnos con el Evangelio de Zaqueo; que hoy también entre la salvación en tu casa.",
+      "por": "claude"
     }
   },
   "respondidos": [
@@ -179,7 +182,8 @@
     "UgwOIXJcICO3_CUYN9R4AaABAg",
     "Ugzl6ybOrPWNhDA2mi14AaABAg",
     "UgyYwPeG3SgsAXgehnp4AaABAg",
-    "Ugx_0jJujXgS7V8aDbp4AaABAg"
+    "Ugx_0jJujXgS7V8aDbp4AaABAg",
+    "UgyMSA-RT_KYJGSztM54AaABAg"
   ],
   "recientes": [
     "Gracias por estar ahí cada día. Que la Palabra de Jesús te acompañe y te bendiga.",
@@ -190,10 +194,11 @@
     "Amén. Gracias por acompañarnos con el Evangelio; que Dios te bendiga hoy y siempre. 🙏",
     "Gloria a Dios. Que la oración de hoy te llene de paz y confianza en Él. ¡Gracias por estar aquí!",
     "Gloria a Ti, Señor. Gracias por unirte a la oración de hoy; que confíes siempre en que Él escucha.",
-    "Gloria a Él, hoy y siempre. Gracias por acompañarnos con el Evangelio de Zaqueo. Que Jesús entre también en tu casa 🙏"
+    "Gloria a Él, hoy y siempre. Gracias por acompañarnos con el Evangelio de Zaqueo. Que Jesús entre también en tu casa 🙏",
+    "Qué hermosa manera de acoger hoy a Jesús, como Zaqueo en su casa. Que su misericordia siga transformándote. ¡Bendiciones!"
   ],
   "dia": "2026-11-17",
-  "hoy": 1,
-  "ultima": "2026-11-17T16:48:48.845646+01:00",
-  "proxima": "2026-11-17T18:08:48.845664+01:00"
+  "hoy": 2,
+  "ultima": "2026-11-17T20:39:53.986050+01:00",
+  "proxima": "2026-11-17T22:28:53.986071+01:00"
 }
