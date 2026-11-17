@@ -1,0 +1,143 @@
+{
+  "fecha": "2026-11-18",
+  "modo": "diario",
+  "cita": "Luke 19:11-28",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/18.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 8,
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 162.9,
+  "imagenes": [
+    "dias/2026-11-18_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-18_e1.jpg",
+    "biblioteca/D10",
+    "biblioteca/D05",
+    "dias/2026-11-18_e2.jpg",
+    "biblioteca/D02",
+    "dias/2026-11-18_e3.jpg",
+    "biblioteca/D08",
+    "biblioteca/D07",
+    "biblioteca/D01",
+    "dias/2026-11-18_e4.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D10",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "When he had come back again, having received the kingdom",
+  "reflexion": "God does not want fear to paralyze your life, but for you to bear fruit in love with the gifts he has entrusted to you. How are you using all you have received today?",
+  "lufs": -14.2,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A nobleman dressed in fine robes distributes silver coins to his servants in a grand courtyard, giving them solemn instructions before departing.",
+      "busqueda": "parable ten minas",
+      "personajes": [
+        "hombre",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "The newly crowned king sits in a warm interior hall, smiling joyfully as a faithful servant presents a cloth full of earned silver coins.",
+      "busqueda": "faithful servant coins",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "A fearful servant offers a single silver coin wrapped in a handkerchief to the stern king seated on his throne, while bystanders look on.",
+      "busqueda": "parable talents king",
+      "personajes": [
+        "hombre",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 4,
+      "descripcion": "Jesus walking resolutely ahead along a sunlit, dusty road towards the distant gates of Jerusalem, with his disciples following behind.",
+      "busqueda": "Jesus towards Jerusalem",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, as they heard these things, he went on and told a parable, because he was near Jerusalem, and they supposed that God’s Kingdom would be revealed immediately. He said therefore, “A certain nobleman went into a far country to receive for himself a kingdom and to return. He called ten servants of his and gave them ten mina coins, and told them, ‘Conduct business until I come.’ But his citizens hated him, and sent an envoy after him, saying, ‘We don’t want this man to reign over us.’ When he had come back again, having received the kingdom, he commanded these servants, to whom he had given the money, to be called to him, that he might know what they had gained by conducting business. The first came before him, saying, ‘Lord, your mina has made ten more minas.’ He said to him, ‘Well done, you good servant! Because you were found faithful with very little, you shall have authority over ten cities.’ The second came, saying, ‘Your mina, Lord, has made five minas.’ So he said to him, ‘And you are to be over five cities.’ Another came, saying, ‘Lord, behold, your mina, which I kept laid away in a handkerchief, for I feared you, because you are an exacting man. You take up that which you didn’t lay down, and reap that which you didn’t sow.’ He said to him, ‘Out of your own mouth I will judge you, you wicked servant! You knew that I am an exacting man, taking up that which I didn’t lay down and reaping that which I didn’t sow. Then why didn’t you deposit my money in the bank, and at my coming, I might have earned interest on it?’ He said to those who stood by, ‘Take the mina away from him and give it to him who has the ten minas.’ They said to him, ‘Lord, he has ten minas!’ ‘For I tell you that to everyone who has, will more be given; but from him who doesn’t have, even that which he has will be taken away from him. But bring those enemies of mine who didn’t want me to reign over them here, and kill them before me.’” Having said these things, he went on ahead, going up to Jerusalem.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.01,
+      "texto": "At that time, as they heard these things, he went on and told a parable, because he was near Jerusalem, and they supposed that God’s Kingdom would be revealed immediately. He said therefore,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 22.8,
+      "texto": "“A certain nobleman went into a far country to receive for himself a kingdom and to return. He called ten servants of his and gave them ten mina coins, and told them, ‘Conduct business until I come.’ But his citizens hated him, and sent an envoy after him, saying, ‘We don’t want this man to reign over us.’ When he had come back again, having received the kingdom, he commanded these servants, to whom he had given the money, to be called to him, that he might know what they had gained by conducting business."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 54.18,
+      "texto": "The first came before him, saying, ‘Lord, your mina has made ten more minas.’ He said to him, ‘Well done, you good servant! Because you were found faithful with very little, you shall have authority over ten cities.’ The second came, saying, ‘Your mina, Lord, has made five minas.’ So he said to him, ‘And you are to be over five cities.’"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 78.89,
+      "texto": "Another came, saying, ‘Lord, behold, your mina, which I kept laid away in a handkerchief, for I feared you, because you are an exacting man. You take up that which you didn’t lay down, and reap that which you didn’t sow.’ He said to him, ‘Out of your own mouth I will judge you, you wicked servant! You knew that I am an exacting man, taking up that which I didn’t lay down and reaping that which I didn’t sow. Then why didn’t you deposit my money in the bank, and at my coming, I might have earned interest on it?’ He said to those who stood by, ‘Take the mina away from him and give it to him who has the ten minas.’ They said to him, ‘Lord, he has ten minas!’ ‘For I tell you that to everyone who has, will more be given; but from him who doesn’t have, even that which he has will be taken away from him. But bring those enemies of mine who didn’t want me to reign over them here, and kill them before me.’”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 135.65,
+      "texto": "Having said these things, he went on ahead, going up to Jerusalem."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 142.25,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 146.93,
+      "texto": "God does not want fear to paralyze your life, but for you to bear fruit in love with the gifts he has entrusted to you. How are you using all you have received today?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-17T09:51:43+01:00",
+  "run": "44047631463",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 19, 11-28",
+  "frase_es": "Cuando volvió, ya investido del reino, mandó llamar a los siervos a quienes había dado el dinero, para saber lo que había negociado cada uno.",
+  "reflexion_es": "Dios no quiere que el miedo paralice tu vida, sino que hagas fructificar con amor los dones que te ha confiado. ¿En qué estás empleando hoy todo lo que has recibido?",
+  "copiado_de": "2026-11-16T21:53:18+01:00",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 8,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
