@@ -26,6 +26,26 @@ Revisión completa del proyecto (código, workflows, datos, costes, audiencia, p
 
 **Patrón común:** casi todos los fallos son de *estado y coordinación* (guardar, relanzar, quién decide cuándo), no de generación de vídeo. Ahí está el riesgo real.
 
+## 1b. Segunda revisión (con Opus, 17/11/2026)
+
+He repasado la primera versión del plan comprobando sus datos. Esto cambia:
+
+**Correcciones**
+- **El gasto de imágenes diario ya está bien medido.** El vídeo diario usa `gemini-2.5-flash-image` (lo fija `imagenes_ia.modelo` en la configuración), y su precio (~0,04 €) es el que está apuntado. El modelo caro (`gemini-3-pro-image-preview`, unos 0,13 $ por imagen según [fuentes de terceros](https://yingtu.ai/blog/nano-banana-pro-api-pricing-per-image), sin confirmar en Google) **solo lo usaron mis pruebas de iconos** (`proceso/icono.py` no fija modelo). Con ~8 imágenes, eso explica cerca de 1 € de los 2,13 €. B2 pasa a ser: «el generador de iconos usa el modelo barato salvo que se pida otro».
+- **La estimación del parte falla menos de lo que dije**: parte de la diferencia eran mis pruebas, que el programa no ve. B1 (libro de cuentas) sigue valiendo, pero baja de urgencia.
+
+**Nuevo: lo que se me escapó**
+
+| # | Mejora | Por qué | Dif. | Riesgo | Modelo |
+|---|---|---|---|---|---|
+| H5 | **Tu correo personal está en el historial público**: 49 commits firmados con él y versiones antiguas de `CLAUDE.md`; además 193 commits con el nombre de tu Mac. No hay ninguna clave filtrada (lo he buscado en todo el historial). Arreglo seguro: que los commits nuevos usen el correo anónimo de GitHub. Reescribir el historial es posible, pero rompe copias y enlaces | Repositorio público | Baja (lo nuevo) · Alta (el historial) | Bajo · Alto | Haiku (lo nuevo) · Opus (historial) · 👤 |
+| A8 | **Las voces dependen de modelos «preview»** (`gemini-2.5-flash-preview-tts` en español; `gemini-3.1-flash-tts-preview` en inglés y portugués) y no hay respaldo (`respaldo_edge: false`, decisión tuya). Si Google retira uno, se para la producción de ese idioma. Propuesta: inventario de modelos preview, aviso cuando Google anuncie la retirada y un sustituto probado con las mismas voces | Producción entera depende de ellos | Media | Medio | Opus |
+| C7 | **Pruebas del revisor** (la rutina en la nube y su guía de 15 KB): un juego de episodios de ejemplo con el veredicto esperado, para que cambiar la guía no rompa el criterio sin darnos cuenta | El revisor decide qué se publica y nadie comprueba que su criterio no cambie | Media | Bajo | Opus |
+
+**Lo que se mantiene igual** (lo he comprobado): el fallo de subida de TikTok de esta mañana (A1), la falta de pruebas en `reloj.py` y `publicar.py`, las dependencias sin versión fija, el aviso de Node 20 y el peso del repositorio.
+
+**Orden ajustado:** H5 (lo nuevo) entra en la Ola 0; A8 en la Ola 1 (antes que B1); C7 en la Ola 2.
+
 ## 2. Cómo leer el plan
 
 - **Dificultad:** Baja (horas, sin riesgo) · Media (un día, con pruebas) · Alta (varios días o toca el centro de la producción).
@@ -54,7 +74,7 @@ Revisión completa del proyecto (código, workflows, datos, costes, audiencia, p
 | # | Mejora | Por qué | Dif. | Riesgo | Modelo |
 |---|---|---|---|---|---|
 | B1 | **Libro de cuentas de gasto**: anotar el coste en el momento de cada petición de pago, en un archivo propio | La estimación desde los registros dio 0,37 € frente a 2,13 € reales: los rehechos sobrescriben lo anterior | Media | Bajo | Opus (toca el centro de voces e imágenes) |
-| B2 | **Comprobar el precio real del modelo de imágenes** que se usa y poner los de verdad en la configuración | Está a 0,04 €/imagen; el modelo Pro suele costar mucho más (sin comprobar) | Baja | Bajo | Sonnet |
+| B2 | **El generador de iconos usa el modelo barato** salvo que se pida el Pro (ver 1b: el diario ya usa el barato y el precio apuntado es correcto) | Mis pruebas de iconos usaron el Pro sin quererlo | Baja | Bajo | Sonnet |
 | B3 | **Tope diario y mensual** con cambio a «solo gratis» al llegar (y aviso en el parte) | Hoy solo avisa por debajo de 3 € | Media | Medio | Opus |
 | B4 | **Medir un día limpio** (saldo de mañana a las 10:00) y fijar el gasto normal | Los 2,13 € no son representativos | Baja | Ninguno | 👤 solo tu cifra · Haiku para apuntarla |
 
@@ -125,13 +145,13 @@ Revisión completa del proyecto (código, workflows, datos, costes, audiencia, p
 ## 3. Orden propuesto
 
 **Ola 0 · esta semana (barato y evita sustos)**
-A1, A3 (con tu OK), B2, B4, F4, F7, C4, D1 (tu reconexión).
+A1, A3 (con tu OK), B2, B4, F4, F7, C4, H5 (solo lo nuevo), D1 (tu reconexión).
 
 **Ola 1 · las dos siguientes semanas (refuerzan lo que se rompió)**
-A2, A6, B1, B3, F3, G1, D2.
+A2, A6, A8, B1, B3, F3, G1, D2.
 
 **Ola 2 · calidad y crecimiento**
-C1, C2, C3, D3, D4, D5, E3, E4.
+C1, C2, C3, C7, D3, D4, D5, E3, E4.
 
 **Ola 3 · estructura (solo si el resto va estable)**
 A4, A7, F1, F2, F5, F6, H2, H3, H4.
