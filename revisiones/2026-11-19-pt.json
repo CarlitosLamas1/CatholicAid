@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-19",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-17T12:41:12+01:00",
+  "revisado": "2026-11-17T13:32:59+01:00",
+  "idioma": "pt",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Lucas 19,41-44 (Figueiredo revisado) idéntico al texto; verificado por script",
+    "voces": "✅ Jesús en jesus, narración en narrador",
+    "frase_clave": "✅ literal, de Jesús, misma que el español",
+    "reflexion": "✅ en portugués de Brasil, 2 frases, doctrina correcta",
+    "tecnica": "✅ 68,5 s, LUFS -14,3",
+    "audio": "✅ más lento: reflexión 9,9 c/s; más rápido: frag. 3 a 14,6 c/s",
+    "imagenes": "✅ las del día del español (ya aprobadas) y biblioteca",
+    "metadatos": "✅ cita Lucas 19,41-44, gancho 1,5, karaoke"
+  }
+}
