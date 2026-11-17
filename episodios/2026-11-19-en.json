@@ -15,7 +15,7 @@
     "dias/2026-11-19_e1.jpg",
     "dias/2026-11-19_e2.jpg",
     "dias/2026-11-19_e3.jpg",
-    "biblioteca/D10",
+    "biblioteca/D08",
     "evangelistas/lucas.jpg",
     "biblioteca/R01",
     "evangelistas/lucas.jpg"
@@ -82,7 +82,7 @@
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 22.07,
+      "inicio": 22.11,
       "texto": "For the days will come on you when your enemies will throw up a barricade against you, surround you, hem you in on every side, and will dash you and your children within you to the ground. They will not leave in you one stone on another, because you didn’t know the time of your visitation.”"
     },
     {
@@ -99,17 +99,14 @@
       "reflexion": true
     }
   ],
-  "generado": "2026-11-17T12:09:46+01:00",
-  "run": "44065893025",
+  "generado": "2026-11-17T12:42:27+01:00",
+  "run": "44075084243",
   "idioma": "en",
   "libro": "Lucas",
   "cita_es": "Lucas 19, 41-44",
   "frase_es": "no has conocido el tiempo en que Dios te ha visitado.",
   "reflexion_es": "Jesús llora porque no le dejamos traer su paz a nuestro corazón. Hoy pasa a tu lado y te visita: ¿sabrás reconocer su paso y acoger su amor en tu vida?",
   "copiado_de": "2026-11-17T09:40:00+01:00",
-  "modelos_voz": [
-    "gemini-3.1-flash-tts-preview"
-  ],
   "sincronia": {
     "frases_oidas": 7,
     "frases_por_pausas": [],
@@ -118,6 +115,6 @@
     ],
     "ok": false
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1
 }
