@@ -1,0 +1,322 @@
+{
+  "idioma": "es",
+  "desde": "2026-10-19",
+  "hasta": "2026-11-16",
+  "videos": [
+    {
+      "fecha": "2026-11-13",
+      "dia": "viernes",
+      "cita": "Lucas 17, 26-37",
+      "frase": "Acordaos de la mujer de Lot.",
+      "palabras_frase": 6,
+      "duracion_s": 126.0,
+      "gancho_s": 1.5,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "Wm7gC7tJHJw",
+      "visitas": 1832,
+      "segundos_vistos": 125,
+      "porcentaje_visto": 98.6,
+      "suscriptores": 7,
+      "gustas": 72
+    },
+    {
+      "fecha": "2026-11-05",
+      "dia": "jueves",
+      "cita": "Lucas 15, 1-10",
+      "frase": "",
+      "palabras_frase": 0,
+      "duracion_s": 88.4,
+      "gancho_s": null,
+      "estilo": null,
+      "imagenes_dia": 3,
+      "id": "Lhyg7iu67sk",
+      "visitas": 1461,
+      "segundos_vistos": 107,
+      "porcentaje_visto": 120.9,
+      "suscriptores": 17,
+      "gustas": 85
+    },
+    {
+      "fecha": "2026-11-14",
+      "dia": "sábado",
+      "cita": "Lucas 18, 1-8",
+      "frase": "Os aseguro que no tardará en hacerles justicia.",
+      "palabras_frase": 8,
+      "duracion_s": 88.5,
+      "gancho_s": 2.8,
+      "estilo": null,
+      "imagenes_dia": 5,
+      "id": "1mRYfxCL15Q",
+      "visitas": 1407,
+      "segundos_vistos": 96,
+      "porcentaje_visto": 108.1,
+      "suscriptores": 10,
+      "gustas": 88
+    },
+    {
+      "fecha": "2026-11-15",
+      "dia": "domingo",
+      "cita": "Mateo 25, 14-30",
+      "frase": "De la misma manera, el que había recibido dos ganó otros dos.",
+      "palabras_frase": 12,
+      "duracion_s": 141.5,
+      "gancho_s": 1.5,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "yohhBS5vg8U",
+      "visitas": 1085,
+      "segundos_vistos": 112,
+      "porcentaje_visto": 79.3,
+      "suscriptores": 11,
+      "gustas": 51
+    },
+    {
+      "fecha": "2026-11-06",
+      "dia": "viernes",
+      "cita": "Lucas 16, 1-8",
+      "frase": "los hijos de este mundo son en sus asuntos más sagaces",
+      "palabras_frase": 11,
+      "duracion_s": 92.4,
+      "gancho_s": null,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "V506vpsFex4",
+      "visitas": 987,
+      "segundos_vistos": 97,
+      "porcentaje_visto": 105.2,
+      "suscriptores": 5,
+      "gustas": 38
+    },
+    {
+      "fecha": "2026-11-10",
+      "dia": "martes",
+      "cita": "Lucas 17, 7-10",
+      "frase": "Somos siervos inútiles",
+      "palabras_frase": 3,
+      "duracion_s": 66.8,
+      "gancho_s": 2.8,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "9kNLiKYCy9w",
+      "visitas": 474,
+      "segundos_vistos": 59,
+      "porcentaje_visto": 89.1,
+      "suscriptores": 5,
+      "gustas": 20
+    },
+    {
+      "fecha": "2026-11-08",
+      "dia": "domingo",
+      "cita": "Mateo 25, 1-13",
+      "frase": "Así pues, velad, porque no sabéis ni el día ni la hora.",
+      "palabras_frase": 12,
+      "duracion_s": 95.2,
+      "gancho_s": null,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "Fx8HY5PSYEk",
+      "visitas": 359,
+      "segundos_vistos": 82,
+      "porcentaje_visto": 86.1,
+      "suscriptores": 3,
+      "gustas": 26
+    },
+    {
+      "fecha": "2026-11-07",
+      "dia": "sábado",
+      "cita": "Lucas 16, 9-15",
+      "frase": "No podéis servir a Dios y a las riquezas.",
+      "palabras_frase": 9,
+      "duracion_s": 84.8,
+      "gancho_s": null,
+      "estilo": null,
+      "imagenes_dia": 5,
+      "id": "8gSf39b9nnc",
+      "visitas": 337,
+      "segundos_vistos": 70,
+      "porcentaje_visto": 82.5,
+      "suscriptores": 3,
+      "gustas": 19
+    },
+    {
+      "fecha": "2026-11-11",
+      "dia": "miércoles",
+      "cita": "Lucas 17, 11-19",
+      "frase": "Levántate, vete; tu fe te ha salvado.",
+      "palabras_frase": 7,
+      "duracion_s": 82.4,
+      "gancho_s": 1.5,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "Mo_PZXTCreU",
+      "visitas": 309,
+      "segundos_vistos": 63,
+      "porcentaje_visto": 76.5,
+      "suscriptores": 0,
+      "gustas": 5
+    },
+    {
+      "fecha": "2026-11-09",
+      "dia": "lunes",
+      "cita": "Juan 2, 13-22",
+      "frase": "Destruid este templo, y en tres días lo levantaré.",
+      "palabras_frase": 9,
+      "duracion_s": 90.3,
+      "gancho_s": 1.5,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "wPz32pSdZu4",
+      "visitas": 293,
+      "segundos_vistos": 67,
+      "porcentaje_visto": 74.2,
+      "suscriptores": 0,
+      "gustas": 17
+    },
+    {
+      "fecha": "2026-11-16",
+      "dia": "lunes",
+      "cita": "Lucas 18, 35-43",
+      "frase": "Recobra la vista; tu fe te ha salvado",
+      "palabras_frase": 8,
+      "duracion_s": 90.6,
+      "gancho_s": 2.8,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "Bq1h1BkXrM4",
+      "visitas": 202,
+      "segundos_vistos": 78,
+      "porcentaje_visto": 86.0,
+      "suscriptores": 2,
+      "gustas": 8
+    },
+    {
+      "fecha": "2026-11-12",
+      "dia": "jueves",
+      "cita": "Lucas 17, 20-25",
+      "frase": "El reino de Dios no viene con muestras de aparato",
+      "palabras_frase": 10,
+      "duracion_s": 70.7,
+      "gancho_s": 2.8,
+      "estilo": null,
+      "imagenes_dia": 4,
+      "id": "eQ6LyTAIVAE",
+      "visitas": 95,
+      "segundos_vistos": 41,
+      "porcentaje_visto": 59.1,
+      "suscriptores": 0,
+      "gustas": 3
+    }
+  ],
+  "fuentes": [
+    {
+      "insightTrafficSourceType": "SHORTS",
+      "views": 7268
+    },
+    {
+      "insightTrafficSourceType": "YT_SEARCH",
+      "views": 1317
+    },
+    {
+      "insightTrafficSourceType": "YT_CHANNEL",
+      "views": 112
+    },
+    {
+      "insightTrafficSourceType": "EXT_URL",
+      "views": 77
+    },
+    {
+      "insightTrafficSourceType": "SUBSCRIBER",
+      "views": 35
+    },
+    {
+      "insightTrafficSourceType": "YT_OTHER_PAGE",
+      "views": 22
+    },
+    {
+      "insightTrafficSourceType": "SOUND_PAGE",
+      "views": 6
+    },
+    {
+      "insightTrafficSourceType": "RELATED_VIDEO",
+      "views": 5
+    },
+    {
+      "insightTrafficSourceType": "NOTIFICATION",
+      "views": 3
+    },
+    {
+      "insightTrafficSourceType": "NO_LINK_OTHER",
+      "views": 2
+    },
+    {
+      "insightTrafficSourceType": "PLAYLIST",
+      "views": 2
+    }
+  ],
+  "paises": [
+    {
+      "country": "MX",
+      "views": 2842
+    },
+    {
+      "country": "US",
+      "views": 2750
+    },
+    {
+      "country": "CO",
+      "views": 703
+    },
+    {
+      "country": "PE",
+      "views": 210
+    },
+    {
+      "country": "ES",
+      "views": 152
+    },
+    {
+      "country": "DO",
+      "views": 145
+    },
+    {
+      "country": "AR",
+      "views": 116
+    },
+    {
+      "country": "VE",
+      "views": 104
+    },
+    {
+      "country": "CL",
+      "views": 88
+    },
+    {
+      "country": "EC",
+      "views": 69
+    }
+  ],
+  "edades": [
+    {
+      "ageGroup": "age25-34",
+      "viewerPercentage": 7.3
+    },
+    {
+      "ageGroup": "age35-44",
+      "viewerPercentage": 6.8
+    },
+    {
+      "ageGroup": "age45-54",
+      "viewerPercentage": 13
+    },
+    {
+      "ageGroup": "age55-64",
+      "viewerPercentage": 24.5
+    },
+    {
+      "ageGroup": "age65-",
+      "viewerPercentage": 48.3
+    }
+  ],
+  "generado": "2026-11-17T21:36:12+01:00"
+}
