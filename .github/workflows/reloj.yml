@@ -1,14 +1,12 @@
 name: Reloj
 
-# Lanza lo que falte (vídeo de mañana, publicación revisada, TikTok de las 7:00) cuando los horarios de
-# GitHub se retrasan. Lo despierta cada hora la rutina «CatholicAid · Revisor diario» (en la nube, puntual)
-# subiendo una marca a la rama «reloj»; el cron de abajo es solo una red más. Nunca duplica tiradas.
+# ENVOLTORIO FINO (17/11/2026). La marca horaria de la rutina «Revisor diario» es un push a esta rama y GitHub usa el
+# reloj.yml de ESTA rama, no el de main. Aquí no hay lógica: solo llama a proceso/reloj_tirada.sh de main (4 pasadas
+# cada 10 minutos). No copies aquí la lógica: se desincroniza (esta rama llevaba una copia antigua de una sola pasada).
+# Los cron y el arranque a mano están en el reloj.yml de main.
 on:
   push:
     branches: [reloj]
-  schedule:
-    - cron: "45 * * * *"
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -21,12 +19,12 @@ concurrency:
 jobs:
   reloj:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 45
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Lanzar lo que falte
-        run: python3 proceso/reloj.py
+      - name: Mirar (4 pasadas cada 10 minutos)
+        run: bash proceso/reloj_tirada.sh "${{ github.event_name }}"
