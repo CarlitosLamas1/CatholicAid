@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-19",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-17T09:40:00+01:00",
+  "revisado": "2026-11-17T10:40:00+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico al evangelio (Lucas 19, 41-44)",
+    "voces": "✅ Jesús y narrador correctos",
+    "frase_clave": "✅ literal, de Jesús, se entiende sola",
+    "reflexion": "✅ cálida y fiel a la lectura",
+    "tecnica": "✅ 61,5 s, -14,1 LUFS",
+    "audio": "✅ más lento 9,5 c/s (fragmento corto), más rápido 14,6 c/s",
+    "imagenes": "✅ paisaje, Jesús llorando y Jesús ante muralla; devocionales y sin fallos",
+    "metadatos": "✅ fecha, cita y evangelista coherentes"
+  }
+}
