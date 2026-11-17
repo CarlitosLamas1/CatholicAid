@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-19",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-17T12:09:46+01:00",
+  "revisado": "2026-11-17T12:33:11+01:00",
+  "motivos": [],
+  "avisos": [
+    "Subtítulos: el corte del narrador no se pudo comprobar escuchando (sincronia.ok falso); el sistema puede rehacer el vídeo una vez."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a la WEB (Luke 19:41-44), solo cambia la introducción «At that time,»",
+    "voces": "✅ Jesús y narrador correctos",
+    "frase_clave": "✅ literal, de Jesús, 8 palabras, la misma que el español",
+    "reflexion": "✅ inglés, cálida, fiel a la lectura",
+    "tecnica": "✅ 58,7 s, -14,3 LUFS",
+    "audio": "✅ más lento 7,2 c/s (fragmento corto «The Gospel of the Lord.», normal), más rápido 17,4 c/s",
+    "imagenes": "✅ reutiliza las del español ya aprobadas (dias/2026-11-19_e1-e3, biblioteca, Lucas)",
+    "metadatos": "✅ fecha, cita Luke 19:41-44 y evangelista Lucas coherentes; gancho 1,5 s; karaoke activo"
+  }
+}
