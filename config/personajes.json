@@ -15,17 +15,17 @@
   "texto": "torres-amat",
   "pausa_tts_segundos": 21,
   "pausa_entre_voces": 0.35,
-  "_subtitulos": "17/11/2026, pensado para el público mayor (47 % de más de 65 años): letra más grande (68 en vez de 60; reflexión 62 en vez de 56), borde y sombra más marcados y líneas más cortas para que quepan. Trozos de 40 caracteres en vez de 46.",
+  "_subtitulos": "17/11/2026, pensado para el público mayor (47 % de más de 65 años): letra más grande (68 en vez de 60; reflexión 62 en vez de 56) y borde y sombra más marcados, con la misma cantidad de texto en pantalla que antes (trozos de 46 caracteres, líneas de 24) para que cada subtítulo dure lo mismo. Vista previa sin gastar: workflow «Vista de subtítulos».",
   "subtitulos": {
     "tamano": 68,
     "tamano_reflexion": 62,
     "tamano_nombre": 44,
-    "linea": 22,
-    "linea_reflexion": 21,
+    "linea": 24,
+    "linea_reflexion": 22,
     "borde": 6,
     "sombra": 4
   },
-  "caracteres_por_subtitulo": 40,
+  "caracteres_por_subtitulo": 46,
   "karaoke": {
     "_nota": "Subtítulos karaoke: se resalta la palabra que se lee. Desde el 11/11/2026 (Carlos vio desfase en inglés) los tiempos salen del audio real: faster-whisper transcribe la pista de voz y se empareja con el texto exacto (alinear_audio en evangelio.py). Si no está instalado o reconoce menos del 60 %, se vuelve al reparto por longitud.",
     "activo": true,
