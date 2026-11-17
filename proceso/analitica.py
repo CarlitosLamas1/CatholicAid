@@ -11,6 +11,7 @@ import json
 import re
 import statistics
 import sys
+import urllib.error
 import urllib.parse
 from pathlib import Path
 
@@ -28,7 +29,10 @@ def informe(tok, desde, hasta, metricas, dimensiones="", filtros="", orden="", m
     for k, v in (("dimensions", dimensiones), ("filters", filtros), ("sort", orden), ("maxResults", maximo)):
         if v:
             q[k] = v
-    d = ev.http(API + urllib.parse.urlencode(q), headers={"Authorization": f"Bearer {tok}"})
+    try:
+        d = ev.http(API + urllib.parse.urlencode(q), headers={"Authorization": f"Bearer {tok}"})
+    except urllib.error.HTTPError as e:
+        raise SystemExit(f"YouTube Analytics: {e.code} {e.read().decode(errors='replace')[:600]}")
     nombres = [c["name"] for c in d.get("columnHeaders", [])]
     return [dict(zip(nombres, fila)) for fila in d.get("rows") or []]
 
