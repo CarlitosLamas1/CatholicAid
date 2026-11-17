@@ -137,10 +137,13 @@
       "avisado": true
     },
     "Ugza3eCDWr9wyh9T14d4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-17T06:45:57+00:00",
       "desde": "2026-11-17T08:33:49.540334+01:00",
-      "listo": "2026-11-17T11:35:57+00:00"
+      "listo": "2026-11-17T11:35:57+00:00",
+      "motivo": "solo un «Amén» sin más",
+      "respuesta": "",
+      "por": "claude"
     }
   },
   "respondidos": [
