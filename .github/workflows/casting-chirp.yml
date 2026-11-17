@@ -1,0 +1,31 @@
+name: Casting Chirp (respaldo de voces)
+
+# Prueba: cada personaje con su voz de Gemini y la de Chirp 3 HD del mismo nombre. No toca la producción.
+on:
+  workflow_dispatch:
+    inputs:
+      idioma:
+        description: "Idioma de Chirp (es-ES o es-US)"
+        default: "es-ES"
+
+jobs:
+  casting:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+      - name: Generar comparación
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+          IDIOMA_CHIRP: ${{ inputs.idioma }}
+        run: python3 proceso/casting_chirp.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: casting-chirp
+          path: |
+            casting_chirp/comparacion.mp3
+            casting_chirp/orden.txt
