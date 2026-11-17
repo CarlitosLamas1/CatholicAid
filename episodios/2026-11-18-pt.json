@@ -1,0 +1,145 @@
+{
+  "fecha": "2026-11-18",
+  "modo": "diario",
+  "cita": "Lucas 19,11-28",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/18.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 8,
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 164.3,
+  "imagenes": [
+    "dias/2026-11-18_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-18_e1.jpg",
+    "biblioteca/D01",
+    "biblioteca/D04",
+    "dias/2026-11-18_e2.jpg",
+    "biblioteca/D10",
+    "dias/2026-11-18_e3.jpg",
+    "biblioteca/D06",
+    "biblioteca/D05",
+    "biblioteca/D02",
+    "dias/2026-11-18_e4.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D10",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Ele voltou, depois de ter tomado posse do reino",
+  "reflexion": "Deus não quer que o medo paralise a sua vida, mas que faça frutificar com amor os dons que lhe confiou. Em que você está empregando hoje tudo o que recebeu?",
+  "lufs": -14.1,
+  "gancho_segundos": 2.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A nobleman dressed in fine robes distributes silver coins to his servants in a grand courtyard, giving them solemn instructions before departing.",
+      "busqueda": "parable ten minas",
+      "personajes": [
+        "hombre",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "The newly crowned king sits in a warm interior hall, smiling joyfully as a faithful servant presents a cloth full of earned silver coins.",
+      "busqueda": "faithful servant minas",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "A fearful servant offers a single silver coin wrapped in a handkerchief to the stern king seated on his throne, while bystanders look on.",
+      "busqueda": "wicked servant minas",
+      "personajes": [
+        "hombre",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 4,
+      "descripcion": "Jesus walking resolutely ahead along a sunlit, dusty road towards the distant gates of Jerusalem, with his disciples following behind.",
+      "busqueda": "Jesus Jerusalem road",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
+  "texto_evangelio": "Naquele tempo, enquanto eles ouviam essas coisas, Jesus continuou e contou uma parábola, porque estava perto de Jerusalém e eles pensavam que o Reino de Deus ia se manifestar logo. Disse então: “Um homem de família nobre partiu para um país distante, para tomar posse de um reino e depois voltar. Chamou dez dos seus servos, entregou-lhes dez moedas de prata e lhes disse: ‘Façam negócio com elas até eu voltar’. Mas os seus concidadãos o odiavam e enviaram atrás dele uma delegação para dizer: ‘Não queremos que este seja o nosso rei’. Ele voltou, depois de ter tomado posse do reino, e mandou chamar os servos a quem tinha dado o dinheiro, para saber quanto cada um tinha ganhado. Veio o primeiro e disse: ‘Senhor, a tua moeda rendeu dez’. O senhor lhe respondeu: ‘Muito bem, servo bom! Porque foste fiel no pouco, terás o governo de dez cidades’. Veio o segundo e disse: ‘Senhor, a tua moeda rendeu cinco’. O senhor lhe respondeu: ‘Tu também governarás cinco cidades’. Veio também o terceiro e disse: ‘Senhor, aqui está a tua moeda, que guardei embrulhada num lenço, porque tive medo de ti, que és um homem severo: tiras o que não puseste e colhes o que não semeaste’. O senhor lhe disse: ‘Servo mau, pela tua própria boca eu te condeno. Sabias que sou um homem severo, que tiro o que não pus e colho o que não semeei? Então por que não puseste o meu dinheiro no banco? Assim, ao voltar, eu o receberia com os juros’. E disse aos que estavam ali: ‘Tirem dele a moeda e deem-na ao que tem dez’. Eles lhe responderam: ‘Senhor, ele já tem dez!’ ‘Pois eu digo a vocês: a todo aquele que tem será dado ainda mais; mas daquele que não tem será tirado até o que tem. E quanto a esses meus inimigos, que não quiseram que eu fosse o seu rei, tragam-nos aqui e tirem-lhes a vida na minha presença’”. Dito isso, Jesus seguia à frente de todos, subindo para Jerusalém.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.4,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 10.4,
+      "texto": "Naquele tempo, enquanto eles ouviam essas coisas, Jesus continuou e contou uma parábola, porque estava perto de Jerusalém e eles pensavam que o Reino de Deus ia se manifestar logo. Disse então:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 25.92,
+      "texto": "“Um homem de família nobre partiu para um país distante, para tomar posse de um reino e depois voltar. Chamou dez dos seus servos, entregou-lhes dez moedas de prata e lhes disse: ‘Façam negócio com elas até eu voltar’. Mas os seus concidadãos o odiavam e enviaram atrás dele uma delegação para dizer: ‘Não queremos que este seja o nosso rei’."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 48.86,
+      "texto": "Ele voltou, depois de ter tomado posse do reino, e mandou chamar os servos a quem tinha dado o dinheiro, para saber quanto cada um tinha ganhado. Veio o primeiro e disse: ‘Senhor, a tua moeda rendeu dez’. O senhor lhe respondeu: ‘Muito bem, servo bom! Porque foste fiel no pouco, terás o governo de dez cidades’. Veio o segundo e disse: ‘Senhor, a tua moeda rendeu cinco’. O senhor lhe respondeu: ‘Tu também governarás cinco cidades’."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 79.58,
+      "texto": "Veio também o terceiro e disse: ‘Senhor, aqui está a tua moeda, que guardei embrulhada num lenço, porque tive medo de ti, que és um homem severo: tiras o que não puseste e colhes o que não semeaste’. O senhor lhe disse: ‘Servo mau, pela tua própria boca eu te condeno. Sabias que sou um homem severo, que tiro o que não pus e colho o que não semeei? Então por que não puseste o meu dinheiro no banco? Assim, ao voltar, eu o receberia com os juros’. E disse aos que estavam ali: ‘Tirem dele a moeda e deem-na ao que tem dez’. Eles lhe responderam: ‘Senhor, ele já tem dez!’ ‘Pois eu digo a vocês: a todo aquele que tem será dado ainda mais; mas daquele que não tem será tirado até o que tem. E quanto a esses meus inimigos, que não quiseram que eu fosse o seu rei, tragam-nos aqui e tirem-lhes a vida na minha presença’”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 139.03,
+      "texto": "Dito isso, Jesus seguia à frente de todos, subindo para Jerusalém."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 145.24,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 4,
+      "inicio": 149.4,
+      "texto": "Deus não quer que o medo paralise a sua vida, mas que faça frutificar com amor os dons que lhe confiou. Em que você está empregando hoje tudo o que recebeu?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-17T09:59:57+01:00",
+  "run": "44047635572",
+  "idioma": "pt",
+  "libro": "Lucas",
+  "cita_es": "Lucas 19, 11-28",
+  "frase_es": "Cuando volvió, ya investido del reino, mandó llamar a los siervos a quienes había dado el dinero, para saber lo que había negociado cada uno.",
+  "reflexion_es": "Dios no quiere que el miedo paralice tu vida, sino que hagas fructificar con amor los dones que te ha confiado. ¿En qué estás empleando hoy todo lo que has recibido?",
+  "copiado_de": "2026-11-16T21:53:18+01:00",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ],
+  "sincronia": {
+    "frases_oidas": 8,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [
+      "narrador"
+    ],
+    "ok": false
+  },
+  "revision": "pendiente"
+}
