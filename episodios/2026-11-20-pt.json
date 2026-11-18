@@ -1,0 +1,131 @@
+{
+  "fecha": "2026-11-20",
+  "modo": "diario",
+  "cita": "Lucas 19,45-48",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/20.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 66.2,
+  "imagenes": [
+    "dias/2026-11-20_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-20_e1.jpg",
+    "biblioteca/D01",
+    "dias/2026-11-20_e2.jpg",
+    "dias/2026-11-20_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R02",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "A minha casa é casa de oração.",
+  "reflexion": "O Senhor convida você a cuidar do seu coração como um lugar sagrado de encontro e paz. Você dedica hoje um momento de silêncio para falar com Deus e escutá-lo?",
+  "lufs": -14.0,
+  "gancho_segundos": 3.6,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-20-pt.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Inside the stone colonnades of the Temple, Jesus stands with dignified authority, driving out the merchants with a commanding gesture of purity and reverence.",
+      "busqueda": "cleansing temple jesus",
+      "personajes": [
+        "jesus",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus sits gently under the arches of the Temple court, gesturing with warmth as He teaches the gathered listeners with a serene expression.",
+      "busqueda": "jesus teaching temple",
+      "personajes": [
+        "jesus",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Chief priests and scribes whisper in shadowed irritation, unable to approach Jesus because an attentive crowd listens to Him with utter devotion.",
+      "busqueda": "pharisees crowd jesus",
+      "personajes": [
+        "fariseos",
+        "multitud",
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
+  "texto_evangelio": "Naquele tempo, Jesus entrou no templo e começou a expulsar todos os que ali vendiam e compravam, dizendo-lhes: “Está escrito: ‘A minha casa é casa de oração’. Mas vocês fizeram dela um covil de ladrões”. E todos os dias ensinava no templo. Os chefes dos sacerdotes, os escribas e os chefes do povo procuravam um modo de acabar com ele, mas não encontravam meio de lhe fazer mal, porque todo o povo ficava suspenso ao ouvi-lo.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.2,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 9.95,
+      "texto": "Naquele tempo, Jesus entrou no templo e começou a expulsar todos os que ali vendiam e compravam, dizendo-lhes:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 19.12,
+      "texto": "“Está escrito: ‘A minha casa é casa de oração’. Mas vocês fizeram dela um covil de ladrões”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 27.79,
+      "texto": ". E todos os dias ensinava no templo."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 32.44,
+      "texto": "Os chefes dos sacerdotes, os escribas e os chefes do povo procuravam um modo de acabar com ele, mas não encontravam meio de lhe fazer mal, porque todo o povo ficava suspenso ao ouvi-lo."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 46.27,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 50.39,
+      "texto": "O Senhor convida você a cuidar do seu coração como um lugar sagrado de encontro e paz. Você dedica hoje um momento de silêncio para falar com Deus e escutá-lo?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-18T09:48:43+01:00",
+  "run": "44267963827",
+  "idioma": "pt",
+  "libro": "Lucas",
+  "cita_es": "Lucas 19, 45-48",
+  "frase_es": "Mi casa es casa de oración",
+  "reflexion_es": "El Señor te invita a cuidar tu corazón como un lugar sagrado de encuentro y paz. ¿Dedicas hoy un momento de silencio para hablar con Dios y escucharle?",
+  "copiado_de": "2026-11-18T09:12:47+01:00",
+  "cupo_agotado": [
+    "gemini-3.8-flash"
+  ],
+  "reserva_pago": [
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
