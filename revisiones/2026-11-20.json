@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-20",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-18T09:12:47+01:00",
+  "revisado": "2026-11-18T09:32:38+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a texto_evangelio; cita coincide con citas.json (Lucas 19, 45-48)",
+    "voces": "✅ Jesús dice «Escrito está…»; el resto, narrador",
+    "frase_clave": "✅ «Mi casa es casa de oración» (6 palabras), literal de Jesús y se entiende sola",
+    "reflexion": "✅ cálida, doctrinalmente correcta, ~28 palabras, relacionada con la lectura",
+    "tecnica": "✅ 58,5 s, -14,0 LUFS",
+    "audio": "✅ más lento: fragmento 5 «Palabra del Señor.» (normal, corto); más lento largo: frag. 6 (reflexión) 11,0 c/s; más rápido: frag. 4 a 16,2 c/s",
+    "imagenes": "✅ 3 óleos coherentes, Jesús igual en todas, sin defectos graves; fotogramas legibles",
+    "metadatos": "✅ título de Lucas, fecha y cita coherentes"
+  }
+}
