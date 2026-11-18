@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-20",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-18T09:50:58+01:00",
+  "revisado": "2026-11-18T10:32:58+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Fragmentos idénticos al texto; coincide con Lucas 19,45-48 (WEB)",
+    "voces": "✅ Jesús dice solo sus palabras; el resto, narrador",
+    "frase_clave": "✅ Literal, de Jesús, mismo pasaje que el español",
+    "reflexion": "✅ Traducción fiel de la del español, sin problemas doctrinales",
+    "tecnica": "✅ 60.7s, LUFS -14.0",
+    "audio": "✅ Velocidades 8–15 c/s en fragmentos largos; el más lento largo ~10 c/s, sin anomalías",
+    "imagenes": "✅ Imágenes del español; fotogramas legibles y coherentes",
+    "metadatos": "✅ Fecha, cita y título del evangelista coherentes"
+  }
+}
