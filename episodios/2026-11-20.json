@@ -1,0 +1,120 @@
+{
+  "fecha": "2026-11-20",
+  "modo": "diario",
+  "cita": "Lucas 19, 45-48",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/20.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 58.5,
+  "imagenes": [
+    "dias/2026-11-20_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-20_e1.jpg",
+    "dias/2026-11-20_e2.jpg",
+    "dias/2026-11-20_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R02",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Mi casa es casa de oración",
+  "reflexion": "El Señor te invita a cuidar tu corazón como un lugar sagrado de encuentro y paz. ¿Dedicas hoy un momento de silencio para hablar con Dios y escucharle?",
+  "lufs": -14.0,
+  "gancho_segundos": 3.3,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-20.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Inside the stone colonnades of the Temple, Jesus stands with dignified authority, driving out the merchants with a commanding gesture of purity and reverence.",
+      "busqueda": "cleansing temple",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus sits gently under the arches of the Temple court, gesturing with warmth as He teaches the gathered listeners with a serene expression.",
+      "busqueda": "Jesus teaching temple",
+      "personajes": [
+        "jesus",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Chief priests and scribes whisper in shadowed irritation, unable to approach Jesus because an attentive crowd listens to Him with utter devotion.",
+      "busqueda": "Pharisees watching Jesus",
+      "personajes": [
+        "fariseos",
+        "multitud",
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, y habiendo entrado en el Templo, comenzó a echar fuera a los que vendían y compraban en él, diciéndoles: “Escrito está: ‘Mi casa es casa de oración’; pero vosotros la tenéis hecha una cueva de ladrones.” Y enseñaba todos los días en el Templo. Pero los príncipes de los sacerdotes, los escribas y los principales del pueblo buscaban cómo quitarle del mundo, y no hallaban medio de actuar contra él, porque todo el pueblo estaba pendiente de sus labios, escuchándole.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.9,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.13,
+      "texto": "En aquel tiempo, y habiendo entrado en el Templo, comenzó a echar fuera a los que vendían y compraban en él, diciéndoles:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 15.88,
+      "texto": "“Escrito está: ‘Mi casa es casa de oración’; pero vosotros la tenéis hecha una cueva de ladrones.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 23.54,
+      "texto": "Y enseñaba todos los días en el Templo."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 26.97,
+      "texto": "Pero los príncipes de los sacerdotes, los escribas y los principales del pueblo buscaban cómo quitarle del mundo, y no hallaban medio de actuar contra él, porque todo el pueblo estaba pendiente de sus labios, escuchándole."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 40.71,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 44.72,
+      "texto": "El Señor te invita a cuidar tu corazón como un lugar sagrado de encuentro y paz. ¿Dedicas hoy un momento de silencio para hablar con Dios y escucharle?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-18T09:12:47+01:00",
+  "estilo_imagenes": "oleo",
+  "reparto_visual": [],
+  "run": "44263761031",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
