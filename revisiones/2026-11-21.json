@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-21",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-19T09:17:59+01:00",
+  "revisado": "2026-11-19T09:32:54+01:00",
+  "motivos": [],
+  "avisos": [
+    "El narrador anuncia «Lectura del santo evangelio.» sin decir «según san Mateo» (el título del fragmento y el registro lo traen sin el evangelista); otros días sí lo dicen. Posible fallo del guion: conviene que el gestor lo mire.",
+    "Las tres imágenes pintadas llevan una firma diminuta en la esquina inferior; en el vídeo montado no se ve."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a texto_evangelio y a biblia/revisada/mateo.json; cita Mateo 12, 46-50 coincide con citas.json",
+    "voces": "✅ hombre (el que avisa), jesus (sus palabras) y narrador correctos",
+    "frase_clave": "✅ «Estos son mi madre y mis hermanos.» literal, de Jesús, se entiende sola",
+    "reflexion": "✅ cálida, doctrinal y ligada a la lectura (~35 palabras)",
+    "tecnica": "✅ 72,5 s; -13,9 LUFS",
+    "audio": "✅ más lento largo: frag. 6, 10,3 car/s; más rápido: frag. 3, 17,3 car/s; sin anomalías",
+    "imagenes": "✅ devocionales y coherentes entre escenas (misma Jesús y mismo aspecto); ⚠️ firma diminuta en esquina; hoja de fotogramas legible",
+    "metadatos": "⚠️ fecha y cita coherentes; el título no nombra al evangelista"
+  }
+}
