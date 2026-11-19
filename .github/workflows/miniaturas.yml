@@ -12,6 +12,10 @@ on:
         description: "Rehacer también las que ya tienen miniatura"
         type: boolean
         default: false
+      vertical:
+        description: "Subir la miniatura vertical (9:16) en vez de la horizontal"
+        type: boolean
+        default: false
       solo:
         description: "Solo estos registros, separados por comas (p. ej. 2026-11-18-en)"
         default: ""
@@ -41,7 +45,7 @@ jobs:
           fi
           test -f /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf
       - name: Miniaturas
-        run: python3 proceso/miniaturas.py ${{ inputs.simular && '--simular' || '' }} ${{ inputs.todas && '--todas' || '' }} --solo="${{ inputs.solo }}"
+        run: python3 proceso/miniaturas.py ${{ inputs.simular && '--simular' || '' }} ${{ inputs.todas && '--todas' || '' }} --solo="${{ inputs.solo }}" ${{ inputs.vertical && '--vertical' || '' }}
       - name: Guardar
         if: always()
         run: python3 proceso/guardar.py "Miniaturas puestas" episodios/

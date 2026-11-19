@@ -84,6 +84,8 @@ def main():
         destino, vertical = tmp / f"{nombre}.jpg", tmp / f"{nombre}-v.jpg"
         ev.miniatura(img, reg["frase_clave"], vertical, (1080, 1920), ev.color_tiempo(dia), ev.etiqueta_tiempo(dia, idioma))
         ev.miniatura_short(vertical, destino)  # la vertical en el centro: en Shorts se ve entera
+        if "--vertical" in sys.argv:  # prueba: la vertical tal cual (9:16), como la portada de un Short
+            destino = vertical
         if simular:
             print(f"{nombre}: {img.name} · «{reg['frase_clave']}»")
             continue
