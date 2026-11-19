@@ -133,7 +133,8 @@
       "titulo": "Daily Gospel · Ordinary Time",
       "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
     },
-    "miniatura": "ok"
+    "miniatura": "ok",
+    "miniatura_shorts": "ok"
   },
   "telegram_youtube": true
 }
