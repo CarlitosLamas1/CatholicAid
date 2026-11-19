@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-21",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-19T10:00:27+01:00",
+  "revisado": "2026-11-19T10:33:18+01:00",
+  "motivos": [],
+  "avisos": [
+    "La sincronía de subtítulos marca que el narrador se cortó sin poder escucharlo; si el sistema lo rehace una vez, es normal. En los fotogramas los subtítulos se leen bien."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico al texto oficial (Mateo 12,46-50)",
+    "voces": "✅ hombre, Jesús y narrador correctos",
+    "frase_clave": "✅ literal, de Jesús: Behold, my mother and my brothers!",
+    "reflexion": "✅ cálida, fiel a la doctrina y relacionada con la lectura",
+    "tecnica": "✅ 70.6 s, -14.0 LUFS",
+    "audio": "✅ fragmentos largos entre 9,5 y 13,9 c/s; más lento: cierre 'Palavra/Gospel' (corto, normal)",
+    "imagenes": "✅ reutilizadas del español, coherentes entre escenas",
+    "metadatos": "✅ fecha y cita coherentes con Mateo"
+  }
+}
