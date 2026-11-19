@@ -3,20 +3,21 @@
   "idioma": "pt",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-19T10:04:44+01:00",
-  "revisado": "2026-11-19T10:33:18+01:00",
+  "generado": "2026-11-19T11:10:43+01:00",
+  "revisado": "2026-11-19T11:32:32+01:00",
   "motivos": [],
   "avisos": [
-    "La sincronía de subtítulos marca que el narrador se cortó sin poder escucharlo; si el sistema lo rehace una vez, es normal. En los fotogramas los subtítulos se leen bien."
+    "La sincronía marca que el narrador se cortó sin poder escucharlo (reparto por longitud); en los fotogramas los subtítulos se leen y siguen el audio.",
+    "El fragmento 5 empieza con un punto suelto («. Jesus respondeu…»): defecto menor de subtítulo."
   ],
   "puntos": {
     "fidelidad": "✅ texto idéntico al texto oficial (Mateo 12,46-50)",
     "voces": "✅ hombre, Jesús y narrador correctos",
-    "frase_clave": "✅ literal, de Jesús: Aqui estão minha mãe e meus irmãos.",
-    "reflexion": "✅ cálida, fiel a la doctrina y relacionada con la lectura",
+    "frase_clave": "✅ literal, de Jesús: Aqui estão minha mãe e meus irmãos. (la misma que en español)",
+    "reflexion": "✅ cálida, fiel a la doctrina y ligada a la lectura",
     "tecnica": "✅ 73.7 s, -13.9 LUFS",
-    "audio": "✅ fragmentos largos entre 9,5 y 13,9 c/s; más lento: cierre 'Palavra/Gospel' (corto, normal)",
-    "imagenes": "✅ reutilizadas del español, coherentes entre escenas",
-    "metadatos": "✅ fecha y cita coherentes con Mateo"
+    "audio": "✅ fragmentos largos 9,3–13,9 c/s; más lento: cierre corto 5,2 c/s (normal)",
+    "imagenes": "✅ reutilizadas del español, coherentes; subtítulos legibles",
+    "metadatos": "✅ fecha, cita y título del evangelista coherentes"
   }
 }
