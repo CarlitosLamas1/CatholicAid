@@ -65,5 +65,19 @@ class HojaFotogramas(unittest.TestCase):
         self.assertEqual(viejos, ["2026-11-10-en.jpg", "2026-11-10.jpg"])
 
 
+class MiniaturaShorts(unittest.TestCase):
+    def test_en_comentarios_cada_hora(self):
+        wf = (Path(__file__).resolve().parent.parent / ".github/workflows/comentarios.yml").read_text(encoding="utf-8")
+        self.assertIn("miniaturas.py --tras-proceso", wf)
+
+    def test_pendientes_solo_recientes_y_sin_marca(self):
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "proceso"))
+        import miniaturas
+        hoy = dt.date(2026, 11, 19)
+        for nombre, _, reg in miniaturas.pendientes_tras_proceso(hoy):
+            self.assertGreaterEqual(dt.date.fromisoformat(nombre[:10]), hoy - dt.timedelta(days=14))
+            self.assertNotEqual(reg["youtube"].get("miniatura_shorts"), "ok")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -46,6 +46,16 @@ jobs:
           git config user.name "gestor-catholicaid"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           python3 proceso/youtube_tareas.py
+      - name: Miniaturas con el vídeo ya procesado (portada de los Shorts)
+        if: ${{ !inputs.simular && !inputs.ver }}
+        continue-on-error: true
+        timeout-minutes: 8
+        run: |
+          python3 -c "import PIL" 2>/dev/null || pip install -q --timeout 60 pillow
+          if [ ! -f /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf ]; then
+            timeout 300 sudo apt-get update -qq && timeout 300 sudo apt-get install -y -qq fonts-dejavu-core > /dev/null
+          fi
+          python3 proceso/miniaturas.py --tras-proceso
       - name: Guardar estado
         if: always() && !inputs.simular && !inputs.ver
         run: |

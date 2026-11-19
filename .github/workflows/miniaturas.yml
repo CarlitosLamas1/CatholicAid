@@ -16,6 +16,10 @@ on:
         description: "Subir la miniatura vertical (9:16) en vez de la horizontal"
         type: boolean
         default: false
+      tras_proceso:
+        description: "Las de los últimos 14 días con el vídeo ya procesado (portada de los Shorts)"
+        type: boolean
+        default: false
       solo:
         description: "Solo estos registros, separados por comas (p. ej. 2026-11-18-en)"
         default: ""
@@ -45,7 +49,7 @@ jobs:
           fi
           test -f /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf
       - name: Miniaturas
-        run: python3 proceso/miniaturas.py ${{ inputs.simular && '--simular' || '' }} ${{ inputs.todas && '--todas' || '' }} --solo="${{ inputs.solo }}" ${{ inputs.vertical && '--vertical' || '' }}
+        run: python3 proceso/miniaturas.py ${{ inputs.simular && '--simular' || '' }} ${{ inputs.todas && '--todas' || '' }} --solo="${{ inputs.solo }}" ${{ inputs.vertical && '--vertical' || '' }} ${{ inputs.tras_proceso && '--tras-proceso' || '' }}
       - name: Guardar
         if: always()
         run: python3 proceso/guardar.py "Miniaturas puestas" episodios/
