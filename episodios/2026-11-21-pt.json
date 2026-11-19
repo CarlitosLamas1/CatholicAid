@@ -1,0 +1,144 @@
+{
+  "fecha": "2026-11-21",
+  "modo": "diario",
+  "cita": "Mateus 12,46-50",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/21.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3-flash-preview",
+  "voces": "gemini",
+  "peticiones_voz": 10,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg",
+  "duracion_s": 73.7,
+  "imagenes": [
+    "dias/2026-11-21_e1.jpg",
+    "evangelistas/mateo.jpg",
+    "dias/2026-11-21_e1.jpg",
+    "dias/2026-11-21_e2.jpg",
+    "dias/2026-11-21_e3.jpg",
+    "evangelistas/mateo.jpg",
+    "biblioteca/R03",
+    "evangelistas/mateo.jpg"
+  ],
+  "frase_clave": "Aqui estão minha mãe e meus irmãos.",
+  "reflexion": "Jesus convida você hoje a fazer parte de sua verdadeira família cumprindo a vontade do Pai. Você está disposto a escutar a voz de Deus e viver como um verdadeiro irmão do Senhor?",
+  "lufs": -13.9,
+  "gancho_segundos": 3.6,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-21-pt.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Inside a humble Galilean home, Jesus speaks with warmth to an attentive crowd, while the Virgin Mary and His relatives stand waiting near the sunlit doorway.",
+      "busqueda": "Jesus teaching crowd",
+      "personajes": [
+        "jesus",
+        "maria",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A man from the gathering leans close to Jesus to deliver the message, while Jesus looks back at him with serene and thoughtful attention.",
+      "busqueda": "messenger speaking Jesus",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus affectionately extends His open hand toward His gathered disciples, looking upon them with tender love as He identifies them as His family.",
+      "busqueda": "Jesus pointing disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Mateus.",
+  "texto_evangelio": "Naquele tempo, enquanto Jesus ainda falava às multidões, sua mãe e seus irmãos estavam do lado de fora, procurando falar com ele. Alguém lhe disse: “Olha, tua mãe e teus irmãos estão lá fora e querem falar contigo”. Jesus respondeu àquele que lhe falava: “Quem é minha mãe e quem são meus irmãos?” E, estendendo a mão para os seus discípulos, disse: “Aqui estão minha mãe e meus irmãos. Pois todo aquele que fizer a vontade do meu Pai, que está nos céus, esse é meu irmão, minha irmã e minha mãe”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.2,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Mateus."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 10.63,
+      "texto": "Naquele tempo, enquanto Jesus ainda falava às multidões, sua mãe e seus irmãos estavam do lado de fora, procurando falar com ele."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 22.02,
+      "texto": "Alguém lhe disse:"
+    },
+    {
+      "personaje": "hombre",
+      "escena": 2,
+      "inicio": 24.12,
+      "texto": "“Olha, tua mãe e teus irmãos estão lá fora e querem falar contigo”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 29.11,
+      "texto": ". Jesus respondeu àquele que lhe falava:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 32.93,
+      "texto": "“Quem é minha mãe e quem são meus irmãos?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 36.77,
+      "texto": "E, estendendo a mão para os seus discípulos, disse:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 41.46,
+      "texto": "“Aqui estão minha mãe e meus irmãos. Pois todo aquele que fizer a vontade do meu Pai, que está nos céus, esse é meu irmão, minha irmã e minha mãe”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 52.05,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 55.91,
+      "texto": "Jesus convida você hoje a fazer parte de sua verdadeira família cumprindo a vontade do Pai. Você está disposto a escutar a voz de Deus e viver como um verdadeiro irmão do Senhor?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-19T10:04:44+01:00",
+  "run": "44488606940",
+  "idioma": "pt",
+  "libro": "Mateo",
+  "cita_es": "Mateo 12, 46-50",
+  "frase_es": "Estos son mi madre y mis hermanos.",
+  "reflexion_es": "Jesús te invita hoy a formar parte de su verdadera familia cumpliendo la voluntad del Padre. ¿Estás dispuesto a escuchar la voz de Dios y vivir como un verdadero hermano del Señor?",
+  "copiado_de": "2026-11-19T09:17:59+01:00",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ],
+  "sincronia": {
+    "frases_oidas": 10,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [
+      "narrador"
+    ],
+    "ok": false
+  },
+  "revision": "pendiente"
+}
