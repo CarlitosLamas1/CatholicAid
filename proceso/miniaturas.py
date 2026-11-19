@@ -49,10 +49,15 @@ def imagen_del_dia(fecha, es):
     return retrato if retrato.exists() else None
 
 
-def pendientes(todas=False):
-    """[(nombre, idioma, registro)] de los vídeos subidos cuya miniatura no consta como puesta (o todos, con todas)."""
+def pendientes(todas=False, solo=()):
+    """[(nombre, idioma, registro)] de los vídeos subidos cuya miniatura no consta como puesta (o todos, con todas).
+    solo: nombres de registro concretos (p. ej. 2026-11-18-en), aunque ya la tengan."""
     lista = []
     for ruta in sorted((RAIZ / "episodios").glob("*.json")):
+        if solo and ruta.stem not in solo:
+            continue
+        if solo:
+            todas = True
         reg = leer(ruta)
         yt = reg.get("youtube") or {}
         if yt.get("id") and (todas or yt.get("miniatura") != "ok") and reg.get("frase_clave"):
@@ -64,7 +69,9 @@ def main():
     simular = "--simular" in sys.argv
     tokens, tmp = {}, Path(tempfile.mkdtemp())
     puestas = 0
-    for nombre, idioma, reg in pendientes("--todas" in sys.argv):
+    solo = [x.split("=", 1)[1] for x in sys.argv if x.startswith("--solo=")]
+    solo = [n for x in solo for n in x.split(",") if n]
+    for nombre, idioma, reg in pendientes("--todas" in sys.argv, solo):
         fecha = nombre[:10]
         es = leer(RAIZ / "episodios" / f"{fecha}.json") or reg
         if es.get("modo") != "diario":
