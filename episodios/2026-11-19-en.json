@@ -155,5 +155,6 @@
     "id": "1896566018148996",
     "enlace": "https://www.facebook.com/reel/1896566018148996"
   },
-  "instagram_historia_error": "Meta rechaza la petición (400): {\"error\":{\"message\":\"Media ID is not available\",\"code\":9007,\"type\":\"OAuthException\",\"error_subcode\":2207027,\"is_transient\":false,\"error_user_msg\":\"El archivo multimedia no está listo para publicar; espera un momento\",\"error_user_title\":\"No se puede publicar\",\"fbtrace_"
+  "instagram_historia_error": "Meta rechaza la petición (400): {\"error\":{\"message\":\"Media ID is not available\",\"code\":9007,\"type\":\"OAuthException\",\"error_subcode\":2207027,\"is_transient\":false,\"error_user_msg\":\"El archivo multimedia no está listo para publicar; espera un momento\",\"error_user_title\":\"No se puede publicar\",\"fbtrace_",
+  "telegram_youtube": true
 }
