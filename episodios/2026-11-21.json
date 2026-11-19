@@ -1,0 +1,140 @@
+{
+  "fecha": "2026-11-21",
+  "modo": "diario",
+  "cita": "Mateo 12, 46-50",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/21.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 10,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg",
+  "duracion_s": 72.5,
+  "imagenes": [
+    "dias/2026-11-21_e1.jpg",
+    "evangelistas/mateo.jpg",
+    "dias/2026-11-21_e1.jpg",
+    "dias/2026-11-21_e2.jpg",
+    "biblioteca/D02",
+    "dias/2026-11-21_e3.jpg",
+    "biblioteca/D01",
+    "evangelistas/mateo.jpg",
+    "biblioteca/R03",
+    "evangelistas/mateo.jpg"
+  ],
+  "frase_clave": "Estos son mi madre y mis hermanos.",
+  "reflexion": "Jesús te invita hoy a formar parte de su verdadera familia cumpliendo la voluntad del Padre. ¿Estás dispuesto a escuchar la voz de Dios y vivir como un verdadero hermano del Señor?",
+  "lufs": -13.9,
+  "gancho_segundos": 3.6,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-21.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Inside a humble Galilean home, Jesus speaks with warmth to an attentive crowd, while the Virgin Mary and His relatives stand waiting near the sunlit doorway.",
+      "busqueda": "Christ teaching crowd",
+      "personajes": [
+        "jesus",
+        "maria",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A man from the gathering leans close to Jesus to deliver the message, while Jesus looks back at him with serene and thoughtful attention.",
+      "busqueda": "Christ speaking man",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus affectionately extends His open hand toward His gathered disciples, looking upon them with tender love as He identifies them as His family.",
+      "busqueda": "Christ blessing disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio.",
+  "texto_evangelio": "En aquel tiempo, todavía estaba él hablando al pueblo, cuando su madre y sus hermanos estaban fuera, queriendo hablarle. Por lo que uno le dijo: “Mira que tu madre y tus hermanos están allí fuera preguntando por ti.” Pero él, respondiendo al que se lo decía, replicó: “¿Quién es mi madre, y quiénes son mis hermanos?” Y mostrando con la mano a sus discípulos, dijo: “Estos son mi madre y mis hermanos. Porque cualquiera que hiciere la voluntad de mi Padre, que está en los cielos, ese es mi hermano, y mi hermana, y mi madre.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.2,
+      "texto": "Lectura del santo evangelio."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.27,
+      "texto": "En aquel tiempo, todavía estaba él hablando al pueblo, cuando su madre y sus hermanos estaban fuera, queriendo hablarle."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 17.47,
+      "texto": "Por lo que uno le dijo:"
+    },
+    {
+      "personaje": "hombre",
+      "escena": 2,
+      "inicio": 20.51,
+      "texto": "“Mira que tu madre y tus hermanos están allí fuera preguntando por ti.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 24.61,
+      "texto": "Pero él, respondiendo al que se lo decía, replicó:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 29.72,
+      "texto": "“¿Quién es mi madre, y quiénes son mis hermanos?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 34.4,
+      "texto": "Y mostrando con la mano a sus discípulos, dijo:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 38.95,
+      "texto": "“Estos son mi madre y mis hermanos. Porque cualquiera que hiciere la voluntad de mi Padre, que está en los cielos, ese es mi hermano, y mi hermana, y mi madre.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 53.15,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 56.59,
+      "texto": "Jesús te invita hoy a formar parte de su verdadera familia cumpliendo la voluntad del Padre. ¿Estás dispuesto a escuchar la voz de Dios y vivir como un verdadero hermano del Señor?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-19T09:17:59+01:00",
+  "estilo_imagenes": "oleo",
+  "reparto_visual": [],
+  "run": "44484385767",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 10,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
