@@ -122,17 +122,14 @@
       "reflexion": true
     }
   ],
-  "generado": "2026-11-19T10:00:27+01:00",
-  "run": "44488602983",
+  "generado": "2026-11-19T11:12:02+01:00",
+  "run": "44502221954",
   "idioma": "en",
   "libro": "Mateo",
   "cita_es": "Mateo 12, 46-50",
   "frase_es": "Estos son mi madre y mis hermanos.",
   "reflexion_es": "Jesús te invita hoy a formar parte de su verdadera familia cumpliendo la voluntad del Padre. ¿Estás dispuesto a escuchar la voz de Dios y vivir como un verdadero hermano del Señor?",
   "copiado_de": "2026-11-19T09:17:59+01:00",
-  "modelos_voz": [
-    "gemini-3.1-flash-tts-preview"
-  ],
   "sincronia": {
     "frases_oidas": 10,
     "frases_por_pausas": [],
@@ -141,6 +138,6 @@
     ],
     "ok": false
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1
 }
