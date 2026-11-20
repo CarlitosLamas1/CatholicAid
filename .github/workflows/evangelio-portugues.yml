@@ -47,7 +47,7 @@ concurrency:
 jobs:
   producir:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 75  # 20/11/2026: con Gemini lento, 45 min no bastaron
     steps:
       - uses: actions/checkout@v4
 

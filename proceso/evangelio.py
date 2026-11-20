@@ -187,7 +187,10 @@ def gemini(modelo, cuerpo, intentos=3, clave=None):
     for i in range(intentos):
         try:
             cab = {"x-goog-api-key": clave} if clave else clave_gemini()
-            return http(f"{GEMINI}models/{modelo}:generateContent", cuerpo, cab, timeout=300)
+            # Texto: 4 min (un guion normal tarda ~3); voz e imágenes: 5. El 20/11/2026 cada modelo esperaba 5 min a
+            # que Gemini contestara y la tirada llegó al tope del workflow sin guardar nada.
+            espera = 300 if re.search(r"tts|image", modelo) else 240
+            return http(f"{GEMINI}models/{modelo}:generateContent", cuerpo, cab, timeout=espera)
         except urllib.error.HTTPError as e:
             log(f"   Gemini {modelo} -> {e.code}: {e.read().decode(errors='replace')[:500]}")
             if e.code == 429:
