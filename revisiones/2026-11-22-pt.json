@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-22",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-20T11:08:12+01:00",
+  "revisado": "2026-11-20T11:33:26+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a Figueiredo revisado (Mateo 25,31-46) con la introducción «Naquele tempo, Jesus disse aos seus discípulos:»",
+    "voces": "✅ Jesús, narrador y reflexión correctos (las palabras del Rey y su parábola van en Jesús)",
+    "frase_clave": "✅ literal, de Jesús, 9 palabras: Venham, benditos de meu Pai, tomem posse do Reino (misma que en español)",
+    "reflexion": "✅ cálida, fiel a la doctrina y ligada a la lectura (30 palabras)",
+    "tecnica": "✅ 161.6 s, -13.9 LUFS, gancho 4.2 s, sincronía por lo oído",
+    "audio": "✅ fragmentos largos 14,2–14,8 c/s; el más lento, el cierre corto 7,0 c/s (normal)",
+    "imagenes": "✅ reutilizadas del español, coherentes entre escenas; subtítulos y gancho legibles en los fotogramas",
+    "metadatos": "✅ fecha, cita y título del evangelista (Mateo) coherentes"
+  }
+}
