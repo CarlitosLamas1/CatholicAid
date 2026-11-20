@@ -89,6 +89,14 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 - **Portada de los Shorts** (19/11/2026): la miniatura puesta al subir solo valía para la vista horizontal; la portada del Short (Studio, pestaña Shorts) era un fotograma elegido por YouTube. YouTube solo la aplica si se pone con el vídeo ya procesado (documentación de thumbnails.set; comprobado por Carlos en Studio). Ahora «Comentarios» (cada hora) llama a `miniaturas.py --tras-proceso`: como mucho 8 por pasada, vídeos de los últimos 14 días sin `youtube.miniatura_shorts: "ok"`, solo si `processingStatus` es `succeeded`.
 - Probado y descartado por ahora: voces de Google Cloud Chirp 3 HD como respaldo (`proceso/casting_chirp.py`): no acepta las claves de Gemini y no aportaría calidad; Carlos prefiere mejoras que se noten.
 
+## Cortes entre voces y signos (20/11/2026, pedido por Carlos)
+- **Signos sueltos**: Gemini dejaba el punto de `“…de mí”.` al principio del trozo siguiente del narrador («. Él respondió:» en pantalla; es 16/11, pt 17, 20 y 21). `preparar_fragmentos` lo pasa al trozo anterior y `signos_al_anterior` lo hace también en subtítulos y SRT de registros viejos. El texto no cambia.
+- **Cortes tardíos**: whisper alarga la última palabra y marca tarde la siguiente; el corte caía ~0,2 s dentro de la frase siguiente (el trozo acababa con «Pe-» de «Pero» y el siguiente empezaba sin esa sílaba; 4 de 9 cambios de voz en el español del 21). Ahora se corta en el centro del silencio real (`cortes_oidos` + `ajustar_cortes`); si un corte no tiene silencio cerca, se graban los fragmentos por separado.
+- **Pausas según el momento** (`pausa_tras`, ajustable en `pausas` de config): 0,25 s tras «dijo:», 0,45 s al acabar una cita, 0,5 s tras el título, 0,8 s antes de «Palabra del Señor»; bordes recortados a -42 dB con 15 ms de fundido (`LIMPIAR`).
+- **Tono suspendido**: si un trozo acaba en «:» (o «,» en inglés), la petición de voz pide entonación abierta (`con_tono`, `TXT[..]["anuncia"]`).
+- Si Vatican News no trae «Lectura del santo evangelio según san …», se añade el evangelista desde la cita (el 21/11 salió sin él).
+- Primer vídeo con todo esto: el del 22/11 (es, en, pt). Pruebas en `pruebas_codigo/prueba_cortes_voz.py`.
+
 ## Coherencia entre idiomas (13/11/2026, pedido por Carlos)
 Inglés y portugués usan la MISMA frase clave (el mismo pasaje, copiado literal de su traducción) y la misma reflexión (traducida) que el vídeo en español del día (`frase_es`/`reflexion_es` en `gancho_y_reflexion`). Así el título y el gancho coinciden en los tres canales.
 
