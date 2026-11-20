@@ -173,10 +173,13 @@
       "por": "claude"
     },
     "UgyNnrE2x6FlojYmLDl4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-20T09:30:12+00:00",
       "desde": "2026-11-20T10:33:37.979356+01:00",
-      "listo": "2026-11-20T11:31:12+00:00"
+      "listo": "2026-11-20T11:31:12+00:00",
+      "motivo": "Solo «Amén» y una frase sin sentido claro; nada que aportar",
+      "respuesta": "",
+      "por": "claude"
     }
   },
   "respondidos": [
