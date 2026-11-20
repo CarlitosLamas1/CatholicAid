@@ -164,10 +164,13 @@
       "por": "claude"
     },
     "UgwdV9d5aPBgepQtBm14AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-20T04:43:52+00:00",
       "desde": "2026-11-20T06:33:16.375642+01:00",
-      "listo": "2026-11-20T08:32:52+00:00"
+      "listo": "2026-11-20T08:32:52+00:00",
+      "motivo": "Solo «Amén» repetido",
+      "respuesta": "",
+      "por": "claude"
     }
   },
   "respondidos": [
