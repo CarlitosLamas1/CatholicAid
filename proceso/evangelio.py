@@ -53,17 +53,26 @@ TXT = {
            "leer_varios": "Lee en voz alta, con {estilo}, los siguientes párrafos, en este orden. Entre un párrafo "
                           "y el siguiente haz siempre una pausa clara de un segundo:\n\n",
            "palabra": "Palabra del Señor.",
+           "anuncia": "Cuando un párrafo termina con dos puntos, a continuación habla otra persona: "
+                      "lee ese final con entonación suspendida, abierta, sin cerrar la frase como si "
+                      "acabara.",
            "cierre": "Síguenos para escuchar\\Nel Evangelio cada día"},
     "en": {"leer": "Read aloud, with {estilo}, the following text:\n\n{texto}",
            "leer_varios": "Read aloud, with {estilo}, the following paragraphs, in this order. Between one paragraph "
                           "and the next always make a clear one-second pause:\n\n",
            "palabra": "The Gospel of the Lord.",
+           "anuncia": "When a paragraph ends with a colon or a comma, someone else speaks next: read "
+                      "that ending with a suspended, open intonation, not as if the sentence were "
+                      "over.",
            "cierre": "Follow us to hear\\Nthe Gospel every day"},
     # Portugués (preparado, aún sin canal: guias/portugues.md). No se usa hasta activar config «pt».
     "pt": {"leer": "Leia em voz alta, com {estilo}, o seguinte texto:\n\n{texto}",
            "leer_varios": "Leia em voz alta, com {estilo}, os parágrafos seguintes, nesta ordem. Entre um parágrafo "
                           "e o seguinte faça sempre uma pausa clara de um segundo:\n\n",
            "palabra": "Palavra da Salvação.",
+           "anuncia": "Quando um parágrafo termina com dois-pontos, em seguida fala outra pessoa: "
+                      "leia esse final com entonação suspensa, aberta, sem fechar a frase como se "
+                      "terminasse.",
            "cierre": "Siga-nos para ouvir\\No Evangelho todos os dias"},
 }
 SUFIJO = {"es": "", "en": "-en", "pt": "-pt"}  # episodios/AAAA-MM-DD-en.json, revisiones/AAAA-MM-DD-en.json, salida/AAAA-MM-DD-en/
@@ -232,7 +241,11 @@ def obtener_evangelio(fecha):
     cuerpo = [p for p in parrafos if p not in (titulo, cita)]
     if not cuerpo or not cita:
         raise RuntimeError(f"Formato inesperado en {url}: {parrafos[:3]}")
-    titulo = (titulo or "Lectura del santo evangelio").rstrip(". ") + "."
+    titulo = (titulo or "Lectura del santo evangelio").rstrip(". ")
+    libro = cita.split()[0] if cita else ""
+    if "según" not in titulo.lower() and libro in ("Mateo", "Marcos", "Lucas", "Juan"):
+        titulo += f" según san {libro}"  # 21/11/2026: Vatican News no traía la línea y salió sin el evangelista
+    titulo += "."
     return {"url": url, "titulo": titulo, "cita": cita, "texto": "\n".join(cuerpo)}
 
 
@@ -804,12 +817,32 @@ LEITURA COMPLETA (contexto):
     return frase_ok, reflexion_ok
 
 
+CIERRES = ".,;:!?…”’»)"
+
+
+def signos_al_anterior(frs):
+    """Los signos con que empieza un fragmento van al final del anterior (Gemini dejaba el punto de «…de mí”.» en el
+    narrador siguiente: en pantalla salía «. Él respondió:», 16–21/11/2026). El texto no cambia: solo dónde va el signo."""
+    for prev, f in zip(frs, frs[1:]):
+        t = f["texto"].lstrip()
+        resto = t.lstrip(CIERRES + " ")
+        if resto and resto != t:
+            prev["texto"] = prev["texto"].rstrip() + t[:len(t) - len(resto)].strip().replace(" ", "")
+            f["texto"] = resto
+    return frs
+
+
 def preparar_fragmentos(g, ev):
     frs = []
     for f in g["fragmentos"]:
         t = f["texto"].strip()
         if not t:
             continue
+        if frs and re.match(f"[{re.escape(CIERRES)}]", t):
+            resto = t.lstrip(CIERRES + " ")
+            if resto:  # signos sueltos al principio: al fragmento anterior
+                frs[-1]["texto"] = frs[-1]["texto"].rstrip() + t[:len(t) - len(resto)].replace(" ", "")
+                t = resto
         if not re.search(r"\w", t):
             if frs:
                 frs[-1]["texto"] += t
@@ -895,8 +928,11 @@ def voz_gemini(p, texto, destino):
     a_wav_estandar(crudo, destino, CFG.get("velocidad_voz", 1.0))
 
 
-LIMPIAR = ("silenceremove=start_periods=1:start_threshold=-45dB,areverse,"
-           "silenceremove=start_periods=1:start_threshold=-45dB,areverse,loudnorm=I=-18:TP=-2:LRA=11")
+# Quita el silencio (y la respiración casi muda) de los bordes y suaviza 15 ms cada borde para que el corte no chasquee.
+# Hasta el 20/11/2026 el umbral era -45 dB y algunos trozos guardaban ~1 s de cola: las pausas iban de 0,35 a 1,3 s.
+LIMPIAR = ("silenceremove=start_periods=1:start_threshold=-42dB,afade=t=in:d=0.015,areverse,"
+           "silenceremove=start_periods=1:start_threshold=-42dB,afade=t=in:d=0.015,areverse,"
+           "loudnorm=I=-18:TP=-2:LRA=11")
 
 
 def silencios(ruta):
@@ -943,12 +979,19 @@ def voz_comprobada(p, prompt, destino, letras, intentos=3):
     raise RuntimeError(f"Gemini devuelve audios anómalos ({dur:.0f} s para ~{esperado:.0f} s); no se publica así")
 
 
+def con_tono(prompt, textos):
+    """Indicación de tono, delante, si algún trozo presenta a quien habla después («le dijo:»): que no suene a final
+    de frase. Solo entonces, para no cambiar las demás grabaciones (20/11/2026)."""
+    marca = (":", ",") if IDIOMA == "en" else (":",)
+    return (txt("anuncia") + " " + prompt) if any(t.rstrip().endswith(marca) for t in textos) else prompt
+
+
 def por_separado(p, quien, indices, textos, carpeta):
     """Graba cada fragmento de un personaje aparte (misma voz). Devuelve {índice de fragmento: wav}."""
     salida = {}
     for n, (i, texto) in enumerate(zip(indices, textos)):
         bruto = carpeta / f"voz_{quien}_{n:02d}_b.wav"
-        voz_comprobada(p, txt("leer").format(estilo=p['estilo'], texto=texto), bruto, len(texto))
+        voz_comprobada(p, con_tono(txt("leer").format(estilo=p['estilo'], texto=texto), [texto]), bruto, len(texto))
         trozo = carpeta / f"voz_{quien}_{n:02d}.wav"
         ffmpeg("-i", bruto, "-af", LIMPIAR, "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", trozo)
         salida[i] = trozo
@@ -964,11 +1007,13 @@ def grabar_personaje(frs, indices, carpeta):
     textos = [hablado(frs[i]["texto"]) for i in indices]
     completo = carpeta / f"voz_{quien}.wav"
     if len(indices) == 1:
-        voz_comprobada(p, txt("leer").format(estilo=p['estilo'], texto=textos[0]), completo, len(textos[0]))
+        voz_comprobada(p, con_tono(txt("leer").format(estilo=p['estilo'], texto=textos[0]), textos), completo,
+                       len(textos[0]))
         partes = [(0.0, duracion(completo))]
     else:
         try:
-            voz_comprobada(p, txt("leer_varios").format(estilo=p['estilo']) + "\n\n".join(textos), completo,
+            voz_comprobada(p, con_tono(txt("leer_varios").format(estilo=p['estilo']), textos)
+                           + "\n\n".join(textos), completo,
                            sum(len(x) for x in textos) + 15 * (len(textos) - 1), intentos=2)
         except (KeyError, IndexError):
             # 14/11/2026: con textos muy largos (la parábola de los talentos, ~1700 letras de Jesús) el modelo de voz
@@ -998,6 +1043,8 @@ def grabar_personaje(frs, indices, carpeta):
             m = max(validos, key=lambda c: c[1] - abs(c[0] - esperado) * 0.15)[0]
             cortes.append(m)
             previo = m
+        if cortes is not None:
+            cortes = ajustar_cortes(cortes, [(a, b) for a, b in silencios(completo) if 0.1 < a and b < dur - 0.1])
         if cortes is None:
             # Muy raro: no se distinguen las pausas. Se graba cada fragmento aparte, con la misma voz.
             log(f"   {quien}: no distingo las pausas; grabo sus fragmentos por separado")
@@ -1054,9 +1101,30 @@ def generar_audio(frs, carpeta):
     raise RuntimeError("No se pudieron generar las voces (¿cupo de Gemini agotado?). No se publica para no cambiar las voces de los personajes: vuelve a lanzarlo más tarde.")
 
 
+def pausa_tras(frs, i):
+    """Segundos de silencio entre el fragmento i y el siguiente, según el momento (20/11/2026, antes 0,35 s siempre):
+    corta tras «dijo:» (sigue quien habla), algo más al acabar de hablar alguien, y más antes de «Palabra del Señor»."""
+    p = {"anuncia": 0.25, "fin_de_cita": 0.45, "mismo": 0.35, "titulo": 0.5, "palabra": 0.8,
+         "otro": CFG.get("pausa_entre_voces", 0.35), **(CFG.get("pausas") or {})}
+    if i + 1 >= len(frs):
+        return p["otro"]
+    f, g = frs[i], frs[i + 1]
+    fin = f["texto"].rstrip()
+    if g.get("palabra"):
+        return p["palabra"]
+    if i == 0:
+        return p["titulo"]
+    if fin.endswith(":") or (IDIOMA == "en" and fin.endswith(",") and g["personaje"] != f["personaje"]):
+        return p["anuncia"]
+    if f["personaje"] == g["personaje"]:
+        return p["mismo"]
+    if fin.rstrip(".,;").endswith(("”", "’", "»")):
+        return p["fin_de_cita"]
+    return p["otro"]
+
+
 def montar_audio(frs, pistas, carpeta):
-    """Une las pistas con pausas y reparte el tiempo de cada pista entre sus fragmentos (por letras)."""
-    pausa = int(HZ * CFG.get("pausa_entre_voces", 0.35))
+    """Une las pistas con pausas (según el momento) y reparte el tiempo de cada pista entre sus fragmentos."""
     inicio = int(HZ * 0.6)
     t = inicio / HZ
     with wave.open(str(carpeta / "audio.wav"), "wb") as out:
@@ -1081,6 +1149,7 @@ def montar_audio(frs, pistas, carpeta):
                 if len(pista["fragmentos"]) == 1:
                     frs[i]["audio"] = str(carpeta / pista["archivo"])  # para el alineador de palabras (karaoke)
                 s += d
+            pausa = int(HZ * pausa_tras(frs, pista["fragmentos"][-1]))
             out.writeframes(b"\0\0" * pausa)
             t += dur + pausa / HZ
         out.writeframes(b"\0\0" * HZ)
@@ -1563,15 +1632,34 @@ def cortes_oidos(ruta, textos):
         ini_sig = min((rel[j][0] for j in range(len(rel)) if de[j] == k and rel[j]), default=None)
         if fin_prev is None or ini_sig is None or ini_sig <= fin_prev:
             return None
-        huecos = [(a, b) for a, b in sil if b > fin_prev - 0.05 and a < ini_sig + 0.05]
+        # Whisper alarga la última palabra hasta casi la siguiente y marca tarde el arranque: no sirve para el borde.
+        # Se corta en el centro del silencio de verdad (20/11/2026: el corte caía ~0,2 s dentro de la frase siguiente y
+        # el trozo acababa con «Pe-» de «Pero…»). La pausa buena puede empezar antes de lo que dice whisper.
+        huecos = [(a, b) for a, b in sil if b > fin_prev - 0.6 and a < ini_sig + 0.05]
         if huecos:
             a, b = max(huecos, key=lambda x: x[1] - x[0])
-            cortes.append((max(a, fin_prev) + min(b, ini_sig)) / 2)
+            cortes.append((a + b) / 2)
         else:
             cortes.append((fin_prev + ini_sig) / 2)
     if any(y <= x for x, y in zip(cortes, cortes[1:])):
         return None
     return cortes
+
+
+def ajustar_cortes(cortes, sil, margen=0.45):
+    """Cada corte, en el centro de un silencio (≥ 0,2 s): el que lo contiene o, si no, el más cercano a menos de
+    «margen». None si algún corte no tiene silencio cerca: cortaría dentro de una palabra y se oiría el arranque de
+    la frase siguiente al final del trozo (o el final de la anterior al principio)."""
+    salida = []
+    for c in cortes:
+        cerca = [(a, b) for a, b in sil if b - a >= 0.2 and a - margen <= c <= b + margen]
+        if not cerca:
+            return None
+        a, b = min(cerca, key=lambda x: 0 if x[0] <= c <= x[1] else min(abs(c - x[0]), abs(c - x[1])))
+        salida.append((a + b) / 2)
+    if any(y <= x for x, y in zip(salida, salida[1:])):
+        return None
+    return salida
 
 
 def alinear_whisper(f, palabras):
@@ -1641,6 +1729,7 @@ def subtitulos(frs, ev, fecha, total, ruta, frase="", gancho=0.0, cierre=0.0):
         # Cierre minimalista sobre el evangelista (o la escena oscurecida), arriba, en la pared despejada.
         eventos.append(("Gancho", total - cierre, total, "{\\an8\\pos(540,430)\\fad(300,400)\\blur2\\fs64}" + txt("cierre")
                         + "\\N{\\fs40\\i0\\c" + acento + "}CatolicAid"))
+    signos_al_anterior(frs)  # por si el registro es de antes del 20/11/2026
     for n_f, f in enumerate(frs):
         p = PJ[f["personaje"]]
         kar = CFG.get("karaoke", {})
@@ -2084,7 +2173,7 @@ def publicar_extras(tok, vid, reg, fecha, miniatura, idioma="es"):
 def srt_del_registro(reg):
     """SRT con lo que se oye (y la frase del gancho), a partir del registro. Cada fragmento dura hasta el siguiente;
     el último, hasta que empieza el cierre (solo música). Trozos de dos líneas como mucho."""
-    frs = reg.get("fragmentos") or []
+    frs = signos_al_anterior([dict(f) for f in reg.get("fragmentos") or []])
     if not frs:
         return ""
     total = float(reg.get("duracion_s") or frs[-1]["inicio"] + 5)
