@@ -130,6 +130,18 @@
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true,
-    "publishAt": "2026-11-22T06:30:00Z"
+    "publishAt": "2026-11-22T06:30:00Z",
+    "lista": {
+      "id": "PLXdNKbtzVLWk",
+      "titulo": "Gospel according to St. Matthew",
+      "url": "https://www.youtube.com/playlist?list=PLXdNKbtzVLWk"
+    },
+    "lista_liturgica": {
+      "id": "PLLWkUaN0V-24",
+      "titulo": "Daily Gospel · Ordinary Time",
+      "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
   }
 }
