@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-22",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-20T11:00:52+01:00",
+  "revisado": "2026-11-20T11:33:26+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a la WEB Catholic (Mateo 25,31-46) con la introducción «At that time,»",
+    "voces": "✅ Jesús, narrador y reflexión correctos (las palabras del Rey y su parábola van en Jesús)",
+    "frase_clave": "✅ literal, de Jesús, 11 palabras: Come, blessed of my Father, inherit the Kingdom prepared for you (misma que en español)",
+    "reflexion": "✅ cálida, fiel a la doctrina y ligada a la lectura (32 palabras)",
+    "tecnica": "✅ 152.1 s, -14.1 LUFS, gancho 4.8 s, sincronía por lo oído",
+    "audio": "✅ fragmentos largos 15,0–16,4 c/s; el más lento, el cierre corto 6,9 c/s (normal)",
+    "imagenes": "✅ reutilizadas del español, coherentes entre escenas; subtítulos y gancho legibles en los fotogramas",
+    "metadatos": "✅ fecha, cita y título del evangelista (Mateo) coherentes"
+  }
+}
