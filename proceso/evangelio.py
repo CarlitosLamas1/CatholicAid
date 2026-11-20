@@ -1043,14 +1043,13 @@ def grabar_personaje(frs, indices, carpeta):
             m = max(validos, key=lambda c: c[1] - abs(c[0] - esperado) * 0.15)[0]
             cortes.append(m)
             previo = m
-        if cortes is not None:
-            cortes = ajustar_cortes(cortes, [(a, b) for a, b in silencios(completo) if 0.1 < a and b < dur - 0.1])
-        if cortes is None:
+        huecos = None if cortes is None else ajustar_cortes(
+            cortes, [(a, b) for a, b in silencios(completo) if 0.1 < a and b < dur - 0.1])
+        if huecos is None:
             # Muy raro: no se distinguen las pausas. Se graba cada fragmento aparte, con la misma voz.
             log(f"   {quien}: no distingo las pausas; grabo sus fragmentos por separado")
             return por_separado(p, quien, indices, textos, carpeta)
-        bordes = [0.0] + cortes + [dur]
-        partes = list(zip(bordes[:-1], bordes[1:]))
+        partes = partes_sin_pausa(huecos, dur)
     salida = {}
     for n, (i, (a, b)) in enumerate(zip(indices, partes)):
         trozo = carpeta / f"voz_{quien}_{n:02d}.wav"
@@ -1647,19 +1646,30 @@ def cortes_oidos(ruta, textos):
 
 
 def ajustar_cortes(cortes, sil, margen=0.45):
-    """Cada corte, en el centro de un silencio (≥ 0,2 s): el que lo contiene o, si no, el más cercano a menos de
-    «margen». None si algún corte no tiene silencio cerca: cortaría dentro de una palabra y se oiría el arranque de
-    la frase siguiente al final del trozo (o el final de la anterior al principio)."""
+    """Para cada corte, el silencio (≥ 0,2 s) que lo contiene o, si no, el más cercano a menos de «margen»: [(a, b)].
+    None si algún corte no tiene silencio cerca: cortaría dentro de una palabra y se oiría el arranque de la frase
+    siguiente al final del trozo (o el final de la anterior al principio)."""
     salida = []
     for c in cortes:
         cerca = [(a, b) for a, b in sil if b - a >= 0.2 and a - margen <= c <= b + margen]
         if not cerca:
             return None
-        a, b = min(cerca, key=lambda x: 0 if x[0] <= c <= x[1] else min(abs(c - x[0]), abs(c - x[1])))
-        salida.append((a + b) / 2)
-    if any(y <= x for x, y in zip(salida, salida[1:])):
+        salida.append(min(cerca, key=lambda x: 0 if x[0] <= c <= x[1] else min(abs(c - x[0]), abs(c - x[1]))))
+    if any(y[0] <= x[1] for x, y in zip(salida, salida[1:])):
         return None
     return salida
+
+
+def partes_sin_pausa(huecos, dur, cola=0.08, arranque=0.05):
+    """Trozos de la grabación SIN la pausa entre párrafos: cada uno acaba poco después de que deja de oírse la voz y
+    empieza justo antes de que vuelva. La pausa la pone luego montar_audio (pausa_tras). Si se corta en medio del
+    silencio, el ruido de fondo de la grabación (entre -42 y -40 dB) no se recorta y las pausas salían de 1,2 s
+    (español del 22/11/2026)."""
+    bordes = [0.0]
+    for a, b in huecos:
+        bordes += [min(a + cola, (a + b) / 2), max(b - arranque, (a + b) / 2)]
+    bordes.append(dur)
+    return list(zip(bordes[::2], bordes[1::2]))
 
 
 def alinear_whisper(f, palabras):

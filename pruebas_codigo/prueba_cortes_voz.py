@@ -31,18 +31,23 @@ class Signos(unittest.TestCase):
 
 
 class Cortes(unittest.TestCase):
-    def test_corte_tardio_vuelve_al_centro_del_silencio(self):
+    def test_corte_tardio_vuelve_al_silencio(self):
         # Silencio real 10,0–10,8; el corte caía en 10,95 (dentro de la frase siguiente)
-        self.assertEqual(ev.ajustar_cortes([10.95], [(10.0, 10.8)]), [10.4])
-
-    def test_corte_dentro_del_silencio_al_centro(self):
-        self.assertEqual(ev.ajustar_cortes([5.1], [(5.0, 6.0)]), [5.5])
+        self.assertEqual(ev.ajustar_cortes([10.95], [(10.0, 10.8)]), [(10.0, 10.8)])
 
     def test_sin_silencio_cerca_no_es_fiable(self):
         self.assertIsNone(ev.ajustar_cortes([20.0], [(10.0, 10.8)]))
 
     def test_ignora_microsilencios(self):
-        self.assertEqual(ev.ajustar_cortes([10.9], [(10.85, 10.95), (10.0, 10.6)]), [10.3])
+        self.assertEqual(ev.ajustar_cortes([10.9], [(10.85, 10.95), (10.0, 10.6)]), [(10.0, 10.6)])
+
+    def test_trozos_sin_la_pausa(self):
+        partes = ev.partes_sin_pausa([(10.0, 11.0)], 20.0)
+        self.assertEqual([tuple(round(x, 2) for x in p) for p in partes], [(0.0, 10.08), (10.95, 20.0)])
+
+    def test_pausa_corta_no_se_cruza(self):
+        a, b = ev.partes_sin_pausa([(5.0, 5.1)], 9.0)
+        self.assertLessEqual(a[1], b[0])
 
 
 class Pausas(unittest.TestCase):
