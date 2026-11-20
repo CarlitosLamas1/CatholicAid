@@ -1,0 +1,127 @@
+{
+  "fecha": "2026-11-22",
+  "modo": "diario",
+  "cita": "Matthew 25:31-46",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/22.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._55.ogg",
+  "duracion_s": 152.1,
+  "imagenes": [
+    "dias/2026-11-22_e1.jpg",
+    "evangelistas/mateo.jpg",
+    "dias/2026-11-22_e1.jpg",
+    "biblioteca/G08",
+    "dias/2026-11-22_e2.jpg",
+    "biblioteca/D10",
+    "biblioteca/D04",
+    "biblioteca/D08",
+    "dias/2026-11-22_e3.jpg",
+    "biblioteca/D01",
+    "biblioteca/D02",
+    "biblioteca/D07",
+    "evangelistas/mateo.jpg",
+    "biblioteca/R04",
+    "evangelistas/mateo.jpg"
+  ],
+  "frase_clave": "Come, blessed of my Father, inherit the Kingdom prepared for you",
+  "reflexion": "Jesus waits for you in the face of those who suffer beside you, and by loving the least among us, you love Him. Who can you help today with a simple gesture?",
+  "lufs": -14.1,
+  "gancho_segundos": 4.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-22-en.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A serene shepherd in soft tunic stands in a sunny landscape, guiding white sheep to his right and goats to his left with gentle posture.",
+      "busqueda": "good shepherd sheep",
+      "personajes": []
+    },
+    {
+      "numero": 2,
+      "descripcion": "A compassionate righteous man offers bread and a warm cloak to a weary traveler seated outside a village house.",
+      "busqueda": "charity to stranger",
+      "personajes": []
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus as the glorious King sitting on a radiant throne surrounded by heavenly light, extending His hands with tender mercy.",
+      "busqueda": "christ in glory",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Matthew.",
+  "texto_evangelio": "At that time, “But when the Son of Man comes in his glory, and all the holy angels with him, then he will sit on the throne of his glory. Before him all the nations will be gathered, and he will separate them one from another, as a shepherd separates the sheep from the goats. He will set the sheep on his right hand, but the goats on the left. Then the King will tell those on his right hand, ‘Come, blessed of my Father, inherit the Kingdom prepared for you from the foundation of the world; for I was hungry and you gave me food to eat. I was thirsty and you gave me drink. I was a stranger and you took me in. I was naked and you clothed me. I was sick and you visited me. I was in prison and you came to me.’ Then the righteous will answer him, saying, ‘Lord, when did we see you hungry and feed you, or thirsty and give you a drink? When did we see you as a stranger and take you in, or naked and clothe you? When did we see you sick or in prison and come to you?’ The King will answer them, ‘Most certainly I tell you, because you did it to one of the least of these my brothers, you did it to me.’ Then he will say also to those on the left hand, ‘Depart from me, you cursed, into the eternal fire which is prepared for the devil and his angels; for I was hungry, and you didn’t give me food to eat; I was thirsty, and you gave me no drink; I was a stranger, and you didn’t take me in; naked, and you didn’t clothe me; sick, and in prison, and you didn’t visit me.’ Then they will also answer, saying, ‘Lord, when did we see you hungry, or thirsty, or a stranger, or naked, or sick, or in prison, and didn’t help you?’ Then he will answer them, saying, ‘Most certainly I tell you, because you didn’t do it to one of the least of these, you didn’t do it to me.’ These will go away into eternal punishment, but the righteous into eternal life.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 5.4,
+      "texto": "A reading from the holy Gospel according to Matthew."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 10.36,
+      "texto": "At that time,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 11.81,
+      "texto": "“But when the Son of Man comes in his glory, and all the holy angels with him, then he will sit on the throne of his glory. Before him all the nations will be gathered, and he will separate them one from another, as a shepherd separates the sheep from the goats. He will set the sheep on his right hand, but the goats on the left."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 31.9,
+      "texto": "Then the King will tell those on his right hand, ‘Come, blessed of my Father, inherit the Kingdom prepared for you from the foundation of the world; for I was hungry and you gave me food to eat. I was thirsty and you gave me drink. I was a stranger and you took me in. I was naked and you clothed me. I was sick and you visited me. I was in prison and you came to me.’ Then the righteous will answer him, saying, ‘Lord, when did we see you hungry and feed you, or thirsty and give you a drink? When did we see you as a stranger and take you in, or naked and clothe you? When did we see you sick or in prison and come to you?’ The King will answer them, ‘Most certainly I tell you, because you did it to one of the least of these my brothers, you did it to me.’"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 82.66,
+      "texto": "Then he will say also to those on the left hand, ‘Depart from me, you cursed, into the eternal fire which is prepared for the devil and his angels; for I was hungry, and you didn’t give me food to eat; I was thirsty, and you gave me no drink; I was a stranger, and you didn’t take me in; naked, and you didn’t clothe me; sick, and in prison, and you didn’t visit me.’ Then they will also answer, saying, ‘Lord, when did we see you hungry, or thirsty, or a stranger, or naked, or sick, or in prison, and didn’t help you?’ Then he will answer them, saying, ‘Most certainly I tell you, because you didn’t do it to one of the least of these, you didn’t do it to me.’ These will go away into eternal punishment, but the righteous into eternal life.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 131.86,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 135.17,
+      "texto": "Jesus waits for you in the face of those who suffer beside you, and by loving the least among us, you love Him. Who can you help today with a simple gesture?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-20T11:00:52+01:00",
+  "run": "44713144294",
+  "idioma": "en",
+  "libro": "Mateo",
+  "cita_es": "Mateo 25, 31-46",
+  "frase_es": "Venid, benditos de mi Padre, a tomar posesión del reino celestial",
+  "reflexion_es": "Jesús te espera en el rostro de quien sufre a tu lado. Amando a los más pequeños, le estás amando a Él. ¿A quién puedes ayudar hoy con un gesto sencillo?",
+  "copiado_de": "2026-11-20T10:26:48+01:00",
+  "cupo_agotado": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
