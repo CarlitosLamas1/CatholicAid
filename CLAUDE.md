@@ -95,7 +95,7 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 - **Pausas según el momento** (`pausa_tras`, ajustable en `pausas` de config): 0,25 s tras «dijo:», 0,45 s al acabar una cita, 0,5 s tras el título, 0,8 s antes de «Palabra del Señor»; bordes recortados a -42 dB con 15 ms de fundido (`LIMPIAR`).
 - **Tono suspendido**: si un trozo acaba en «:» (o «,» en inglés), la petición de voz pide entonación abierta (`con_tono`, `TXT[..]["anuncia"]`).
 - Si Vatican News no trae «Lectura del santo evangelio según san …», se añade el evangelista desde la cita (el 21/11 salió sin él).
-- Primer vídeo con todo esto: el del 22/11 (es, en, pt). Pruebas en `pruebas_codigo/prueba_cortes_voz.py`.
+- Primeros vídeos con todo esto: inglés y portugués del 22/11 y español del 23/11 (el español del 22 se estaba grabando con el código anterior). Pruebas en `pruebas_codigo/prueba_cortes_voz.py`.
 
 ## Coherencia entre idiomas (13/11/2026, pedido por Carlos)
 Inglés y portugués usan la MISMA frase clave (el mismo pasaje, copiado literal de su traducción) y la misma reflexión (traducida) que el vídeo en español del día (`frase_es`/`reflexion_es` en `gancho_y_reflexion`). Así el título y el gancho coinciden en los tres canales.
