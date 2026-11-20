@@ -138,6 +138,18 @@
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true,
-    "publishAt": "2026-11-22T06:30:00Z"
+    "publishAt": "2026-11-22T06:30:00Z",
+    "lista": {
+      "id": "PLHimy6injfgg",
+      "titulo": "Evangelho segundo São Mateus",
+      "url": "https://www.youtube.com/playlist?list=PLHimy6injfgg"
+    },
+    "lista_liturgica": {
+      "id": "PLScW8V6xMpdA",
+      "titulo": "Evangelho do dia · Tempo Comum",
+      "url": "https://www.youtube.com/playlist?list=PLScW8V6xMpdA"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
   }
 }
