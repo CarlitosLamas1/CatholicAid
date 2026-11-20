@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-11-22",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-20T10:26:48+01:00",
+  "revisado": "2026-11-20T10:32:53+01:00",
+  "motivos": [],
+  "avisos": [
+    "La escena 2 (el hombre que da pan al viajero) está bien; en la escena 3 solo sale Jesús como rey, sin los condenados: aceptable."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a texto_evangelio; cita coincide con citas.json (Mateo 25, 31-46)",
+    "voces": "✅ Jesús dice todo el discurso (incluidas las citas del rey); narrador en título e introducción",
+    "frase_clave": "✅ 10 palabras, literal en palabras de Jesús, se entiende sola",
+    "reflexion": "✅ 28 palabras, cálida, fiel a la lectura y doctrina",
+    "tecnica": "✅ 166,3 s; -14,0 LUFS",
+    "audio": "✅ más lento: 'Palabra del Señor' 5,0 c/s (fragmento corto, normal); más rápido: 15,0 c/s",
+    "imagenes": "✅ óleo coherente, Jesús igual en todas; hombre y viajero del reparto_visual correctos; fotogramas legibles",
+    "metadatos": "✅ fecha, cita y título (Mateo) coherentes"
+  }
+}
