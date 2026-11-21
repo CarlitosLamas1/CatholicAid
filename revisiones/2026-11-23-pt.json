@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-23",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-21T09:48:50+01:00",
+  "revisado": "2026-11-21T10:32:32+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a la versión revisada (Lucas 21,1-4)",
+    "voces": "✅ Jesús en jesus, resto narrador",
+    "frase_clave": "✅ Literal, de Jesús, igual que la del español",
+    "reflexion": "✅ Breve, cálida y fiel a la doctrina",
+    "tecnica": "✅ 56.8 s, LUFS -13.8",
+    "audio": "✅ 9,5–13,8 c/s; más lento el cierre «Palavra da Salvação.» (7,1, corto, normal); fragmento de Jesús 13,4",
+    "imagenes": "✅ Las del español del día, coherentes; hoja de fotogramas legible",
+    "metadatos": "✅ Fecha, cita y evangelista coherentes"
+  }
+}
