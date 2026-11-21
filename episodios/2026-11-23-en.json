@@ -1,0 +1,124 @@
+{
+  "fecha": "2026-11-23",
+  "modo": "diario",
+  "cita": "Luke 21:1-4",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/23.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Chopin_-_Nocturne-op-55-no-1.ogg",
+  "duracion_s": 53.9,
+  "imagenes": [
+    "dias/2026-11-23_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-23_e1.jpg",
+    "dias/2026-11-23_e2.jpg",
+    "dias/2026-11-23_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R05",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "this poor widow put in more than all of them",
+  "reflexion": "God looks not at what you give, but at the love with which you give yourself. Today ask yourself: do you offer the Lord your leftovers, or are you ready to give Him your heart?",
+  "lufs": -14.0,
+  "gancho_segundos": 4.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-23-en.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Inside the Jerusalem Temple, wealthy men in extravagant robes drop gold coins into the trumpet-shaped chest while Jesus watches quietly.",
+      "busqueda": "temple treasury offering",
+      "personajes": [
+        "jesus",
+        "hombre"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A humble elderly poor widow quietly drops two tiny copper coins into the Temple treasury box with deep devotion.",
+      "busqueda": "widow mite",
+      "personajes": [
+        "mujer"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus warmly talks to his disciples inside the illuminated Temple, gesturing towards the poor widow with praise and love.",
+      "busqueda": "jesus temple widow",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, he looked up and saw the rich people who were putting their gifts into the treasury. He saw a certain poor widow casting in two small brass coins. He said, “Truly I tell you, this poor widow put in more than all of them, for all these put in gifts for God from their abundance, but she, out of her poverty, put in all that she had to live on.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 5.1,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 9.75,
+      "texto": "At that time, he looked up and saw the rich people who were putting their gifts into the treasury."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 15.93,
+      "texto": "He saw a certain poor widow casting in two small brass coins."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 21.15,
+      "texto": "He said,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 21.95,
+      "texto": "“Truly I tell you, this poor widow put in more than all of them, for all these put in gifts for God from their abundance, but she, out of her poverty, put in all that she had to live on.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 34.61,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 37.63,
+      "texto": "God looks not at what you give, but at the love with which you give yourself. Today ask yourself: do you offer the Lord your leftovers, or are you ready to give Him your heart?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-21T09:46:11+01:00",
+  "run": "44885416238",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 21,1-4",
+  "frase_es": "esta pobre viuda ha echado más que todos.",
+  "reflexion_es": "Dios no mira la cantidad de lo que das, sino el amor con el que te entregas. Hoy pregúntate: ¿le ofreces al Señor lo que te sobra o estás dispuesto a darle el corazón?",
+  "copiado_de": "2026-11-21T09:20:25+01:00",
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 6,
+    "frases_por_pausas": [
+      "He said,"
+    ],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
