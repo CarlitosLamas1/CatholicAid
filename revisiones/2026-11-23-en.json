@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-23",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-21T09:46:11+01:00",
+  "revisado": "2026-11-21T10:32:32+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a la versión revisada (Lucas 21,1-4)",
+    "voces": "✅ Jesús en jesus, resto narrador",
+    "frase_clave": "✅ Literal, de Jesús, igual que la del español",
+    "reflexion": "✅ Breve, cálida y fiel a la doctrina",
+    "tecnica": "✅ 53.9 s, LUFS -14.0",
+    "audio": "✅ 10,5–15,9 c/s; más lento el cierre «The Gospel of the Lord.» (7,6, corto, normal); fragmento de Jesús 14,8",
+    "imagenes": "✅ Las del español del día, coherentes; hoja de fotogramas legible",
+    "metadatos": "✅ Fecha, cita y evangelista coherentes"
+  }
+}
