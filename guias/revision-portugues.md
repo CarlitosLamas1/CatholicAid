@@ -25,3 +25,4 @@ no se publica (`texto_figueiredo` lo comprueba).
 ## Hecho
 - 09/11/2026: Lucas 17,11-37; 18,1-8; 18,35-43; 19,1-10; Mateo 25,14-30 (lecturas del 11 al 17/11).
 - 14/11/2026 (revisor portugués): Lucas 19,11-28; 19,41-48; 21,1-11; Mateo 12,46-50; 25,31-46 (lecturas del 18 al 24/11).
+- 21/11/2026 (revisor diario): Lucas 21,12-36; 10,21-24; Marcos 13,33-37; Mateo 4,18-22 (lecturas del 25/11 al 1/12; el OCR de Lucas 21,12-36 faltaba: redactado desde la Vulgata/Figueiredo; conviene repasarlo).
