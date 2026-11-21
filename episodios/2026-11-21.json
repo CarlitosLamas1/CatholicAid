@@ -172,5 +172,10 @@
     "enlace": "https://www.facebook.com/reel/1135227379216145"
   },
   "instagram_historia": "18185281273426221",
-  "telegram_youtube": true
+  "telegram_youtube": true,
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7710543947051370518",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
+  }
 }
