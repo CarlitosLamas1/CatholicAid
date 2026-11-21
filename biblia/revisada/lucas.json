@@ -1,4 +1,11 @@
 {
+ "_nota": "Revisión de CatholicAid sobre la traducción de Félix Torres Amat (1836, dominio público): ortografía y vocabulario actuales, sin las glosas explicativas del traductor, con comillas para el estilo directo. Fiel al sentido del original.",
+ "_inicios": {
+  "16:9": "En aquel tiempo, dijo Jesús a sus discípulos:",
+  "17:7": "En aquel tiempo, dijo el Señor:",
+  "17:26": "En aquel tiempo, dijo Jesús a sus discípulos:",
+  "21:12": "En aquel tiempo, dijo Jesús a sus discípulos:"
+ },
  "15": {
   "1": "Solían los publicanos y los pecadores acercarse a Jesús para oírle.",
   "2": "Y los fariseos y los escribas murmuraban por ello, diciendo: “Mirad cómo trata con los pecadores y come con ellos”.",
@@ -60,12 +67,6 @@
   "35": "dos mujeres estarán moliendo juntas: una será salvada y la otra abandonada; dos hombres estarán en el mismo campo: uno será salvado y el otro abandonado”.",
   "36": "“¿Dónde, Señor?”, replicaron ellos, “¿dónde será esto?”.",
   "37": "Jesús les respondió: “Dondequiera que esté el cuerpo, allá volarán las águilas”."
- },
- "_nota": "Revisión de CatholicAid sobre la traducción de Félix Torres Amat (1836, dominio público): ortografía y vocabulario actuales, sin las glosas explicativas del traductor, con comillas para el estilo directo. Fiel al sentido del original.",
- "_inicios": {
-  "16:9": "En aquel tiempo, dijo Jesús a sus discípulos:",
-  "17:7": "En aquel tiempo, dijo el Señor:",
-  "17:26": "En aquel tiempo, dijo Jesús a sus discípulos:"
  },
  "18": {
   "1": "Les propuso también una parábola para mostrar que conviene orar siempre y no desfallecer,",
@@ -135,6 +136,14 @@
   "8": "Jesús les respondió: “Mirad que no os dejéis engañar; porque muchos vendrán en mi nombre, diciendo: ‘Yo soy el Mesías’, y ‘ya ha llegado el tiempo’: guardaos, pues, de seguirlos.",
   "9": "Antes, cuando sintáis rumor de guerras y sediciones, no queráis alarmaros: es verdad que primero han de acaecer estas cosas, mas no por eso será luego el fin.”",
   "10": "Entonces añadió: “Se levantará un pueblo contra otro pueblo, y un reino contra otro reino.",
-  "11": "Y habrá grandes terremotos en varias partes, y pestilencias, y hambres, y aparecerán en el cielo cosas espantosas y prodigios extraordinarios.”"
+  "11": "Y habrá grandes terremotos en varias partes, y pestilencias, y hambres, y aparecerán en el cielo cosas espantosas y prodigios extraordinarios.”",
+  "12": "“Pero antes que sucedan todas estas cosas, se apoderarán de vosotros, y os perseguirán, y os entregarán a las sinagogas, y os meterán en las cárceles, y os llevarán por fuerza al tribunal de los reyes y gobernadores, por causa de mi nombre:",
+  "13": "lo cual os servirá de ocasión para dar testimonio de mí.",
+  "14": "Por consiguiente, imprimid en vuestros corazones la máxima de que no debéis discurrir de antemano cómo habéis de responder;",
+  "15": "pues yo pondré las palabras en vuestra boca, y una sabiduría a la que no podrán resistir ni contradecir todos vuestros enemigos.",
+  "16": "Y lo que es más, seréis entregados a los magistrados por vuestros mismos padres, y hermanos, y parientes, y amigos, y harán morir a muchos de vosotros;",
+  "17": "de suerte que seréis odiados de todo el mundo por amor de mí:",
+  "18": "no obstante, ni un cabello de vuestra cabeza se perderá.",
+  "19": "Mediante vuestra paciencia salvaréis vuestras almas.”"
  }
 }
