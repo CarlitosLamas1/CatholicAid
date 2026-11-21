@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-23",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-21T09:20:25+01:00",
+  "revisado": "2026-11-21T09:40:00+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Idéntico a Lucas 21,1-4 revisado",
+    "voces": "✅ Jesús dice solo sus palabras; el resto, narrador",
+    "frase_clave": "✅ Literal, de Jesús, 8 palabras, se entiende sola",
+    "reflexion": "✅ Doctrinalmente correcta y relacionada con la lectura",
+    "tecnica": "✅ 63,8 s, -13,9 LUFS",
+    "audio": "✅ Más lento: 7,4 c/s (fragmento corto «Palabra del Señor»); más rápido 14,3 c/s",
+    "imagenes": "✅ Viuda, rico y Jesús coherentes entre escenas; subtítulos legibles",
+    "metadatos": "✅ Fecha, cita y evangelista coherentes"
+  }
+}
