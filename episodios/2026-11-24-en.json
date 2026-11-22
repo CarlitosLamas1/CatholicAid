@@ -1,0 +1,155 @@
+{
+  "fecha": "2026-11-24",
+  "modo": "diario",
+  "cita": "Luke 21:5-11",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/24.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 11,
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 85.5,
+  "imagenes": [
+    "dias/2026-11-24_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-24_e1.jpg",
+    "biblioteca/D04",
+    "dias/2026-11-24_e2.jpg",
+    "biblioteca/D10",
+    "dias/2026-11-24_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D10",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Watch out that you don’t get led astray",
+  "reflexion": "Even when you see difficulties around you, do not lose your peace or give in to fear. God always takes care of you; where are you placing your trust today?",
+  "lufs": -14.1,
+  "gancho_segundos": 4.2,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-24-en.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus and his disciples admiring the magnificent stone colonnades and gates of the Jerusalem Temple in bright daylight, while Jesus speaks with a contemplative and solemn expression.",
+      "busqueda": "Jerusalem Temple",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus seated outdoors with his disciples gathered closely around him, extending his hand gently to instruct and comfort them as they listen attentively.",
+      "busqueda": "disciples around Jesus",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus standing serenely before a vast twilight sky filled with awe-inspiring luminous clouds and celestial light, reassuring his attentive disciples.",
+      "busqueda": "twilight heavenly sky",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, as some were talking about the temple and how it was decorated with beautiful stones and gifts, he said, “As for these things which you see, the days will come in which there will not be left here one stone on another that will not be thrown down.” They asked him, “Teacher, so when will these things be? What is the sign that these things are about to happen?” He said, “Watch out that you don’t get led astray, for many will come in my name, saying, ‘I am he,’ and, ‘The time is at hand.’ Therefore don’t follow them. When you hear of wars and disturbances, don’t be terrified, for these things must happen first, but the end won’t come immediately.” Then he said to them, “Nation will rise against nation, and kingdom against kingdom. There will be great earthquakes, famines, and plagues in various places. There will be terrors and great signs from heaven.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.8,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.99,
+      "texto": "At that time, as some were talking about the temple and how it was decorated with beautiful stones and gifts, he said,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 16.8,
+      "texto": "“As for these things which you see, the days will come in which there will not be left here one stone on another that will not be thrown down.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 25.87,
+      "texto": "They asked him,"
+    },
+    {
+      "personaje": "apostol",
+      "escena": 1,
+      "inicio": 27.04,
+      "texto": "“Teacher, so when will these things be? What is the sign that these things are about to happen?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 32.28,
+      "texto": "He said,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 33.27,
+      "texto": "“Watch out that you don’t get led astray, for many will come in my name, saying, ‘I am he,’ and, ‘The time is at hand.’ Therefore don’t follow them. When you hear of wars and disturbances, don’t be terrified, for these things must happen first, but the end won’t come immediately.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 53.26,
+      "texto": "Then he said to them,"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 54.95,
+      "texto": "“Nation will rise against nation, and kingdom against kingdom. There will be great earthquakes, famines, and plagues in various places. There will be terrors and great signs from heaven.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 66.87,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 70.02,
+      "texto": "Even when you see difficulties around you, do not lose your peace or give in to fear. God always takes care of you; where are you placing your trust today?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-22T11:00:27+01:00",
+  "run": "45008886552",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 21, 5-11",
+  "frase_es": "Mirad que no os dejéis engañar",
+  "reflexion_es": "Aunque veas dificultades a tu alrededor, no pierdas la paz ni te dejes llevar por el miedo. Dios cuida siempre de ti, ¿dónde tienes puesta hoy tu confianza?",
+  "copiado_de": "2026-11-22T09:56:46+01:00",
+  "cupo_agotado": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 11,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [
+      "narrador"
+    ],
+    "ok": false
+  },
+  "revision": "pendiente"
+}
