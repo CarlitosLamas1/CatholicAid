@@ -4,27 +4,25 @@
   "cita": "Lucas 21, 5-11",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/24.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
-  "guion": "gemini-3.6-flash",
+  "guion": "gemini-3.8-flash",
   "voces": "gemini",
   "peticiones_voz": 11,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 101.8,
+  "duracion_s": 89.9,
   "imagenes": [
     "dias/2026-11-24_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-24_e1.jpg",
-    "biblioteca/D02",
+    "biblioteca/D06",
     "dias/2026-11-24_e2.jpg",
-    "biblioteca/D04",
-    "biblioteca/D01",
-    "dias/2026-11-24_e3.jpg",
     "biblioteca/D10",
+    "dias/2026-11-24_e3.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/D10",
     "evangelistas/lucas.jpg"
   ],
   "frase_clave": "Mirad que no os dejéis engañar",
-  "reflexion": "Ante las dificultades y tribulaciones del mundo, no pierdas la paz ni el rumbo. Pon siempre tu confianza en el Señor, que nunca te abandona y permanece fiel para siempre.",
+  "reflexion": "Aunque veas dificultades a tu alrededor, no pierdas la paz ni te dejes llevar por el miedo. Dios cuida siempre de ti, ¿dónde tienes puesta hoy tu confianza?",
   "lufs": -13.9,
   "gancho_segundos": 3.3,
   "subtitulos_karaoke": true,
@@ -33,8 +31,8 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus standing with his disciples outside, pointing towards the magnificent Temple of Jerusalem adorned with impressive stones under a bright morning light.",
-      "busqueda": "Jerusalem temple",
+      "descripcion": "Jesus and his disciples admiring the magnificent stone colonnades and gates of the Jerusalem Temple in bright daylight, while Jesus speaks with a contemplative and solemn expression.",
+      "busqueda": "Jerusalem Temple Jesus",
       "personajes": [
         "jesus",
         "apostol"
@@ -42,8 +40,8 @@
     },
     {
       "numero": 2,
-      "descripcion": "Jesus speaking gently to a small group of disciples sitting around him, offering guidance with outstretched hands in a serene atmosphere.",
-      "busqueda": "Jesus teaching",
+      "descripcion": "Jesus seated outdoors with his disciples gathered closely around him, extending his hand gently to instruct and comfort them as they listen attentively.",
+      "busqueda": "Jesus Olivet discourse",
       "personajes": [
         "jesus",
         "apostol"
@@ -51,9 +49,12 @@
     },
     {
       "numero": 3,
-      "descripcion": "A wide landscape of Galilean hills under a stormy evening sky, where dramatic rays of sunlight break through dark clouds softly illuminate the horizon.",
-      "busqueda": "dramatic sky landscape",
-      "personajes": []
+      "descripcion": "Jesus standing serenely before a vast twilight sky filled with awe-inspiring luminous clouds and celestial light, reassuring his attentive disciples.",
+      "busqueda": "signs in heaven",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
     }
   ],
   "titulo": "Lectura del santo evangelio según san Lucas.",
@@ -68,84 +69,86 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 8.0,
+      "inicio": 8.3,
       "texto": "En aquel tiempo, como algunos de sus discípulos dijesen del Templo que estaba fabricado de hermosas piedras y adornado de ricos dones, replicó:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 18.83,
+      "inicio": 17.03,
       "texto": "“Días vendrán en que todo esto que veis será destruido de tal suerte que no quedará piedra sobre piedra que no sea demolida.”"
     },
     {
       "personaje": "narrador",
-      "escena": 1,
-      "inicio": 25.85,
+      "escena": 2,
+      "inicio": 25.86,
       "texto": "Preguntáronle ellos:"
     },
     {
       "personaje": "apostol",
-      "escena": 1,
-      "inicio": 27.31,
+      "escena": 2,
+      "inicio": 27.45,
       "texto": "“Maestro, ¿cuándo será eso, y qué señal habrá de que tales cosas están próximas a suceder?”"
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 33.11,
+      "inicio": 33.02,
       "texto": "Jesús les respondió:"
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 34.67,
+      "inicio": 34.65,
       "texto": "“Mirad que no os dejéis engañar; porque muchos vendrán en mi nombre, diciendo: ‘Yo soy el Mesías’, y ‘ya ha llegado el tiempo’: guardaos, pues, de seguirlos. Antes, cuando sintáis rumor de guerras y sediciones, no queráis alarmaros: es verdad que primero han de acaecer estas cosas, mas no por eso será luego el fin.”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 65.2,
+      "inicio": 56.13,
       "texto": "Entonces añadió:"
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 66.59,
+      "inicio": 57.61,
       "texto": "“Se levantará un pueblo contra otro pueblo, y un reino contra otro reino. Y habrá grandes terremotos en varias partes, y pestilencias, y hambres, y aparecerán en el cielo cosas espantosas y prodigios extraordinarios.”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 82.41,
+      "inicio": 71.99,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 84.89,
-      "texto": "Ante las dificultades y tribulaciones del mundo, no pierdas la paz ni el rumbo. Pon siempre tu confianza en el Señor, que nunca te abandona y permanece fiel para siempre.",
+      "inicio": 74.41,
+      "texto": "Aunque veas dificultades a tu alrededor, no pierdas la paz ni te dejes llevar por el miedo. Dios cuida siempre de ti, ¿dónde tienes puesta hoy tu confianza?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-22T09:25:16+01:00",
+  "generado": "2026-11-22T09:56:46+01:00",
   "estilo_imagenes": "acuarela",
   "reparto_visual": [],
-  "run": "45000992662",
+  "run": "45003358404",
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
   "sincronia": {
-    "frases_oidas": 9,
-    "frases_por_pausas": [
-      "“Mirad que no os dejéis engañar; porque muchos vendrán en mi",
-      "“Se levantará un pueblo contra otro pueblo, y un reino contr"
-    ],
+    "frases_oidas": 11,
+    "frases_por_pausas": [],
     "cortes_sin_oir": [
-      "jesus",
       "narrador"
     ],
     "ok": false
   },
-  "revision": "rechazada",
-  "rehechos": 1
+  "revision": "pendiente",
+  "rehechos": 1,
+  "cupo_agotado": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "reserva_pago": [
+    "gemini-2.5-flash-preview-tts"
+  ]
 }
