@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-24",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-22T09:25:16+01:00",
+  "revisado": "2026-11-22T09:33:04+01:00",
+  "motivos": [],
+  "avisos": [
+    "En las tres imágenes pintadas aparece una marca pequeña tipo firma abajo a la derecha (‘V. IISE’); es discreta, no pido repintar.",
+    "La sincronía de subtítulos no es del todo fiable (sincronia.ok falso: 2 frases por pausas y cortes sin oír de jesus y narrador); el sistema puede rehacer el vídeo una vez por sí solo."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita coincide con citas.json (Lucas 21, 5-11)",
+    "voces": "✅ Jesús, apóstol y narrador bien repartidos",
+    "frase_clave": "✅ «Mirad que no os dejéis engañar», literal, de Jesús, se entiende sola",
+    "reflexion": "✅ Cálida, doctrinalmente correcta, ~30 palabras",
+    "tecnica": "✅ 101,8 s; -13,9 LUFS",
+    "audio": "✅ Más lento: fragmento 6 (30,5 s) a 10,4 car/s; más rápido: fragmento 2 a 17,8 car/s",
+    "imagenes": "⚠️ Coherentes y devocionales; marca pequeña tipo firma en las tres; Jesús y apóstoles consistentes. Fotogramas legibles",
+    "metadatos": "✅ Fecha y cita coherentes; título de Lucas"
+  }
+}
