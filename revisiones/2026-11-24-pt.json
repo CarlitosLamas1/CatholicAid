@@ -1,0 +1,24 @@
+{
+  "fecha": "2026-11-24",
+  "idioma": "pt",
+  "ok": false,
+  "por": "revisor",
+  "generado": "2026-11-22T10:57:17+01:00",
+  "revisado": "2026-11-22T11:32:57+01:00",
+  "motivos": [
+    "El texto del vídeo está incompleto: termina en Lucas 21,9 y faltan los versículos 10-11 («Uma nação se levantará contra outra nação…»), aunque la cita anuncia Lucas 21,5-11. Los versículos ya estaban revisados en biblia/figueiredo/revisada/lucas.json desde el 21/11; el vídeo del 22/11 no los incluyó."
+  ],
+  "avisos": [
+    "Posible fallo del código: el portugués dejó fuera dos versículos de la cita aunque el texto revisado los tenía; conviene que el gestor revise cómo se arma texto_evangelio en portugués."
+  ],
+  "puntos": {
+    "fidelidad": "❌ La unión de fragmentos coincide con texto_evangelio, pero este solo cubre 21,5-9; faltan 21,10-11 de la cita.",
+    "voces": "✅ Jesús, apóstol y narrador correctos.",
+    "frase_clave": "✅ Literal, de Jesús, 5 palabras, se entiende sola, coincide con el español.",
+    "reflexion": "✅ Portugués de Brasil, 29 palabras, tratamiento «você», doctrinalmente correcta.",
+    "tecnica": "✅ 70,4 s, -14,0 LUFS, gancho 3,0 s, karaoke activo, sincronía ok.",
+    "audio": "✅ Fragmento largo más lento: reflexión 10,8 c/s; más rápido: frag. 4 a 17,6 c/s. Sin anomalías.",
+    "imagenes": "✅ Reutiliza las del español; coherentes y subtítulos legibles.",
+    "metadatos": "✅ Cita Lucas 21,5-11 coherente; título São Lucas."
+  }
+}
