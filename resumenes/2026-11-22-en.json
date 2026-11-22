@@ -1,0 +1,39 @@
+{
+  "domingo": "2026-11-22",
+  "idioma": "en",
+  "dias": [
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-21",
+    "2026-11-22"
+  ],
+  "duracion_s": 710.9,
+  "titulo": "Gospel of the week · November 16–22, 2026 | The daily Gospels read with several voices",
+  "capitulos": [
+    "0:00 Monday 16 · Luke 18:35-43 · “Receive your sight. Your faith has healed you”",
+    "1:32 Tuesday 17 · Luke 19:1-10 · “Today, salvation has come to this house”",
+    "3:35 Wednesday 18 · Luke 19:11-28 · “When he had come back again, having received the kingdom”",
+    "6:16 Thursday 19 · Luke 19:41-44 · “you didn’t know the time of your visitation”",
+    "7:12 Friday 20 · Luke 19:45-48 · “My house is a house of prayer”",
+    "8:10 Saturday 21 · Matthew 12:46-50 · “Behold, my mother and my brothers!”",
+    "9:18 Sunday 22 · Matthew 25:31-46 · “Come, blessed of my Father, inherit the Kingdom prepared for you”"
+  ],
+  "youtube": {
+    "id": "ALbZ3D0Q1TQ",
+    "url": "https://youtu.be/ALbZ3D0Q1TQ",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-22T19:00:00Z",
+    "lista": {
+      "id": "PLbecoA0yrObk",
+      "titulo": "Gospel of the week",
+      "url": "https://www.youtube.com/playlist?list=PLbecoA0yrObk"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
+  }
+}

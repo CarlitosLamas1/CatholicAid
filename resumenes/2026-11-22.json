@@ -1,0 +1,39 @@
+{
+  "domingo": "2026-11-22",
+  "idioma": "es",
+  "dias": [
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-21",
+    "2026-11-22"
+  ],
+  "duracion_s": 669.9,
+  "titulo": "Evangelio de la semana · del 16 al 22 de noviembre de 2026 | Las lecturas del día con varias voces",
+  "capitulos": [
+    "0:00 Lunes 16 · Lucas 18, 35-43 · “Recobra la vista; tu fe te ha salvado”",
+    "1:28 Martes 17 · Lucas 19, 1-10 · “Hoy ha sido día de salvación para esta casa”",
+    "3:01 Miércoles 18 · Lucas 19, 11-28 · “Cuando volvió, ya investido del reino, mandó llamar a los siervos a quienes había dado el dinero, para saber lo que había negociado cada uno”",
+    "5:18 Jueves 19 · Lucas 19, 41-44 · “no has conocido el tiempo en que Dios te ha visitado”",
+    "6:17 Viernes 20 · Lucas 19, 45-48 · “Mi casa es casa de oración”",
+    "7:13 Sábado 21 · Mateo 12, 46-50 · “Estos son mi madre y mis hermanos”",
+    "8:23 Domingo 22 · Mateo 25, 31-46 · “Venid, benditos de mi Padre, a tomar posesión del reino celestial”"
+  ],
+  "youtube": {
+    "id": "sfstbew1_Wo",
+    "url": "https://youtu.be/sfstbew1_Wo",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-22T19:00:00Z",
+    "lista": {
+      "id": "PLFAKOYIzVTzs",
+      "titulo": "Evangelio de la semana",
+      "url": "https://www.youtube.com/playlist?list=PLFAKOYIzVTzs"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
+  }
+}
