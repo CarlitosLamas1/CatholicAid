@@ -1,57 +1,69 @@
 {
-  "fecha": "2026-11-15",
+  "fecha": "2026-11-22",
   "idiomas": {
     "es": {
       "videos": 7,
-      "visitas": 4707,
-      "gustas": 230,
+      "visitas": 6050,
+      "gustas": 280,
       "comentarios": 23,
       "mejor": {
-        "fecha": "2026-11-13",
-        "frase": "Acordaos de la mujer de Lot.",
-        "visitas": 1818
+        "fecha": "2026-11-17",
+        "frase": "Hoy ha sido día de salvación para esta casa",
+        "visitas": 2158
       }
     },
     "en": {
       "videos": 7,
-      "visitas": 1333,
-      "gustas": 156,
-      "comentarios": 12,
+      "visitas": 1741,
+      "gustas": 112,
+      "comentarios": 9,
       "mejor": {
-        "fecha": "2026-11-13",
-        "frase": "Whoever seeks to save his life loses it",
-        "visitas": 565
+        "fecha": "2026-11-15",
+        "frase": "he also who got the two gained another two.",
+        "visitas": 728
       }
     },
     "pt": {
-      "videos": 1,
-      "visitas": 60,
-      "gustas": 4,
-      "comentarios": 2,
+      "videos": 7,
+      "visitas": 634,
+      "gustas": 26,
+      "comentarios": 11,
       "mejor": {
-        "fecha": "2026-11-14",
-        "frase": "Eu digo a vocês que ele lhes fará justiça bem depressa.",
-        "visitas": 60
+        "fecha": "2026-11-17",
+        "frase": "Hoje a salvação entrou nesta casa",
+        "visitas": 159
       }
     }
   },
   "gancho": {
     "lados": {
       "1.5": {
-        "n": 3,
-        "mediana": 301
+        "n": 6,
+        "mediana": 1118
       },
       "2.8": {
-        "n": 3,
-        "mediana": 466
+        "n": 5,
+        "mediana": 473
+      },
+      "3.3": {
+        "n": 1,
+        "mediana": 180
+      },
+      "3.6": {
+        "n": 1,
+        "mediana": 143
       }
     },
-    "ganador": "2.8"
+    "ganador": null
   },
   "gancho_historial": [
     {
       "semana": "2026-W46",
       "ganador": "2.8"
+    },
+    {
+      "semana": "2026-W47",
+      "ganador": null
     }
   ]
 }
