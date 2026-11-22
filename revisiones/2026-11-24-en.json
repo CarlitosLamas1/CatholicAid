@@ -3,21 +3,21 @@
   "idioma": "en",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-22T11:00:27+01:00",
-  "revisado": "2026-11-22T11:32:57+01:00",
+  "generado": "2026-11-22T12:13:11+01:00",
+  "revisado": "2026-11-22T12:32:59+01:00",
   "motivos": [],
   "avisos": [
-    "La sincronía de subtítulos no es del todo fiable (el corte del narrador no se pudo comprobar escuchando); el sistema rehará el vídeo una vez por su cuenta.",
-    "La frase clave («Watch out that you don’t get led astray») es correcta pero algo genérica."
+    "La sincronía de subtítulos no es del todo fiable (corte del narrador sin poder oírse); el vídeo ya se rehízo una vez.",
+    "Frase clave correcta pero algo genérica."
   ],
   "puntos": {
-    "fidelidad": "✅ Texto idéntico a la World English Bible, Lucas 21:5-11 (script).",
-    "voces": "✅ Jesús, apóstol y narrador bien repartidos; apóstrofos no tratados como comillas.",
-    "frase_clave": "✅ Literal, de Jesús, 7 palabras, coincide con la del español.",
-    "reflexion": "✅ Inglés americano, ≈30 palabras, doctrinalmente correcta, traducción de la española.",
-    "tecnica": "✅ 85,5 s, -14,1 LUFS, gancho 4,2 s, karaoke activo. ⚠️ sincronia.ok falso.",
-    "audio": "✅ Fragmento largo más lento: reflexión 10,0 c/s; más rápido: frag. 4 a 18,3 c/s. Sin anomalías.",
-    "imagenes": "✅ Escenas del día coherentes con la del español (mismos apóstoles, Jesús como en el retrato); subtítulos legibles en la hoja de fotogramas.",
-    "metadatos": "✅ Cita Luke 21:5-11 coherente con cita_es Lucas 21, 5-11; título del evangelista Lucas."
+    "fidelidad": "✅ Luke 21:5-11 completo, idéntico a texto_evangelio (WEB Catholic).",
+    "voces": "✅ Jesús, apóstol y narrador correctos.",
+    "frase_clave": "⚠️ Literal, de Jesús, 8 palabras, coincide con el español; algo genérica.",
+    "reflexion": "✅ Inglés, 29 palabras, tú, doctrina correcta.",
+    "tecnica": "✅ 85,5 s, -14,1 LUFS, gancho 4,2 s, karaoke activo; sincronía ⚠️.",
+    "audio": "✅ Más lento: cierre 7,3 c/s (fragmento corto); fragmentos largos 10–18 c/s; más rápido apóstol 18,3. Sin anomalías.",
+    "imagenes": "✅ Reutiliza las del español; fotogramas legibles y coherentes.",
+    "metadatos": "✅ Cita Luke 21:5-11, título del evangelista Lucas."
   }
 }
