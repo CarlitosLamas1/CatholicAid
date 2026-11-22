@@ -3,18 +3,18 @@
   "idiomas": {
     "es": {
       "videos": 7,
-      "visitas": 6050,
-      "gustas": 280,
+      "visitas": 6096,
+      "gustas": 281,
       "comentarios": 23,
       "mejor": {
         "fecha": "2026-11-17",
         "frase": "Hoy ha sido día de salvación para esta casa",
-        "visitas": 2158
+        "visitas": 2159
       }
     },
     "en": {
       "videos": 7,
-      "visitas": 1741,
+      "visitas": 1778,
       "gustas": 112,
       "comentarios": 9,
       "mejor": {
@@ -25,13 +25,13 @@
     },
     "pt": {
       "videos": 7,
-      "visitas": 634,
-      "gustas": 26,
+      "visitas": 654,
+      "gustas": 27,
       "comentarios": 11,
       "mejor": {
         "fecha": "2026-11-17",
         "frase": "Hoje a salvação entrou nesta casa",
-        "visitas": 159
+        "visitas": 160
       }
     }
   },
@@ -39,7 +39,7 @@
     "lados": {
       "1.5": {
         "n": 6,
-        "mediana": 1118
+        "mediana": 1119
       },
       "2.8": {
         "n": 5,
@@ -51,7 +51,7 @@
       },
       "3.6": {
         "n": 1,
-        "mediana": 143
+        "mediana": 186
       }
     },
     "ganador": null
