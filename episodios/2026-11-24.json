@@ -143,12 +143,20 @@
     ],
     "ok": false
   },
-  "revision": "pendiente",
+  "revision": "ok",
   "rehechos": 1,
   "cupo_agotado": [
     "gemini-2.5-flash-preview-tts"
   ],
   "reserva_pago": [
     "gemini-2.5-flash-preview-tts"
-  ]
+  ],
+  "youtube": {
+    "id": "_5Ipp8ny4ok",
+    "url": "https://youtu.be/_5Ipp8ny4ok",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-24T06:30:00Z"
+  }
 }
