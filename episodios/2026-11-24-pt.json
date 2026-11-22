@@ -135,6 +135,7 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente",
-  "rehechos": 1
+  "revision": "rechazada",
+  "rehechos": 1,
+  "no_publicar": "revisor: El texto del vídeo en portugués sigue incompleto tras rehacerlo: termina en Lucas 21,9 y faltan los versículos 10-11 («Então lhes dizia: Uma nação se levantará contra outra nação…»), aunque la cita anuncia Lucas 21,5-11."
 }
