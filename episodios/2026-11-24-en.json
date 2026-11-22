@@ -144,6 +144,14 @@
     ],
     "ok": false
   },
-  "revision": "pendiente",
-  "rehechos": 1
+  "revision": "ok",
+  "rehechos": 1,
+  "youtube": {
+    "id": "o_ZXkudtv4Q",
+    "url": "https://youtu.be/o_ZXkudtv4Q",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-24T06:30:00Z"
+  }
 }
