@@ -1,0 +1,148 @@
+{
+  "fecha": "2026-11-24",
+  "modo": "diario",
+  "cita": "Lucas 21,5-11",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/24.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.8-flash",
+  "voces": "gemini",
+  "peticiones_voz": 10,
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 70.4,
+  "imagenes": [
+    "dias/2026-11-24_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-24_e1.jpg",
+    "dias/2026-11-24_e2.jpg",
+    "biblioteca/D01",
+    "dias/2026-11-24_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/D10",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Cuidado para não serem enganados",
+  "reflexion": "Mesmo que veja dificuldades ao seu redor, não perca a paz nem se deixe levar pelo medo. Deus cuida sempre de você; onde está colocada a sua confiança hoje?",
+  "lufs": -14.0,
+  "gancho_segundos": 3.0,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-24-pt.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus and his disciples admiring the magnificent stone colonnades and gates of the Jerusalem Temple in bright daylight, while Jesus speaks with a contemplative and solemn expression.",
+      "busqueda": "Jerusalem Temple Jesus",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus seated outdoors with his disciples gathered closely around him, extending his hand gently to instruct and comfort them as they listen attentively.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus standing serenely before a vast twilight sky filled with awe-inspiring luminous clouds and celestial light, reassuring his attentive disciples.",
+      "busqueda": "Jesus Mount Olives",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
+  "texto_evangelio": "Naquele tempo, como alguns falavam do templo, que estava enfeitado com belas pedras e ofertas votivas, Jesus disse: “Disso que vocês estão vendo, virão dias em que não ficará pedra sobre pedra que não seja derrubada”. Então lhe perguntaram: “Mestre, quando vai acontecer isso? E qual será o sinal de que essas coisas estão para começar?” Jesus respondeu: “Cuidado para não serem enganados, porque muitos virão em meu nome, dizendo: ‘Sou eu!’ e: ‘O tempo está próximo’. Não sigam essas pessoas. E, quando ouvirem falar de guerras e de revoltas, não se assustem; é preciso que essas coisas aconteçam primeiro, mas o fim não virá logo”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.6,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.84,
+      "texto": "Naquele tempo, como alguns falavam do templo, que estava enfeitado com belas pedras e ofertas votivas, Jesus disse:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 16.81,
+      "texto": "“Disso que vocês estão vendo, virão dias em que não ficará pedra sobre pedra que não seja derrubada”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 24.74,
+      "texto": "Então lhe perguntaram:"
+    },
+    {
+      "personaje": "apostol",
+      "escena": 2,
+      "inicio": 26.36,
+      "texto": "“Mestre, quando vai acontecer isso? E qual será o sinal de que essas coisas estão para começar?”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 31.83,
+      "texto": "Jesus respondeu:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 33.27,
+      "texto": "“Cuidado para não serem enganados, porque muitos virão em meu nome, dizendo: ‘Sou eu!’ e: ‘O tempo está próximo’. Não sigam essas pessoas."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 43.57,
+      "texto": "E, quando ouvirem falar de guerras e de revoltas, não se assustem; é preciso que essas coisas aconteçam primeiro, mas o fim não virá logo”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 53.33,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 56.01,
+      "texto": "Mesmo que veja dificuldades ao seu redor, não perca a paz nem se deixe levar pelo medo. Deus cuida sempre de você; onde está colocada a sua confiança hoje?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-22T10:57:17+01:00",
+  "run": "45008888573",
+  "idioma": "pt",
+  "libro": "Lucas",
+  "cita_es": "Lucas 21, 5-11",
+  "frase_es": "Mirad que no os dejéis engañar",
+  "reflexion_es": "Aunque veas dificultades a tu alrededor, no pierdas la paz ni te dejes llevar por el miedo. Dios cuida siempre de ti, ¿dónde tienes puesta hoy tu confianza?",
+  "copiado_de": "2026-11-22T09:56:46+01:00",
+  "cupo_agotado": [
+    "gemini-3.8-flash"
+  ],
+  "reserva_pago": [
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ],
+  "sincronia": {
+    "frases_oidas": 10,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
