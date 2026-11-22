@@ -152,6 +152,18 @@
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true,
-    "publishAt": "2026-11-24T06:30:00Z"
+    "publishAt": "2026-11-24T06:30:00Z",
+    "lista": {
+      "id": "PLE6wYiZ-BMK0",
+      "titulo": "Gospel according to St. Luke",
+      "url": "https://www.youtube.com/playlist?list=PLE6wYiZ-BMK0"
+    },
+    "lista_liturgica": {
+      "id": "PLLWkUaN0V-24",
+      "titulo": "Daily Gospel · Ordinary Time",
+      "url": "https://www.youtube.com/playlist?list=PLLWkUaN0V-24"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
   }
 }
