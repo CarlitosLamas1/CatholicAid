@@ -13,9 +13,9 @@
     "dias/2026-11-25_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-25_e1.jpg",
-    "biblioteca/D06",
-    "dias/2026-11-25_e2.jpg",
     "biblioteca/D02",
+    "dias/2026-11-25_e2.jpg",
+    "biblioteca/D06",
     "dias/2026-11-25_e3.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/R01",
@@ -104,26 +104,20 @@
       "reflexion": true
     }
   ],
-  "generado": "2026-11-23T10:51:38+01:00",
-  "run": "45148084368",
+  "generado": "2026-11-23T12:13:11+01:00",
+  "run": "45161733696",
   "idioma": "en",
   "libro": "Lucas",
   "cita_es": "Lucas 21, 12-19",
   "frase_es": "Mediante vuestra paciencia salvaréis vuestras almas.",
   "reflexion_es": "A veces la vida se complica y sufrimos incomprensión. Confía en el Señor: Él no te abandona jamás y te dará la fuerza necesaria para perseverar con amor cada día.",
   "copiado_de": "2026-11-23T09:36:58+01:00",
-  "cupo_agotado": [
-    "gemini-3.7-flash"
-  ],
-  "modelos_voz": [
-    "gemini-3.1-flash-tts-preview"
-  ],
   "sincronia": {
     "frases_oidas": 7,
     "frases_por_pausas": [],
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1
 }
