@@ -127,5 +127,10 @@
     "publishAt": "2026-11-23T06:30:00Z",
     "miniatura": "ok",
     "miniatura_shorts": "ok"
+  },
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7711249880492328982",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
   }
 }
