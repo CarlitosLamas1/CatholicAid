@@ -1,0 +1,121 @@
+{
+  "fecha": "2026-11-25",
+  "modo": "diario",
+  "cita": "Lucas 21, 12-19",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/25.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 85.0,
+  "imagenes": [
+    "dias/2026-11-25_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-25_e1.jpg",
+    "biblioteca/D04",
+    "dias/2026-11-25_e2.jpg",
+    "dias/2026-11-25_e3.jpg",
+    "biblioteca/D06",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R01",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Mediante vuestra paciencia salvaréis vuestras almas.",
+  "reflexion": "A veces la vida se complica y sufrimos incomprensión. Confía en el Señor: Él no te abandona jamás y te dará la fuerza necesaria para perseverar con amor cada día.",
+  "lufs": -14.0,
+  "gancho_segundos": 3.3,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-25.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus stands outdoors under an olive tree, speaking earnestly to his attentive disciples who listen with serious expressions.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A faithful disciple standing courageously in a dimly lit stone hall before religious leaders, speaking with calm divine inspiration.",
+      "busqueda": "disciple before trial",
+      "personajes": [
+        "apostol",
+        "fariseos"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus warmly comforting his disciples in a serene setting, placing his hand reassuringly on a disciple's shoulder with love and reassurance.",
+      "busqueda": "Jesus comforting disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, dijo Jesús a sus discípulos: “Pero antes que sucedan todas estas cosas, se apoderarán de vosotros, y os perseguirán, y os entregarán a las sinagogas, y os meterán en las cárceles, y os llevarán por fuerza al tribunal de los reyes y gobernadores, por causa de mi nombre: lo cual os servirá de ocasión para dar testimonio de mí. Por consiguiente, imprimid en vuestros corazones la máxima de que no debéis discurrir de antemano cómo habéis de responder; pues yo pondré las palabras en vuestra boca, y una sabiduría a la que no podrán resistir ni contradecir todos vuestros enemigos. Y lo que es más, seréis entregados a los magistrados por vuestros mismos padres, y hermanos, y parientes, y amigos, y harán morir a muchos de vosotros; de suerte que seréis odiados de todo el mundo por amor de mí: no obstante, ni un cabello de vuestra cabeza se perderá. Mediante vuestra paciencia salvaréis vuestras almas.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.9,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.65,
+      "texto": "En aquel tiempo, dijo Jesús a sus discípulos:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 10.88,
+      "texto": "“Pero antes que sucedan todas estas cosas, se apoderarán de vosotros, y os perseguirán, y os entregarán a las sinagogas, y os meterán en las cárceles, y os llevarán por fuerza al tribunal de los reyes y gobernadores, por causa de mi nombre: lo cual os servirá de ocasión para dar testimonio de mí."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 30.32,
+      "texto": "Por consiguiente, imprimid en vuestros corazones la máxima de que no debéis discurrir de antemano cómo habéis de responder; pues yo pondré las palabras en vuestra boca, y una sabiduría a la que no podrán resistir ni contradecir todos vuestros enemigos."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 46.08,
+      "texto": "Y lo que es más, seréis entregados a los magistrados por vuestros mismos padres, y hermanos, y parientes, y amigos, y harán morir a muchos de vosotros; de suerte que seréis odiados de todo el mundo por amor de mí: no obstante, ni un cabello de vuestra cabeza se perderá. Mediante vuestra paciencia salvaréis vuestras almas.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 66.35,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 68.86,
+      "texto": "A veces la vida se complica y sufrimos incomprensión. Confía en el Señor: Él no te abandona jamás y te dará la fuerza necesaria para perseverar con amor cada día.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-23T09:36:58+01:00",
+  "estilo_imagenes": "oleo",
+  "reparto_visual": [],
+  "run": "45135609362",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
