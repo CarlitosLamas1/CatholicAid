@@ -1,0 +1,37 @@
+{
+  "domingo": "2026-11-22",
+  "idioma": "pt",
+  "dias": [
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-21",
+    "2026-11-22"
+  ],
+  "duracion_s": 728.7,
+  "titulo": "Evangelho da semana · de 16 a 22 de novembro de 2026 | Os Evangelhos do dia lidos com várias vozes",
+  "capitulos": [
+    "0:00 Segunda 16 · Lucas 18,35-43 · “Veja! A sua fé o salvou”",
+    "1:39 Terça 17 · Lucas 19,1-10 · “Hoje a salvação entrou nesta casa”",
+    "3:24 Quarta 18 · Lucas 19,11-28 · “Ele voltou, depois de ter tomado posse do reino”",
+    "6:06 Quinta 19 · Lucas 19,41-44 · “não reconheceste o tempo em que foste visitada”",
+    "7:12 Sexta 20 · Lucas 19,45-48 · “A minha casa é casa de oração”",
+    "8:15 Sábado 21 · Mateus 12,46-50 · “Aqui estão minha mãe e meus irmãos”",
+    "9:27 Domingo 22 · Mateus 25,31-46 · “Venham, benditos de meu Pai, tomem posse do Reino”"
+  ],
+  "youtube": {
+    "id": "rEAnkuAAvCY",
+    "url": "https://youtu.be/rEAnkuAAvCY",
+    "privacyStatus": "public",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "lista": {
+      "titulo": "Evangelho da semana",
+      "error": "409"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
+  }
+}
