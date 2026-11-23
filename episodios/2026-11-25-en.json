@@ -1,0 +1,128 @@
+{
+  "fecha": "2026-11-25",
+  "modo": "diario",
+  "cita": "Luke 21:12-19",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/25.html",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
+  "duracion_s": 77.8,
+  "imagenes": [
+    "dias/2026-11-25_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-25_e1.jpg",
+    "biblioteca/D06",
+    "dias/2026-11-25_e2.jpg",
+    "biblioteca/D02",
+    "dias/2026-11-25_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R01",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "By your endurance you will win your lives.",
+  "reflexion": "Sometimes life gets complicated and we suffer misunderstanding. Trust in the Lord: He never abandons you and will give you the strength to persevere with love every day.",
+  "lufs": -14.1,
+  "gancho_segundos": 3.9,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-25-en.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus stands outdoors under an olive tree, speaking earnestly to his attentive disciples who listen with serious expressions.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A faithful disciple standing courageously in a dimly lit stone hall before religious leaders, speaking with calm divine inspiration.",
+      "busqueda": "disciple before council",
+      "personajes": [
+        "apostol",
+        "fariseos"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus warmly comforting his disciples in a serene setting, placing his hand reassuringly on a disciple's shoulder with love and reassurance.",
+      "busqueda": "Jesus comforting disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "A reading from the holy Gospel according to Luke.",
+  "texto_evangelio": "At that time, but before all these things, they will lay their hands on you and will persecute you, delivering you up to synagogues and prisons, bringing you before kings and governors for my name’s sake. It will turn out as a testimony for you. Settle it therefore in your hearts not to meditate beforehand how to answer, for I will give you a mouth and wisdom which all your adversaries will not be able to withstand or to contradict. You will be handed over even by parents, brothers, relatives, and friends. They will cause some of you to be put to death. You will be hated by all men for my name’s sake. And not a hair of your head will perish. “By your endurance you will win your lives.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.5,
+      "texto": "A reading from the holy Gospel according to Luke."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.69,
+      "texto": "At that time, but before all these things, they will lay their hands on you and will persecute you, delivering you up to synagogues and prisons, bringing you before kings and governors for my name’s sake. It will turn out as a testimony for you."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 26.1,
+      "texto": "Settle it therefore in your hearts not to meditate beforehand how to answer, for I will give you a mouth and wisdom which all your adversaries will not be able to withstand or to contradict. You will be handed over even by parents, brothers, relatives, and friends. They will cause some of you to be put to death. You will be hated by all men for my name’s sake."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 51.77,
+      "texto": "And not a hair of your head will perish."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 54.95,
+      "texto": "“By your endurance you will win your lives.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 59.39,
+      "texto": "The Gospel of the Lord."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 62.23,
+      "texto": "Sometimes life gets complicated and we suffer misunderstanding. Trust in the Lord: He never abandons you and will give you the strength to persevere with love every day.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-23T10:51:38+01:00",
+  "run": "45148084368",
+  "idioma": "en",
+  "libro": "Lucas",
+  "cita_es": "Lucas 21, 12-19",
+  "frase_es": "Mediante vuestra paciencia salvaréis vuestras almas.",
+  "reflexion_es": "A veces la vida se complica y sufrimos incomprensión. Confía en el Señor: Él no te abandona jamás y te dará la fuerza necesaria para perseverar con amor cada día.",
+  "copiado_de": "2026-11-23T09:36:58+01:00",
+  "cupo_agotado": [
+    "gemini-3.7-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
