@@ -1,0 +1,25 @@
+{
+  "fecha": "2026-11-25",
+  "idioma": "en",
+  "ok": false,
+  "por": "revisor",
+  "generado": "2026-11-23T10:51:38+01:00",
+  "revisado": "2026-11-23T11:32:48+01:00",
+  "motivos": [
+    "Voces: casi todo el discurso de Jesús (vv. 12-18) lo lee el narrador; solo la última frase va con la voz de Jesús.",
+    "Texto: falta la introducción «Jesus said to his disciples» y las comillas del discurso quedan sin abrir (solo se cierra la del final)."
+  ],
+  "avisos": [
+    "Frase clave correcta y literal; reflexión coherente con el español."
+  ],
+  "puntos": {
+    "fidelidad": "✅ unión de fragmentos idéntica al texto, pero sin la introducción de Jesús ni comillas de apertura (ver voces)",
+    "voces": "❌ vv. 12-18 (palabras de Jesús) en narrador",
+    "frase_clave": "✅ literal, de Jesús",
+    "reflexion": "✅ traducción fiel de la española",
+    "tecnica": "✅ 77,8 s; LUFS -14,1",
+    "audio": "✅ 8,1–14,1 c/s (el más lento, «The Gospel of the Lord.», es un fragmento corto)",
+    "imagenes": "✅ reutilizadas del español (aprobado)",
+    "metadatos": "✅ cita Luke 21:12-19 coherente"
+  }
+}
