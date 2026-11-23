@@ -280,11 +280,11 @@ def espera_al_espanol(es, es_manana, hora):
 
 
 def semana(runs, ahora):
-    """6. Resumen semanal: domingo de 17:00 a 23:59 (Madrid), si aún no hay registro de ese domingo."""
+    """6. Resumen semanal: domingo de 17:00 a 23:59 (Madrid), si falta el registro de ese domingo en algún idioma (es, en, pt)."""
     cfg = json.loads(open("config/personajes.json", encoding="utf-8").read()).get("resumen_semanal", {})
     if not cfg.get("activo") or ahora.weekday() != 6 or not 17 <= ahora.hour <= 23:
         return
-    if leer(f"resumenes/{ahora.date()}.json"):
+    if all(leer(f"resumenes/{ahora.date()}{suf}.json") for suf in ("", "-en", "-pt")):
         log("Semana: hecho.")
     elif reciente(runs, "Evangelio de la semana", 120):
         log("Semana: en marcha o reciente; espero.")

@@ -8,8 +8,8 @@ día), subtítulos y la lista «Evangelio de la semana». Programado a resumen_s
 No vuelve a revisar nada: solo usa días con el OK del revisor. No avisa por Telegram (decisión de Carlos).
 
 Los vídeos salen de la release del día (si sigue) o de la copia de 30 días del run que los hizo.
-Registro: resumenes/AAAA-MM-DD.json (domingo; -en para el inglés).
-Uso: python3 proceso/resumen_semanal.py [--domingo AAAA-MM-DD] [--idioma es|en|todos] [--no-subir]
+Registro: resumenes/AAAA-MM-DD.json (domingo; -en inglés, -pt portugués).
+Uso: python3 proceso/resumen_semanal.py [--domingo AAAA-MM-DD] [--idioma es|en|pt|todos] [--no-subir]
 """
 import argparse
 import datetime as dt
@@ -70,13 +70,13 @@ def conseguir_video(nombre, reg, idioma, tmp):
     fecha = reg["fecha"]
     destino = tmp / nombre
     destino.mkdir(parents=True, exist_ok=True)
-    release = f"tiktok-{fecha}" if idioma == "es" else f"en-{fecha}"
+    release = {"es": f"tiktok-{fecha}", "en": f"en-{fecha}", "pt": f"pt-{fecha}"}[idioma]
     if reg.get("youtube") and sh("gh", "release", "download", release, "-D", destino, "-p", "video.mp4",
                                  check=False).returncode == 0 and (destino / "video.mp4").exists():
         # la release se rehace con cada versión: solo vale si es la del registro (lo garantiza el flujo de publicación)
         return destino / "video.mp4"
     runs = [reg["run"]] if reg.get("run") else []
-    flujo = "evangelio-diario.yml" if idioma == "es" else "evangelio-ingles.yml"
+    flujo = {"es": "evangelio-diario.yml", "en": "evangelio-ingles.yml", "pt": "evangelio-portugues.yml"}[idioma]
     r = sh("gh", "run", "list", "-w", flujo, "-s", "success", "-L", "60", "--json", "databaseId,createdAt", check=False)
     dia = dt.date.fromisoformat(fecha)
     for x in json.loads(r.stdout or "[]"):
@@ -131,6 +131,25 @@ def unir_srt(partes):
 
 
 def textos(idioma, lunes, domingo):
+    if idioma == "pt":
+        if lunes.month == domingo.month:
+            rango = f"de {lunes.day} a {domingo.day} de {ev.MESES_PT[domingo.month - 1]} de {domingo.year}"
+        else:
+            rango = (f"de {lunes.day} de {ev.MESES_PT[lunes.month - 1]} a {domingo.day} de "
+                     f"{ev.MESES_PT[domingo.month - 1]} de {domingo.year}")
+        return {"titulo": f"Evangelho da semana · {rango} | Os Evangelhos do dia lidos com várias vozes",
+                "intro": f"Os Evangelhos desta semana ({rango}), um após o outro e lidos com várias vozes. "
+                         "Para ouvir com calma, rezar ou meditar.",
+                "capitulos": "📖 Capítulos:", "cortos": "🎬 Todos os dias, o Evangelho em um vídeo curto:",
+                "lista": ("Evangelho da semana", "Os Evangelhos do dia de cada semana em um só vídeo, lidos com "
+                                                 "várias vozes. #EvangelhoDoDia"),
+                "miniatura": "O Evangelho da semana",
+                "pie": "📖 Texto: Figueiredo, revisado e modernizado pela CatolicAid. Calendário litúrgico: Vatican News.\n"
+                       "🎨 Imagens: cenas geradas com IA e pinturas clássicas (domínio público).\n"
+                       "🎙️ Vozes geradas com inteligência artificial.",
+                "musica": "🎵 Música:",
+                "hashtags": "#EvangelhoDoDia #Evangelho #PalavraDeDeus #Catolico #Biblia",
+                "etiquetas": ["evangelho da semana", "evangelho do dia", "evangelho", "católico", "palavra de Deus"]}
     if idioma == "en":
         if lunes.month == domingo.month:
             rango = f"{ev.MONTHS[lunes.month - 1]} {lunes.day}–{domingo.day}, {domingo.year}"
@@ -171,6 +190,8 @@ def textos(idioma, lunes, domingo):
 def nombre_dia(fecha, idioma):
     if idioma == "en":
         return f"{DIAS_EN[fecha.weekday()]} {fecha.day}"
+    if idioma == "pt":
+        return f"{ev.DIAS_PT[fecha.weekday()].split('-')[0].capitalize()} {fecha.day}"
     return f"{ev.DIAS[fecha.weekday()].capitalize()} {fecha.day}"
 
 
@@ -294,7 +315,7 @@ def main():
         return
     hoy = dt.datetime.now(ev.MADRID).date()
     domingo = dt.date.fromisoformat(a.domingo) if a.domingo.strip() else hoy - dt.timedelta(days=(hoy.weekday() + 1) % 7)
-    idiomas = ["es", "en"] if a.idioma in ("", "todos") else [a.idioma]
+    idiomas = ["es", "en", "pt"] if a.idioma in ("", "todos") else [a.idioma]
     for idioma in idiomas:
         if idioma != "es" and not ev.CFG.get(idioma, {}).get("activo"):
             continue
