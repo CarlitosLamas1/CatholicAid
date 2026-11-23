@@ -198,7 +198,14 @@ def nombre_dia(fecha, idioma):
 def resumen(domingo, idioma, subir=True):
     suf = ev.SUFIJO[idioma]
     ruta_reg = RAIZ / "resumenes" / f"{domingo}{suf}.json"
-    if leer(ruta_reg).get("youtube", {}).get("id"):
+    previo = leer(ruta_reg)
+    if previo.get("youtube", {}).get("id"):
+        yt = previo["youtube"]
+        if subir and (yt.get("lista") or {}).get("error"):  # subido pero sin lista: solo se reintenta la lista
+            ev.aplicar_idioma(idioma)
+            tx = textos(idioma, domingo - dt.timedelta(days=6), domingo)
+            yt["lista"] = ev.anadir_a_lista(ev.token_youtube(idioma), tx["lista"][0], tx["lista"][1], yt["id"], idioma)
+            ruta_reg.write_text(json.dumps(previo, ensure_ascii=False, indent=2), encoding="utf-8")
         log(f"Resumen {domingo}{suf}: ya está subido.")
         return
     ev.aplicar_idioma(idioma)
