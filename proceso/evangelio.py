@@ -1977,8 +1977,16 @@ def anadir_a_lista(tok, titulo, descripcion, vid, idioma="es"):
                 "snippet": {"title": titulo, "defaultLanguage": idioma, "description": descripcion},
                 "status": {"privacyStatus": "public"}}, h, method="POST")["id"]
             log(f"   Lista creada: {titulo}")
-        http(YT + "playlistItems?part=snippet", {"snippet": {
-            "playlistId": lista, "resourceId": {"kind": "youtube#video", "videoId": vid}}}, h, method="POST")
+        for intento in range(4):  # una lista recién creada da 409 unos segundos (23/11/2026, resumen pt)
+            try:
+                http(YT + "playlistItems?part=snippet", {"snippet": {
+                    "playlistId": lista, "resourceId": {"kind": "youtube#video", "videoId": vid}}}, h, method="POST")
+                break
+            except urllib.error.HTTPError as e:
+                if e.code != 409 or intento == 3:
+                    raise
+                log(f"   Lista «{titulo}»: 409, reintento en {15 * (intento + 1)} s")
+                time.sleep(15 * (intento + 1))
         log(f"   Añadido a la lista «{titulo}»")
         return {"id": lista, "titulo": titulo, "url": f"https://www.youtube.com/playlist?list={lista}"}
     except urllib.error.HTTPError as e:
