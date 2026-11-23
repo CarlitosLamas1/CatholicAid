@@ -1,12 +1,11 @@
 {
-  "fecha": "2026-11-22",
-  "releases_borradas": [],
+  "fecha": "2026-11-23",
+  "releases_borradas": [
+    "en-2026-11-20",
+    "pt-2026-11-20",
+    "tiktok-2026-11-20"
+  ],
   "imagenes_archivadas": 0,
   "sobrantes": [],
-  "fotogramas_borrados": 0,
-  "copia": {
-    "archivos": 258,
-    "megas": 2.1,
-    "enviada": true
-  }
+  "fotogramas_borrados": 0
 }
