@@ -3,23 +3,22 @@
   "idioma": "pt",
   "ok": false,
   "por": "revisor",
-  "generado": "2026-11-23T10:42:18+01:00",
-  "revisado": "2026-11-23T11:32:48+01:00",
+  "generado": "2026-11-23T11:38:24+01:00",
+  "revisado": "2026-11-23T12:33:05+01:00",
   "motivos": [
-    "Texto incompleto: el vídeo solo lee el versículo 12 de Lucas 21,12-19; faltan los versículos 13 a 19 (la frase final «Pela paciência de vocês…» no aparece) y termina cortado.",
-    "La sincronía de subtítulos de Jesús no se pudo comprobar oyendo el audio (cortes_sin_oir: jesus)."
+    "El vídeo en portugués está cortado: el texto solo llega a Lucas 21,12 («…por causa do meu nome») y faltan los versículos 13-19, incluida la frase final."
   ],
   "avisos": [
-    "La frase clave elegida («vão pôr as mãos em vocês e persegui-los») no es la del español ni es la más adecuada; conviene la del español: «Pela paciência de vocês, possuirão as suas almas»."
+    "La frase clave del vídeo («vão pôr as mãos em vocês e persegui-los») no coincide con la del español, consecuencia del texto cortado. Fallo probable del código al armar texto_evangelio en portugués (igual que el 24/11): biblia/figueiredo/revisada/lucas.json tiene 21,12-19 completos. Duración 47 s frente a 85 s del español; sincronía no ok (jesus sin poder oírse)."
   ],
   "puntos": {
-    "fidelidad": "❌ texto_evangelio = solo v. 12; biblia/figueiredo/revisada/lucas.json tiene completos los vv. 12-19",
-    "voces": "✅ lo que hay va bien (jesus/narrador)",
-    "frase_clave": "⚠️ floja y distinta de la española",
-    "reflexion": "✅ fiel a la española",
-    "tecnica": "✅ 47,2 s; LUFS -13,8",
-    "audio": "✅ 7,4–12,8 c/s",
-    "imagenes": "✅ reutilizadas del español",
-    "metadatos": "✅ cita coherente"
+    "fidelidad": "❌ Los fragmentos coinciden con texto_evangelio, pero este solo cubre 21,12; faltan 21,13-19.",
+    "voces": "✅ Jesús y narrador correctos en lo que hay.",
+    "frase_clave": "⚠️ Literal y de Jesús, pero no es la del español y viene de un texto cortado.",
+    "reflexion": "✅ Portugués de Brasil, «você», doctrina correcta.",
+    "tecnica": "⚠️ 47,2 s, -13,8 LUFS; sincronía ok: false (cortes_sin_oir: jesus).",
+    "audio": "✅ 7,4–12,8 c/s; sin anomalías graves.",
+    "imagenes": "✅ Reutiliza las del español.",
+    "metadatos": "✅ Título y cita en portugués coherentes."
   }
 }
