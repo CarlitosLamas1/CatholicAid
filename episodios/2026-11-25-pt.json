@@ -102,23 +102,14 @@
       "reflexion": true
     }
   ],
-  "generado": "2026-11-23T10:42:18+01:00",
-  "run": "45148087750",
+  "generado": "2026-11-23T11:38:24+01:00",
+  "run": "45157137012",
   "idioma": "pt",
   "libro": "Lucas",
   "cita_es": "Lucas 21, 12-19",
   "frase_es": "Mediante vuestra paciencia salvaréis vuestras almas.",
   "reflexion_es": "A veces la vida se complica y sufrimos incomprensión. Confía en el Señor: Él no te abandona jamás y te dará la fuerza necesaria para perseverar con amor cada día.",
   "copiado_de": "2026-11-23T09:36:58+01:00",
-  "cupo_agotado": [
-    "gemini-3.7-flash"
-  ],
-  "reserva_pago": [
-    "gemini-3.7-flash"
-  ],
-  "modelos_voz": [
-    "gemini-3.1-flash-tts-preview (pago)"
-  ],
   "sincronia": {
     "frases_oidas": 7,
     "frases_por_pausas": [],
@@ -127,6 +118,6 @@
     ],
     "ok": false
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1
 }
