@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-25",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-23T09:36:58+01:00",
+  "revisado": "2026-11-23T10:32:40+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico al revisado de Lucas 21,12-19 (más la introducción «En aquel tiempo…»); cita coincide con citas.json.",
+    "voces": "✅ Narrador anuncia, Jesús dice todo el discurso; sin errores.",
+    "frase_clave": "✅ «Mediante vuestra paciencia salvaréis vuestras almas.» (6 palabras), literal, de Jesús y se entiende sola.",
+    "reflexion": "✅ 30 palabras, cálida y acorde con la lectura.",
+    "tecnica": "✅ 85 s, -14,0 LUFS.",
+    "audio": "✅ Más lento: reflexión 10,0 car/s (16 s); más rápido: fragmento de Jesús 16,0 car/s.",
+    "imagenes": "✅ Tres óleos devocionales coherentes; Jesús igual en todas; fotogramas legibles.",
+    "metadatos": "✅ Fecha, cita y evangelista (Lucas) coherentes."
+  }
+}
