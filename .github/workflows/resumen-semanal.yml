@@ -1,7 +1,7 @@
 name: Evangelio de la semana
 
 # Cada domingo junta los vídeos diarios aprobados (lunes a domingo) en un vídeo horizontal con capítulos y lo sube
-# a YouTube programado a resumen_semanal.hora (Madrid). Español e inglés. El Reloj lo relanza si el cron no llega.
+# a YouTube programado a resumen_semanal.hora (Madrid). Español, inglés y portugués. El Reloj lo relanza si el cron no llega.
 on:
   schedule:
     - cron: "0 15 * * 0"
@@ -12,7 +12,7 @@ on:
         required: false
         default: ""
       idioma:
-        description: "es, en o todos"
+        description: "es, en, pt o todos"
         required: false
         default: "todos"
       subir:

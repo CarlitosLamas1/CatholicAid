@@ -532,7 +532,7 @@
     }
   },
   "resumen_semanal": {
-    "_nota": "Cada domingo, los Evangelios de la semana (lunes a domingo, solo los aprobados y publicados) en un vídeo horizontal con capítulos (proceso/resumen_semanal.py, workflow «Evangelio de la semana»). Se publica a esta hora de Madrid del domingo. Español e inglés.",
+    "_nota": "Cada domingo, los Evangelios de la semana (lunes a domingo, solo los aprobados y publicados) en un vídeo horizontal con capítulos (proceso/resumen_semanal.py, workflow «Evangelio de la semana»). Se publica a esta hora de Madrid del domingo. Español, inglés y portugués.",
     "activo": true,
     "hora": 20,
     "minimo_dias": 5
