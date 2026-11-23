@@ -118,6 +118,7 @@
     ],
     "ok": false
   },
-  "revision": "pendiente",
-  "rehechos": 1
+  "revision": "rechazada",
+  "rehechos": 1,
+  "no_publicar": "revisor: El vídeo en portugués está cortado: el texto solo llega a Lucas 21,12 («…por causa do meu nome») y faltan los versículos 13-19, incluida la frase final."
 }
