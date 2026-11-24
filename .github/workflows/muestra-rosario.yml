@@ -1,0 +1,27 @@
+name: "Muestra del Rosario (voces)"
+
+# Graba las voces de la muestra del Rosario con la clave GRATUITA (nunca la de pago). Vive solo en la rama
+# muestra-rosario: se lanza con un push a esa rama. Las voces quedan como artefacto del run (7 días).
+on:
+  push:
+    branches: [muestra-rosario]
+    paths: ["rosario/**", ".github/workflows/muestra-rosario.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  voces:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Grabar voces (solo cupo gratis)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python3 rosario/grabar_muestra.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: voces-rosario
+          path: rosario/salida/*.wav
+          retention-days: 7
