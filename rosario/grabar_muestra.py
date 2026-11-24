@@ -29,7 +29,9 @@ def pedir(modelo, cuerpo, clave):
 
 
 def main():
-    clave = os.environ.get("GEMINI_API_KEY", "").strip()
+    # Por defecto, solo la clave gratuita. Con DE_PAGO=1, la de pago (decidido para el rosario: céntimos, y así no se
+    # gasta el cupo gratis que necesita el vídeo diario).
+    clave = os.environ.get("GEMINI_API_KEY_IMAGENES" if os.environ.get("DE_PAGO") == "1" else "GEMINI_API_KEY", "").strip()
     if not clave:
         sys.exit("Falta GEMINI_API_KEY")
     SALIDA.mkdir(exist_ok=True)

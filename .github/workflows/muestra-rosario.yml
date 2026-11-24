@@ -19,8 +19,11 @@ jobs:
       - name: Grabar voces (solo cupo gratis)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+          DE_PAGO: "1"
         run: python3 rosario/grabar_muestra.py
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: voces-rosario
           path: rosario/salida/*.wav
