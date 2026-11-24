@@ -1,0 +1,23 @@
+{
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "piezas": [
+  {
+   "id": "luminosos_lectura1_1",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida y serena, que proclama el Evangelio con reverencia y ternura, ritmo pausado, acento de España",
+   "texto": "Bautizado, pues, Jesús, al instante que salió del agua, se le abrieron los cielos, y vio bajar al Espíritu de Dios a manera de paloma, y posar sobre él. Y se oyó una voz del cielo que decía: “Este es mi querido Hijo, en quien tengo puesta toda mi complacencia”."
+  },
+  {
+   "id": "luminosos_lectura2_4",
+   "voz": "Gacrux",
+   "estilo": "voz de mujer joven, dulce, humilde y luminosa, llena de paz, ritmo natural, acento de España",
+   "texto": "“Haced lo que él os dirá”."
+  },
+  {
+   "id": "luminosos_anuncio5",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Quinto misterio luminoso: la institución de la Eucaristía."
+  }
+ ]
+}

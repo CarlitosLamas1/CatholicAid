@@ -46,7 +46,7 @@ jobs:
       - name: Grabar
         env:
           GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
-          GUION: rosario/tres/guion.json
+          GUION: rosario/tres/faltan.json
         run: python3 rosario/grabar_piezas.py
       - uses: actions/upload-artifact@v4
         if: always()
@@ -62,7 +62,7 @@ jobs:
           import numpy as np
           from faster_whisper import WhisperModel
           m = WhisperModel("small", device="cpu", compute_type="int8")
-          g = json.load(open("rosario/tres/guion.json", encoding="utf-8"))
+          g = json.load(open("rosario/tres/faltan.json", encoding="utf-8"))
           norm = lambda t: re.sub(r"[^a-záéíóúüñ ]", " ", t.lower()).split()
           for p in g["piezas"]:
               f = pathlib.Path(f"rosario/salida/{p['id']}.wav")
