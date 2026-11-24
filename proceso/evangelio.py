@@ -350,8 +350,12 @@ def cita_en(cita):
     return f"{LIBROS_EN.get(libro, libro)} {resto}"
 
 
-def versiculos(cita, datos):
-    """'Lucas 15, 1-10' / 'Juan 20, 1-2. 11-18' / 'Mateo 26, 14-27, 66' -> [(cap, ver), ...]"""
+def versiculos(cita, datos, *otros):
+    """'Lucas 15, 1-10' / 'Juan 20, 1-2. 11-18' / 'Mateo 26, 14-27, 66' -> [(cap, ver), ...]
+
+    Dentro de un mismo capítulo manda la cita (24/11/2026: el OCR de Figueiredo acaba Lucas 21 en el v. 9 porque
+    leyó «10» como «IO», y el pasaje 21,5-11 se quedaba en 5-9 sin avisar). El final de capítulo solo se mira al
+    cruzar a otro, con el mayor de todas las fuentes (original y revisada)."""
     resto = re.sub(r"^\s*[1-3]?\s?\w+\s+", "", cita).replace("—", "-").replace("–", "-")
     lista, cap = [], None
     for parte in re.split(r"[.;]\s*", resto):
@@ -369,8 +373,8 @@ def versiculos(cita, datos):
         c, v = cap, int(a)
         while (c, v) <= (c2, v2):
             lista.append((c, v))
-            ultimo = max((int(k) for k in datos.get(str(c), {})), default=0)
-            c, v = (c + 1, 1) if v >= ultimo else (c, v + 1)
+            ultimo = max((int(k) for f in (datos, *otros) for k in f.get(str(c), {}) if str(k).isdigit()), default=0)
+            c, v = (c + 1, 1) if c < c2 and v >= ultimo else (c, v + 1)
         cap = c2
     return lista
 
@@ -446,7 +450,7 @@ def texto_biblia(cita, cargar, carpeta_rev, arreglar, inicio_defecto, nombres, n
     datos = cargar(libro)
     ruta_rev = carpeta_rev / f"{libro.lower()}.json"
     rev = json.loads(ruta_rev.read_text(encoding="utf-8")) if ruta_rev.exists() else {}
-    vs = versiculos(cita, datos)
+    vs = versiculos(cita, datos, rev)
     partes, faltan, revisados = [], [], 0
     for c, v in vs:
         r = rev.get(str(c), {}).get(str(v))
