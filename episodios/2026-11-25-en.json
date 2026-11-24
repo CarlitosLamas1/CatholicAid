@@ -3,21 +3,21 @@
   "modo": "diario",
   "cita": "Luke 21:12-19",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/25.html",
-  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), partly revised",
   "guion": "gemini-3.6-flash",
   "voces": "gemini",
   "peticiones_voz": 7,
-  "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
-  "duracion_s": 77.8,
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 79.4,
   "imagenes": [
     "dias/2026-11-25_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-25_e1.jpg",
-    "biblioteca/D02",
     "dias/2026-11-25_e2.jpg",
-    "biblioteca/D06",
+    "biblioteca/D10",
     "dias/2026-11-25_e3.jpg",
     "evangelistas/lucas.jpg",
+    "biblioteca/R01",
     "biblioteca/R01",
     "evangelistas/lucas.jpg"
   ],
@@ -41,10 +41,10 @@
     {
       "numero": 2,
       "descripcion": "A faithful disciple standing courageously in a dimly lit stone hall before religious leaders, speaking with calm divine inspiration.",
-      "busqueda": "disciple before council",
+      "busqueda": "disciple before rulers",
       "personajes": [
-        "apostol",
-        "fariseos"
+        "fariseos",
+        "apostol"
       ]
     },
     {
@@ -58,7 +58,7 @@
     }
   ],
   "titulo": "A reading from the holy Gospel according to Luke.",
-  "texto_evangelio": "At that time, but before all these things, they will lay their hands on you and will persecute you, delivering you up to synagogues and prisons, bringing you before kings and governors for my name’s sake. It will turn out as a testimony for you. Settle it therefore in your hearts not to meditate beforehand how to answer, for I will give you a mouth and wisdom which all your adversaries will not be able to withstand or to contradict. You will be handed over even by parents, brothers, relatives, and friends. They will cause some of you to be put to death. You will be hated by all men for my name’s sake. And not a hair of your head will perish. “By your endurance you will win your lives.”",
+  "texto_evangelio": "At that time, Jesus said to his disciples: “Before all these things, they will lay their hands on you and will persecute you, delivering you up to synagogues and prisons, bringing you before kings and governors for my name’s sake. It will turn out as a testimony for you. Settle it therefore in your hearts not to meditate beforehand how to answer, for I will give you a mouth and wisdom which all your adversaries will not be able to withstand or to contradict. You will be handed over even by parents, brothers, relatives, and friends. They will cause some of you to be put to death. You will be hated by all men for my name’s sake. And not a hair of your head will perish. By your endurance you will win your lives.”",
   "fragmentos": [
     {
       "personaje": "narrador",
@@ -69,56 +69,63 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 8.69,
-      "texto": "At that time, but before all these things, they will lay their hands on you and will persecute you, delivering you up to synagogues and prisons, bringing you before kings and governors for my name’s sake. It will turn out as a testimony for you."
+      "inicio": 9.04,
+      "texto": "At that time, Jesus said to his disciples:"
     },
     {
-      "personaje": "narrador",
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 10.23,
+      "texto": "“Before all these things, they will lay their hands on you and will persecute you, delivering you up to synagogues and prisons, bringing you before kings and governors for my name’s sake."
+    },
+    {
+      "personaje": "jesus",
       "escena": 2,
-      "inicio": 26.1,
-      "texto": "Settle it therefore in your hearts not to meditate beforehand how to answer, for I will give you a mouth and wisdom which all your adversaries will not be able to withstand or to contradict. You will be handed over even by parents, brothers, relatives, and friends. They will cause some of you to be put to death. You will be hated by all men for my name’s sake."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 3,
-      "inicio": 51.77,
-      "texto": "And not a hair of your head will perish."
+      "inicio": 22.47,
+      "texto": "It will turn out as a testimony for you. Settle it therefore in your hearts not to meditate beforehand how to answer, for I will give you a mouth and wisdom which all your adversaries will not be able to withstand or to contradict. You will be handed over even by parents, brothers, relatives, and friends. They will cause some of you to be put to death. You will be hated by all men for my name’s sake."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 54.95,
-      "texto": "“By your endurance you will win your lives.”"
+      "inicio": 50.01,
+      "texto": "And not a hair of your head will perish. By your endurance you will win your lives.”"
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 59.39,
+      "inicio": 56.73,
       "texto": "The Gospel of the Lord."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 62.23,
+      "inicio": 60.21,
       "texto": "Sometimes life gets complicated and we suffer misunderstanding. Trust in the Lord: He never abandons you and will give you the strength to persevere with love every day.",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-23T12:13:11+01:00",
-  "run": "45161733696",
+  "generado": "2026-11-24T22:10:48+01:00",
+  "run": "45486216051",
   "idioma": "en",
   "libro": "Lucas",
   "cita_es": "Lucas 21, 12-19",
-  "frase_es": "Mediante vuestra paciencia salvaréis vuestras almas.",
-  "reflexion_es": "A veces la vida se complica y sufrimos incomprensión. Confía en el Señor: Él no te abandona jamás y te dará la fuerza necesaria para perseverar con amor cada día.",
-  "copiado_de": "2026-11-23T09:36:58+01:00",
   "sincronia": {
-    "frases_oidas": 7,
-    "frases_por_pausas": [],
-    "cortes_sin_oir": [],
-    "ok": true
+    "frases_oidas": 5,
+    "frases_por_pausas": [
+      "At that time, Jesus said to his disciples:",
+      "The Gospel of the Lord."
+    ],
+    "cortes_sin_oir": [
+      "narrador"
+    ],
+    "ok": false
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1,
-  "no_publicar": "revisor: En el vídeo en inglés las palabras de Jesús (Lucas 21,12-18) las lee el narrador: solo la última frase va con la voz de Jesús, y falta la introducción «Jesus said to his disciples:»."
+  "cupo_agotado": [
+    "gemini-3.7-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview"
+  ]
 }
