@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-26",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-24T10:09:37+01:00",
+  "revisado": "2026-11-24T10:32:52+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave («Haverá sinais no sol, na lua e nas estrelas») no es el mismo pasaje que la del español («abrid los ojos y alzad la cabeza…») y solo describe un detalle; conviene alinearla.",
+    "En el fotograma de ~26 s la imagen está casi negra (muy oscurecida): se leen los subtítulos pero se pierde la imagen."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico al Figueiredo revisado (Lucas 21,20-28)",
+    "voces": "✅ Jesús en sus palabras, narrador en el resto",
+    "frase_clave": "⚠️ Literal y de Jesús, pero distinta de la del español y descriptiva",
+    "reflexion": "✅ 28 palabras, portugués de Brasil, doctrina correcta",
+    "tecnica": "✅ 106,5 s, -13,9 LUFS",
+    "audio": "✅ 7,1–14,5 c/s; más lento 'Palavra da Salvação.' (corto), más rápido fragmento 4 (14,5)",
+    "imagenes": "⚠️ Apropiadas; una casi negra",
+    "metadatos": "✅ Título en portugués, cita Lucas 21,20-28, karaoke"
+  }
+}
