@@ -14,7 +14,10 @@ import imagenes  # noqa: E402
 imagenes.PREFERIDOS = ["gemini-2.5-flash-image"]
 salida = RAIZ / "rosario" / "pinturas"
 salida.mkdir(exist_ok=True)
-escenas = json.loads((RAIZ / "rosario" / "escenas_dolorosos.json").read_text(encoding="utf-8"))["escenas"]
+datos = json.loads((RAIZ / "rosario" / "escenas_dolorosos.json").read_text(encoding="utf-8"))
+if datos.get("estilo"):  # la Pasión pide un tono solemne, no la ternura alegre del estilo del canal
+    imagenes.ESTILO_OLEO = datos["estilo"]
+escenas = [e for e in datos["escenas"] if not datos.get("repintar") or e["id"] in datos["repintar"]]
 hechas = 0
 for e in escenas:
     destino = salida / f"dolorosos_{e['id']}.jpg"

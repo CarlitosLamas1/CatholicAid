@@ -24,14 +24,14 @@
   },
   {
    "id": "2a",
-   "escena": "The Scourging, shown with reverence and dignity: Jesus (exactly as in his reference image), in a simple loincloth and with his tunic set aside, stands bound with ropes to a low stone column in a Roman courtyard, head bowed in silent patience, a ray of light falling on him. No blood, no wounds, no soldiers striking.",
+   "escena": "The Scourging, shown with reverence: Jesus (exactly as in his reference image) stands with his wrists tied by a rope to a low stone column, his back slightly bent, head bowed, eyes closed in silent, sorrowful patience; his tunic lies on the ground. Dim Roman courtyard, a single ray of light. Not smiling. No blood, no soldiers striking.",
    "refs": [
     "jesus"
    ]
   },
   {
    "id": "2b",
-   "escena": "Close view of the face of Jesus (exactly as in his reference image), eyes closed, patient and serene in suffering, a soft ray of light on his face, dark stone background. No blood, no wounds.",
+   "escena": "Close view of the face of Jesus (exactly as in his reference image) after the scourging: eyes lowered, brow marked by fatigue and sorrow, lips closed, an expression of silent suffering and love; dark stone background, a soft ray of light. Not smiling. No blood.",
    "refs": [
     "jesus"
    ]
@@ -50,7 +50,7 @@
   },
   {
    "id": "3b",
-   "escena": "Close view of Jesus (exactly as in his reference image) crowned with thorns, wearing a purple-red cloak, looking at the viewer with infinite gentleness, warm golden light. No blood.",
+   "escena": "Close view of Jesus (exactly as in his reference image) crowned with a crown of thorns, wearing a purple-red cloak, eyes lowered with deep sorrow and meekness, lips closed, solemn; dim light. Not smiling. No blood.",
    "refs": [
     "jesus"
    ]
@@ -64,21 +64,21 @@
   },
   {
    "id": "4a",
-   "escena": "The Way of the Cross: Jesus (exactly as in his reference image) carries a heavy wooden cross on his shoulder through a narrow stone street of Jerusalem, stooping under its weight, people watching from doorways. No blood.",
+   "escena": "The Way of the Cross: Jesus (exactly as in his reference image) carries a Latin cross (one tall vertical post with a single crossbar near the top), never X-shaped on his right shoulder, bent under its weight, face weary and sorrowful, through a narrow stone street of Jerusalem; people watch in silence. Not smiling. No blood.",
    "refs": [
     "jesus"
    ]
   },
   {
    "id": "4b",
-   "escena": "Simon of Cyrene, a strong countryman with a dark beard, helps Jesus (exactly as in his reference image) carry the wooden cross along a stone road outside the walls of Jerusalem. No blood.",
+   "escena": "Simon of Cyrene, a strong countryman with a dark beard, helps Jesus (exactly as in his reference image) carry a Latin cross (one tall vertical post with a single crossbar near the top), never X-shaped along a stone road outside the walls of Jerusalem; Jesus is exhausted and sorrowful. Not smiling. No blood.",
    "refs": [
     "jesus"
    ]
   },
   {
    "id": "4c",
-   "escena": "On the way to Calvary, Jesus (exactly as in his reference image), carrying the cross, meets his mother Mary (exactly as in her reference image); their eyes meet with immense love and sorrow, Mary's hand reaching towards him. No blood.",
+   "escena": "On the way to Calvary, Jesus (exactly as in his reference image), bent under a Latin cross (one tall vertical post with a single crossbar near the top), never X-shaped on his shoulder, meets his mother Mary (exactly as in her reference image) on a stone street; they look at each other with immense love and sorrow, Mary's hand reaching towards his face; both have tears in their eyes. Not smiling. No blood.",
    "refs": [
     "jesus",
     "maria"
@@ -86,7 +86,7 @@
   },
   {
    "id": "5a",
-   "escena": "The Crucifixion on Calvary under a darkened sky: Jesus (exactly as in his reference image) on the wooden cross, with his mother Mary (exactly as in her reference image) and the young apostle John standing at its foot, looking up with love. Reverent, no blood.",
+   "escena": "The Crucifixion on Calvary under a darkened sky: Jesus (exactly as in his reference image) hangs nailed on a Latin cross (one tall vertical post with a single crossbar near the top), never X-shaped, arms outstretched, head inclined; his mother Mary (exactly as in her reference image) and the young apostle John stand at its foot, looking up with sorrow and love. A blank wooden board at the top of the cross with no letters. Reverent, no blood.",
    "refs": [
     "jesus",
     "maria"
@@ -94,7 +94,7 @@
   },
   {
    "id": "5b",
-   "escena": "Close view of Jesus (exactly as in his reference image) on the cross, head gently inclined, eyes closed in peace, light breaking through dark clouds behind him. Reverent, no blood.",
+   "escena": "Close view of Jesus (exactly as in his reference image) hanging on a Latin cross (one tall vertical post with a single crossbar near the top), never X-shaped, arms outstretched along the crossbar, head gently inclined to one side, eyes closed in peace at the moment of his death; light breaking through dark clouds behind. Reverent, solemn, no blood, no letters.",
    "refs": [
     "jesus"
    ]
@@ -104,5 +104,16 @@
    "escena": "Calvary at dusk: three crosses on the hill seen from a distance, silhouetted against a sky of deep red and gold with rays of light breaking through the clouds, quiet and solemn.",
    "refs": []
   }
- ]
+ ],
+ "repintar": [
+  "2a",
+  "2b",
+  "3b",
+  "4a",
+  "4b",
+  "4c",
+  "5a",
+  "5b"
+ ],
+ "estilo": "Devotional fine-art oil painting with visible, expressive brushstrokes, solemn and contemplative, reverent sorrow and deep love, warm but subdued golden light in deep shadows, rich muted colors (deep red, ochre, cream, dark blue). Faces are serious and grave, never smiling."
 }
