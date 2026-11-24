@@ -37,7 +37,7 @@ def retirar(vid, lista):
     items = ev.http(ev.YT + f"playlistItems?part=snippet&maxResults=50&playlistId={lista}", headers=h)["items"]
     for it in items:
         if it["snippet"]["resourceId"]["videoId"] == vid:
-            ev.http(ev.YT + f"playlistItems?id={it['id']}", None, h, method="DELETE")
+            ev.http(ev.YT + f"playlistItems?id={it['id']}", None, h, method="DELETE", raw=True)  # 204 sin cuerpo
     print(f"   retirado {vid}: privado sin fecha y fuera de la lista", flush=True)
 
 
@@ -63,6 +63,12 @@ for r in subir.PLAN["rosarios"]:
     reg = {"clave": r["clave"], "id": vid, **meta["status"]}
     reg["lista"] = ev.anadir_a_lista(tok, subir.LISTA[0], subir.LISTA[1], vid, "es")
     reg["miniatura"] = ev.subir_miniatura(tok, vid, ARCH / f"miniatura_{r['clave']}.jpg")
-    retirar(VIEJOS[r["clave"]], lista)
+    try:
+        retirar(VIEJOS[r["clave"]], lista)
+    except Exception as e:  # el nuevo ya está: que se vea el fallo para retirar el viejo a mano
+        print(f"   ¡OJO! No pude retirar {VIEJOS[r['clave']]}: {e}", flush=True)
+        reg["retirar_falla"] = str(e)
     resultado.append(reg)
 print(json.dumps(resultado, ensure_ascii=False, indent=1))
+if any("retirar_falla" in r for r in resultado):
+    sys.exit(1)
