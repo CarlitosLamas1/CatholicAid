@@ -120,12 +120,20 @@
     ],
     "ok": false
   },
-  "revision": "pendiente",
+  "revision": "ok",
   "rehechos": 1,
   "cupo_agotado": [
     "gemini-3.7-flash"
   ],
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
-  ]
+  ],
+  "youtube": {
+    "id": "SroRlhJcQh0",
+    "url": "https://youtu.be/SroRlhJcQh0",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-25T06:30:00Z"
+  }
 }
