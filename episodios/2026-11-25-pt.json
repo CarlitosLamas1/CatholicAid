@@ -118,7 +118,7 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente",
+  "revision": "ok",
   "rehechos": 1,
   "cupo_agotado": [
     "gemini-3.7-flash"
@@ -128,5 +128,13 @@
   ],
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview (pago)"
-  ]
+  ],
+  "youtube": {
+    "id": "I830FShQSrQ",
+    "url": "https://youtu.be/I830FShQSrQ",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-25T06:30:00Z"
+  }
 }
