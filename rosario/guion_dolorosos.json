@@ -1,0 +1,236 @@
+{
+ "_nota": "Rosario: misterios dolorosos (24/11/2026). Guía: voz de Jesús (Enceladus). Responde: Sulafat, elegida por Carlos. Lecturas breves del Torres Amat (1836) con ortografía actual; quitada la glosa «u Osario»; sujeto añadido al empezar a mitad de frase (Jesús, Los soldados). Ya grabadas en la muestra: cruz, pn_a, av_a1-5, gl_a, oj; av_b1 = prueba de la voz 1.",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "misterios": [
+  {
+   "orden": "Primer",
+   "nombre": "La oración de Jesús en el huerto",
+   "fruto": "el dolor de nuestros pecados",
+   "cita": "Lucas 22, 41-44"
+  },
+  {
+   "orden": "Segundo",
+   "nombre": "La flagelación del Señor",
+   "fruto": "la mortificación de los sentidos",
+   "cita": "Juan 19, 1"
+  },
+  {
+   "orden": "Tercer",
+   "nombre": "La coronación de espinas",
+   "fruto": "la humildad",
+   "cita": "Mateo 27, 28-29"
+  },
+  {
+   "orden": "Cuarto",
+   "nombre": "Jesús con la cruz a cuestas camino del Calvario",
+   "fruto": "la paciencia en las pruebas",
+   "cita": "Juan 19, 16-17"
+  },
+  {
+   "orden": "Quinto",
+   "nombre": "La crucifixión y muerte de Jesús",
+   "fruto": "la perseverancia en el amor",
+   "cita": "Lucas 23, 33-34. 46"
+  }
+ ],
+ "piezas": [
+  {
+   "id": "credo_a",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Creo en Dios, Padre todopoderoso, Creador del cielo y de la tierra. Creo en Jesucristo, su único Hijo, nuestro Señor, que fue concebido por obra y gracia del Espíritu Santo, nació de santa María Virgen, padeció bajo el poder de Poncio Pilato, fue crucificado, muerto y sepultado, descendió a los infiernos, al tercer día resucitó de entre los muertos, subió a los cielos y está sentado a la derecha de Dios, Padre todopoderoso. Desde allí ha de venir a juzgar a vivos y muertos."
+  },
+  {
+   "id": "credo_b",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Creo en el Espíritu Santo, la santa Iglesia católica, la comunión de los santos, el perdón de los pecados, la resurrección de la carne y la vida eterna. Amén."
+  },
+  {
+   "id": "anuncio1",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Primer misterio doloroso: la oración de Jesús en el huerto."
+  },
+  {
+   "id": "lectura1",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida y serena, que proclama el Evangelio con reverencia y ternura, ritmo pausado, acento de España",
+   "texto": "Jesús, apartándose de ellos como la distancia de un tiro de piedra, hincadas las rodillas, hacía oración, diciendo: “Padre mío, si es de tu agrado, aleja de mí este cáliz; no obstante, no se haga mi voluntad, sino la tuya”. En esto se le apareció un ángel del cielo, confortándole. Y entrando en agonía, oraba con mayor intensión. Y le vino un sudor como de gotas de sangre que chorreaba hasta el suelo."
+  },
+  {
+   "id": "anuncio2",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Segundo misterio doloroso: la flagelación del Señor."
+  },
+  {
+   "id": "lectura2",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida y serena, que proclama el Evangelio con reverencia y ternura, ritmo pausado, acento de España",
+   "texto": "Tomó entonces Pilato a Jesús, y mandó azotarle."
+  },
+  {
+   "id": "anuncio3",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Tercer misterio doloroso: la coronación de espinas."
+  },
+  {
+   "id": "lectura3",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida y serena, que proclama el Evangelio con reverencia y ternura, ritmo pausado, acento de España",
+   "texto": "Los soldados, desnudándole, le cubrieron con un manto de grana; y entretejiendo una corona de espinas, se la pusieron sobre la cabeza, y una caña por cetro en su mano derecha. Y con la rodilla hincada en tierra, le escarnecían, diciendo: “Dios te salve, rey de los judíos”."
+  },
+  {
+   "id": "anuncio4",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Cuarto misterio doloroso: Jesús con la cruz a cuestas camino del Calvario."
+  },
+  {
+   "id": "lectura4",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida y serena, que proclama el Evangelio con reverencia y ternura, ritmo pausado, acento de España",
+   "texto": "Se apoderaron, pues, de Jesús, y le sacaron fuera. Y llevando él mismo a cuestas su cruz, fue caminando hacia el sitio llamado el Calvario, y en hebreo Gólgota."
+  },
+  {
+   "id": "anuncio5",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Quinto misterio doloroso: la crucifixión y muerte de Jesús."
+  },
+  {
+   "id": "lectura5",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida y serena, que proclama el Evangelio con reverencia y ternura, ritmo pausado, acento de España",
+   "texto": "Llegados que fueron al lugar llamado Calvario, allí le crucificaron, y con él a los ladrones, uno a la diestra y otro a la izquierda. Entre tanto Jesús decía: “Padre mío, perdónales, porque no saben lo que hacen”. Entonces Jesús, clamando con una voz muy grande, dijo: “Padre mío, en tus manos encomiendo mi espíritu”. Y diciendo esto, expiró."
+  },
+  {
+   "id": "av_a6",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+  },
+  {
+   "id": "av_a7",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+  },
+  {
+   "id": "av_a8",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+  },
+  {
+   "id": "av_a9",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+  },
+  {
+   "id": "av_a10",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+  },
+  {
+   "id": "av_b2",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "av_b3",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "av_b4",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "av_b5",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "av_b6",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "av_b7",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "av_b8",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "av_b9",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "pn_b1",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén."
+  },
+  {
+   "id": "pn_b2",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén."
+  },
+  {
+   "id": "gl_b1",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."
+  },
+  {
+   "id": "gl_b2",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."
+  },
+  {
+   "id": "salve_a",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Dios te salve, Reina y Madre de misericordia, vida, dulzura y esperanza nuestra; Dios te salve. A ti llamamos los desterrados hijos de Eva; a ti suspiramos, gimiendo y llorando en este valle de lágrimas. Ea, pues, Señora, abogada nuestra, vuelve a nosotros esos tus ojos misericordiosos; y después de este destierro muéstranos a Jesús, fruto bendito de tu vientre. ¡Oh clementísima, oh piadosa, oh dulce Virgen María!"
+  },
+  {
+   "id": "ruega_a",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "Ruega por nosotros, santa Madre de Dios,"
+  },
+  {
+   "id": "ruega_b",
+   "voz": "Sulafat",
+   "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+   "texto": "para que seamos dignos de alcanzar las promesas de nuestro Señor Jesucristo. Amén."
+  },
+  {
+   "id": "cruz_fin",
+   "voz": "Enceladus",
+   "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+   "texto": "En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén."
+  }
+ ]
+}
