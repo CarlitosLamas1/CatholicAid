@@ -2807,7 +2807,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         # Se rehace un vídeo ya subido (p. ej. para mejorarlo): al subir el nuevo, «Publicar revisado» borra el viejo
         registro["reemplaza"] = hecho["youtube"]["id"]
     for k in ("rehechos", "descartados", "repintar", "repintados", "musica_bloqueada", "rehecho_por_es",
-              "frases_descartadas"):  # historial de versiones anteriores del mismo día
+              "frases_descartadas", "reintentos"):  # historial de versiones anteriores del mismo día
         if k in hecho:
             registro[k] = hecho[k]
 

@@ -99,6 +99,10 @@ def estado_futuro(fecha, idioma):
     if reg.get("no_publicar"):
         motivo = (rev.get("motivos") or [""])[0]
         return "⛔", "NO se publicará" + (f": {e(motivo[:120])}" if motivo else ""), True
+    if reg.get("reintentar_desde"):
+        motivo = (rev.get("motivos") or [""])[0]
+        return "🔁", f"rechazado; se vuelve a intentar el {e(reg['reintentar_desde'][8:])}" + (
+            f" ({e(motivo[:100])})" if motivo else ""), False
     if reg.get("estado") == "fallido":
         return "🔁", "falló al crearse; el reloj lo reintenta solo", False
     if reg.get("revision") == "rechazada":  # también si ya había una versión subida: se está rehaciendo otra
@@ -194,6 +198,12 @@ def componer(ahora):
 
     pago = [f"{NOMBRES[x].lower()}" for f in (manana, pasado) for x in idiomas()
             if leer(f"episodios/{nombre(f, x)}.json").get("reserva_pago")]
+
+    # Textos de los próximos 7 días incompletos (proceso/comprobar_textos.py, dentro del mantenimiento): la rutina
+    # «Revisor diario» los completa; si alguno es para mañana, ya no da tiempo a que lo haga sola.
+    for p in leer("estado/textos.json").get("problemas") or []:
+        aviso = f"{BANDERAS.get(p['idioma'], '')} texto del {e(fecha_txt(dt.date.fromisoformat(p['fecha'])))} ({e(p['cita'])}): {e(p['motivo'][:120])}"
+        (necesita if p["fecha"] <= str(manana) else arreglando).append(aviso)
 
     # Vídeos de YouTube que no están en ningún registro (posible subida duplicada): los encuentra «Mantenimiento»
     sobran = leer("estado/mantenimiento.json").get("sobrantes") or []

@@ -58,7 +58,11 @@ except Exception:
     DIAS_MARGEN = 2
 
 
-def hecho_reg(reg):
+def hecho_reg(reg, hoy=None):
+    """Un vídeo rechazado dos veces con margen (reintentar_desde, publicar.py) cuenta como hecho hasta ese día; desde
+    ese día falta otra vez y se graba de nuevo (24/11/2026)."""
+    if reg.get("modo") == "diario" and reg.get("reintentar_desde") and not reg.get("no_publicar"):
+        return str(hoy or dt.datetime.now(MADRID).date()) < reg["reintentar_desde"]
     return reg.get("modo") == "diario" and bool(
         reg.get("youtube") or reg.get("revision") in ("pendiente", "ok") or reg.get("no_publicar"))
 

@@ -150,13 +150,21 @@ def copia_de_seguridad(hoy):
     return {"archivos": n, "megas": round(megas, 1), "enviada": bool(ok)}
 
 
+def comprobar_textos():
+    """Textos de los próximos 7 días completos en los tres idiomas (proceso/comprobar_textos.py -> estado/textos.json)."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import comprobar_textos as ct
+    return len(ct.main())
+
+
 def main():
     hoy = dt.datetime.now(MADRID).date()
     estado = {"fecha": str(hoy)}
     for clave, paso in (("releases_borradas", lambda: limpiar_releases(hoy)),
                         ("imagenes_archivadas", lambda: archivar_imagenes(hoy)),
                         ("fotogramas_borrados", lambda: borrar_fotogramas(hoy)),
-                        ("sobrantes", buscar_sobrantes)):
+                        ("sobrantes", buscar_sobrantes),
+                        ("textos_con_problemas", comprobar_textos)):
         try:
             estado[clave] = paso()
         except Exception as ex:

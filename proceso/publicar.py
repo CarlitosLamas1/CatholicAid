@@ -11,7 +11,9 @@ Lee la revisión del día (revisiones/AAAA-MM-DD.json, la escribe la rutina «Re
 - OK  -> sube a YouTube el vídeo de la release tiktok-AAAA-MM-DD, programado a la hora_publicacion (Madrid, config), y lo añade
          a la lista del evangelista. TikTok lo publica a esa hora (tiktok-publicar.yml / Reloj) porque hay OK.
 - No OK -> la primera vez rehace el vídeo (evangelio-diario) para que el revisor lo vuelva a mirar;
-           la segunda, no se publica (no_publicar en el registro, se borra la release) y se avisa a Carlos.
+           la segunda, si faltan más de 24 h para publicarlo, se vuelve a intentar al día siguiente (reintentar_desde,
+           como mucho MAX_REINTENTOS días; el Reloj lo graba de nuevo); si no queda margen, no se publica (no_publicar
+           en el registro, se borra la release) y se avisa a Carlos.
 Si el registro tiene «no_publicar» (⛔ o /pausa), no se publica nada aunque haya OK.
 Si el revisor pide «repintar» escenas (imágenes mejorables), se borran, se rehace el vídeo una vez y se revisa de nuevo.
 Nunca cambia el texto del Evangelio.
@@ -30,6 +32,7 @@ import evangelio as ev_mod  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
 MAX_REHECHOS = 1
+MAX_REINTENTOS = 2  # días extra que se vuelve a intentar un vídeo rechazado dos veces, si queda margen (24/11/2026)
 
 
 def log(*a):
@@ -100,6 +103,21 @@ def da_tiempo(fecha, idioma="es", horas=3):
     """Quedan más de «horas» para la hora de publicación de ese día: da tiempo a rehacer y revisar otra vez."""
     publica = dt.datetime.combine(dt.date.fromisoformat(fecha), ev_mod.hora_pub(idioma), ev_mod.MADRID)
     return dt.datetime.now(ev_mod.MADRID) <= publica - dt.timedelta(hours=horas)
+
+
+def reintentar_otro_dia(fecha, idioma, reg, ahora=None):
+    """Rechazado dos veces: si faltan más de 24 h para publicarlo, no se da por perdido (24/11/2026: el portugués del
+    24 se rechazó el 22 con dos días de margen y quedó en «no publicar» para siempre). Se marca para que el Reloj lo
+    grabe de nuevo al día siguiente, como mucho MAX_REINTENTOS veces. Devuelve True si lo ha marcado."""
+    ahora = ahora or dt.datetime.now(ev_mod.MADRID)
+    publica = dt.datetime.combine(dt.date.fromisoformat(fecha), ev_mod.hora_pub(idioma), ev_mod.MADRID)
+    n = reg.get("reintentos", 0)
+    if n >= MAX_REINTENTOS or ahora > publica - dt.timedelta(hours=24):
+        return False
+    reg["revision"] = "rechazada"
+    reg["reintentos"] = n + 1
+    reg["reintentar_desde"] = str(ahora.date() + dt.timedelta(days=1))
+    return True
 
 
 def pedir_otra_frase(fecha, idioma, reg, rev):
@@ -218,6 +236,9 @@ def main():
     if reg.get("no_publicar"):
         log(f"El {fecha} está marcado para no publicar ({reg['no_publicar']}).")
         return
+    if reg.get("reintentar_desde"):
+        log(f"El {nombre} se vuelve a intentar el {reg['reintentar_desde']}; nada que aplicar hasta entonces.")
+        return
     if not rev:
         log(f"El {fecha} aún no está revisado.")
         return
@@ -263,6 +284,15 @@ def main():
             avisos.enviar(f"🔎 {lengua} · El revisor no ha aprobado el vídeo del <b>{avisos.e(cuando)}</b>:\n"
                           + "\n".join(f"• {avisos.e(m)}" for m in motivos)
                           + "\n\n🔁 Lo rehago solo y el revisor lo vuelve a mirar. No tienes que hacer nada.")
+        elif reintentar_otro_dia(fecha, idioma, reg):
+            guardar(ruta_reg, reg)
+            sh("gh", "release", "delete", release, "--yes", "--cleanup-tag", check=False)
+            dia = avisos.fecha_txt(dt.date.fromisoformat(reg["reintentar_desde"]))
+            log(f"Revisión no OK por segunda vez, pero hay margen: el {nombre} se vuelve a intentar el {reg['reintentar_desde']}.")
+            avisos.enviar(f"🔎 {lengua} · El vídeo del <b>{avisos.e(cuando)}</b> sigue sin aprobarse tras rehacerlo:\n"
+                          + "\n".join(f"• {avisos.e(m)}" for m in motivos)
+                          + f"\n\n🔁 Como aún quedan días, lo vuelvo a intentar solo el <b>{avisos.e(dia)}</b>."
+                          " El gestor lo revisará. No tienes que hacer nada.")
         else:
             reg["revision"] = "rechazada"
             reg["no_publicar"] = "revisor: " + "; ".join(motivos)[:300]
