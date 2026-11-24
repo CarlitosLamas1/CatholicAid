@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-26",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-24T10:04:10+01:00",
+  "revisado": "2026-11-24T10:32:52+01:00",
+  "motivos": [],
+  "avisos": [
+    "La lectura empieza con «At that time,» sin nombrar a Jesús (la WEB no trae introducción); se entiende por la voz de Jesús, pero es mejorable.",
+    "La imagen de pan partido acompaña «times of the Gentiles»: algo desconectada de la escena (imagen compartida con el español)."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a la WEB (Lucas 21,20-28)",
+    "voces": "✅ Jesús en los 3 fragmentos de sus palabras, narrador en el resto",
+    "frase_clave": "✅ Literal, de Jesús, 11 palabras, coherente con el español",
+    "reflexion": "✅ 28 palabras, doctrina correcta",
+    "tecnica": "✅ 97,5 s, -14,0 LUFS",
+    "audio": "✅ 8,4–17,3 c/s; el más lento 'The Gospel of the Lord.' (8,4, corto), el más rápido 3º (17,3)",
+    "imagenes": "⚠️ Coherentes y devocionales; pan partido algo ajeno a la escena",
+    "metadatos": "✅ Título del evangelista, cita en formato inglés, gancho 5 s, karaoke"
+  }
+}
