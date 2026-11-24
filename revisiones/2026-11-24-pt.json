@@ -1,24 +1,23 @@
 {
   "fecha": "2026-11-24",
-  "idioma": "pt",
-  "ok": false,
+  "ok": true,
   "por": "revisor",
-  "generado": "2026-11-22T11:42:16+01:00",
-  "revisado": "2026-11-22T12:32:59+01:00",
-  "motivos": [
-    "El texto del vídeo en portugués sigue incompleto tras rehacerlo: termina en Lucas 21,9 y faltan los versículos 10-11 («Então lhes dizia: Uma nação se levantará contra outra nação…»), aunque la cita anuncia Lucas 21,5-11."
-  ],
+  "generado": "2026-11-24T08:14:40+01:00",
+  "revisado": "2026-11-24T08:33:05+01:00",
+  "motivos": [],
   "avisos": [
-    "Fallo probable del código: biblia/figueiredo/revisada/lucas.json tiene 21,10-11, pero el vídeo en portugués los deja fuera por segunda vez (duración 70 s frente a 90 s del español). Conviene que el gestor revise cómo se arma texto_evangelio en portugués."
+    "En el fotograma de los 9 s la pantalla sale negra (solo se ven la cabecera y la cita); puede ser el momento de la imagen del evangelista, conviene mirarlo si Carlos ve el vídeo.",
+    "La frase clave es corta y algo genérica, pero se entiende sola."
   ],
   "puntos": {
-    "fidelidad": "❌ Los fragmentos coinciden con texto_evangelio, pero este solo cubre 21,5-9; faltan 21,10-11.",
-    "voces": "✅ Jesús, apóstol y narrador correctos.",
-    "frase_clave": "✅ Literal, de Jesús, 5 palabras, coincide con el español.",
-    "reflexion": "✅ Portugués de Brasil, tratamiento «você», doctrina correcta.",
-    "tecnica": "✅ 70,4 s, -14,0 LUFS, karaoke activo, sincronía ok.",
-    "audio": "✅ Largos 10,8–14,4 c/s; más rápido apóstol 17,6. Sin anomalías.",
-    "imagenes": "✅ Reutiliza las del español.",
-    "metadatos": "✅ Cita Lucas 21,5-11 y título São Lucas coherentes."
-  }
+    "fidelidad": "✅ Lucas 21,5-11 completo e idéntico al texto revisado (arreglo del final de capítulo funcionó)",
+    "voces": "✅ Jesus, apóstolo y narrador bien repartidos",
+    "frase_clave": "✅ literal, de Jesús, 5 palabras",
+    "reflexion": "✅ portugués de Brasil, 'você', 27 palabras, doctrina correcta",
+    "tecnica": "✅ 88,9 s; LUFS -14,0; audio 7,3 c/s en 'Palavra da Salvação' (2,8 s, normal) y 10,6–17,6 en el resto; más lento largo 11,0, más rápido 17,6",
+    "audio": "✅ sin anomalías",
+    "imagenes": "✅ acuarela devocional coherente; Jesús igual en todas; sin defectos graves",
+    "metadatos": "✅ cita 'Lucas 21,5-11', título de São Lucas, karaoke activo"
+  },
+  "idioma": "pt"
 }
