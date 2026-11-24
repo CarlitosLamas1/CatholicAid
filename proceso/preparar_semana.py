@@ -7,7 +7,7 @@
 import datetime as dt
 import json
 
-from evangelio import MADRID, RAIZ, cargar_libro, cargar_web, log, obtener_evangelio
+from evangelio import MADRID, RAIZ, capitulos_de, cargar_libro, cargar_web, log, obtener_evangelio
 
 ruta = RAIZ / "biblia" / "citas.json"
 citas = json.loads(ruta.read_text(encoding="utf-8")) if ruta.exists() else {}
@@ -17,7 +17,7 @@ for i in range(1, 11):
     try:
         ev = obtener_evangelio(fecha)
         citas[str(fecha)] = ev["cita"]
-        cargar_libro(ev["cita"].split()[0])
+        cargar_libro(ev["cita"].split()[0], capitulos_de(ev["cita"]))  # añade el capítulo que falte (el 1)
         try:
             cargar_web(ev["cita"].split()[0])
         except Exception as e:  # el inglés nunca impide lo del español

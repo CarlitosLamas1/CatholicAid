@@ -38,6 +38,12 @@ class Capitulos(unittest.TestCase):
         self.assertEqual(junto["1"]["1"], "nuevo")
 
 
+    def test_capitulos_de_la_cita(self):
+        self.assertEqual(ev.capitulos_de("Lucas 1, 26-38"), {1})
+        self.assertEqual(ev.capitulos_de("Mateo 26, 14-27, 66"), {26, 27})
+        self.assertEqual(ev.capitulos_de("Juan 20, 1-2. 11-18"), {20})
+
+
 class Rosario(unittest.TestCase):
     def test_misterios_por_dia(self):
         f = dt.date(2026, 11, 23)  # lunes

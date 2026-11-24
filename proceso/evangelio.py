@@ -329,14 +329,14 @@ def completar_capitulos(guardado, descargado):
     return {**guardado, **nuevos}, sorted(nuevos, key=int)
 
 
-def cargar_libro(libro):
+def cargar_libro(libro, necesarios=()):
     """Evangelio de Torres Amat (1836) desde Wikisource; se guarda en biblia/torres-amat/.
-    Si al guardado le falta el capítulo 1 (lectura antigua, ver numero_capitulo), se descarga y se añade solo lo que
-    falta; el resto queda igual."""
+    Si al guardado le falta un capítulo que hace falta (el 1, por la lectura antigua: ver numero_capitulo), se
+    descarga y se añade solo lo que falta; el resto queda igual. Sin «necesarios», no se descarga nada."""
     ruta = RAIZ / "biblia" / "torres-amat" / f"{libro.lower()}.json"
     if ruta.exists():
         datos = json.loads(ruta.read_text(encoding="utf-8"))
-        if "1" in datos:
+        if all(str(c) in datos for c in necesarios):
             return datos
         try:
             datos, nuevos = completar_capitulos(datos, descargar_torres_amat(libro))
@@ -431,9 +431,16 @@ def texto_revisado(fuente):
     return "versión revisada" in (fuente or "")
 
 
+def capitulos_de(cita):
+    """'Lucas 1, 26-38' -> {1} · 'Mateo 26, 14-27, 66' -> {26, 27}"""
+    resto = re.sub(r"^\s*[1-3]?\s?\w+\s+", "", cita)
+    return {int(c) for c in re.findall(r"(\d+)\s*,", resto)}
+
+
 def texto_torres_amat(cita):
-    return texto_biblia(cita, cargar_libro, RAIZ / "biblia" / "revisada", ortografia, "En aquel tiempo,", NOMBRES,
-                        "Torres Amat (1836)")
+    caps = capitulos_de(cita)
+    return texto_biblia(cita, lambda libro: cargar_libro(libro, caps), RAIZ / "biblia" / "revisada", ortografia,
+                        "En aquel tiempo,", NOMBRES, "Torres Amat (1836)")
 
 
 def texto_web(cita):
