@@ -4,7 +4,7 @@ name: "Muestra del Rosario (escuchar)"
 on:
   push:
     branches: [muestra-rosario]
-    paths: ["rosario/oir/**"]
+    paths: ["rosario/oir/**", ".github/workflows/muestra-oir.yml"]
 
 permissions:
   contents: read
@@ -26,12 +26,15 @@ jobs:
         run: |
           pip install -q --timeout 120 faster-whisper
           python3 - <<'PY'
-          import glob
+          import glob, subprocess
+          import numpy as np
           from faster_whisper import WhisperModel
           m = WhisperModel("small", device="cpu", compute_type="int8")
           for f in sorted(glob.glob("rosario/oir/*.ogg")):
               print("=====", f)
-              segs, _ = m.transcribe(f, language="es", word_timestamps=False)
+              crudo = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", f, "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
+                                     capture_output=True, check=True).stdout
+              segs, _ = m.transcribe(np.frombuffer(crudo, dtype=np.float32), language="es")
               for s in segs:
                   print(f"[{s.start:6.2f}-{s.end:6.2f}] {s.text.strip()}")
           PY
