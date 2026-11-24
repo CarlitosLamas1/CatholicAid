@@ -1,0 +1,37 @@
+name: "Rosario: subir a YouTube"
+
+# Sube los cuatro rosarios (release rosario-videos) al canal en español, programados, con lista y miniatura.
+# No repite: si ya hay en el canal un vídeo con el mismo título, lo salta.
+on:
+  push:
+    branches: [muestra-rosario]
+    paths: ["rosario/subir/plan.json"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rosario-subir
+  cancel-in-progress: false
+
+jobs:
+  subir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar vídeos y miniaturas
+        run: gh release download rosario-videos -R "$GITHUB_REPOSITORY" -D rosario/subir/archivos
+      - name: Subir
+        run: python3 rosario/subir/subir.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resultado-subida
+          path: rosario/subir/resultado.json
+          if-no-files-found: ignore
