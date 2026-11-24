@@ -1,0 +1,132 @@
+{
+  "fecha": "2026-11-26",
+  "modo": "diario",
+  "cita": "Lucas 21,20-28",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/26.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.7-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 106.5,
+  "imagenes": [
+    "dias/2026-11-26_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-26_e1.jpg",
+    "biblioteca/D04",
+    "biblioteca/D02",
+    "dias/2026-11-26_e2.jpg",
+    "biblioteca/D10",
+    "dias/2026-11-26_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R02",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Haverá sinais no sol, na lua e nas estrelas",
+  "reflexion": "Mesmo que veja dificuldades ao seu redor, não perca a esperança nem se deixe levar pelo medo. Cristo vem salvar você; confia hoje no seu amor e na sua presença?",
+  "lufs": -13.9,
+  "gancho_segundos": 4.2,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-26-pt.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus sits on the Mount of Olives outdoors, speaking with serene gravity to his attentive disciples about the coming events in Jerusalem.",
+      "busqueda": "Mount of Olives",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Dramatic luminous phenomena in the sky around the sun and moon above a turbulent sea, while a crowd gazes upward in awe.",
+      "busqueda": "signs in sky",
+      "personajes": [
+        "multitud"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The Son of Man descending upon soft glowing clouds in heavenly majesty, extending a welcoming hand of hope towards the viewer.",
+      "busqueda": "Son of Man",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
+  "texto_evangelio": "Naquele tempo, Jesus disse aos seus discípulos: “Quando vocês virem Jerusalém cercada de exércitos, saibam que a sua destruição está próxima. Então, os que estiverem na Judeia fujam para os montes; os que estiverem no meio da cidade saiam dela; e os que estiverem nos campos não voltem para a cidade. Porque esses são dias de vingança, para que se cumpra tudo o que está escrito. Ai das mulheres que estiverem grávidas ou amamentando nesses dias! Porque haverá grande aflição sobre a terra e ira contra este povo. Cairão ao fio da espada e serão levados cativos para todas as nações; e Jerusalém será pisada pelas nações, até que se cumpram os tempos das nações. Haverá sinais no sol, na lua e nas estrelas; e, na terra, angústia entre as nações, perplexas com o bramido do mar e das ondas. Os homens definharão de medo, na expectativa do que vai sobrevir a todo o mundo, porque as forças do céu serão abaladas. Então verão o Filho do Homem vindo numa nuvem, com grande poder e majestade. Quando começarem a acontecer essas coisas, levantem-se e ergam a cabeça, porque a redenção de vocês está próxima”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.8,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 9.88,
+      "texto": "Naquele tempo, Jesus disse aos seus discípulos:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 13.48,
+      "texto": "“Quando vocês virem Jerusalém cercada de exércitos, saibam que a sua destruição está próxima. Então, os que estiverem na Judeia fujam para os montes; os que estiverem no meio da cidade saiam dela; e os que estiverem nos campos não voltem para a cidade. Porque esses são dias de vingança, para que se cumpra tudo o que está escrito. Ai das mulheres que estiverem grávidas ou amamentando nesses dias! Porque haverá grande aflição sobre a terra e ira contra este povo. Cairão ao fio da espada e serão levados cativos para todas as nações; e Jerusalém será pisada pelas nações, até que se cumpram os tempos das nações."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 57.16,
+      "texto": "Haverá sinais no sol, na lua e nas estrelas; e, na terra, angústia entre as nações, perplexas com o bramido do mar e das ondas. Os homens definharão de medo, na expectativa do que vai sobrevir a todo o mundo, porque as forças do céu serão abaladas."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 74.48,
+      "texto": "Então verão o Filho do Homem vindo numa nuvem, com grande poder e majestade. Quando começarem a acontecer essas coisas, levantem-se e ergam a cabeça, porque a redenção de vocês está próxima”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 87.61,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 90.42,
+      "texto": "Mesmo que veja dificuldades ao seu redor, não perca a esperança nem se deixe levar pelo medo. Cristo vem salvar você; confia hoje no seu amor e na sua presença?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-24T10:09:37+01:00",
+  "run": "45360097823",
+  "idioma": "pt",
+  "libro": "Lucas",
+  "cita_es": "Lucas 21, 20-28",
+  "frase_es": "abrid los ojos y alzad la cabeza, porque vuestra redención se acerca.",
+  "reflexion_es": "Aunque veas dificultades a tu alrededor, no pierdas la esperanza ni te dejes llevar por el miedo. Cristo viene a salvarte, ¿confías hoy en su amor y en su presencia?",
+  "copiado_de": "2026-11-24T09:28:14+01:00",
+  "cupo_agotado": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "reserva_pago": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
