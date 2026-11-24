@@ -103,6 +103,12 @@ Cada día, un Short vertical con el **Evangelio del día** leído con varias voc
 - **Textos comprobados de antemano** (`proceso/comprobar_textos.py`, dentro del mantenimiento diario; sin red ni cupo): monta con el mismo código que el vídeo el texto de los próximos 7 días en los tres idiomas y comprueba que no falte nada y que acabe donde acaba la cita. Resultado en `estado/textos.json`; el parte lo dice (en «lo que te toca» si es para mañana, si no en «arreglándose solo») y la rutina «Revisor diario» completa lo que falte (PASO 4d).
 - **No rendirse con margen**: si el revisor rechaza un vídeo dos veces y faltan más de 24 h para publicarlo, `publicar.py` (`reintentar_otro_dia`) no lo marca `no_publicar`: apunta `reintentar_desde` (el día siguiente) y `reintentos`; el Reloj lo cuenta como hecho hasta ese día y entonces lo graba de nuevo. Como mucho `MAX_REINTENTOS` (2) días; sin margen, `no_publicar` como antes (`pruebas_codigo/prueba_reintento.py`).
 
+## Santo Rosario (en preparación desde el 24/11/2026, pedido por Carlos)
+- Vídeos largos horizontales (1920×1080, unos 27 min) con los cuatro rosarios: gozosos (lunes y sábado), dolorosos (martes y viernes), gloriosos (miércoles y domingo) y luminosos (jueves). Se suben UNA vez y quedan fijos; no se resube cada día (YouTube castiga el contenido repetido).
+- Formato aprobado por Carlos: pintura a la izquierda con zoom lento, texto grande a la derecha, cuentas que se encienden, música de la lista segura con la voz por encima, capítulos por misterio. Guía = voz de Jesús (Enceladus); responde la «voz 1» (Sulafat, elegida por Carlos); en las lecturas María habla con su voz (Gacrux). Lecturas BREVES (1–4 versículos, Torres Amat con ortografía actual): a Carlos la lectura entera le pareció demasiado larga.
+- Todo está en la rama `muestra-rosario` (guiones, escenas, pinturas, scripts y workflows; nunca fusionarla tal cual con main); el montaje se hace en local. Dolorosos terminado el 24/11 (~1 €).
+- **Al subirlos: meterlos en una lista de reproducción «Santo Rosario»** en cada canal (pedido por Carlos el 24/11/2026). Y que el Short diario enlace en su descripción al rosario del día.
+
 ## Coherencia entre idiomas (13/11/2026, pedido por Carlos)
 Inglés y portugués usan la MISMA frase clave (el mismo pasaje, copiado literal de su traducción) y la misma reflexión (traducida) que el vídeo en español del día (`frase_es`/`reflexion_es` en `gancho_y_reflexion`). Así el título y el gancho coinciden en los tres canales.
 
