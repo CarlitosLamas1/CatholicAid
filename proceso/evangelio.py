@@ -274,30 +274,34 @@ def ortografia(t):
     return re.sub(r"\w+", lambda m: ORTOGRAFIA.get(m.group(0), m.group(0)), t)
 
 
-def cargar_libro(libro):
-    """Evangelio de Torres Amat (1836) desde Wikisource; se guarda en biblia/torres-amat/."""
-    ruta = RAIZ / "biblia" / "torres-amat" / f"{libro.lower()}.json"
-    if ruta.exists():
-        return json.loads(ruta.read_text(encoding="utf-8"))
-    log(f"   Descargando {libro} (Torres Amat, 1836) de Wikisource")
-    url = ("https://es.wikisource.org/w/api.php?action=parse&format=json&formatversion=2&prop=text&page="
-           + urllib.parse.quote(f"La Sagrada Biblia (XIII)/{libro}"))
-    h = http(url)["parse"]["text"]
-    h = re.sub(r'<sup[^>]*class="reference"[\s\S]*?</sup>', "", h)
-    h = re.sub(r'<ol class="references"[\s\S]*?</ol>', "", h)
-    h = re.sub(r"<br\s*/?>|</p>|</div>|</dd>|</li>", "\n", h)
-    texto = html.unescape(re.sub(r"<[^>]+>", "", h)).replace("\xa0", " ")
+CAP_EN_LETRA = {"PRIMERO": 1, "SEGUNDO": 2, "TERCERO": 3, "CUARTO": 4, "QUINTO": 5}
+
+
+def numero_capitulo(linea):
+    """«CAPÍTULO XXI.» -> 21 · «CAPÍTULO PRIMERO.» -> 1 · otra línea -> None.
+    Wikisource escribe el primer capítulo en letra: hasta el 24/11/2026 solo se leían los romanos y faltaba el
+    capítulo 1 de los cuatro Evangelios (8/12 y 17-25/12 son Lucas 1, Mateo 1 y Juan 1)."""
+    m = re.match(r"CAP[IÍ]TULO\s+([IVXLC]+|" + "|".join(CAP_EN_LETRA) + r")\b", linea)
+    if not m:
+        return None
+    if m.group(1) in CAP_EN_LETRA:
+        return CAP_EN_LETRA[m.group(1)]
     romanos = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100}
+    d = [romanos[c] for c in m.group(1)]
+    return sum(-x if i + 1 < len(d) and x < d[i + 1] else x for i, x in enumerate(d))
+
+
+def leer_torres_amat(texto):
+    """Texto plano de la página de Wikisource -> {capítulo: {versículo: texto}}."""
     datos, cap, ver = {}, 0, None
     for linea in texto.split("\n"):
         linea = linea.strip()
         if not linea:
             continue
-        m = re.match(r"CAP[IÍ]TULO\s+([IVXLC]+)", linea)
-        if m:
-            d = [romanos[c] for c in m.group(1)]
-            cap = sum(-x if i + 1 < len(d) and x < d[i + 1] else x for i, x in enumerate(d))
-            datos[str(cap)], ver = {}, None
+        n = numero_capitulo(linea)
+        if n:
+            cap, ver = n, None
+            datos.setdefault(str(cap), {})
             continue
         m = re.match(r"^[^\w¿¡]*(\d+)\s+(.+)", linea)
         if cap and m:
@@ -305,6 +309,45 @@ def cargar_libro(libro):
             datos[str(cap)][ver] = m.group(2).strip()
         elif cap and ver:
             datos[str(cap)][ver] += " " + linea
+    return datos
+
+
+def descargar_torres_amat(libro):
+    log(f"   Descargando {libro} (Torres Amat, 1836) de Wikisource")
+    url = ("https://es.wikisource.org/w/api.php?action=parse&format=json&formatversion=2&prop=text&page="
+           + urllib.parse.quote(f"La Sagrada Biblia (XIII)/{libro}"))
+    h = http(url)["parse"]["text"]
+    h = re.sub(r'<sup[^>]*class="reference"[\s\S]*?</sup>', "", h)
+    h = re.sub(r'<ol class="references"[\s\S]*?</ol>', "", h)
+    h = re.sub(r"<br\s*/?>|</p>|</div>|</dd>|</li>", "\n", h)
+    return leer_torres_amat(html.unescape(re.sub(r"<[^>]+>", "", h)).replace("\xa0", " "))
+
+
+def completar_capitulos(guardado, descargado):
+    """Añade a lo guardado SOLO los capítulos que faltan; nunca cambia uno que ya está."""
+    nuevos = {c: v for c, v in descargado.items() if c not in guardado and v}
+    return {**guardado, **nuevos}, sorted(nuevos, key=int)
+
+
+def cargar_libro(libro):
+    """Evangelio de Torres Amat (1836) desde Wikisource; se guarda en biblia/torres-amat/.
+    Si al guardado le falta el capítulo 1 (lectura antigua, ver numero_capitulo), se descarga y se añade solo lo que
+    falta; el resto queda igual."""
+    ruta = RAIZ / "biblia" / "torres-amat" / f"{libro.lower()}.json"
+    if ruta.exists():
+        datos = json.loads(ruta.read_text(encoding="utf-8"))
+        if "1" in datos:
+            return datos
+        try:
+            datos, nuevos = completar_capitulos(datos, descargar_torres_amat(libro))
+        except Exception as e:
+            log(f"   {libro}: falta el capítulo 1 y no pude descargarlo ({e})")
+            return datos
+        if nuevos:
+            log(f"   {libro}: añadidos los capítulos que faltaban ({', '.join(nuevos)})")
+            ruta.write_text(json.dumps(datos, ensure_ascii=False, indent=1), encoding="utf-8")
+        return datos
+    datos = descargar_torres_amat(libro)
     ruta.parent.mkdir(parents=True, exist_ok=True)
     ruta.write_text(json.dumps(datos, ensure_ascii=False, indent=1), encoding="utf-8")
     return datos
@@ -1920,6 +1963,31 @@ LISTAS = {"Mateo": "Evangelio según san Mateo", "Marcos": "Evangelio según san
           "Lucas": "Evangelio según san Lucas", "Juan": "Evangelio según san Juan"}
 LISTAS_EN = {"Mateo": "Gospel according to St. Matthew", "Marcos": "Gospel according to St. Mark",
              "Lucas": "Gospel according to St. Luke", "Juan": "Gospel according to St. John"}
+ROSARIO_DIA = {0: "gozosos", 1: "dolorosos", 2: "gloriosos", 3: "luminosos", 4: "dolorosos", 5: "gozosos",
+               6: "gloriosos"}
+
+
+def rosario_del_dia(fecha):
+    """Misterios que se rezan ese día. Domingos de Adviento y Navidad, gozosos; de Cuaresma, dolorosos (costumbre
+    de la Iglesia, Rosarium Virginis Mariae 38)."""
+    if fecha.weekday() == 6:
+        tiempo = tiempo_liturgico(fecha)
+        if tiempo in ("adviento", "navidad"):
+            return "gozosos"
+        if tiempo == "cuaresma":
+            return "dolorosos"
+    return ROSARIO_DIA[fecha.weekday()]
+
+
+def linea_rosario(fecha):
+    """Frase del Short (español) que lleva al rosario del día. Los enlaces no se pueden pulsar en los Shorts
+    (YouTube los quitó en 2023): se nombra la lista. Se apaga con config «rosario.activo»: false."""
+    if not CFG.get("rosario", {}).get("activo", True):
+        return ""
+    return (f"📿 Hoy se rezan los misterios {rosario_del_dia(fecha)}: tienes el Santo Rosario completo en la lista "
+            "«Santo Rosario» del canal.\n")
+
+
 TIEMPOS = {"adviento": ("Evangelio del día · Adviento", "Daily Gospel · Advent"),
            "navidad": ("Evangelio del día · Navidad", "Daily Gospel · Christmas"),
            "cuaresma": ("Evangelio del día · Cuaresma", "Daily Gospel · Lent"),
@@ -2140,7 +2208,8 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
         descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
                        f"Evangelio del {DIAS[fecha.weekday()]} {fecha_txt} de {fecha.year}, leído con varias voces.\n\n"
                        + liturgia_txt
-                       + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
+                       + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "")
+                       + (linea_rosario(fecha) + "\n" if linea_rosario(fecha) else "") +
                        f"📖 Texto: {ev.get('fuente_texto', 'Vatican News')}. Calendario litúrgico: Vatican News.\n"
                        "🎨 Imágenes: escenas generadas con IA y pinturas clásicas (dominio público)\n"
                        "🎙️ Voces generadas con inteligencia artificial.\n"

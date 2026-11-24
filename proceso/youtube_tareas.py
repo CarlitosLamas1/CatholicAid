@@ -52,7 +52,12 @@ def texto_comentario(reg, idioma):
         pregunta = pregunta or "Which word from today’s Gospel will you carry with you?"
         return f"🕊️ {pregunta}\n\nShare it in the comments 👇 And if it helped you, pass it on to someone who needs it today."
     pregunta = pregunta or "¿Qué palabra de este Evangelio te llevas hoy?"
-    return f"🕊️ {pregunta}\n\nTe leemos en los comentarios 👇 Y si te ha ayudado, compártelo con quien lo necesite hoy."
+    texto = f"🕊️ {pregunta}\n\nTe leemos en los comentarios 👇 Y si te ha ayudado, compártelo con quien lo necesite hoy."
+    try:  # y el rosario del día (24/11/2026, pedido por Carlos); sin enlace: en los Shorts no se puede pulsar
+        rosario = ev.linea_rosario(dt.date.fromisoformat(reg["fecha"]))
+    except (KeyError, ValueError):
+        rosario = ""
+    return texto + ("\n\n" + rosario.strip() if rosario else "")
 
 
 def estado_video(tok, vid):
