@@ -1,22 +1,61 @@
 {
-  "_nota": "Muestra del Rosario (24/11/2026): primer misterio gozoso con dos voces (Jesús guía, María responde). Evangelio: Lucas 1,26-38, Torres Amat (1836) con ortografía actual; quitada la glosa «o fecundará». Pendiente de la revisión normal antes de la versión final.",
+  "_nota": "Prueba de voces para quien responde en el rezo (24/11/2026). Gacrux es la voz de María, aquí con un tono más suave para comparar.",
   "modelo": "gemini-2.5-flash-preview-tts",
   "grabaciones": [
     {
-      "id": "maria_rezo_c",
-      "voz": "Gacrux",
-      "estilo": "voz de mujer joven, dulce, recogida y serena, que responde en el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+      "id": "prueba_sulafat",
+      "voz": "Sulafat",
+      "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
       "partes": [
         [
-          "gl_b",
-          "Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."
-        ],
+          "av_b",
+          "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+        ]
+      ]
+    },
+    {
+      "id": "prueba_vindemiatrix",
+      "voz": "Vindemiatrix",
+      "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+      "partes": [
         [
-          "av_b2",
+          "av_b",
+          "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+        ]
+      ]
+    },
+    {
+      "id": "prueba_aoede",
+      "voz": "Aoede",
+      "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+      "partes": [
+        [
+          "av_b",
+          "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+        ]
+      ]
+    },
+    {
+      "id": "prueba_callirrhoe",
+      "voz": "Callirrhoe",
+      "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+      "partes": [
+        [
+          "av_b",
+          "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+        ]
+      ]
+    },
+    {
+      "id": "prueba_gacrux",
+      "voz": "Gacrux",
+      "estilo": "voz de mujer, suave, cálida y dulce, que responde con devoción en el rezo del santo rosario, en voz baja y serena, sin prisa, acento de España",
+      "partes": [
+        [
+          "av_b",
           "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
         ]
       ]
     }
-  ],
-  "_hechas": "24/11 14:06: maria_lectura y jesus_rezo salieron bien (run 45410429880); se repiten solo las otras, en trozos. · 14:10: jesus_lectura_a/b, maria_rezo_a (sin el Gloria) y una sola respuesta del Avemaría (run 45411133574). Falta: gl_b y otra toma de av_b."
+  ]
 }

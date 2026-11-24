@@ -1,0 +1,27 @@
+name: "Rosario: pintar escenas"
+
+# Pinta las escenas del rosario (rama muestra-rosario) con la clave de pago y el modelo barato. Las imágenes quedan
+# como artefacto del run.
+on:
+  push:
+    branches: [muestra-rosario]
+    paths: ["rosario/escenas_dolorosos.json", "rosario/pintar.py"]
+
+permissions:
+  contents: read
+
+jobs:
+  pintar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pintar
+        env:
+          GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+        run: pip install -q pillow && python3 rosario/pintar.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pinturas-dolorosos
+          path: rosario/pinturas/*.jpg
+          retention-days: 14

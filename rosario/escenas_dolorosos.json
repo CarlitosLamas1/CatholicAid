@@ -1,0 +1,108 @@
+{
+ "_nota": "Misterios dolorosos: 3 escenas por misterio, pintadas en vertical como las del canal (24/11/2026).",
+ "escenas": [
+  {
+   "id": "1a",
+   "escena": "Agony in the Garden of Gethsemane at night: Jesus (exactly as in his reference image) kneels beside a large rock among ancient olive trees, hands clasped, praying with deep sorrow and trust, soft moonlight and a faint golden light from above.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "1b",
+   "escena": "Agony in the Garden: a gentle angel with luminous wings appears from heaven and comforts Jesus (exactly as in his reference image), who kneels in prayer at the rock among olive trees at night; the angel offers a small cup.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "1c",
+   "escena": "Garden of Gethsemane at night: three apostles (Peter, older with a grey beard; James and John, younger) sleep wrapped in cloaks under olive trees, while Jesus (exactly as in his reference image) stands nearby looking at them with sorrowful love; distant torches approach.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "2a",
+   "escena": "The Scourging, shown with reverence and dignity: Jesus (exactly as in his reference image), in a simple loincloth and with his tunic set aside, stands bound with ropes to a low stone column in a Roman courtyard, head bowed in silent patience, a ray of light falling on him. No blood, no wounds, no soldiers striking.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "2b",
+   "escena": "Close view of the face of Jesus (exactly as in his reference image), eyes closed, patient and serene in suffering, a soft ray of light on his face, dark stone background. No blood, no wounds.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "2c",
+   "escena": "Close view of the hands of Jesus bound with rope against an old stone column, a soft ray of light, deep shadows, silent and reverent. No blood.",
+   "refs": []
+  },
+  {
+   "id": "3a",
+   "escena": "The Crowning with Thorns: Jesus (exactly as in his reference image) sits on a stone bench wearing a purple-red cloak and a crown of thorns, holding a reed, gaze lowered with meekness; Roman soldiers stand in shadow behind him. No blood.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "3b",
+   "escena": "Close view of Jesus (exactly as in his reference image) crowned with thorns, wearing a purple-red cloak, looking at the viewer with infinite gentleness, warm golden light. No blood.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "3c",
+   "escena": "Ecce Homo: Pontius Pilate, a Roman governor in a white toga, presents Jesus (exactly as in his reference image), crowned with thorns and wearing a purple cloak, from a stone balcony; a crowd seen from behind below. No blood.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "4a",
+   "escena": "The Way of the Cross: Jesus (exactly as in his reference image) carries a heavy wooden cross on his shoulder through a narrow stone street of Jerusalem, stooping under its weight, people watching from doorways. No blood.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "4b",
+   "escena": "Simon of Cyrene, a strong countryman with a dark beard, helps Jesus (exactly as in his reference image) carry the wooden cross along a stone road outside the walls of Jerusalem. No blood.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "4c",
+   "escena": "On the way to Calvary, Jesus (exactly as in his reference image), carrying the cross, meets his mother Mary (exactly as in her reference image); their eyes meet with immense love and sorrow, Mary's hand reaching towards him. No blood.",
+   "refs": [
+    "jesus",
+    "maria"
+   ]
+  },
+  {
+   "id": "5a",
+   "escena": "The Crucifixion on Calvary under a darkened sky: Jesus (exactly as in his reference image) on the wooden cross, with his mother Mary (exactly as in her reference image) and the young apostle John standing at its foot, looking up with love. Reverent, no blood.",
+   "refs": [
+    "jesus",
+    "maria"
+   ]
+  },
+  {
+   "id": "5b",
+   "escena": "Close view of Jesus (exactly as in his reference image) on the cross, head gently inclined, eyes closed in peace, light breaking through dark clouds behind him. Reverent, no blood.",
+   "refs": [
+    "jesus"
+   ]
+  },
+  {
+   "id": "5c",
+   "escena": "Calvary at dusk: three crosses on the hill seen from a distance, silhouetted against a sky of deep red and gold with rays of light breaking through the clouds, quiet and solemn.",
+   "refs": []
+  }
+ ]
+}
