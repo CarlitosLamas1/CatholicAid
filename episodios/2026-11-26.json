@@ -1,0 +1,121 @@
+{
+  "fecha": "2026-11-26",
+  "modo": "diario",
+  "cita": "Lucas 21, 20-28",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/26.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
+  "duracion_s": 112.4,
+  "imagenes": [
+    "dias/2026-11-26_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-26_e1.jpg",
+    "biblioteca/D04",
+    "biblioteca/D08",
+    "biblioteca/D10",
+    "dias/2026-11-26_e2.jpg",
+    "biblioteca/D02",
+    "dias/2026-11-26_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R02",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "abrid los ojos y alzad la cabeza, porque vuestra redención se acerca.",
+  "reflexion": "Aunque veas dificultades a tu alrededor, no pierdas la esperanza ni te dejes llevar por el miedo. Cristo viene a salvarte, ¿confías hoy en su amor y en su presencia?",
+  "lufs": -13.9,
+  "gancho_segundos": 5.0,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-26.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus sits on the Mount of Olives outdoors, speaking with serene gravity to his attentive disciples about the coming events in Jerusalem.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Dramatic luminous phenomena in the sky around the sun and moon above a turbulent sea, while a crowd gazes upward in awe.",
+      "busqueda": "cosmic signs sky",
+      "personajes": [
+        "multitud"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "The Son of Man descending upon soft glowing clouds in heavenly majesty, extending a welcoming hand of hope towards the viewer.",
+      "busqueda": "Son of Man",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, dijo Jesús a sus discípulos: “Mas cuando veáis a Jerusalén cercada por un ejército, entonces tened por cierto que su desolación está cerca: en aquella hora, los que se hallen en Judea, huyan a las montañas; los que habitan en medio de la ciudad, retírense; y los que están en los contornos, no entren. Porque días de venganza son estos, en que se han de cumplir todas las cosas como están escritas. Pero ¡ay de las que estén encintas o criando en aquellos días! Pues este país se hallará en grandes angustias, y la ira de Dios descargará sobre este pueblo. Parte morirán a filo de espada; parte serán llevados cautivos a todas las naciones, y Jerusalén será hollada por los gentiles hasta que los tiempos de las naciones lleguen a cumplirse. Se verán antes fenómenos prodigiosos en el sol, la luna y las estrellas, y en la tierra estarán consternadas y atónitas las gentes por el estruendo del mar y de las olas: secándose los hombres de temor y de sobresalto por las cosas que han de sobrevenir a todo el universo; porque las fuerzas de los cielos se tambalearán; y entonces verán al Hijo del hombre venir sobre una nube con gran poder y majestad. Cuando comiencen a suceder estas cosas, abrid los ojos y alzad la cabeza, porque vuestra redención se acerca.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 5.6,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 9.52,
+      "texto": "En aquel tiempo, dijo Jesús a sus discípulos:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 12.97,
+      "texto": "“Mas cuando veáis a Jerusalén cercada por un ejército, entonces tened por cierto que su desolación está cerca: en aquella hora, los que se hallen en Judea, huyan a las montañas; los que habitan en medio de la ciudad, retírense; y los que están en los contornos, no entren. Porque días de venganza son estos, en que se han de cumplir todas las cosas como están escritas. Pero ¡ay de las que estén encintas o criando en aquellos días! Pues este país se hallará en grandes angustias, y la ira de Dios descargará sobre este pueblo. Parte morirán a filo de espada; parte serán llevados cautivos a todas las naciones, y Jerusalén será hollada por los gentiles hasta que los tiempos de las naciones lleguen a cumplirse."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 62.9,
+      "texto": "Se verán antes fenómenos prodigiosos en el sol, la luna y las estrellas, y en la tierra estarán consternadas y atónitas las gentes por el estruendo del mar y de las olas: secándose los hombres de temor y de sobresalto por las cosas que han de sobrevenir a todo el universo; porque las fuerzas de los cielos se tambalearán;"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 82.69,
+      "texto": "y entonces verán al Hijo del hombre venir sobre una nube con gran poder y majestad. Cuando comiencen a suceder estas cosas, abrid los ojos y alzad la cabeza, porque vuestra redención se acerca.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 95.68,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 98.17,
+      "texto": "Aunque veas dificultades a tu alrededor, no pierdas la esperanza ni te dejes llevar por el miedo. Cristo viene a salvarte, ¿confías hoy en su amor y en su presencia?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-24T09:28:14+01:00",
+  "estilo_imagenes": "acuarela",
+  "reparto_visual": [],
+  "run": "45352898029",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
