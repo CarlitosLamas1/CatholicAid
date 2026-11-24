@@ -1,24 +1,20 @@
 {
   "fecha": "2026-11-25",
   "idioma": "pt",
-  "ok": false,
+  "ok": true,
   "por": "revisor",
-  "generado": "2026-11-23T11:38:24+01:00",
-  "revisado": "2026-11-23T12:33:05+01:00",
-  "motivos": [
-    "El vídeo en portugués está cortado: el texto solo llega a Lucas 21,12 («…por causa do meu nome») y faltan los versículos 13-19, incluida la frase final."
-  ],
-  "avisos": [
-    "La frase clave del vídeo («vão pôr as mãos em vocês e persegui-los») no coincide con la del español, consecuencia del texto cortado. Fallo probable del código al armar texto_evangelio en portugués (igual que el 24/11): biblia/figueiredo/revisada/lucas.json tiene 21,12-19 completos. Duración 47 s frente a 85 s del español; sincronía no ok (jesus sin poder oírse)."
-  ],
+  "generado": "2026-11-24T20:46:14+01:00",
+  "revisado": "2026-11-24T20:51:01+01:00",
+  "motivos": [],
+  "avisos": [],
   "puntos": {
-    "fidelidad": "❌ Los fragmentos coinciden con texto_evangelio, pero este solo cubre 21,12; faltan 21,13-19.",
-    "voces": "✅ Jesús y narrador correctos en lo que hay.",
-    "frase_clave": "⚠️ Literal y de Jesús, pero no es la del español y viene de un texto cortado.",
-    "reflexion": "✅ Portugués de Brasil, «você», doctrina correcta.",
-    "tecnica": "⚠️ 47,2 s, -13,8 LUFS; sincronía ok: false (cortes_sin_oir: jesus).",
-    "audio": "✅ 7,4–12,8 c/s; sin anomalías graves.",
-    "imagenes": "✅ Reutiliza las del español.",
-    "metadatos": "✅ Título y cita en portugués coherentes."
+    "fidelidad": "✅ completo e idéntico al Figueiredo revisado (Lucas 21,12-19, coincide con citas.json); ya no se corta",
+    "voces": "✅ narrador y Jesús bien repartidos",
+    "frase_clave": "✅ «Pela paciência de vocês, possuirão as suas almas.»: literal, de Jesús, la misma que en español",
+    "reflexion": "✅ portugués de Brasil, de «você», 29 palabras, la misma que en español",
+    "tecnica": "✅ 84,3 s, -13,9 LUFS, subtítulos sincronizados (7/7 por lo que se oye)",
+    "audio": "✅ más lento: «Palavra da Salvação» 7,4 c/s (corto); más rápido: Jesús 13,6 c/s",
+    "imagenes": "✅ las del español del 25/11 y biblioteca",
+    "metadatos": "✅ Lucas 21,12-19 en formato brasileño, todo en portugués"
   }
 }
