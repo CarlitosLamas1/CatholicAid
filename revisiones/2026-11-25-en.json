@@ -1,24 +1,23 @@
 {
   "fecha": "2026-11-25",
   "idioma": "en",
-  "ok": false,
+  "ok": true,
   "por": "revisor",
-  "generado": "2026-11-23T12:13:11+01:00",
-  "revisado": "2026-11-23T12:33:05+01:00",
-  "motivos": [
-    "En el vídeo en inglés las palabras de Jesús (Lucas 21,12-18) las lee el narrador: solo la última frase va con la voz de Jesús, y falta la introducción «Jesus said to his disciples:»."
-  ],
+  "generado": "2026-11-24T22:10:48+01:00",
+  "revisado": "2026-11-24T22:32:41+01:00",
+  "motivos": [],
   "avisos": [
-    "Causa probable: biblia/web/revisada/lucas.json no tiene el capítulo 21 (sin _inicios ni comillas de apertura), así que se usó la WEB sin revisar. Conviene revisar esos versículos y rehacer. Imágenes y audio sin problema."
+    "La sincronía de subtítulos no es del todo fiable (sincronia.ok es falso: el narrador se cortó sin poder escucharlo); el programa puede rehacerlo una vez.",
+    "En la escena 2 (fotograma de los 30 s) Jesús parece otro hombre, con halo y otra túnica; es la imagen del español, mejorable pero no grave."
   ],
   "puntos": {
-    "fidelidad": "✅ Fragmentos idénticos a texto_evangelio; coincide con la WEB (Lucas 21,12-19) salvo la introducción.",
-    "voces": "❌ Los fragmentos 1-3 (palabras de Jesús, vv. 12-18) van al narrador; la comilla de apertura no existe.",
-    "frase_clave": "✅ Literal, de Jesús, 7 palabras, mismo pasaje que el español.",
+    "fidelidad": "✅ Fragmentos idénticos a texto_evangelio y a la WEB (Lucas 21,12-19); ya incluye la introducción y las comillas.",
+    "voces": "✅ Palabras de Jesús (vv. 12-19) con jesus; introducción y «The Gospel of the Lord.» con el narrador.",
+    "frase_clave": "✅ «By your endurance you will win your lives.» literal, de Jesús, 7 palabras, mismo pasaje que el español.",
     "reflexion": "✅ Inglés americano, doctrina correcta, 29 palabras.",
-    "tecnica": "✅ 77,8 s, -14,1 LUFS, gancho 3,9 s, karaoke activo.",
-    "audio": "✅ Más lento 8,1 c/s (fragmento corto, normal); largos 14,1 c/s.",
-    "imagenes": "✅ Reutiliza las del español y biblioteca.",
-    "metadatos": "✅ Título, cita en inglés y lista coherentes."
+    "tecnica": "✅ 79,4 s, -14,1 LUFS, gancho 3,9 s, karaoke activo.",
+    "audio": "✅ Más lento 6,6 c/s (fragmento corto, normal); más rápido 35,3 c/s en un fragmento de 1,2 s (título corto, normal); largos 12,5–15,3 c/s.",
+    "imagenes": "⚠️ Reutiliza las del español; subtítulos legibles; escena 2 con Jesús algo distinto.",
+    "metadatos": "✅ Cita Luke 21:12-19 coherente con el español."
   }
 }
