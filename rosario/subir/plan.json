@@ -1,0 +1,33 @@
+{
+ "_nota": "Subida de los cuatro rosarios al canal en español (24/11/2026, aprobado por Carlos). Cada uno se publica a las 07:30 de Madrid de su día; todos a la lista «Santo Rosario».",
+ "rosarios": [
+  {
+   "clave": "gloriosos",
+   "titulo": "Misterios gloriosos",
+   "dias": "miércoles y domingo",
+   "publicar": "2026-11-25T07:30",
+   "dias_frase": "los miércoles y los domingos"
+  },
+  {
+   "clave": "luminosos",
+   "titulo": "Misterios luminosos",
+   "dias": "jueves",
+   "publicar": "2026-11-26T07:30",
+   "dias_frase": "los jueves"
+  },
+  {
+   "clave": "dolorosos",
+   "titulo": "Misterios dolorosos",
+   "dias": "martes y viernes",
+   "publicar": "2026-11-27T07:30",
+   "dias_frase": "los martes y los viernes"
+  },
+  {
+   "clave": "gozosos",
+   "titulo": "Misterios gozosos",
+   "dias": "lunes y sábado",
+   "publicar": "2026-11-28T07:30",
+   "dias_frase": "los lunes y los sábados"
+  }
+ ]
+}
