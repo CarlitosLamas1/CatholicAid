@@ -1,0 +1,34 @@
+name: "Rosario: nueva música y resubir"
+
+# Rehace solo el audio de los cuatro rosarios (sin «Clair de lune») y los vuelve a subir programados; los anteriores
+# quedan privados sin fecha y fuera de la lista. Todo en la nube.
+on:
+  push:
+    branches: [muestra-rosario]
+    paths: ["rosario/remezcla/plan.json"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rosario-subir
+  cancel-in-progress: false
+
+jobs:
+  remezclar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q imageio-ffmpeg
+      - name: Descargar vídeos, voces y miniaturas
+        run: gh release download rosario-videos -R "$GITHUB_REPOSITORY" -D rosario/subir/archivos
+      - name: Rehacer el audio
+        run: python3 rosario/remezcla/remezclar.py
+      - name: Subir los nuevos y retirar los anteriores
+        run: python3 rosario/remezcla/resubir.py
