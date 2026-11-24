@@ -121,21 +121,17 @@
       "reflexion": true
     }
   ],
-  "generado": "2026-11-22T11:42:16+01:00",
-  "run": "45013002033",
+  "generado": "2026-11-24T07:46:02+01:00",
+  "run": "45342202485",
   "idioma": "pt",
   "libro": "Lucas",
   "cita_es": "Lucas 21, 5-11",
-  "frase_es": "Mirad que no os dejéis engañar",
-  "reflexion_es": "Aunque veas dificultades a tu alrededor, no pierdas la paz ni te dejes llevar por el miedo. Dios cuida siempre de ti, ¿dónde tienes puesta hoy tu confianza?",
-  "copiado_de": "2026-11-22T09:56:46+01:00",
   "sincronia": {
     "frases_oidas": 10,
     "frases_por_pausas": [],
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "rechazada",
-  "rehechos": 1,
-  "no_publicar": "revisor: El texto del vídeo en portugués sigue incompleto tras rehacerlo: termina en Lucas 21,9 y faltan los versículos 10-11 («Então lhes dizia: Uma nação se levantará contra outra nação…»), aunque la cita anuncia Lucas 21,5-11."
+  "revision": "pendiente",
+  "rehechos": 1
 }
