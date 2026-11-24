@@ -3,54 +3,66 @@
   "modelo": "gemini-2.5-flash-preview-tts",
   "grabaciones": [
     {
-      "id": "jesus_lectura",
+      "id": "jesus_lectura_a",
       "voz": "Enceladus",
       "estilo": "voz de hombre adulto, cálida y serena, que proclama el Evangelio con reverencia y ternura, ritmo pausado, acento de España",
       "partes": [
-        ["cruz", "Por la señal de la Santa Cruz, de nuestros enemigos líbranos, Señor, Dios nuestro. En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén."],
-        ["anuncio", "Primer misterio gozoso: la Anunciación del ángel a María y la Encarnación del Hijo de Dios."],
-        ["ev1", "Estando ya Isabel en su sexto mes, envió Dios al ángel Gabriel a Nazaret, ciudad de Galilea, a una virgen desposada con cierto varón de la casa de David, llamado José, y el nombre de la virgen era María. Y habiendo entrado el ángel a donde ella estaba, le dijo: “Dios te salve, ¡oh llena de gracia!, el Señor es contigo: bendita tú eres entre todas las mujeres”. Al oír tales palabras la virgen se turbó, y se puso a considerar qué significaría una tal salutación. Mas el ángel le dijo: “¡Oh María!, no temas, porque has hallado gracia en los ojos de Dios. Sábete que has de concebir en tu seno, y parirás un hijo, a quien pondrás por nombre Jesús. Este será grande, y será llamado Hijo del Altísimo, al cual el Señor Dios dará el trono de su padre David; y reinará en la casa de Jacob eternamente, y su reino no tendrá fin”. Pero María dijo al ángel:"],
-        ["ev2", "El ángel en respuesta le dijo: “El Espíritu Santo descenderá sobre ti, y la virtud del Altísimo te cubrirá con su sombra. Por cuya causa el fruto santo que de ti nacerá será llamado Hijo de Dios. Y ahí tienes a tu parienta Isabel, que en su vejez ha concebido también un hijo; y la que se llamaba estéril, hoy cuenta ya el sexto mes: porque para Dios nada es imposible”. Entonces dijo María:"],
-        ["ev3", "Y en seguida el ángel, desapareciendo, se retiró de su presencia."]
+        [
+          "ev1",
+          "Estando ya Isabel en su sexto mes, envió Dios al ángel Gabriel a Nazaret, ciudad de Galilea, a una virgen desposada con cierto varón de la casa de David, llamado José, y el nombre de la virgen era María. Y habiendo entrado el ángel a donde ella estaba, le dijo: “Dios te salve, ¡oh llena de gracia!, el Señor es contigo: bendita tú eres entre todas las mujeres”. Al oír tales palabras la virgen se turbó, y se puso a considerar qué significaría una tal salutación. Mas el ángel le dijo: “¡Oh María!, no temas, porque has hallado gracia en los ojos de Dios. Sábete que has de concebir en tu seno, y parirás un hijo, a quien pondrás por nombre Jesús. Este será grande, y será llamado Hijo del Altísimo, al cual el Señor Dios dará el trono de su padre David; y reinará en la casa de Jacob eternamente, y su reino no tendrá fin”. Pero María dijo al ángel:"
+        ]
       ]
     },
     {
-      "id": "maria_lectura",
-      "voz": "Gacrux",
-      "estilo": "voz de mujer joven, dulce, humilde y luminosa, llena de paz, ritmo natural, acento de España",
-      "partes": [
-        ["m1", "“¿Cómo ha de ser eso?, pues yo no conozco ni jamás conoceré varón alguno”."],
-        ["m2", "“He aquí la esclava del Señor, hágase en mí según tu palabra”."]
-      ]
-    },
-    {
-      "id": "jesus_rezo",
+      "id": "jesus_lectura_b",
       "voz": "Enceladus",
-      "estilo": "voz de hombre adulto, cálida, recogida y serena, que guía el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+      "estilo": "voz de hombre adulto, cálida y serena, que proclama el Evangelio con reverencia y ternura, ritmo pausado, acento de España",
       "partes": [
-        ["pn_a", "Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo."],
-        ["av_a1", "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."],
-        ["av_a2", "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."],
-        ["av_a3", "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."],
-        ["av_a4", "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."],
-        ["av_a5", "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."],
-        ["gl_a", "Gloria al Padre, y al Hijo, y al Espíritu Santo."],
-        ["oj", "Oh, Jesús mío, perdona nuestros pecados, líbranos del fuego del infierno, lleva al cielo a todas las almas, especialmente a las más necesitadas de tu misericordia. Amén."]
+        [
+          "cruz",
+          "Por la señal de la Santa Cruz, de nuestros enemigos líbranos, Señor, Dios nuestro. En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén."
+        ],
+        [
+          "anuncio",
+          "Primer misterio gozoso: la Anunciación del ángel a María y la Encarnación del Hijo de Dios."
+        ],
+        [
+          "ev2",
+          "El ángel en respuesta le dijo: “El Espíritu Santo descenderá sobre ti, y la virtud del Altísimo te cubrirá con su sombra. Por cuya causa el fruto santo que de ti nacerá será llamado Hijo de Dios. Y ahí tienes a tu parienta Isabel, que en su vejez ha concebido también un hijo; y la que se llamaba estéril, hoy cuenta ya el sexto mes: porque para Dios nada es imposible”. Entonces dijo María:"
+        ],
+        [
+          "ev3",
+          "Y en seguida el ángel, desapareciendo, se retiró de su presencia."
+        ]
       ]
     },
     {
-      "id": "maria_rezo",
+      "id": "maria_rezo_a",
       "voz": "Gacrux",
       "estilo": "voz de mujer joven, dulce, recogida y serena, que responde en el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
       "partes": [
-        ["pn_b", "Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén."],
-        ["av_b1", "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."],
-        ["av_b2", "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."],
-        ["av_b3", "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."],
-        ["av_b4", "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."],
-        ["av_b5", "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."],
-        ["gl_b", "Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."]
+        [
+          "pn_b",
+          "Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén."
+        ],
+        [
+          "gl_b",
+          "Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."
+        ]
+      ]
+    },
+    {
+      "id": "maria_rezo_b",
+      "voz": "Gacrux",
+      "estilo": "voz de mujer joven, dulce, recogida y serena, que responde en el rezo del santo rosario en una iglesia en calma, ritmo pausado y uniforme, sin prisa, acento de España",
+      "repetir": 5,
+      "partes": [
+        [
+          "av_b",
+          "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+        ]
       ]
     }
-  ]
+  ],
+  "_hechas": "24/11 14:06: maria_lectura y jesus_rezo salieron bien (run 45410429880); se repiten solo las otras, en trozos."
 }

@@ -36,9 +36,16 @@ def main():
     modelo = GUION["modelo"]
     for n, g in enumerate(GUION["grabaciones"]):
         textos = [t for _, t in g["partes"]]
-        prompt = (f"Lee en voz alta, con {g['estilo']}, los siguientes párrafos, en este orden. Entre un párrafo y el "
-                  "siguiente haz siempre una pausa clara de dos segundos. Lee solo el texto de los párrafos:\n\n"
-                  + "\n\n".join(textos))
+        if g.get("repetir"):  # una oración varias veces, como en el rosario (sin esto el modelo se salta repeticiones)
+            prompt = (f"Lee en voz alta, con {g['estilo']}, esta oración {g['repetir']} veces seguidas, como en el rezo "
+                      "del rosario, con una pausa clara de dos segundos entre cada vez. Lee solo la oración:\n\n"
+                      + textos[0])
+        elif len(textos) == 1:
+            prompt = f"Lee en voz alta, con {g['estilo']}, este texto:\n\n{textos[0]}"
+        else:
+            prompt = (f"Lee en voz alta, con {g['estilo']}, los siguientes párrafos, en este orden. Entre un párrafo y "
+                      "el siguiente haz siempre una pausa clara de dos segundos. Lee solo el texto de los párrafos:\n\n"
+                      + "\n\n".join(textos))
         cuerpo = {"contents": [{"parts": [{"text": prompt}]}],
                   "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": {
                       "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": g["voz"]}}}}}
