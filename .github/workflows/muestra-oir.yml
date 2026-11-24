@@ -26,15 +26,15 @@ jobs:
         run: |
           pip install -q --timeout 120 faster-whisper
           python3 - <<'PY'
-          import glob, subprocess
+          import glob, wave
           import numpy as np
           from faster_whisper import WhisperModel
           m = WhisperModel("small", device="cpu", compute_type="int8")
-          for f in sorted(glob.glob("rosario/oir/*.ogg")):
+          for f in sorted(glob.glob("rosario/oir/*.wav")):
               print("=====", f)
-              crudo = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", f, "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
-                                     capture_output=True, check=True).stdout
-              segs, _ = m.transcribe(np.frombuffer(crudo, dtype=np.float32), language="es")
+              with wave.open(f) as w:
+                  audio = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
+              segs, _ = m.transcribe(audio, language="es")
               for s in segs:
                   print(f"[{s.start:6.2f}-{s.end:6.2f}] {s.text.strip()}")
           PY
