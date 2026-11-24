@@ -5,7 +5,7 @@ name: "Muestra del Rosario (voces)"
 on:
   push:
     branches: [muestra-rosario]
-    paths: ["rosario/**", ".github/workflows/muestra-rosario.yml"]
+    paths: ["rosario/guion_muestra.json", "rosario/grabar_muestra.py"]
 
 permissions:
   contents: read
