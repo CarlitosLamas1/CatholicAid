@@ -17,7 +17,7 @@ import wave
 import numpy as np
 
 RAIZ = pathlib.Path(__file__).resolve().parent
-GUION = json.loads((RAIZ / "guion_dolorosos.json").read_text(encoding="utf-8"))
+GUION = json.loads((RAIZ.parent / os.environ.get("GUION", "rosario/guion_dolorosos.json")).read_text(encoding="utf-8"))
 SALIDA = RAIZ / "salida"
 URL = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
 
@@ -75,7 +75,7 @@ def main():
             util = voz_util(destino)
             ritmo = len(p["texto"]) / max(util, 0.1)
             print(f"{p['id']}: {total:.1f} s, {util:.1f} s de voz, {ritmo:.1f} letras/s", flush=True)
-            if 9 <= ritmo <= 22 and total - util < 6:
+            if 9 <= ritmo <= 22 and total < util * 1.8 + 3:  # sin silencios enormes (las pausas naturales sí)
                 ok = True
                 break
             print(f"{p['id']}: ritmo raro, repito", flush=True)
