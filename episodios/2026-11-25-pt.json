@@ -8,21 +8,23 @@
   "voces": "gemini",
   "peticiones_voz": 7,
   "musica": "Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg",
-  "duracion_s": 47.2,
+  "duracion_s": 84.3,
   "imagenes": [
     "dias/2026-11-25_e1.jpg",
     "evangelistas/lucas.jpg",
     "dias/2026-11-25_e1.jpg",
+    "biblioteca/D05",
     "dias/2026-11-25_e2.jpg",
+    "biblioteca/D06",
     "dias/2026-11-25_e3.jpg",
     "evangelistas/lucas.jpg",
     "biblioteca/R01",
     "evangelistas/lucas.jpg"
   ],
-  "frase_clave": "vão pôr as mãos em vocês e persegui-los",
+  "frase_clave": "Pela paciência de vocês, possuirão as suas almas.",
   "reflexion": "Às vezes a vida se complica e sofremos incompreensão. Confie no Senhor: Ele nunca abandona você e lhe dará a força necessária para perseverar com amor a cada dia.",
-  "lufs": -13.8,
-  "gancho_segundos": 4.2,
+  "lufs": -13.9,
+  "gancho_segundos": 3.9,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
   "fotogramas": "fotogramas/2026-11-25-pt.jpg",
@@ -39,7 +41,7 @@
     {
       "numero": 2,
       "descripcion": "A faithful disciple standing courageously in a dimly lit stone hall before religious leaders, speaking with calm divine inspiration.",
-      "busqueda": "disciple before rulers",
+      "busqueda": "disciple before trial",
       "personajes": [
         "apostol",
         "fariseos"
@@ -56,54 +58,54 @@
     }
   ],
   "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
-  "texto_evangelio": "Naquele tempo, Jesus disse aos seus discípulos: “Mas, antes de tudo isso, vão pôr as mãos em vocês e persegui-los, entregando-os às sinagogas e às prisões, e levando-os à força diante de reis e governadores por causa do meu nome.",
+  "texto_evangelio": "Naquele tempo, Jesus disse aos seus discípulos: “Mas, antes de tudo isso, vão pôr as mãos em vocês e persegui-los, entregando-os às sinagogas e às prisões, e levando-os à força diante de reis e governadores por causa do meu nome. Isso lhes servirá de ocasião para darem testemunho. Fixem, pois, no coração a decisão de não preparar de antemão o que vão responder, porque eu mesmo lhes darei palavras e uma sabedoria a que nenhum dos seus adversários poderá resistir nem contradizer. Vocês serão entregues até por seus pais, irmãos, parentes e amigos, e farão morrer a muitos de vocês. Serão odiados por todos por causa do meu nome. Mas não se perderá um só cabelo da cabeça de vocês. Pela paciência de vocês, possuirão as suas almas”.",
   "fragmentos": [
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 4.8,
+      "inicio": 4.5,
       "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
     },
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 10.2,
+      "inicio": 9.9,
       "texto": "Naquele tempo, Jesus disse aos seus discípulos:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 13.87,
-      "texto": "“Mas, antes de tudo isso,"
+      "inicio": 13.57,
+      "texto": "“Mas, antes de tudo isso, vão pôr as mãos em vocês e persegui-los, entregando-os às sinagogas e às prisões, e levando-os à força diante de reis e governadores por causa do meu nome."
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 16.46,
-      "texto": "vão pôr as mãos em vocês e persegui-los, entregando-os às sinagogas e às prisões, e levando-os à força diante de reis e governadores"
+      "inicio": 27.95,
+      "texto": "Isso lhes servirá de ocasião para darem testemunho. Fixem, pois, no coração a decisão de não preparar de antemão o que vão responder, porque eu mesmo lhes darei palavras e uma sabedoria a que nenhum dos seus adversários poderá resistir nem contradizer. Vocês serão entregues até por seus pais, irmãos, parentes e amigos, e farão morrer a muitos de vocês. Serão odiados por todos por causa do meu nome."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 26.75,
-      "texto": "por causa do meu nome."
+      "inicio": 57.38,
+      "texto": "Mas não se perderá um só cabelo da cabeça de vocês. Pela paciência de vocês, possuirão as suas almas”."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 28.68,
+      "inicio": 65.78,
       "texto": "Palavra da Salvação."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 31.39,
+      "inicio": 68.5,
       "texto": "Às vezes a vida se complica e sofremos incompreensão. Confie no Senhor: Ele nunca abandona você e lhe dará a força necessária para perseverar com amor a cada dia.",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-23T11:38:24+01:00",
-  "run": "45157137012",
+  "generado": "2026-11-24T20:46:14+01:00",
+  "run": "45470785828",
   "idioma": "pt",
   "libro": "Lucas",
   "cita_es": "Lucas 21, 12-19",
@@ -113,12 +115,18 @@
   "sincronia": {
     "frases_oidas": 7,
     "frases_por_pausas": [],
-    "cortes_sin_oir": [
-      "jesus"
-    ],
-    "ok": false
+    "cortes_sin_oir": [],
+    "ok": true
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1,
-  "no_publicar": "revisor: El vídeo en portugués está cortado: el texto solo llega a Lucas 21,12 («…por causa do meu nome») y faltan los versículos 13-19, incluida la frase final."
+  "cupo_agotado": [
+    "gemini-3.7-flash"
+  ],
+  "reserva_pago": [
+    "gemini-3.7-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ]
 }
