@@ -1,10 +1,4 @@
 {
-  "Ugzl6ybOrPWNhDA2mi14AaABAg": {
-    "tipo": "responder",
-    "motivo": "alabanza sencilla",
-    "respuesta": "Gloria a Dios. Que la oración de hoy te llene de paz y confianza en Él. ¡Gracias por estar aquí!",
-    "decidido": "2026-11-14T10:32:30.816331+01:00"
-  },
   "UgyYwPeG3SgsAXgehnp4AaABAg": {
     "tipo": "responder",
     "motivo": "alabanza de fe",
@@ -79,5 +73,11 @@
     "tipo": "ignorar",
     "motivo": "solo un emoji",
     "decidido": "2026-11-24T07:35:00+01:00"
+  },
+  "Ugwo6VGEKw-onyf7-CN4AaABAg": {
+    "tipo": "responder",
+    "motivo": "respuesta a la pregunta de la reflexión",
+    "respuesta": "¡Qué buena respuesta! Confiar en Dios nos da paz incluso en los días difíciles. Que Él te bendiga.",
+    "decidido": "2026-11-24T14:32:49.439396+01:00"
   }
 }
