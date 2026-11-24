@@ -133,7 +133,7 @@
   },
   {
    "id": "gloriosos_2c",
-   "escena": "Mary (exactly as in her reference image) stands among the apostles on the hill, her hands joined, looking up to heaven with peaceful joy.",
+   "escena": "Close view of Mary (exactly as in her reference image), standing in the foreground with her hands joined in prayer and her eyes raised to heaven with peaceful joy; behind her, a few apostles on a hilltop also look up at a sky full of golden light. Mary is the clear protagonist, in the center.",
    "refs": [
     "maria"
    ]
@@ -295,5 +295,8 @@
    "escena": "A broken loaf of bread and a simple chalice of wine on a wooden table in soft candlelight, reverent and still.",
    "refs": []
   }
+ ],
+ "repintar": [
+  "gloriosos_2c"
  ]
 }
