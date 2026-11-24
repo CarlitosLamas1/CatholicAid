@@ -1,14 +1,5 @@
 {
   "vistos": {
-    "Ugzl6ybOrPWNhDA2mi14AaABAg": {
-      "tipo": "responder",
-      "publicado": "2026-11-14T07:58:44+00:00",
-      "desde": "2026-11-14T09:32:50.120056+01:00",
-      "listo": "2026-11-14T10:06:44+00:00",
-      "motivo": "alabanza sencilla",
-      "respuesta": "Gloria a Dios. Que la oración de hoy te llene de paz y confianza en Él. ¡Gracias por estar aquí!",
-      "por": "claude"
-    },
     "UgyYwPeG3SgsAXgehnp4AaABAg": {
       "tipo": "responder",
       "publicado": "2026-11-14T18:38:16+00:00",
@@ -128,10 +119,13 @@
       "por": "claude"
     },
     "UgzHci0LHzgtB5L42Yt4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "ignorar",
       "publicado": "2026-11-24T05:49:01+00:00",
       "desde": "2026-11-24T07:27:47.204497+01:00",
-      "listo": "2026-11-24T07:09:01+00:00"
+      "listo": "2026-11-24T07:09:01+00:00",
+      "motivo": "solo un emoji",
+      "respuesta": "",
+      "por": "claude"
     }
   },
   "respondidos": [
