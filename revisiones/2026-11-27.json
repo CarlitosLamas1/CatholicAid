@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-11-27",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-25T09:19:57+01:00",
+  "revisado": "2026-11-25T09:40:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase de apertura queda «En aquel tiempo, y les propuso esta comparación:» (sin sujeto, suena algo rara); viene del texto revisado de Lucas 21,29 y no se toca."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico a texto_evangelio; cita Lucas 21, 29-33 coincide con citas.json",
+    "voces": "✅ todo lo entrecomillado es de Jesús; narración del narrador",
+    "frase_clave": "✅ literal, de Jesús, 10 palabras, se entiende sola",
+    "reflexion": "✅ 25 palabras, cálida y en línea con la lectura",
+    "tecnica": "✅ 53,1 s; LUFS -14,0",
+    "audio": "✅ más lento: fragmento 5 (2,3 s, 7,8 car/s, normal por ser corto); más rápido: fragmento 3 (14,5 car/s); fragmentos largos 11,6–14,7",
+    "imagenes": "✅ 3 acuarelas coherentes, Jesús igual en todas, sin fallos; fotogramas legibles",
+    "metadatos": "✅ fecha, cita y evangelista (Lucas) coherentes"
+  }
+}
