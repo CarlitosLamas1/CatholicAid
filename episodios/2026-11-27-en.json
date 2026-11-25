@@ -98,29 +98,20 @@
       "reflexion": true
     }
   ],
-  "generado": "2026-11-25T09:42:42+01:00",
-  "run": "45577306720",
+  "generado": "2026-11-25T10:41:23+01:00",
+  "run": "45586554436",
   "idioma": "en",
   "libro": "Lucas",
   "cita_es": "Lucas 21, 29-33",
   "frase_es": "El cielo y la tierra pasarán, pero mis palabras no pasarán.",
   "reflexion_es": "Aunque todo a tu alrededor cambie y parezca inestable, la promesa del Señor permanece siempre. Confía en su amor firme. ¿Dónde apoyas hoy tu corazón?",
   "copiado_de": "2026-11-25T09:19:57+01:00",
-  "cupo_agotado": [
-    "gemini-3.7-flash",
-    "gemini-3.8-flash"
-  ],
-  "modelos_voz": [
-    "gemini-3.1-flash-tts-preview"
-  ],
   "sincronia": {
     "frases_oidas": 7,
     "frases_por_pausas": [],
-    "cortes_sin_oir": [
-      "narrador"
-    ],
-    "ok": false
+    "cortes_sin_oir": [],
+    "ok": true
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1
 }
