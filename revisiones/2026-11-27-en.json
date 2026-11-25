@@ -1,0 +1,23 @@
+{
+  "fecha": "2026-11-27",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-25T09:42:42+01:00",
+  "revisado": "2026-11-25T10:45:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave inglesa («know that God’s Kingdom is near.») no es el mismo pasaje que la española («El cielo y la tierra pasarán…») y empieza a mitad de frase; es floja pero literal y de Jesús.",
+    "La sincronía marca el corte del narrador sin poder oírse (sincronia.ok false): el sistema puede rehacerlo una vez."
+  ],
+  "puntos": {
+    "fidelidad": "✅ idéntico a texto_evangelio (WEB, Lucas 21:29-33)",
+    "voces": "✅ todo lo entrecomillado es de Jesús; narración del narrador",
+    "frase_clave": "⚠️ literal y de Jesús, pero distinta del español y empieza a mitad de frase",
+    "reflexion": "✅ 2 frases, cálida, fiel a la lectura",
+    "tecnica": "✅ 64,1 s; LUFS -14,1",
+    "audio": "✅ fragmentos largos 11–13 car/s; más lento el 5 (3,1 s, 7,5 car/s, corto)",
+    "imagenes": "✅ las del español, Jesús coherente, subtítulos legibles",
+    "metadatos": "✅ fecha, cita Luke 21:29-33 y Luke coherentes"
+  }
+}
