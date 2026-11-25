@@ -1,0 +1,127 @@
+{
+  "fecha": "2026-11-27",
+  "modo": "diario",
+  "cita": "Lucas 21,29-33",
+  "fuente": "https://www.vaticannews.va/pt/evangelho-do-dia/2026/11/27.html",
+  "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
+  "guion": "gemini-3.7-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg",
+  "duracion_s": 60.4,
+  "imagenes": [
+    "dias/2026-11-27_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-27_e1.jpg",
+    "dias/2026-11-27_e2.jpg",
+    "dias/2026-11-27_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R03",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "O céu e a terra passarão, mas as minhas palavras não passarão.",
+  "reflexion": "Mesmo que tudo ao seu redor mude e pareça incerto, a promessa do Senhor permanece para sempre. Confie no seu amor fiel. Onde você apoia hoje o seu coração?",
+  "lufs": -13.9,
+  "gancho_segundos": 5.0,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-27-pt.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A vibrant fig tree sprouting fresh green leaves in a sunny Galilean countryside setting.",
+      "busqueda": "fig tree",
+      "personajes": []
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus standing outdoors surrounded by his disciples, gently teaching them with outstretched arms under warm daylight.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus extending his hand with tenderness against a serene landscape under a radiant golden sky.",
+      "busqueda": "Jesus reaching out",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas.",
+  "texto_evangelio": "Naquele tempo, e lhes disse uma parábola: “Vejam a figueira e todas as árvores. Quando já brotam, vocês sabem por si mesmos, ao vê-las, que o verão está perto. Assim também vocês: quando virem acontecer essas coisas, saibam que o Reino de Deus está próximo. Em verdade eu digo a vocês: não passará esta geração sem que tudo isso aconteça. O céu e a terra passarão, mas as minhas palavras não passarão”.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 5.6,
+      "texto": "Proclamação do Evangelho de Jesus Cristo segundo São Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 11.05,
+      "texto": "Naquele tempo, e lhes disse uma parábola:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 14.14,
+      "texto": "“Vejam a figueira e todas as árvores. Quando já brotam, vocês sabem por si mesmos, ao vê-las, que o verão está perto."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 23.31,
+      "texto": "Assim também vocês: quando virem acontecer essas coisas, saibam que o Reino de Deus está próximo. Em verdade eu digo a vocês: não passará esta geração sem que tudo isso aconteça."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 37.03,
+      "texto": "O céu e a terra passarão, mas as minhas palavras não passarão”."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 42.34,
+      "texto": "Palavra da Salvação."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 45.18,
+      "texto": "Mesmo que tudo ao seu redor mude e pareça incerto, a promessa do Senhor permanece para sempre. Confie no seu amor fiel. Onde você apoia hoje o seu coração?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-25T09:42:14+01:00",
+  "run": "45577309711",
+  "idioma": "pt",
+  "libro": "Lucas",
+  "cita_es": "Lucas 21, 29-33",
+  "frase_es": "El cielo y la tierra pasarán, pero mis palabras no pasarán.",
+  "reflexion_es": "Aunque todo a tu alrededor cambie y parezca inestable, la promesa del Señor permanece siempre. Confía en su amor firme. ¿Dónde apoyas hoy tu corazón?",
+  "copiado_de": "2026-11-25T09:19:57+01:00",
+  "cupo_agotado": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "reserva_pago": [
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
