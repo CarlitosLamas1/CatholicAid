@@ -163,5 +163,10 @@
     "id": "1172275138708128",
     "enlace": "https://www.facebook.com/reel/1172275138708128"
   },
-  "instagram_historia": "18121247759278437"
+  "instagram_historia": "18121247759278437",
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7712010455359784982",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
+  }
 }
