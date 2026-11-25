@@ -110,10 +110,13 @@
       "por": "claude"
     },
     "UgxcjwIzBEJQodO3PpJ4AaABAg": {
-      "tipo": "pendiente",
+      "tipo": "responder",
       "publicado": "2026-11-25T02:44:53+00:00",
       "desde": "2026-11-25T04:03:26.517097+01:00",
-      "listo": "2026-11-25T05:00:53+00:00"
+      "listo": "2026-11-25T05:00:53+00:00",
+      "motivo": "testimonio de fe sencillo",
+      "respuesta": "Qué bonito saberlo. Esa confianza es el mejor refugio, también en los días difíciles. ¡Dios te bendiga!",
+      "por": "claude"
     }
   },
   "respondidos": [
