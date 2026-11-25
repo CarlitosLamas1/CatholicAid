@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-27",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-25T09:42:14+01:00",
+  "revisado": "2026-11-25T10:45:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "La apertura queda «Naquele tempo, e lhes disse uma parábola:» (sin sujeto, suena rara); viene del texto revisado de Lucas 21,29, igual que en español."
+  ],
+  "puntos": {
+    "fidelidad": "✅ idéntico a texto_evangelio (Figueiredo revisado, Lucas 21,29-33)",
+    "voces": "✅ todo lo entrecomillado es de Jesús; narración del narrador",
+    "frase_clave": "✅ literal, de Jesús, misma que en español",
+    "reflexion": "✅ 3 frases breves, cálida, con «você»",
+    "tecnica": "✅ 60,4 s; LUFS -13,9",
+    "audio": "✅ fragmentos largos 11–13 car/s; más lento el 6 (2,8 s, 7 car/s, corto)",
+    "imagenes": "✅ las del español, coherentes, subtítulos legibles",
+    "metadatos": "✅ fecha, cita y São Lucas coherentes"
+  }
+}
