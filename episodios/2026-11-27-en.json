@@ -112,6 +112,14 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "pendiente",
-  "rehechos": 1
+  "revision": "ok",
+  "rehechos": 1,
+  "youtube": {
+    "id": "uAzA11tQ9cM",
+    "url": "https://youtu.be/uAzA11tQ9cM",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-27T06:30:00Z"
+  }
 }
