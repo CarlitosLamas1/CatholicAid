@@ -1,0 +1,118 @@
+{
+  "fecha": "2026-11-27",
+  "modo": "diario",
+  "cita": "Lucas 21, 29-33",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/27.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg",
+  "duracion_s": 53.1,
+  "imagenes": [
+    "dias/2026-11-27_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-27_e1.jpg",
+    "dias/2026-11-27_e2.jpg",
+    "dias/2026-11-27_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R03",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "El cielo y la tierra pasarán, pero mis palabras no pasarán.",
+  "reflexion": "Aunque todo a tu alrededor cambie y parezca inestable, la promesa del Señor permanece siempre. Confía en su amor firme. ¿Dónde apoyas hoy tu corazón?",
+  "lufs": -14.0,
+  "gancho_segundos": 4.8,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-27.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "A vibrant fig tree sprouting fresh green leaves in a sunny Galilean countryside setting.",
+      "busqueda": "fig tree",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus standing outdoors surrounded by his disciples, gently teaching them with outstretched arms under warm daylight.",
+      "busqueda": "kingdom of God",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus extending his hand with tenderness against a serene landscape under a radiant golden sky.",
+      "busqueda": "sky and earth",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, y les propuso esta comparación: “Fijaos en la higuera y en los demás árboles: cuando ya brotan, al verlo, sabéis por vosotros mismos que el verano está ya cerca. Así también vosotros, cuando veáis que suceden estas cosas, sabed que el reino de Dios está cerca. Os aseguro que no pasará esta generación hasta que todo esto se cumpla. El cielo y la tierra pasarán, pero mis palabras no pasarán.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 5.4,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 9.14,
+      "texto": "En aquel tiempo, y les propuso esta comparación:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 12.2,
+      "texto": "“Fijaos en la higuera y en los demás árboles: cuando ya brotan, al verlo, sabéis por vosotros mismos que el verano está ya cerca."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 22.26,
+      "texto": "Así también vosotros, cuando veáis que suceden estas cosas, sabed que el reino de Dios está cerca."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 29.0,
+      "texto": "Os aseguro que no pasará esta generación hasta que todo esto se cumpla. El cielo y la tierra pasarán, pero mis palabras no pasarán.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 37.98,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 40.29,
+      "texto": "Aunque todo a tu alrededor cambie y parezca inestable, la promesa del Señor permanece siempre. Confía en su amor firme. ¿Dónde apoyas hoy tu corazón?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-25T09:19:57+01:00",
+  "estilo_imagenes": "acuarela",
+  "reparto_visual": [],
+  "run": "45573013132",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
