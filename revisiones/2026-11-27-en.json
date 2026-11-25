@@ -3,21 +3,22 @@
   "idioma": "en",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-25T09:42:42+01:00",
-  "revisado": "2026-11-25T10:45:00+01:00",
+  "generado": "2026-11-25T10:41:23+01:00",
+  "revisado": "2026-11-25T11:33:08+01:00",
   "motivos": [],
   "avisos": [
-    "La frase clave inglesa («know that God’s Kingdom is near.») no es el mismo pasaje que la española («El cielo y la tierra pasarán…») y empieza a mitad de frase; es floja pero literal y de Jesús.",
-    "La sincronía marca el corte del narrador sin poder oírse (sincronia.ok false): el sistema puede rehacerlo una vez."
+    "La frase clave en inglés («know that God’s Kingdom is near.») no es la del español del día («El cielo y la tierra pasarán…»): el inglés debería coincidir; si el sistema lo rehace por seguir al español, bien.",
+    "El gancho de la primera imagen se superpone al rostro de Jesús (la frase queda sobre su cara); legible pero mejorable.",
+    "La lectura empieza con «At that time,» sin nombrar a Jesús (la WEB no trae introducción)."
   ],
   "puntos": {
-    "fidelidad": "✅ idéntico a texto_evangelio (WEB, Lucas 21:29-33)",
-    "voces": "✅ todo lo entrecomillado es de Jesús; narración del narrador",
-    "frase_clave": "⚠️ literal y de Jesús, pero distinta del español y empieza a mitad de frase",
-    "reflexion": "✅ 2 frases, cálida, fiel a la lectura",
-    "tecnica": "✅ 64,1 s; LUFS -14,1",
-    "audio": "✅ fragmentos largos 11–13 car/s; más lento el 5 (3,1 s, 7,5 car/s, corto)",
-    "imagenes": "✅ las del español, Jesús coherente, subtítulos legibles",
-    "metadatos": "✅ fecha, cita Luke 21:29-33 y Luke coherentes"
+    "fidelidad": "✅ Texto idéntico a la WEB (Lucas 21,29-33)",
+    "voces": "✅ Jesús en los 3 fragmentos de sus palabras, narrador en el resto",
+    "frase_clave": "⚠️ Literal, de Jesús, 7 palabras, pero distinta de la del español",
+    "reflexion": "✅ 27 palabras, doctrina correcta, traducción de la española",
+    "tecnica": "✅ 64,1 s, -14,1 LUFS",
+    "audio": "✅ 7,5–13,2 c/s; el más lento 'The Gospel of the Lord.' (7,5, corto), el más rápido el 3º (13,2)",
+    "imagenes": "✅ Devocionales y coherentes entre escenas (Jesús igual en todas); fotogramas con subtítulos legibles",
+    "metadatos": "✅ Evangelista y cita correctos, gancho 3,6 s, karaoke"
   }
 }
