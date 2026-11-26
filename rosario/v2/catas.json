@@ -1,0 +1,211 @@
+{
+ "_nota": "Catas de cada parte del rosario v2 (26/11/2026), antes de grabar todo.",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "orden": [
+  "luminosos_anuncio2",
+  "luminosos_lectura2",
+  "H_cruz",
+  "H_credo",
+  "M_credo",
+  "H_pn_a1",
+  "M_pn_b1",
+  "H_av_a1",
+  "M_av_b1",
+  "M_av_a1",
+  "H_av_b1",
+  "H_gl_a1",
+  "M_gl_b1",
+  "H_jac_a1",
+  "M_jac_b1",
+  "H_salve",
+  "H_let00",
+  "M_resp00_1",
+  "H_let04",
+  "M_resp04_1",
+  "H_let08",
+  "M_resp05_1",
+  "H_let09",
+  "M_resp05_2",
+  "H_let62",
+  "M_resp06_1",
+  "H_ruega",
+  "M_ruega",
+  "H_cruzfin"
+ ],
+ "piezas": [
+  {
+   "id": "luminosos_anuncio2",
+   "voz": "Iapetus",
+   "estilo": "voz de anciano sabio y sereno, grave y cálida, que lee el Evangelio con reverencia, con ritmo natural y ágil, sin pausas largas, acento de España",
+   "texto": "Segundo misterio luminoso: las bodas de Caná."
+  },
+  {
+   "id": "luminosos_lectura2",
+   "voz": "Iapetus",
+   "estilo": "voz de anciano sabio y sereno, grave y cálida, que lee el Evangelio con reverencia, con ritmo natural y ágil, sin pausas largas, acento de España",
+   "texto": "Se celebraron unas bodas en Caná de Galilea, donde se hallaba la madre de Jesús. Fue también convidado a las bodas Jesús con sus discípulos. Y como viniese a faltar el vino, dijo a Jesús su madre: “No tienen vino”. Le respondió Jesús: “Mujer, ¿qué nos va a mí y a ti? Aún no es llegada mi hora”. Dijo entonces su madre a los sirvientes: “Haced lo que él os dirá”."
+  },
+  {
+   "id": "H_av_a1",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+  },
+  {
+   "id": "H_av_b1",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "H_pn_a1",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo."
+  },
+  {
+   "id": "H_gl_a1",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Gloria al Padre, y al Hijo, y al Espíritu Santo."
+  },
+  {
+   "id": "H_jac_a1",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "María, Madre de gracia, Madre de misericordia,"
+  },
+  {
+   "id": "M_av_a1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+  },
+  {
+   "id": "M_av_b1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "M_pn_b1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal."
+  },
+  {
+   "id": "M_gl_b1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."
+  },
+  {
+   "id": "M_jac_b1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "defiéndenos de nuestros enemigos y ampáranos ahora y en la hora de nuestra muerte. Amén."
+  },
+  {
+   "id": "H_cruz",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Por la señal de la Santa Cruz, de nuestros enemigos líbranos, Señor, Dios nuestro. En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén."
+  },
+  {
+   "id": "H_credo",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Creo en Dios, Padre todopoderoso, Creador del cielo y de la tierra. Creo en Jesucristo, su único Hijo, nuestro Señor, que fue concebido por obra y gracia del Espíritu Santo, nació de santa María Virgen, padeció bajo el poder de Poncio Pilato, fue crucificado, muerto y sepultado, descendió a los infiernos, al tercer día resucitó de entre los muertos, subió a los cielos y está sentado a la derecha de Dios, Padre todopoderoso. Desde allí ha de venir a juzgar a vivos y muertos."
+  },
+  {
+   "id": "M_credo",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Creo en el Espíritu Santo, la santa Iglesia católica, la comunión de los santos, el perdón de los pecados, la resurrección de la carne y la vida eterna. Amén."
+  },
+  {
+   "id": "H_salve",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Dios te salve, Reina y Madre de misericordia, vida, dulzura y esperanza nuestra; Dios te salve. A ti llamamos los desterrados hijos de Eva; a ti suspiramos, gimiendo y llorando en este valle de lágrimas. Ea, pues, Señora, abogada nuestra, vuelve a nosotros esos tus ojos misericordiosos; y después de este destierro muéstranos a Jesús, fruto bendito de tu vientre. ¡Oh clementísima, oh piadosa, oh dulce Virgen María!"
+  },
+  {
+   "id": "H_ruega",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Ruega por nosotros, santa Madre de Dios,"
+  },
+  {
+   "id": "M_ruega",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "para que seamos dignos de alcanzar las promesas de nuestro Señor Jesucristo. Amén."
+  },
+  {
+   "id": "H_cruzfin",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén."
+  },
+  {
+   "id": "H_let00",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Señor, ten piedad."
+  },
+  {
+   "id": "H_let04",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Dios, Padre celestial,"
+  },
+  {
+   "id": "H_let08",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Santa María,"
+  },
+  {
+   "id": "H_let09",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Santa Madre de Dios,"
+  },
+  {
+   "id": "H_let62",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Cordero de Dios, que quitas el pecado del mundo,"
+  },
+  {
+   "id": "M_resp00_1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "Señor, ten piedad."
+  },
+  {
+   "id": "M_resp04_1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "ten piedad de nosotros."
+  },
+  {
+   "id": "M_resp05_1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "ruega por nosotros."
+  },
+  {
+   "id": "M_resp05_2",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "ruega por nosotros."
+  },
+  {
+   "id": "M_resp06_1",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
+   "texto": "perdónanos, Señor."
+  }
+ ]
+}

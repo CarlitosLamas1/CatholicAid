@@ -1,0 +1,59 @@
+name: "Rosario v2: catas"
+
+# Graba piezas del rosario versión 2 con la clave de pago, una petición por pieza, y las escucha con faster-whisper.
+on:
+  push:
+    branches: [muestra-rosario]
+    paths: ["rosario/v2/catas.json"]
+
+permissions:
+  contents: read
+
+jobs:
+  voces:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+      - run: pip install -q --timeout 120 numpy faster-whisper
+      - name: Grabar
+        env:
+          GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+          GUION: rosario/v2/catas.json
+        run: python3 rosario/v2/grabar.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: catas-v2
+          path: rosario/salida/*.wav
+          retention-days: 30
+      - name: Escuchar
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import difflib, json, re, wave, pathlib
+          import numpy as np
+          from faster_whisper import WhisperModel
+          m = WhisperModel("small", device="cpu", compute_type="int8")
+          g = json.load(open("rosario/v2/catas.json", encoding="utf-8"))
+          norm = lambda t: re.sub(r"[^a-záéíóúüñ ]", " ", t.lower()).split()
+          for p in g["piezas"]:
+              f = pathlib.Path(f"rosario/salida/{p['id']}.wav")
+              if not f.exists():
+                  print(f"FALTA {p['id']}")
+                  continue
+              with wave.open(str(f)) as w:
+                  hz = w.getframerate()
+                  x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
+              x = np.interp(np.arange(0, len(x), hz / 16000), np.arange(len(x)), x).astype(np.float32)
+              oido = " ".join(s.text for s in m.transcribe(x, language="es")[0])
+              r = difflib.SequenceMatcher(None, norm(p["texto"]), norm(oido)).ratio()
+              print(f"{'OK ' if r >= 0.75 else 'MAL'} {r:.2f} {p['id']}: {oido.strip()}")
+          PY
