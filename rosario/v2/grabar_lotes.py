@@ -156,18 +156,28 @@ def cortar_y_comprobar(lote, bruto, carpeta):
     return buenas, notas
 
 
-def huella(ruta):
-    """(tono medio en Hz, brillo medio en Hz) de una grabación: para elegir la tirada que más se parece a la aprobada."""
+def huella(ruta, letras=None):
+    """(tono, brillo, sequedad, letras por segundo) de una grabación, para elegir la tirada más parecida a la aprobada.
+    sequedad: parte del tiempo en silencio limpio (< -50 dB). Las tiradas con eco de iglesia casi no tienen
+    silencios limpios (26/11/2026: Carlos oyó reverberación en las tiradas largas)."""
     import librosa
     y, hz = librosa.load(str(ruta), sr=16000)
     f0, sonoro, _ = librosa.pyin(y, fmin=60, fmax=400, sr=hz)
     tono = float(np.nanmedian(f0[sonoro])) if np.any(sonoro) else 0.0
     brillo = float(np.mean(librosa.feature.spectral_centroid(y=y, sr=hz)))
-    return tono, brillo
+    rms = librosa.feature.rms(y=y, frame_length=800, hop_length=400)[0]
+    db = 20 * np.log10(np.maximum(rms, 1e-9))
+    sequedad = float(np.mean(db < -50))
+    voz = float(np.mean(db > -35)) * len(y) / hz
+    ritmo = (letras / voz) if letras and voz else 0.0
+    return tono, brillo, sequedad, ritmo
 
 
 def distancia(a, b):
-    return abs(a[0] - b[0]) / max(b[0], 1) + abs(a[1] - b[1]) / max(b[1], 1)
+    d = abs(a[0] - b[0]) / max(b[0], 1) + abs(a[1] - b[1]) / max(b[1], 1) + 2 * abs(a[2] - b[2])
+    if a[3] and b[3]:
+        d += abs(a[3] - b[3]) / max(b[3], 1)
+    return d
 
 
 def main():
@@ -176,9 +186,10 @@ def main():
     for lote in LOTES["lotes"]:
         mejor = (-1, None, None)
         ref = REFS / lote["referencia"] if lote.get("referencia") else None
-        huella_ref = huella(ref) if ref and ref.exists() else None
+        huella_ref = huella(ref, lote.get("letras_referencia")) if ref and ref.exists() else None
         if huella_ref:
-            print(f"{lote['id']}: referencia tono {huella_ref[0]:.0f} Hz · brillo {huella_ref[1]:.0f} Hz", flush=True)
+            print(f"{lote['id']}: referencia tono {huella_ref[0]:.0f} Hz · brillo {huella_ref[1]:.0f} Hz · "
+                  f"silencio limpio {huella_ref[2]:.0%} · {huella_ref[3]:.1f} letras/s", flush=True)
         candidatas = []
         for intento in range(LOTES.get("intentos", 3)):
             carpeta = SALIDA / f"_{lote['id']}_{intento}"
@@ -194,9 +205,10 @@ def main():
             print(f"{lote['id']} intento {intento + 1}: {buenas}/{len(lote['lineas'])} bien · {duracion(bruto):.0f} s",
                   flush=True)
             if huella_ref:
-                h = huella(bruto)
+                h = huella(bruto, sum(len(x["texto"]) for x in lote["lineas"]))
                 dist = distancia(h, huella_ref)
-                print(f"   tono {h[0]:.0f} Hz · brillo {h[1]:.0f} Hz · diferencia con la aprobada {dist:.3f}", flush=True)
+                print(f"   tono {h[0]:.0f} Hz · brillo {h[1]:.0f} Hz · silencio limpio {h[2]:.0%} · {h[3]:.1f} letras/s · "
+                      f"diferencia con la aprobada {dist:.3f}", flush=True)
                 candidatas.append((buenas, -dist, carpeta, notas))
             elif buenas > mejor[0]:
                 mejor = (buenas, carpeta, notas)

@@ -1,7 +1,7 @@
 {
- "_nota": "Letanías (26/11/2026, 3.ª forma): una voz por tirada, en el mismo modo que las oraciones aprobadas; 3 tiradas de cada una y se elige la que más se parece en tono y timbre a la tirada aprobada (referencia).",
+ "_nota": "Letanías (26/11/2026, 5.ª forma): tiradas cortas con la MISMA petición que las oraciones perfectas; 5 tiradas por voz y se elige la más parecida a ellas en sequedad (sin eco), tono, timbre y cadencia.",
  "modelo": "gemini-2.5-flash-preview-tts",
- "intentos": 3,
+ "intentos": 5,
  "referencias_run": "45789258338",
  "lotes": [
   {
@@ -262,7 +262,8 @@
      "id": "H_let62",
      "texto": "Cordero de Dios, que quitas el pecado del mundo,"
     }
-   ]
+   ],
+   "letras_referencia": 1967
   },
   {
    "id": "M_respuestas",
@@ -306,7 +307,8 @@
      "id": "M_resp08",
      "texto": "ten misericordia de nosotros."
     }
-   ]
+   ],
+   "letras_referencia": 1063
   }
  ]
 }

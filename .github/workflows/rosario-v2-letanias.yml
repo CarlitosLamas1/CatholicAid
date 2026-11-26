@@ -2,7 +2,7 @@ name: "Rosario v2: cada voz todo de una vez (la más parecida)"
 on:
   push:
     branches: [muestra-rosario]
-    paths: ["rosario/v2/lotes_letanias.json", "rosario/v2/lotes_todo.json"]
+    paths: ["rosario/v2/lotes_letanias.json"]
 permissions:
   contents: read
   actions: read
@@ -24,18 +24,18 @@ jobs:
       - run: pip install -q --timeout 120 numpy faster-whisper imageio-ffmpeg librosa
       - name: Tiradas aprobadas (referencia de voz)
         run: |
-          RUN=$(python3 -c "import json;print(json.load(open('rosario/v2/lotes_todo.json'))['referencias_run'])")
+          RUN=$(python3 -c "import json;print(json.load(open('rosario/v2/lotes_letanias.json'))['referencias_run'])")
           gh run download "$RUN" -R "$GITHUB_REPOSITORY" -n lotes-v2 -D /tmp/ref
           mkdir -p rosario/referencias && cp /tmp/ref/bruto_*_oraciones.wav rosario/referencias/
       - name: Grabar, elegir y cortar
         env:
           GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
-          LOTES: rosario/v2/lotes_todo.json
+          LOTES: rosario/v2/lotes_letanias.json
         run: python3 rosario/v2/grabar_lotes.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: todo-v2
+          name: letanias-v4
           path: |
             rosario/salida/*.wav
             rosario/salida/informe.txt
