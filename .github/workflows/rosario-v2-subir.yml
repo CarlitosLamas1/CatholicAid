@@ -1,0 +1,27 @@
+name: "Rosario v2: subir y borrar el viejo"
+on:
+  push:
+    branches: [muestra-rosario]
+    paths: ["rosario/v2/subir.json"]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: rosario-subir
+  cancel-in-progress: false
+jobs:
+  subir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vídeo montado
+        run: |
+          RUN=$(python3 -c "import json;print(json.load(open('rosario/v2/subir.json'))['video_run'])")
+          gh run download "$RUN" -R "$GITHUB_REPOSITORY" -n rosario-v2-montado -D /tmp/montado
+      - run: python3 rosario/v2/subir.py
