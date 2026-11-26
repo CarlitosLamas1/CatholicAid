@@ -1,11 +1,11 @@
 {
-  "_nota": "Catas del 26/11/2026: voces de hombre para rezar (tres sin usar por ningún personaje y la actual) y la voz 4 de mujer con ritmo más natural. Clave de pago (céntimos).",
+  "_nota": "Catas del 26/11/2026 (2.ª): voces de hombre más jóvenes para rezar. Clave de pago (céntimos).",
   "modelo": "gemini-2.5-flash-preview-tts",
   "grabaciones": [
     {
-      "id": "hombre_puck",
+      "id": "joven_puck",
       "voz": "Puck",
-      "estilo": "voz de hombre adulto, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, como se reza de verdad, sin alargar las palabras ni hacer pausas largas, acento de España",
+      "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
       "partes": [
         [
           "av_a",
@@ -14,9 +14,9 @@
       ]
     },
     {
-      "id": "hombre_rasalgethi",
+      "id": "joven_rasalgethi",
       "voz": "Rasalgethi",
-      "estilo": "voz de hombre adulto, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, como se reza de verdad, sin alargar las palabras ni hacer pausas largas, acento de España",
+      "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
       "partes": [
         [
           "av_a",
@@ -25,9 +25,9 @@
       ]
     },
     {
-      "id": "hombre_sadaltager",
+      "id": "joven_sadaltager",
       "voz": "Sadaltager",
-      "estilo": "voz de hombre adulto, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, como se reza de verdad, sin alargar las palabras ni hacer pausas largas, acento de España",
+      "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
       "partes": [
         [
           "av_a",
@@ -36,9 +36,9 @@
       ]
     },
     {
-      "id": "hombre_enceladus",
-      "voz": "Enceladus",
-      "estilo": "voz de hombre adulto, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, como se reza de verdad, sin alargar las palabras ni hacer pausas largas, acento de España",
+      "id": "joven_umbriel",
+      "voz": "Umbriel",
+      "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
       "partes": [
         [
           "av_a",
@@ -47,13 +47,13 @@
       ]
     },
     {
-      "id": "mujer_callirrhoe",
-      "voz": "Callirrhoe",
-      "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, como se reza de verdad, sin alargar las palabras ni hacer pausas largas, acento de España",
+      "id": "joven_zubenelgenubi",
+      "voz": "Zubenelgenubi",
+      "estilo": "voz de hombre joven, de unos 25 a 30 años, cálida, clara y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras ni hacer pausas largas, acento de España",
       "partes": [
         [
-          "av_b",
-          "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+          "av_a",
+          "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
         ]
       ]
     }
