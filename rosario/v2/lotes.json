@@ -1,5 +1,5 @@
 {
- "_nota": "Rosario v2 (26/11/2026, 2.ª forma): cada voz graba todas sus oraciones de UNA vez (misma voz y tono de principio a fin); luego se corta por las pausas y se comprueba con whisper. Una sola versión de cada oración. Las lecturas del evangelista y la Salve ya valen (catas aprobadas): se graban aparte con guion.json.",
+ "_nota": "Rosario v2 (2.º intento: corte por palabras oídas)",
  "modelo": "gemini-2.5-flash-preview-tts",
  "lotes": [
   {
