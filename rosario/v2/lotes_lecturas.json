@@ -1,52 +1,146 @@
 {
- "_nota": "Rosario v2: anuncios y lecturas de cada rosario, con la voz de su evangelista, en UNA tirada (misma voz y tono). Sin letanías (Carlos las quitó el 26/11/2026).",
+ "_nota": "Rosario v2: anuncios y lecturas de cada rosario, con la voz de su evangelista, en UNA tirada por rosario. 2.ª tanda: gozosos (Lucas), dolorosos (Juan), gloriosos (Marcos).",
  "modelo": "gemini-2.5-flash-preview-tts",
  "intentos": 3,
  "lotes": [
   {
-   "id": "luminosos_lecturas",
-   "voz": "Iapetus",
-   "estilo": "voz de anciano sabio y sereno, grave y cálida, que lee el Evangelio con reverencia, con ritmo natural y ágil, sin pausas largas, acento de España",
+   "id": "gozosos_lecturas",
+   "voz": "Charon",
+   "estilo": "voz de anciano dulce y culto, cálida y delicada como la de un médico bondadoso, que lee el Evangelio con reverencia, con ritmo natural y ágil, sin pausas largas, acento de España",
    "lineas": [
     {
-     "id": "luminosos_anuncio1",
-     "texto": "Primer misterio luminoso: el bautismo de Jesús en el Jordán."
+     "id": "gozosos_anuncio1",
+     "texto": "Primer misterio gozoso: la Anunciación del ángel a María y la Encarnación del Hijo de Dios."
     },
     {
-     "id": "luminosos_lectura1",
-     "texto": "Bautizado, pues, Jesús, al instante que salió del agua, se le abrieron los cielos, y vio bajar al Espíritu de Dios a manera de paloma, y posar sobre él. Y se oyó una voz del cielo que decía: “Este es mi querido Hijo, en quien tengo puesta toda mi complacencia”."
+     "id": "gozosos_lectura1",
+     "texto": "El ángel le dijo: “¡Oh María!, no temas, porque has hallado gracia en los ojos de Dios. Sábete que has de concebir en tu seno, y parirás un hijo, a quien pondrás por nombre Jesús”. Entonces dijo María: “He aquí la esclava del Señor, hágase en mí según tu palabra”."
     },
     {
-     "id": "luminosos_anuncio2",
-     "texto": "Segundo misterio luminoso: las bodas de Caná."
+     "id": "gozosos_anuncio2",
+     "texto": "Segundo misterio gozoso: la visitación de María a su prima Isabel."
     },
     {
-     "id": "luminosos_lectura2",
-     "texto": "Se celebraron unas bodas en Caná de Galilea, donde se hallaba la madre de Jesús. Fue también convidado a las bodas Jesús con sus discípulos. Y como viniese a faltar el vino, dijo a Jesús su madre: “No tienen vino”. Le respondió Jesús: “Mujer, ¿qué nos va a mí y a ti? Aún no es llegada mi hora”. Dijo entonces su madre a los sirvientes: “Haced lo que él os dirá”."
+     "id": "gozosos_lectura2",
+     "texto": "Por aquellos días partió María, y se fue apresuradamente a las montañas de Judea, a una ciudad de la tribu de Judá; y habiendo entrado en la casa de Zacarías, saludó a Isabel. Lo mismo fue oír Isabel la salutación de María que la criatura dio saltos de placer en su vientre; y Isabel se sintió llena del Espíritu Santo; y exclamando en alta voz, dijo a María: “Bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre”."
     },
     {
-     "id": "luminosos_anuncio3",
-     "texto": "Tercer misterio luminoso: el anuncio del Reino de Dios invitando a la conversión."
+     "id": "gozosos_anuncio3",
+     "texto": "Tercer misterio gozoso: el nacimiento del Hijo de Dios en Belén."
     },
     {
-     "id": "luminosos_lectura3",
-     "texto": "Desde entonces empezó Jesús a predicar, y decir: “Haced penitencia; porque está cerca el reino de los cielos”."
+     "id": "gozosos_lectura3",
+     "texto": "Y sucedió que, hallándose allí, le llegó la hora del parto. Y parió a su hijo primogénito, y le envolvió en pañales, y le recostó en un pesebre; porque no hubo lugar para ellos en el mesón."
     },
     {
-     "id": "luminosos_anuncio4",
-     "texto": "Cuarto misterio luminoso: la transfiguración del Señor."
+     "id": "gozosos_anuncio4",
+     "texto": "Cuarto misterio gozoso: la presentación de Jesús en el templo."
     },
     {
-     "id": "luminosos_lectura4",
-     "texto": "Tomó Jesús consigo a Pedro, y a Santiago, y a Juan su hermano, y subiendo con ellos solos a un alto monte, se transfiguró en su presencia. De modo que su rostro se puso resplandeciente como el sol, y sus vestidos blancos como la nieve. Una nube resplandeciente vino a cubrirlos. Y al mismo instante resonó desde la nube una voz que decía: “Este es mi querido Hijo, en quien tengo todas mis complacencias: a él habéis de escuchar”."
+     "id": "gozosos_lectura4",
+     "texto": "Cumplido asimismo el tiempo de la purificación de la madre, según la ley de Moisés, llevaron al niño a Jerusalén, para presentarle al Señor. Y Simeón, tomándole en sus brazos, bendijo a Dios, diciendo: “Ahora, Señor, ahora sí que sacas en paz de este mundo a tu siervo, según tu promesa. Porque ya mis ojos han visto al Salvador que nos has dado”."
     },
     {
-     "id": "luminosos_anuncio5",
-     "texto": "Quinto misterio luminoso: la institución de la Eucaristía."
+     "id": "gozosos_anuncio5",
+     "texto": "Quinto misterio gozoso: el Niño Jesús perdido y hallado en el templo."
     },
     {
-     "id": "luminosos_lectura5",
-     "texto": "Mientras estaban cenando, tomó Jesús el pan, y le bendijo y partió, y se lo dio a sus discípulos, diciendo: “Tomad, y comed: este es mi cuerpo”. Y tomando el cáliz dio gracias, y se lo dio, diciendo: “Bebed todos de él. Porque esta es mi sangre, que será el sello del nuevo Testamento, la cual será derramada por muchos para remisión de los pecados”."
+     "id": "gozosos_lectura5",
+     "texto": "Al cabo de tres días de haberle perdido, le hallaron en el Templo, sentado en medio de los doctores, que ora los escuchaba, ora les preguntaba. Y su madre le dijo: “Hijo, ¿por qué te has portado así con nosotros? Mira cómo tu padre y yo, llenos de aflicción, te hemos andado buscando”. Y él les respondió: “¿Cómo es que me buscabais? ¿No sabíais que yo debo emplearme en las cosas que miran al servicio de mi Padre?”."
+    }
+   ]
+  },
+  {
+   "id": "dolorosos_lecturas",
+   "voz": "Achird",
+   "estilo": "voz de anciano contemplativo y profundo, cálida y llena de ternura, que lee el Evangelio con reverencia, con ritmo natural y ágil, sin pausas largas, acento de España",
+   "lineas": [
+    {
+     "id": "dolorosos_anuncio1",
+     "texto": "Primer misterio doloroso: la oración de Jesús en el huerto."
+    },
+    {
+     "id": "dolorosos_lectura1",
+     "texto": "Jesús dijo a Pedro: “Mete tu espada en la vaina. El cáliz que me ha dado mi Padre, ¿he de dejar yo de beberle?”"
+    },
+    {
+     "id": "dolorosos_anuncio2",
+     "texto": "Segundo misterio doloroso: la flagelación del Señor."
+    },
+    {
+     "id": "dolorosos_lectura2",
+     "texto": "Tomó entonces Pilato a Jesús, y mandó azotarle."
+    },
+    {
+     "id": "dolorosos_anuncio3",
+     "texto": "Tercer misterio doloroso: la coronación de espinas."
+    },
+    {
+     "id": "dolorosos_lectura3",
+     "texto": "Los soldados formaron una corona de espinas entretejidas, y se la pusieron sobre la cabeza; y le vistieron un manto de púrpura. Y se arrimaban a él, y decían: “Salve, ¡oh rey de los judíos!”, y le daban bofetadas."
+    },
+    {
+     "id": "dolorosos_anuncio4",
+     "texto": "Cuarto misterio doloroso: Jesús con la cruz a cuestas camino del Calvario."
+    },
+    {
+     "id": "dolorosos_lectura4",
+     "texto": "Se apoderaron, pues, de Jesús, y le sacaron fuera. Y llevando él mismo a cuestas su cruz, fue caminando hacia el sitio llamado el Calvario, y en hebreo Gólgota."
+    },
+    {
+     "id": "dolorosos_anuncio5",
+     "texto": "Quinto misterio doloroso: la crucifixión y muerte de Jesús."
+    },
+    {
+     "id": "dolorosos_lectura5",
+     "texto": "Estaban junto a la cruz de Jesús su madre, y la hermana de su madre, María, mujer de Cleofás, y María Magdalena. Habiendo mirado, pues, Jesús a su madre, y al discípulo que él amaba, que estaba allí, dice a su madre: “Mujer, ahí tienes a tu hijo”. Después dice al discípulo: “Ahí tienes a tu madre”. Y Jesús, luego que tomó el vinagre, dijo: “Todo está cumplido”. E inclinando la cabeza, entregó su espíritu."
+    }
+   ]
+  },
+  {
+   "id": "gloriosos_lecturas",
+   "voz": "Schedar",
+   "estilo": "voz de hombre mayor, clara y directa, con viveza contenida, que lee el Evangelio con reverencia, con ritmo natural y ágil, sin pausas largas, acento de España",
+   "lineas": [
+    {
+     "id": "gloriosos_anuncio1",
+     "texto": "Primer misterio glorioso: la resurrección del Señor."
+    },
+    {
+     "id": "gloriosos_lectura1",
+     "texto": "Las mujeres, entrando en el sepulcro, se hallaron con un joven sentado al lado derecho, vestido de un ropaje blanco, y se quedaron pasmadas. Pero él les dijo: “No tenéis que asustaros: vosotras venís a buscar a Jesús Nazareno, que fue crucificado: ya resucitó, no está aquí; mirad el lugar donde le pusieron”."
+    },
+    {
+     "id": "gloriosos_anuncio2",
+     "texto": "Segundo misterio glorioso: la ascensión del Señor a los cielos."
+    },
+    {
+     "id": "gloriosos_lectura2",
+     "texto": "El Señor Jesús, después de haberles hablado, fue elevado al cielo, y está allí sentado a la diestra de Dios."
+    },
+    {
+     "id": "gloriosos_anuncio3",
+     "texto": "Tercer misterio glorioso: la venida del Espíritu Santo."
+    },
+    {
+     "id": "gloriosos_lectura3",
+     "texto": "Al cumplirse, pues, los días de Pentecostés, estaban todos juntos en un mismo lugar, cuando de repente sobrevino del cielo un ruido, como de viento impetuoso que soplaba, y llenó toda la casa donde estaban. Al mismo tiempo vieron aparecer unas como lenguas de fuego, que se repartieron y se asentaron sobre cada uno de ellos; entonces fueron llenados todos del Espíritu Santo, y comenzaron a hablar en diversas lenguas las palabras que el Espíritu Santo ponía en su boca."
+    },
+    {
+     "id": "gloriosos_anuncio4",
+     "texto": "Cuarto misterio glorioso: la asunción de María al cielo."
+    },
+    {
+     "id": "gloriosos_lectura4",
+     "texto": "Entonces María dijo: “Mi alma glorifica al Señor; y mi espíritu está transportado de gozo en el Dios salvador mío. Porque ha puesto los ojos en la bajeza de su esclava: por tanto, ya desde ahora me llamarán bienaventurada todas las generaciones. Porque ha hecho en mí cosas grandes aquel que es todopoderoso, cuyo nombre es santo”."
+    },
+    {
+     "id": "gloriosos_anuncio5",
+     "texto": "Quinto misterio glorioso: la coronación de María como Reina del cielo."
+    },
+    {
+     "id": "gloriosos_lectura5",
+     "texto": "Apareció un gran prodigio en el cielo: una mujer vestida del sol, y la luna debajo de sus pies, y en su cabeza una corona de doce estrellas."
     }
    ]
   }

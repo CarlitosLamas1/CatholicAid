@@ -103,17 +103,17 @@
    "id": "5c",
    "escena": "Calvary at dusk: three crosses on the hill seen from a distance, silhouetted against a sky of deep red and gold with rays of light breaking through the clouds, quiet and solemn.",
    "refs": []
+  },
+  {
+   "id": "1L",
+   "escena": "Night in the Garden of Gethsemane, the arrest: Roman soldiers and temple guards with torches and lanterns come for Jesus (exactly as in his reference image); the apostle Peter (older, grey beard) has just drawn a short sword, and Jesus, calm and serene, raises his hand to stop him, telling him to put the sword away. Solemn, reverent. Not smiling. No blood, no wounds.",
+   "refs": [
+    "jesus"
+   ]
   }
  ],
  "repintar": [
-  "2a",
-  "2b",
-  "3b",
-  "4a",
-  "4b",
-  "4c",
-  "5a",
-  "5b"
+  "1L"
  ],
  "estilo": "Devotional fine-art oil painting with visible, expressive brushstrokes, solemn and contemplative, reverent sorrow and deep love, warm but subdued golden light in deep shadows, rich muted colors (deep red, ochre, cream, dark blue). Faces are serious and grave, never smiling."
 }
