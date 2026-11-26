@@ -16,7 +16,7 @@ import wave
 
 import numpy as np
 
-RAIZ = pathlib.Path(__file__).resolve().parent
+RAIZ = pathlib.Path(__file__).resolve().parents[1]  # carpeta rosario/ (este script vive en rosario/v2/)
 GUION = json.loads((RAIZ.parent / os.environ.get("GUION", "rosario/v2/guion.json")).read_text(encoding="utf-8"))
 SALIDA = RAIZ / "salida"
 URL = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
