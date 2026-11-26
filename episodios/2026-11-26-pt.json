@@ -149,5 +149,10 @@
     "miniatura": "ok",
     "subtitulos": "ok",
     "miniatura_shorts": "ok"
+  },
+  "tiktok": {
+    "publish_id": "v_pub_file~v2-1.7712363806760060950",
+    "estado": "PUBLISH_COMPLETE",
+    "privacidad": "SELF_ONLY"
   }
 }
