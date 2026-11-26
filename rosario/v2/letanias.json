@@ -1,0 +1,412 @@
+{
+ "_nota": "Letanías lauretanas del rosario v2 (26/11/2026): UNA grabación con las dos voces en diálogo (él invoca, ella responde), para que no cambien voz ni tono. Se usa entera; los tiempos de cada línea salen de whisper.",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "guia": {
+  "nombre": "Guia",
+  "voz": "Rasalgethi",
+  "estilo": "voz de hombre de unos 30 años, de timbre medio, cálido y sereno, ni aguda ni grave, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras; acento de España, castellano peninsular (pronuncia la zeta y la ce), sin ningún deje latinoamericano. Mantén exactamente la misma voz, el mismo tono y la misma entonación en todos los párrafos"
+ },
+ "respuesta": {
+  "nombre": "Respuesta",
+  "voz": "Callirrhoe",
+  "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras; acento de España, castellano peninsular (pronuncia la zeta y la ce), sin ningún deje latinoamericano. Mantén exactamente la misma voz, el mismo tono y la misma entonación en todos los párrafos"
+ },
+ "lineas": [
+  {
+   "a": "Señor, ten piedad.",
+   "b": "Señor, ten piedad.",
+   "ia": 0,
+   "ib": 0
+  },
+  {
+   "a": "Cristo, ten piedad.",
+   "b": "Cristo, ten piedad.",
+   "ia": 1,
+   "ib": 1
+  },
+  {
+   "a": "Señor, ten piedad.",
+   "b": "Señor, ten piedad.",
+   "ia": 0,
+   "ib": 0
+  },
+  {
+   "a": "Cristo, óyenos.",
+   "b": "Cristo, óyenos.",
+   "ia": 2,
+   "ib": 2
+  },
+  {
+   "a": "Cristo, escúchanos.",
+   "b": "Cristo, escúchanos.",
+   "ia": 3,
+   "ib": 3
+  },
+  {
+   "a": "Dios, Padre celestial,",
+   "b": "ten piedad de nosotros.",
+   "ia": 4,
+   "ib": 4
+  },
+  {
+   "a": "Dios Hijo, Redentor del mundo,",
+   "b": "ten piedad de nosotros.",
+   "ia": 5,
+   "ib": 4
+  },
+  {
+   "a": "Dios Espíritu Santo,",
+   "b": "ten piedad de nosotros.",
+   "ia": 6,
+   "ib": 4
+  },
+  {
+   "a": "Santísima Trinidad, un solo Dios,",
+   "b": "ten piedad de nosotros.",
+   "ia": 7,
+   "ib": 4
+  },
+  {
+   "a": "Santa María,",
+   "b": "ruega por nosotros.",
+   "ia": 8,
+   "ib": 5
+  },
+  {
+   "a": "Santa Madre de Dios,",
+   "b": "ruega por nosotros.",
+   "ia": 9,
+   "ib": 5
+  },
+  {
+   "a": "Santa Virgen de las vírgenes,",
+   "b": "ruega por nosotros.",
+   "ia": 10,
+   "ib": 5
+  },
+  {
+   "a": "Madre de Cristo,",
+   "b": "ruega por nosotros.",
+   "ia": 11,
+   "ib": 5
+  },
+  {
+   "a": "Madre de la Iglesia,",
+   "b": "ruega por nosotros.",
+   "ia": 12,
+   "ib": 5
+  },
+  {
+   "a": "Madre de la misericordia,",
+   "b": "ruega por nosotros.",
+   "ia": 13,
+   "ib": 5
+  },
+  {
+   "a": "Madre de la divina gracia,",
+   "b": "ruega por nosotros.",
+   "ia": 14,
+   "ib": 5
+  },
+  {
+   "a": "Madre de la esperanza,",
+   "b": "ruega por nosotros.",
+   "ia": 15,
+   "ib": 5
+  },
+  {
+   "a": "Madre purísima,",
+   "b": "ruega por nosotros.",
+   "ia": 16,
+   "ib": 5
+  },
+  {
+   "a": "Madre castísima,",
+   "b": "ruega por nosotros.",
+   "ia": 17,
+   "ib": 5
+  },
+  {
+   "a": "Madre siempre virgen,",
+   "b": "ruega por nosotros.",
+   "ia": 18,
+   "ib": 5
+  },
+  {
+   "a": "Madre inmaculada,",
+   "b": "ruega por nosotros.",
+   "ia": 19,
+   "ib": 5
+  },
+  {
+   "a": "Madre amable,",
+   "b": "ruega por nosotros.",
+   "ia": 20,
+   "ib": 5
+  },
+  {
+   "a": "Madre admirable,",
+   "b": "ruega por nosotros.",
+   "ia": 21,
+   "ib": 5
+  },
+  {
+   "a": "Madre del buen consejo,",
+   "b": "ruega por nosotros.",
+   "ia": 22,
+   "ib": 5
+  },
+  {
+   "a": "Madre del Creador,",
+   "b": "ruega por nosotros.",
+   "ia": 23,
+   "ib": 5
+  },
+  {
+   "a": "Madre del Salvador,",
+   "b": "ruega por nosotros.",
+   "ia": 24,
+   "ib": 5
+  },
+  {
+   "a": "Virgen prudentísima,",
+   "b": "ruega por nosotros.",
+   "ia": 25,
+   "ib": 5
+  },
+  {
+   "a": "Virgen digna de veneración,",
+   "b": "ruega por nosotros.",
+   "ia": 26,
+   "ib": 5
+  },
+  {
+   "a": "Virgen digna de alabanza,",
+   "b": "ruega por nosotros.",
+   "ia": 27,
+   "ib": 5
+  },
+  {
+   "a": "Virgen poderosa,",
+   "b": "ruega por nosotros.",
+   "ia": 28,
+   "ib": 5
+  },
+  {
+   "a": "Virgen clemente,",
+   "b": "ruega por nosotros.",
+   "ia": 29,
+   "ib": 5
+  },
+  {
+   "a": "Virgen fiel,",
+   "b": "ruega por nosotros.",
+   "ia": 30,
+   "ib": 5
+  },
+  {
+   "a": "Espejo de justicia,",
+   "b": "ruega por nosotros.",
+   "ia": 31,
+   "ib": 5
+  },
+  {
+   "a": "Trono de la sabiduría,",
+   "b": "ruega por nosotros.",
+   "ia": 32,
+   "ib": 5
+  },
+  {
+   "a": "Causa de nuestra alegría,",
+   "b": "ruega por nosotros.",
+   "ia": 33,
+   "ib": 5
+  },
+  {
+   "a": "Vaso espiritual,",
+   "b": "ruega por nosotros.",
+   "ia": 34,
+   "ib": 5
+  },
+  {
+   "a": "Vaso digno de honor,",
+   "b": "ruega por nosotros.",
+   "ia": 35,
+   "ib": 5
+  },
+  {
+   "a": "Vaso de insigne devoción,",
+   "b": "ruega por nosotros.",
+   "ia": 36,
+   "ib": 5
+  },
+  {
+   "a": "Rosa mística,",
+   "b": "ruega por nosotros.",
+   "ia": 37,
+   "ib": 5
+  },
+  {
+   "a": "Torre de David,",
+   "b": "ruega por nosotros.",
+   "ia": 38,
+   "ib": 5
+  },
+  {
+   "a": "Torre de marfil,",
+   "b": "ruega por nosotros.",
+   "ia": 39,
+   "ib": 5
+  },
+  {
+   "a": "Casa de oro,",
+   "b": "ruega por nosotros.",
+   "ia": 40,
+   "ib": 5
+  },
+  {
+   "a": "Arca de la alianza,",
+   "b": "ruega por nosotros.",
+   "ia": 41,
+   "ib": 5
+  },
+  {
+   "a": "Puerta del cielo,",
+   "b": "ruega por nosotros.",
+   "ia": 42,
+   "ib": 5
+  },
+  {
+   "a": "Estrella de la mañana,",
+   "b": "ruega por nosotros.",
+   "ia": 43,
+   "ib": 5
+  },
+  {
+   "a": "Salud de los enfermos,",
+   "b": "ruega por nosotros.",
+   "ia": 44,
+   "ib": 5
+  },
+  {
+   "a": "Refugio de los pecadores,",
+   "b": "ruega por nosotros.",
+   "ia": 45,
+   "ib": 5
+  },
+  {
+   "a": "Consuelo de los migrantes,",
+   "b": "ruega por nosotros.",
+   "ia": 46,
+   "ib": 5
+  },
+  {
+   "a": "Consuelo de los afligidos,",
+   "b": "ruega por nosotros.",
+   "ia": 47,
+   "ib": 5
+  },
+  {
+   "a": "Auxilio de los cristianos,",
+   "b": "ruega por nosotros.",
+   "ia": 48,
+   "ib": 5
+  },
+  {
+   "a": "Reina de los ángeles,",
+   "b": "ruega por nosotros.",
+   "ia": 49,
+   "ib": 5
+  },
+  {
+   "a": "Reina de los patriarcas,",
+   "b": "ruega por nosotros.",
+   "ia": 50,
+   "ib": 5
+  },
+  {
+   "a": "Reina de los profetas,",
+   "b": "ruega por nosotros.",
+   "ia": 51,
+   "ib": 5
+  },
+  {
+   "a": "Reina de los apóstoles,",
+   "b": "ruega por nosotros.",
+   "ia": 52,
+   "ib": 5
+  },
+  {
+   "a": "Reina de los mártires,",
+   "b": "ruega por nosotros.",
+   "ia": 53,
+   "ib": 5
+  },
+  {
+   "a": "Reina de los confesores,",
+   "b": "ruega por nosotros.",
+   "ia": 54,
+   "ib": 5
+  },
+  {
+   "a": "Reina de las vírgenes,",
+   "b": "ruega por nosotros.",
+   "ia": 55,
+   "ib": 5
+  },
+  {
+   "a": "Reina de todos los santos,",
+   "b": "ruega por nosotros.",
+   "ia": 56,
+   "ib": 5
+  },
+  {
+   "a": "Reina concebida sin pecado original,",
+   "b": "ruega por nosotros.",
+   "ia": 57,
+   "ib": 5
+  },
+  {
+   "a": "Reina asunta a los cielos,",
+   "b": "ruega por nosotros.",
+   "ia": 58,
+   "ib": 5
+  },
+  {
+   "a": "Reina del santísimo rosario,",
+   "b": "ruega por nosotros.",
+   "ia": 59,
+   "ib": 5
+  },
+  {
+   "a": "Reina de la familia,",
+   "b": "ruega por nosotros.",
+   "ia": 60,
+   "ib": 5
+  },
+  {
+   "a": "Reina de la paz,",
+   "b": "ruega por nosotros.",
+   "ia": 61,
+   "ib": 5
+  },
+  {
+   "a": "Cordero de Dios, que quitas el pecado del mundo,",
+   "b": "perdónanos, Señor.",
+   "ia": 62,
+   "ib": 6
+  },
+  {
+   "a": "Cordero de Dios, que quitas el pecado del mundo,",
+   "b": "escúchanos, Señor.",
+   "ia": 62,
+   "ib": 7
+  },
+  {
+   "a": "Cordero de Dios, que quitas el pecado del mundo,",
+   "b": "ten misericordia de nosotros.",
+   "ia": 62,
+   "ib": 8
+  }
+ ]
+}
