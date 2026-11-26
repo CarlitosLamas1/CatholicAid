@@ -1,0 +1,312 @@
+{
+ "_nota": "Letanías (26/11/2026, 3.ª forma): una voz por tirada, en el mismo modo que las oraciones aprobadas; 3 tiradas de cada una y se elige la que más se parece en tono y timbre a la tirada aprobada (referencia).",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "intentos": 3,
+ "referencias_run": "45789258338",
+ "lotes": [
+  {
+   "id": "H_letanias",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre de unos 30 años, de timbre medio, cálido y sereno, ni aguda ni grave, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras; acento de España, castellano peninsular (pronuncia la zeta y la ce), sin ningún deje latinoamericano. Mantén exactamente la misma voz, el mismo tono y la misma entonación en todos los párrafos",
+   "referencia": "bruto_H_oraciones.wav",
+   "lineas": [
+    {
+     "id": "H_let00",
+     "texto": "Señor, ten piedad."
+    },
+    {
+     "id": "H_let01",
+     "texto": "Cristo, ten piedad."
+    },
+    {
+     "id": "H_let02",
+     "texto": "Cristo, óyenos."
+    },
+    {
+     "id": "H_let03",
+     "texto": "Cristo, escúchanos."
+    },
+    {
+     "id": "H_let04",
+     "texto": "Dios, Padre celestial,"
+    },
+    {
+     "id": "H_let05",
+     "texto": "Dios Hijo, Redentor del mundo,"
+    },
+    {
+     "id": "H_let06",
+     "texto": "Dios Espíritu Santo,"
+    },
+    {
+     "id": "H_let07",
+     "texto": "Santísima Trinidad, un solo Dios,"
+    },
+    {
+     "id": "H_let08",
+     "texto": "Santa María,"
+    },
+    {
+     "id": "H_let09",
+     "texto": "Santa Madre de Dios,"
+    },
+    {
+     "id": "H_let10",
+     "texto": "Santa Virgen de las vírgenes,"
+    },
+    {
+     "id": "H_let11",
+     "texto": "Madre de Cristo,"
+    },
+    {
+     "id": "H_let12",
+     "texto": "Madre de la Iglesia,"
+    },
+    {
+     "id": "H_let13",
+     "texto": "Madre de la misericordia,"
+    },
+    {
+     "id": "H_let14",
+     "texto": "Madre de la divina gracia,"
+    },
+    {
+     "id": "H_let15",
+     "texto": "Madre de la esperanza,"
+    },
+    {
+     "id": "H_let16",
+     "texto": "Madre purísima,"
+    },
+    {
+     "id": "H_let17",
+     "texto": "Madre castísima,"
+    },
+    {
+     "id": "H_let18",
+     "texto": "Madre siempre virgen,"
+    },
+    {
+     "id": "H_let19",
+     "texto": "Madre inmaculada,"
+    },
+    {
+     "id": "H_let20",
+     "texto": "Madre amable,"
+    },
+    {
+     "id": "H_let21",
+     "texto": "Madre admirable,"
+    },
+    {
+     "id": "H_let22",
+     "texto": "Madre del buen consejo,"
+    },
+    {
+     "id": "H_let23",
+     "texto": "Madre del Creador,"
+    },
+    {
+     "id": "H_let24",
+     "texto": "Madre del Salvador,"
+    },
+    {
+     "id": "H_let25",
+     "texto": "Virgen prudentísima,"
+    },
+    {
+     "id": "H_let26",
+     "texto": "Virgen digna de veneración,"
+    },
+    {
+     "id": "H_let27",
+     "texto": "Virgen digna de alabanza,"
+    },
+    {
+     "id": "H_let28",
+     "texto": "Virgen poderosa,"
+    },
+    {
+     "id": "H_let29",
+     "texto": "Virgen clemente,"
+    },
+    {
+     "id": "H_let30",
+     "texto": "Virgen fiel,"
+    },
+    {
+     "id": "H_let31",
+     "texto": "Espejo de justicia,"
+    },
+    {
+     "id": "H_let32",
+     "texto": "Trono de la sabiduría,"
+    },
+    {
+     "id": "H_let33",
+     "texto": "Causa de nuestra alegría,"
+    },
+    {
+     "id": "H_let34",
+     "texto": "Vaso espiritual,"
+    },
+    {
+     "id": "H_let35",
+     "texto": "Vaso digno de honor,"
+    },
+    {
+     "id": "H_let36",
+     "texto": "Vaso de insigne devoción,"
+    },
+    {
+     "id": "H_let37",
+     "texto": "Rosa mística,"
+    },
+    {
+     "id": "H_let38",
+     "texto": "Torre de David,"
+    },
+    {
+     "id": "H_let39",
+     "texto": "Torre de marfil,"
+    },
+    {
+     "id": "H_let40",
+     "texto": "Casa de oro,"
+    },
+    {
+     "id": "H_let41",
+     "texto": "Arca de la alianza,"
+    },
+    {
+     "id": "H_let42",
+     "texto": "Puerta del cielo,"
+    },
+    {
+     "id": "H_let43",
+     "texto": "Estrella de la mañana,"
+    },
+    {
+     "id": "H_let44",
+     "texto": "Salud de los enfermos,"
+    },
+    {
+     "id": "H_let45",
+     "texto": "Refugio de los pecadores,"
+    },
+    {
+     "id": "H_let46",
+     "texto": "Consuelo de los migrantes,"
+    },
+    {
+     "id": "H_let47",
+     "texto": "Consuelo de los afligidos,"
+    },
+    {
+     "id": "H_let48",
+     "texto": "Auxilio de los cristianos,"
+    },
+    {
+     "id": "H_let49",
+     "texto": "Reina de los ángeles,"
+    },
+    {
+     "id": "H_let50",
+     "texto": "Reina de los patriarcas,"
+    },
+    {
+     "id": "H_let51",
+     "texto": "Reina de los profetas,"
+    },
+    {
+     "id": "H_let52",
+     "texto": "Reina de los apóstoles,"
+    },
+    {
+     "id": "H_let53",
+     "texto": "Reina de los mártires,"
+    },
+    {
+     "id": "H_let54",
+     "texto": "Reina de los confesores,"
+    },
+    {
+     "id": "H_let55",
+     "texto": "Reina de las vírgenes,"
+    },
+    {
+     "id": "H_let56",
+     "texto": "Reina de todos los santos,"
+    },
+    {
+     "id": "H_let57",
+     "texto": "Reina concebida sin pecado original,"
+    },
+    {
+     "id": "H_let58",
+     "texto": "Reina asunta a los cielos,"
+    },
+    {
+     "id": "H_let59",
+     "texto": "Reina del santísimo rosario,"
+    },
+    {
+     "id": "H_let60",
+     "texto": "Reina de la familia,"
+    },
+    {
+     "id": "H_let61",
+     "texto": "Reina de la paz,"
+    },
+    {
+     "id": "H_let62",
+     "texto": "Cordero de Dios, que quitas el pecado del mundo,"
+    }
+   ]
+  },
+  {
+   "id": "M_respuestas",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras; acento de España, castellano peninsular (pronuncia la zeta y la ce), sin ningún deje latinoamericano. Mantén exactamente la misma voz, el mismo tono y la misma entonación en todos los párrafos",
+   "referencia": "bruto_M_oraciones.wav",
+   "lineas": [
+    {
+     "id": "M_resp00",
+     "texto": "Señor, ten piedad."
+    },
+    {
+     "id": "M_resp01",
+     "texto": "Cristo, ten piedad."
+    },
+    {
+     "id": "M_resp02",
+     "texto": "Cristo, óyenos."
+    },
+    {
+     "id": "M_resp03",
+     "texto": "Cristo, escúchanos."
+    },
+    {
+     "id": "M_resp04",
+     "texto": "ten piedad de nosotros."
+    },
+    {
+     "id": "M_resp05",
+     "texto": "ruega por nosotros."
+    },
+    {
+     "id": "M_resp06",
+     "texto": "perdónanos, Señor."
+    },
+    {
+     "id": "M_resp07",
+     "texto": "escúchanos, Señor."
+    },
+    {
+     "id": "M_resp08",
+     "texto": "ten misericordia de nosotros."
+    }
+   ]
+  }
+ ]
+}

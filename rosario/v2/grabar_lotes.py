@@ -22,7 +22,8 @@ import numpy as np
 from faster_whisper import WhisperModel
 
 RAIZ = pathlib.Path(__file__).resolve().parents[2]
-LOTES = json.loads((RAIZ / "rosario" / "v2" / "lotes.json").read_text(encoding="utf-8"))
+LOTES = json.loads((RAIZ / os.environ.get("LOTES", "rosario/v2/lotes.json")).read_text(encoding="utf-8"))
+REFS = RAIZ / "rosario" / "referencias"  # tiradas aprobadas (para parecerse a ellas)
 SALIDA = RAIZ / "rosario" / "salida"
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 URL = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
@@ -155,12 +156,31 @@ def cortar_y_comprobar(lote, bruto, carpeta):
     return buenas, notas
 
 
+def huella(ruta):
+    """(tono medio en Hz, brillo medio en Hz) de una grabación: para elegir la tirada que más se parece a la aprobada."""
+    import librosa
+    y, hz = librosa.load(str(ruta), sr=16000)
+    f0, sonoro, _ = librosa.pyin(y, fmin=60, fmax=400, sr=hz)
+    tono = float(np.nanmedian(f0[sonoro])) if np.any(sonoro) else 0.0
+    brillo = float(np.mean(librosa.feature.spectral_centroid(y=y, sr=hz)))
+    return tono, brillo
+
+
+def distancia(a, b):
+    return abs(a[0] - b[0]) / max(b[0], 1) + abs(a[1] - b[1]) / max(b[1], 1)
+
+
 def main():
     SALIDA.mkdir(exist_ok=True)
     informe = []
     for lote in LOTES["lotes"]:
         mejor = (-1, None, None)
-        for intento in range(3):
+        ref = REFS / lote["referencia"] if lote.get("referencia") else None
+        huella_ref = huella(ref) if ref and ref.exists() else None
+        if huella_ref:
+            print(f"{lote['id']}: referencia tono {huella_ref[0]:.0f} Hz · brillo {huella_ref[1]:.0f} Hz", flush=True)
+        candidatas = []
+        for intento in range(LOTES.get("intentos", 3)):
             carpeta = SALIDA / f"_{lote['id']}_{intento}"
             carpeta.mkdir(exist_ok=True)
             bruto = carpeta / "bruto.wav"
@@ -173,11 +193,21 @@ def main():
                 continue
             print(f"{lote['id']} intento {intento + 1}: {buenas}/{len(lote['lineas'])} bien · {duracion(bruto):.0f} s",
                   flush=True)
-            if buenas > mejor[0]:
+            if huella_ref:
+                h = huella(bruto)
+                dist = distancia(h, huella_ref)
+                print(f"   tono {h[0]:.0f} Hz · brillo {h[1]:.0f} Hz · diferencia con la aprobada {dist:.3f}", flush=True)
+                candidatas.append((buenas, -dist, carpeta, notas))
+            elif buenas > mejor[0]:
                 mejor = (buenas, carpeta, notas)
-            if buenas == len(lote["lineas"]):
+            if not huella_ref and buenas == len(lote["lineas"]):
                 break
             time.sleep(15)
+        if candidatas:  # entre las que se oyen enteras (o las mejores), la que más se parece a la aprobada
+            tope = max(c[0] for c in candidatas)
+            b, d, c, n = max((c for c in candidatas if c[0] >= tope - 1), key=lambda c: (c[1], c[0]))
+            mejor = (b, c, n)
+            print(f"{lote['id']}: elegida {c.name} ({b}/{len(lote['lineas'])}, diferencia {-d:.3f})", flush=True)
         buenas, carpeta, notas = mejor
         if carpeta is None:
             informe.append(f"== {lote['id']}: SIN GRABAR")
