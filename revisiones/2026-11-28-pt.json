@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-28",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-26T09:55:09+01:00",
+  "revisado": "2026-11-26T10:32:47+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave portuguesa («Cuidem de si mesmos», 4 palabras) es corta y distinta de la del español («Velad, pues, orando en todo tiempo»); no impide publicar."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico al texto_evangelio",
+    "voces": "✅ Jesús, narrador y reflexión correctos",
+    "frase_clave": "⚠️ literal y de Jesús, pero corta y distinta de la del español",
+    "reflexion": "✅ cálida, fiel y breve (traducción de la española)",
+    "tecnica": "✅ duración 59.3 s, LUFS -13.7",
+    "audio": "✅ más lento 7,0 c/s (reflexión+cierre, normal), más rápido 15,3 c/s",
+    "imagenes": "✅ coherentes entre escenas; subtítulos legibles en la hoja de fotogramas",
+    "metadatos": "✅ fecha y cita Lucas 21,34-36 coherentes con el evangelista"
+  }
+}
