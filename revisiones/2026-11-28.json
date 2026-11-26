@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-11-28",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-26T09:22:58+01:00",
+  "revisado": "2026-11-26T09:40:00+01:00",
+  "motivos": [],
+  "avisos": [
+    "En la escena 3 Jesús aparece rezando de rodillas mientras habla; es aceptable, no impide publicar."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio; cita Lucas 21, 34-36 coincide con citas.json",
+    "voces": "✅ Todo el texto entre comillas es de Jesús; narrador en título, introducción, «Palabra del Señor» y reflexión",
+    "frase_clave": "✅ «Velad, pues, orando en todo tiempo»: literal, 6 palabras, de Jesús, se entiende sola",
+    "reflexion": "✅ 29 palabras, cálida y doctrinalmente correcta",
+    "tecnica": "✅ 52,9 s; -13,8 LUFS; sincronía OK",
+    "audio": "✅ Más lento: 7,5 c/s (fragmento corto de 2,4 s, normal); más rápido: 17,4 c/s; los largos van a 12–15 c/s",
+    "imagenes": "✅ Acuarela devocional coherente; Jesús igual en todas; sin deformaciones. Subtítulos legibles en la hoja de fotogramas",
+    "metadatos": "✅ Fecha y cita coherentes con Lucas"
+  }
+}
