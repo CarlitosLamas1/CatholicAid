@@ -1,0 +1,46 @@
+name: "Rosario v2: montar"
+
+# Monta un rosario v2 en la nube (rosario/v2/montar.json dice cuál y de qué grabaciones). Vídeo como artefacto.
+on:
+  push:
+    branches: [muestra-rosario]
+    paths: ["rosario/v2/montar.json"]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  montar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      GH_TOKEN: ${{ github.token }}
+      FUENTES: /tmp/fuentes
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q pillow imageio-ffmpeg
+      - name: Letra Gelasio (libre, OFL)
+        run: |
+          mkdir -p /tmp/fuentes
+          curl -sfL -o "/tmp/fuentes/Gelasio[wght].ttf" "https://github.com/google/fonts/raw/main/ofl/gelasio/Gelasio%5Bwght%5D.ttf"
+          curl -sfL -o "/tmp/fuentes/Gelasio-Italic[wght].ttf" "https://github.com/google/fonts/raw/main/ofl/gelasio/Gelasio-Italic%5Bwght%5D.ttf"
+      - name: Grabaciones
+        run: |
+          eval "$(python3 -c "import json;d=json.load(open('rosario/v2/montar.json'));print(f\"CLAVE={d['rosario']} OR={d['oraciones_run']} LE={d['lecturas_run']} FOTOS={d.get('fotos','')}\")")"
+          echo "CLAVE=$CLAVE" >> $GITHUB_ENV; echo "FOTOS=$FOTOS" >> $GITHUB_ENV
+          gh run download "$OR" -R "$GITHUB_REPOSITORY" -n lotes-v2 -D /tmp/oraciones
+          gh run download "$LE" -R "$GITHUB_REPOSITORY" -n lecturas-v2 -D /tmp/lecturas
+      - name: Montar
+        run: |
+          mkdir -p salida
+          python3 rosario/v2/montar.py "$CLAVE" /tmp/oraciones /tmp/lecturas "salida/rosario-$CLAVE.mp4" $FOTOS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosario-v2-montado
+          path: salida/
+          retention-days: 14
