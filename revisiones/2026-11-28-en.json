@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-28",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-26T09:51:42+01:00",
+  "revisado": "2026-11-26T10:32:47+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave inglesa («So be careful, or your hearts will be loaded down») no es la misma que la del español («Velad, pues, orando en todo tiempo»); no impide publicar."
+  ],
+  "puntos": {
+    "fidelidad": "✅ texto idéntico al texto_evangelio",
+    "voces": "✅ Jesús, narrador y reflexión correctos",
+    "frase_clave": "⚠️ literal y de Jesús, pero distinta de la del español",
+    "reflexion": "✅ cálida, fiel y breve (traducción de la española)",
+    "tecnica": "✅ duración 52.1 s, LUFS -14.1",
+    "audio": "✅ 7 fragmentos: más lento 8,1 c/s (cierre con reflexión, normal), más rápido 17,7 c/s",
+    "imagenes": "✅ coherentes entre escenas; subtítulos legibles en la hoja de fotogramas",
+    "metadatos": "✅ fecha y cita Lucas 21,34-36 coherentes con el evangelista"
+  }
+}
