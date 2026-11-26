@@ -1,0 +1,404 @@
+{
+ "_nota": "Rosario v2 (26/11/2026, 4.ª forma, idea de Carlos): cada voz graba TODO de una vez (oraciones + letanías), para que tono y cadencia sean los mismos en todo. 3 tiradas por voz; se elige la más parecida a la tirada aprobada.",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "intentos": 3,
+ "referencias_run": "45789258338",
+ "lotes": [
+  {
+   "id": "H_todo",
+   "voz": "Rasalgethi",
+   "estilo": "voz de hombre de unos 30 años, de timbre medio, cálido y sereno, ni aguda ni grave, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras; acento de España, castellano peninsular (pronuncia la zeta y la ce), sin ningún deje latinoamericano. Mantén exactamente la misma voz, el mismo tono y la misma entonación en todos los párrafos",
+   "referencia": "bruto_H_oraciones.wav",
+   "lineas": [
+    {
+     "id": "H_cruz",
+     "texto": "Por la señal de la Santa Cruz, de nuestros enemigos líbranos, Señor, Dios nuestro. En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén."
+    },
+    {
+     "id": "H_credo",
+     "texto": "Creo en Dios, Padre todopoderoso, Creador del cielo y de la tierra. Creo en Jesucristo, su único Hijo, nuestro Señor, que fue concebido por obra y gracia del Espíritu Santo, nació de santa María Virgen, padeció bajo el poder de Poncio Pilato, fue crucificado, muerto y sepultado, descendió a los infiernos, al tercer día resucitó de entre los muertos, subió a los cielos y está sentado a la derecha de Dios, Padre todopoderoso. Desde allí ha de venir a juzgar a vivos y muertos."
+    },
+    {
+     "id": "H_pn_a",
+     "texto": "Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo."
+    },
+    {
+     "id": "H_pn_b",
+     "texto": "Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal."
+    },
+    {
+     "id": "H_av_a",
+     "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+    },
+    {
+     "id": "H_av_b",
+     "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+    },
+    {
+     "id": "H_gl_a",
+     "texto": "Gloria al Padre, y al Hijo, y al Espíritu Santo."
+    },
+    {
+     "id": "H_gl_b",
+     "texto": "Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."
+    },
+    {
+     "id": "H_jac_a",
+     "texto": "María, Madre de gracia, Madre de misericordia,"
+    },
+    {
+     "id": "H_jac_b",
+     "texto": "defiéndenos de nuestros enemigos y ampáranos ahora y en la hora de nuestra muerte. Amén."
+    },
+    {
+     "id": "H_salve",
+     "texto": "Dios te salve, Reina y Madre de misericordia, vida, dulzura y esperanza nuestra; Dios te salve. A ti llamamos los desterrados hijos de Eva; a ti suspiramos, gimiendo y llorando en este valle de lágrimas. Ea, pues, Señora, abogada nuestra, vuelve a nosotros esos tus ojos misericordiosos; y después de este destierro muéstranos a Jesús, fruto bendito de tu vientre. ¡Oh clementísima, oh piadosa, oh dulce Virgen María!"
+    },
+    {
+     "id": "H_ruega",
+     "texto": "Ruega por nosotros, santa Madre de Dios,"
+    },
+    {
+     "id": "H_cruzfin",
+     "texto": "En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén."
+    },
+    {
+     "id": "H_let00",
+     "texto": "Señor, ten piedad."
+    },
+    {
+     "id": "H_let01",
+     "texto": "Cristo, ten piedad."
+    },
+    {
+     "id": "H_let02",
+     "texto": "Cristo, óyenos."
+    },
+    {
+     "id": "H_let03",
+     "texto": "Cristo, escúchanos."
+    },
+    {
+     "id": "H_let04",
+     "texto": "Dios, Padre celestial,"
+    },
+    {
+     "id": "H_let05",
+     "texto": "Dios Hijo, Redentor del mundo,"
+    },
+    {
+     "id": "H_let06",
+     "texto": "Dios Espíritu Santo,"
+    },
+    {
+     "id": "H_let07",
+     "texto": "Santísima Trinidad, un solo Dios,"
+    },
+    {
+     "id": "H_let08",
+     "texto": "Santa María,"
+    },
+    {
+     "id": "H_let09",
+     "texto": "Santa Madre de Dios,"
+    },
+    {
+     "id": "H_let10",
+     "texto": "Santa Virgen de las vírgenes,"
+    },
+    {
+     "id": "H_let11",
+     "texto": "Madre de Cristo,"
+    },
+    {
+     "id": "H_let12",
+     "texto": "Madre de la Iglesia,"
+    },
+    {
+     "id": "H_let13",
+     "texto": "Madre de la misericordia,"
+    },
+    {
+     "id": "H_let14",
+     "texto": "Madre de la divina gracia,"
+    },
+    {
+     "id": "H_let15",
+     "texto": "Madre de la esperanza,"
+    },
+    {
+     "id": "H_let16",
+     "texto": "Madre purísima,"
+    },
+    {
+     "id": "H_let17",
+     "texto": "Madre castísima,"
+    },
+    {
+     "id": "H_let18",
+     "texto": "Madre siempre virgen,"
+    },
+    {
+     "id": "H_let19",
+     "texto": "Madre inmaculada,"
+    },
+    {
+     "id": "H_let20",
+     "texto": "Madre amable,"
+    },
+    {
+     "id": "H_let21",
+     "texto": "Madre admirable,"
+    },
+    {
+     "id": "H_let22",
+     "texto": "Madre del buen consejo,"
+    },
+    {
+     "id": "H_let23",
+     "texto": "Madre del Creador,"
+    },
+    {
+     "id": "H_let24",
+     "texto": "Madre del Salvador,"
+    },
+    {
+     "id": "H_let25",
+     "texto": "Virgen prudentísima,"
+    },
+    {
+     "id": "H_let26",
+     "texto": "Virgen digna de veneración,"
+    },
+    {
+     "id": "H_let27",
+     "texto": "Virgen digna de alabanza,"
+    },
+    {
+     "id": "H_let28",
+     "texto": "Virgen poderosa,"
+    },
+    {
+     "id": "H_let29",
+     "texto": "Virgen clemente,"
+    },
+    {
+     "id": "H_let30",
+     "texto": "Virgen fiel,"
+    },
+    {
+     "id": "H_let31",
+     "texto": "Espejo de justicia,"
+    },
+    {
+     "id": "H_let32",
+     "texto": "Trono de la sabiduría,"
+    },
+    {
+     "id": "H_let33",
+     "texto": "Causa de nuestra alegría,"
+    },
+    {
+     "id": "H_let34",
+     "texto": "Vaso espiritual,"
+    },
+    {
+     "id": "H_let35",
+     "texto": "Vaso digno de honor,"
+    },
+    {
+     "id": "H_let36",
+     "texto": "Vaso de insigne devoción,"
+    },
+    {
+     "id": "H_let37",
+     "texto": "Rosa mística,"
+    },
+    {
+     "id": "H_let38",
+     "texto": "Torre de David,"
+    },
+    {
+     "id": "H_let39",
+     "texto": "Torre de marfil,"
+    },
+    {
+     "id": "H_let40",
+     "texto": "Casa de oro,"
+    },
+    {
+     "id": "H_let41",
+     "texto": "Arca de la alianza,"
+    },
+    {
+     "id": "H_let42",
+     "texto": "Puerta del cielo,"
+    },
+    {
+     "id": "H_let43",
+     "texto": "Estrella de la mañana,"
+    },
+    {
+     "id": "H_let44",
+     "texto": "Salud de los enfermos,"
+    },
+    {
+     "id": "H_let45",
+     "texto": "Refugio de los pecadores,"
+    },
+    {
+     "id": "H_let46",
+     "texto": "Consuelo de los migrantes,"
+    },
+    {
+     "id": "H_let47",
+     "texto": "Consuelo de los afligidos,"
+    },
+    {
+     "id": "H_let48",
+     "texto": "Auxilio de los cristianos,"
+    },
+    {
+     "id": "H_let49",
+     "texto": "Reina de los ángeles,"
+    },
+    {
+     "id": "H_let50",
+     "texto": "Reina de los patriarcas,"
+    },
+    {
+     "id": "H_let51",
+     "texto": "Reina de los profetas,"
+    },
+    {
+     "id": "H_let52",
+     "texto": "Reina de los apóstoles,"
+    },
+    {
+     "id": "H_let53",
+     "texto": "Reina de los mártires,"
+    },
+    {
+     "id": "H_let54",
+     "texto": "Reina de los confesores,"
+    },
+    {
+     "id": "H_let55",
+     "texto": "Reina de las vírgenes,"
+    },
+    {
+     "id": "H_let56",
+     "texto": "Reina de todos los santos,"
+    },
+    {
+     "id": "H_let57",
+     "texto": "Reina concebida sin pecado original,"
+    },
+    {
+     "id": "H_let58",
+     "texto": "Reina asunta a los cielos,"
+    },
+    {
+     "id": "H_let59",
+     "texto": "Reina del santísimo rosario,"
+    },
+    {
+     "id": "H_let60",
+     "texto": "Reina de la familia,"
+    },
+    {
+     "id": "H_let61",
+     "texto": "Reina de la paz,"
+    },
+    {
+     "id": "H_let62",
+     "texto": "Cordero de Dios, que quitas el pecado del mundo,"
+    }
+   ]
+  },
+  {
+   "id": "M_todo",
+   "voz": "Callirrhoe",
+   "estilo": "voz de mujer, cálida y cercana, que reza el santo rosario en voz alta en una parroquia, con ritmo natural y fluido, sin alargar las palabras; acento de España, castellano peninsular (pronuncia la zeta y la ce), sin ningún deje latinoamericano. Mantén exactamente la misma voz, el mismo tono y la misma entonación en todos los párrafos",
+   "referencia": "bruto_M_oraciones.wav",
+   "lineas": [
+    {
+     "id": "M_credo",
+     "texto": "Creo en el Espíritu Santo, la santa Iglesia católica, la comunión de los santos, el perdón de los pecados, la resurrección de la carne y la vida eterna. Amén."
+    },
+    {
+     "id": "M_pn_a",
+     "texto": "Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo."
+    },
+    {
+     "id": "M_pn_b",
+     "texto": "Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal."
+    },
+    {
+     "id": "M_av_a",
+     "texto": "Dios te salve, María, llena eres de gracia, el Señor es contigo; bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús."
+    },
+    {
+     "id": "M_av_b",
+     "texto": "Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén."
+    },
+    {
+     "id": "M_gl_a",
+     "texto": "Gloria al Padre, y al Hijo, y al Espíritu Santo."
+    },
+    {
+     "id": "M_gl_b",
+     "texto": "Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."
+    },
+    {
+     "id": "M_jac_a",
+     "texto": "María, Madre de gracia, Madre de misericordia,"
+    },
+    {
+     "id": "M_jac_b",
+     "texto": "defiéndenos de nuestros enemigos y ampáranos ahora y en la hora de nuestra muerte. Amén."
+    },
+    {
+     "id": "M_ruega",
+     "texto": "para que seamos dignos de alcanzar las promesas de nuestro Señor Jesucristo. Amén."
+    },
+    {
+     "id": "M_resp00",
+     "texto": "Señor, ten piedad."
+    },
+    {
+     "id": "M_resp01",
+     "texto": "Cristo, ten piedad."
+    },
+    {
+     "id": "M_resp02",
+     "texto": "Cristo, óyenos."
+    },
+    {
+     "id": "M_resp03",
+     "texto": "Cristo, escúchanos."
+    },
+    {
+     "id": "M_resp04",
+     "texto": "ten piedad de nosotros."
+    },
+    {
+     "id": "M_resp05",
+     "texto": "ruega por nosotros."
+    },
+    {
+     "id": "M_resp06",
+     "texto": "perdónanos, Señor."
+    },
+    {
+     "id": "M_resp07",
+     "texto": "escúchanos, Señor."
+    },
+    {
+     "id": "M_resp08",
+     "texto": "ten misericordia de nosotros."
+    }
+   ]
+  }
+ ]
+}
