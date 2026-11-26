@@ -1,0 +1,116 @@
+{
+  "fecha": "2026-11-28",
+  "modo": "diario",
+  "cita": "Lucas 21, 34-36",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/28.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._55.ogg",
+  "duracion_s": 52.9,
+  "imagenes": [
+    "dias/2026-11-28_e1.jpg",
+    "evangelistas/lucas.jpg",
+    "dias/2026-11-28_e1.jpg",
+    "biblioteca/D01",
+    "dias/2026-11-28_e2.jpg",
+    "dias/2026-11-28_e3.jpg",
+    "evangelistas/lucas.jpg",
+    "biblioteca/R04",
+    "evangelistas/lucas.jpg"
+  ],
+  "frase_clave": "Velad, pues, orando en todo tiempo",
+  "reflexion": "No permitas que las prisas y las preocupaciones apaguen tu corazón. Dedica hoy un momento a la oración para descansar en el Señor: ¿dónde tienes puesta tu mirada?",
+  "lufs": -13.8,
+  "gancho_segundos": 3.3,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-28.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus sits outdoors among his disciples at twilight, gesturing gently as he warns them to guard their hearts.",
+      "busqueda": "Jesus teaching apostles",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A cozy interior room illuminated by lit oil lamps, conveying watchful expectation and peaceful waiting in the darkness.",
+      "busqueda": "oil lamps night",
+      "personajes": []
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus kneels in prayer on a quiet hill at sunrise, surrounded by warm golden light in an atmosphere of serene trust.",
+      "busqueda": "Jesus praying dawn",
+      "personajes": [
+        "jesus"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Lucas.",
+  "texto_evangelio": "En aquel tiempo, dijo Jesús a sus discípulos: “Velad sobre vosotros mismos, no sea que se ofusquen vuestros corazones con la glotonería, la embriaguez y los afanes de esta vida, y aquel día os sorprenda de repente como un lazo; porque vendrá sobre todos los que habitan la faz de toda la tierra. Velad, pues, orando en todo tiempo, para que merezcáis evitar todos estos males que han de venir y comparecer con confianza ante el Hijo del hombre.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 3.9,
+      "texto": "Lectura del santo evangelio según san Lucas."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 7.66,
+      "texto": "En aquel tiempo, dijo Jesús a sus discípulos:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 11.11,
+      "texto": "“Velad sobre vosotros mismos, no sea que se ofusquen vuestros corazones con la glotonería, la embriaguez y los afanes de esta vida, y aquel día os sorprenda de repente como un lazo;"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 23.68,
+      "texto": "porque vendrá sobre todos los que habitan la faz de toda la tierra."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 27.52,
+      "texto": "Velad, pues, orando en todo tiempo, para que merezcáis evitar todos estos males que han de venir y comparecer con confianza ante el Hijo del hombre.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 37.28,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 39.67,
+      "texto": "No permitas que las prisas y las preocupaciones apaguen tu corazón. Dedica hoy un momento a la oración para descansar en el Señor: ¿dónde tienes puesta tu mirada?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-26T09:22:58+01:00",
+  "estilo_imagenes": "acuarela",
+  "reparto_visual": [],
+  "run": "45779941730",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
