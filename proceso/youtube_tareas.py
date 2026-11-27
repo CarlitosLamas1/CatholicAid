@@ -47,8 +47,8 @@ def texto_comentario(reg, idioma):
     pregunta = preguntas[-1].strip() if preguntas else ""
     if idioma == "pt":
         pregunta = pregunta or "Qual palavra deste Evangelho você leva hoje?"
-        return f"🕊️ {pregunta}\n\nConte nos comentários 👇 E se isso te ajudou, compartilhe com quem precisa hoje."
-    if idioma == "en":
+        texto = f"🕊️ {pregunta}\n\nConte nos comentários 👇 E se isso te ajudou, compartilhe com quem precisa hoje."
+    elif idioma == "en":
         pregunta = pregunta or "Which word from today’s Gospel will you carry with you?"
         texto = f"🕊️ {pregunta}\n\nShare it in the comments 👇 And if it helped you, pass it on to someone who needs it today."
     else:

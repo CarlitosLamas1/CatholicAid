@@ -1987,18 +1987,22 @@ def rosario_del_dia(fecha):
 
 
 ROSARIO_EN = {"gozosos": "Joyful", "dolorosos": "Sorrowful", "gloriosos": "Glorious", "luminosos": "Luminous"}
+ROSARIO_PT = {"gozosos": "gozosos", "dolorosos": "dolorosos", "gloriosos": "gloriosos", "luminosos": "luminosos"}
 
 
 def linea_rosario(fecha, idioma="es"):
     """Frase del Short que lleva al rosario del día. Los enlaces no se pueden pulsar en los Shorts (YouTube los quitó
     en 2023): se nombra la lista. Se apaga con config «rosario.activo»: false; «rosario.idiomas» dice en qué canales
-    ya están los rosarios (inglés desde el 27/11/2026)."""
+    ya están los rosarios (inglés y portugués desde el 27/11/2026)."""
     cfg = CFG.get("rosario", {})
     if not cfg.get("activo", True) or idioma not in cfg.get("idiomas", ["es"]):
         return ""
     if idioma == "en":
         return (f"📿 Today we pray the {ROSARIO_EN[rosario_del_dia(fecha)]} Mysteries: the complete Holy Rosary is in "
                 "the “Holy Rosary” playlist on the channel.\n")
+    if idioma == "pt":
+        return (f"📿 Hoje rezamos os mistérios {ROSARIO_PT[rosario_del_dia(fecha)]}: o Santo Rosário completo está na "
+                "playlist “Santo Rosário” do canal.\n")
     if idioma != "es":
         return ""
     return (f"📿 Hoy se rezan los misterios {rosario_del_dia(fecha)}: tienes el Santo Rosario completo en la lista "
@@ -2197,7 +2201,8 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
         descripcion = (f"{ev['titulo']}\n{ev['cita']}\n\n"
                        f"Evangelho de {DIAS_PT[fecha.weekday()]}, {fecha.day} de {MESES_PT[fecha.month - 1]} de "
                        f"{fecha.year}, lido com várias vozes.\n\n" + liturgia_txt
-                       + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
+                       + (f"🕊️ Para meditar: {ev['reflexion']}\n\n" if ev.get("reflexion") else "")
+                       + (linea_rosario(fecha, "pt") + "\n" if linea_rosario(fecha, "pt") else "") +
                        f"📖 Texto: {ev.get('fuente_texto', 'Bíblia do Pe. Antônio Pereira de Figueiredo')}. "
                        "Calendário litúrgico: Vatican News.\n"
                        "🎨 Imagens: cenas geradas com IA e pinturas clássicas (domínio público).\n"

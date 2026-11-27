@@ -69,6 +69,8 @@ class Rosario(unittest.TestCase):
             self.assertIn("Sorrowful Mysteries", ev.linea_rosario(dt.date(2026, 11, 27), "en"))
             self.assertIn("misterios dolorosos", ev.linea_rosario(dt.date(2026, 11, 27), "es"))
             self.assertEqual(ev.linea_rosario(dt.date(2026, 11, 27), "pt"), "")
+            ev.CFG["rosario"] = {"activo": True, "idiomas": ["es", "en", "pt"]}
+            self.assertIn("mistérios dolorosos", ev.linea_rosario(dt.date(2026, 11, 27), "pt"))
         finally:
             if guardado is None:
                 ev.CFG.pop("rosario", None)
