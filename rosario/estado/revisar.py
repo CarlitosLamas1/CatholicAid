@@ -1,6 +1,6 @@
 """Pone la lista del rosario como sección de la portada del canal (una vez; si ya está, no hace nada).
 24/11/2026: «Santo Rosario» en el canal español · 27/11/2026: «Holy Rosary» (inglés) y «Santo Rosário» (portugués).
-Idioma en la variable IDIOMA (por defecto pt)."""
+Idioma en la variable IDIOMA (por defecto pt; portada portuguesa el 27/11/2026)."""
 import json
 import os
 import pathlib
