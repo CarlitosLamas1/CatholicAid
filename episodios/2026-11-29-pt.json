@@ -119,6 +119,14 @@
     ],
     "ok": false
   },
-  "revision": "pendiente",
-  "rehechos": 1
+  "revision": "ok",
+  "rehechos": 1,
+  "youtube": {
+    "id": "13Ru-JzFWFI",
+    "url": "https://youtu.be/13Ru-JzFWFI",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-29T06:30:00Z"
+  }
 }
