@@ -124,7 +124,7 @@ for n, m in enumerate(MIS):
     i = n + 1
     a, b = ("H", "M") if i % 2 else ("M", "H")
     cab = f"{ORD[n]} {UI['misterio']} · {m['corto']}"
-    nombre = m['nombre'] if IDIOMA == "en" or m['nombre'].startswith('Jesús') else m['nombre'][0].lower() + m['nombre'][1:]
+    nombre = m['nombre'] if IDIOMA == "en" or m['nombre'].startswith(('Jesús', 'Jesus')) else m['nombre'][0].lower() + m['nombre'][1:]
     pasos.append(("CAP", 0, None, f"{ORD[n]} {UI['misterio']}: {nombre}", None, None, None, None))
     img_lect = f"{i}{m.get('imagen_lectura', 'a')}"
     if not IMG.get(img_lect, pathlib.Path("-")).exists():

@@ -1,9 +1,7 @@
 {
  "lotes": [
-  "rosario/v2/en/lotes.json"
- ],
- "solo": [
-  "H_oraciones"
+  "rosario/v2/pt/lotes.json",
+  "rosario/v2/pt/lotes_lecturas.json"
  ],
  "intentos": 5
 }

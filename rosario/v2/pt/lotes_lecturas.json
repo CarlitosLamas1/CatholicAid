@@ -1,0 +1,196 @@
+{
+ "_nota": "Santo Rosário em português: anúncios e leituras, uma tirada por rosário com a voz do seu evangelista.",
+ "idioma": "pt",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "intentos": 3,
+ "lotes": [
+  {
+   "id": "gozosos_lecturas",
+   "voz": "Charon",
+   "estilo": "a voz de um ancião gentil e culto, calorosa e delicada como a de um médico bondoso, lendo o Evangelho com reverência, com ritmo natural e ágil, sem pausas longas, sotaque brasileiro natural e claro",
+   "lineas": [
+    {
+     "id": "gozosos_anuncio1",
+     "texto": "Primeiro mistério gozoso: a Anunciação do anjo a Maria e a Encarnação do Filho de Deus."
+    },
+    {
+     "id": "gozosos_lectura1",
+     "texto": "O anjo lhe disse: “Não tenha medo, Maria, pois você encontrou graça diante de Deus. Eis que você conceberá em seu ventre e dará à luz um filho, e lhe porá o nome de Jesus”. Então Maria disse: “Eis aqui a serva do Senhor; faça-se em mim segundo a tua palavra”."
+    },
+    {
+     "id": "gozosos_anuncio2",
+     "texto": "Segundo mistério gozoso: a Visitação de Maria à sua prima Isabel."
+    },
+    {
+     "id": "gozosos_lectura2",
+     "texto": "Naqueles dias, Maria se levantou e foi às pressas para a região das montanhas, a uma cidade de Judá. Entrou na casa de Zacarias e saudou Isabel. Quando Isabel ouviu a saudação de Maria, o menino saltou em seu ventre, e Isabel ficou cheia do Espírito Santo. Ela exclamou em alta voz: “Bendita és tu entre as mulheres, e bendito é o fruto do teu ventre!”"
+    },
+    {
+     "id": "gozosos_anuncio3",
+     "texto": "Terceiro mistério gozoso: o Nascimento do Filho de Deus em Belém."
+    },
+    {
+     "id": "gozosos_lectura3",
+     "texto": "Enquanto estavam ali, completaram-se os dias em que ela devia dar à luz. E ela deu à luz o seu filho primogênito, o envolveu em faixas e o deitou numa manjedoura, porque não havia lugar para eles na hospedaria."
+    },
+    {
+     "id": "gozosos_anuncio4",
+     "texto": "Quarto mistério gozoso: a Apresentação de Jesus no Templo."
+    },
+    {
+     "id": "gozosos_lectura4",
+     "texto": "Quando se completaram os dias da purificação, segundo a lei de Moisés, levaram o menino a Jerusalém para apresentá-lo ao Senhor. Simeão o tomou nos braços, bendisse a Deus e disse: “Agora, Senhor, deixas o teu servo ir em paz, segundo a tua palavra, porque os meus olhos viram a tua salvação”."
+    },
+    {
+     "id": "gozosos_anuncio5",
+     "texto": "Quinto mistério gozoso: a Perda e o Encontro do Menino Jesus no Templo."
+    },
+    {
+     "id": "gozosos_lectura5",
+     "texto": "Três dias depois, eles o encontraram no Templo, sentado no meio dos doutores, ouvindo-os e fazendo-lhes perguntas. Sua mãe lhe disse: “Filho, por que você fez isso conosco? Eis que seu pai e eu procurávamos você, aflitos”. Ele lhes respondeu: “Por que vocês me procuravam? Não sabiam que eu devo estar nas coisas de meu Pai?”"
+    }
+   ]
+  },
+  {
+   "id": "dolorosos_lecturas",
+   "voz": "Achird",
+   "estilo": "a voz de um ancião contemplativo e profundo, calorosa e cheia de ternura, lendo o Evangelho com reverência, com ritmo natural e ágil, sem pausas longas, sotaque brasileiro natural e claro",
+   "lineas": [
+    {
+     "id": "dolorosos_anuncio1",
+     "texto": "Primeiro mistério doloroso: a Agonia de Jesus no Horto."
+    },
+    {
+     "id": "dolorosos_lectura1",
+     "texto": "Então Jesus disse a Pedro: “Guarde a sua espada na bainha. Por acaso não vou beber o cálice que o Pai me deu?”"
+    },
+    {
+     "id": "dolorosos_anuncio2",
+     "texto": "Segundo mistério doloroso: a Flagelação do Senhor."
+    },
+    {
+     "id": "dolorosos_lectura2",
+     "texto": "Então Pilatos tomou Jesus e mandou açoitá-lo."
+    },
+    {
+     "id": "dolorosos_anuncio3",
+     "texto": "Terceiro mistério doloroso: a Coroação de Espinhos."
+    },
+    {
+     "id": "dolorosos_lectura3",
+     "texto": "Os soldados teceram uma coroa de espinhos, a puseram sobre a cabeça dele e o vestiram com um manto de púrpura. Depois se aproximavam dele e diziam: “Salve, rei dos judeus!” E lhe davam bofetadas."
+    },
+    {
+     "id": "dolorosos_anuncio4",
+     "texto": "Quarto mistério doloroso: Jesus carrega a Cruz até o Calvário."
+    },
+    {
+     "id": "dolorosos_lectura4",
+     "texto": "Eles tomaram Jesus e o levaram para fora. E, carregando a sua cruz, ele saiu para o lugar chamado Calvário, que em hebraico se diz Gólgota."
+    },
+    {
+     "id": "dolorosos_anuncio5",
+     "texto": "Quinto mistério doloroso: a Crucifixão e Morte de Jesus."
+    },
+    {
+     "id": "dolorosos_lectura5",
+     "texto": "Junto à cruz de Jesus estavam de pé sua mãe, a irmã de sua mãe, Maria, mulher de Cléofas, e Maria Madalena. Jesus, vendo sua mãe e, junto dela, o discípulo que ele amava, disse à sua mãe: “Mulher, eis aí o teu filho”. Depois disse ao discípulo: “Eis aí a tua mãe”. Jesus, depois de tomar o vinagre, disse: “Tudo está consumado”. E, inclinando a cabeça, entregou o espírito."
+    }
+   ]
+  },
+  {
+   "id": "gloriosos_lecturas",
+   "voz": "Schedar",
+   "estilo": "a voz de um homem mais velho, clara e direta, com uma vivacidade contida, lendo o Evangelho com reverência, com ritmo natural e ágil, sem pausas longas, sotaque brasileiro natural e claro",
+   "lineas": [
+    {
+     "id": "gloriosos_anuncio1",
+     "texto": "Primeiro mistério glorioso: a Ressurreição do Senhor."
+    },
+    {
+     "id": "gloriosos_lectura1",
+     "texto": "Entrando no sepulcro, as mulheres viram um jovem sentado do lado direito, vestido de branco, e ficaram assustadas. Mas ele lhes disse: “Não tenham medo. Vocês procuram Jesus de Nazaré, que foi crucificado. Ele ressuscitou, não está aqui. Vejam o lugar onde o puseram”."
+    },
+    {
+     "id": "gloriosos_anuncio2",
+     "texto": "Segundo mistério glorioso: a Ascensão do Senhor ao Céu."
+    },
+    {
+     "id": "gloriosos_lectura2",
+     "texto": "E o Senhor Jesus, depois de lhes ter falado, foi elevado ao céu e está sentado à direita de Deus."
+    },
+    {
+     "id": "gloriosos_anuncio3",
+     "texto": "Terceiro mistério glorioso: a Vinda do Espírito Santo."
+    },
+    {
+     "id": "gloriosos_lectura3",
+     "texto": "Quando chegou o dia de Pentecostes, estavam todos reunidos no mesmo lugar. De repente, veio do céu um ruído, como de um vento impetuoso, e encheu toda a casa onde estavam sentados. Então lhes apareceram umas línguas como de fogo, que se repartiram e pousaram sobre cada um deles. E todos ficaram cheios do Espírito Santo e começaram a falar em várias línguas, conforme o Espírito Santo lhes concedia que falassem."
+    },
+    {
+     "id": "gloriosos_anuncio4",
+     "texto": "Quarto mistério glorioso: a Assunção de Maria ao Céu."
+    },
+    {
+     "id": "gloriosos_lectura4",
+     "texto": "Então Maria disse: “A minha alma glorifica o Senhor, e o meu espírito se alegra em Deus, meu Salvador, porque olhou para a humildade da sua serva. Eis que, de hoje em diante, todas as gerações me chamarão bem-aventurada, porque o Todo-Poderoso fez em mim grandes coisas. Santo é o seu nome”."
+    },
+    {
+     "id": "gloriosos_anuncio5",
+     "texto": "Quinto mistério glorioso: a Coroação de Maria como Rainha do Céu."
+    },
+    {
+     "id": "gloriosos_lectura5",
+     "texto": "Apareceu no céu um grande sinal: uma mulher vestida de sol, tendo a lua debaixo dos pés e sobre a cabeça uma coroa de doze estrelas."
+    }
+   ]
+  },
+  {
+   "id": "luminosos_lecturas",
+   "voz": "Iapetus",
+   "estilo": "a voz de um ancião sábio e sereno, grave e calorosa, lendo o Evangelho com reverência, com ritmo natural e ágil, sem pausas longas, sotaque brasileiro natural e claro",
+   "lineas": [
+    {
+     "id": "luminosos_anuncio1",
+     "texto": "Primeiro mistério luminoso: o Batismo de Jesus no Jordão."
+    },
+    {
+     "id": "luminosos_lectura1",
+     "texto": "Depois de ser batizado, Jesus saiu logo da água, e eis que os céus se abriram para ele, e ele viu o Espírito de Deus descendo como uma pomba e vindo sobre ele. E eis que uma voz dos céus dizia: “Este é o meu Filho amado, em quem pus todo o meu agrado”."
+    },
+    {
+     "id": "luminosos_anuncio2",
+     "texto": "Segundo mistério luminoso: as Bodas de Caná."
+    },
+    {
+     "id": "luminosos_lectura2",
+     "texto": "Houve um casamento em Caná da Galileia, e a mãe de Jesus estava lá. Jesus também foi convidado para o casamento com os seus discípulos. Faltando o vinho, a mãe de Jesus lhe disse: “Eles não têm vinho”. Jesus lhe respondeu: “Mulher, que temos nós com isso? A minha hora ainda não chegou”. Sua mãe disse aos que serviam: “Façam tudo o que ele disser a vocês”."
+    },
+    {
+     "id": "luminosos_anuncio3",
+     "texto": "Terceiro mistério luminoso: o Anúncio do Reino de Deus e o convite à conversão."
+    },
+    {
+     "id": "luminosos_lectura3",
+     "texto": "Desde então Jesus começou a pregar e a dizer: “Convertam-se, porque o Reino dos Céus está próximo”."
+    },
+    {
+     "id": "luminosos_anuncio4",
+     "texto": "Quarto mistério luminoso: a Transfiguração do Senhor."
+    },
+    {
+     "id": "luminosos_lectura4",
+     "texto": "Jesus tomou consigo Pedro, Tiago e João, seu irmão, e os levou à parte a um monte alto. E se transfigurou diante deles: o seu rosto brilhou como o sol, e as suas vestes ficaram brancas como a neve. E eis que uma nuvem luminosa os cobriu, e da nuvem saiu uma voz que dizia: “Este é o meu Filho amado, em quem pus todo o meu agrado. Escutem o que ele diz”."
+    },
+    {
+     "id": "luminosos_anuncio5",
+     "texto": "Quinto mistério luminoso: a Instituição da Eucaristia."
+    },
+    {
+     "id": "luminosos_lectura5",
+     "texto": "Enquanto ceavam, Jesus tomou o pão, o abençoou, o partiu e o deu aos seus discípulos, dizendo: “Tomem e comam: isto é o meu corpo”. Depois tomou o cálice, deu graças e o deu a eles, dizendo: “Bebam dele todos, porque este é o meu sangue da nova aliança, que será derramado por muitos para a remissão dos pecados”."
+    }
+   ]
+  }
+ ]
+}

@@ -78,6 +78,35 @@ def metadatos_en(clave):
             "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}}
 
 
+LISTA_PT = ("Santo Rosário", "O Santo Rosário completo, guiado por duas vozes, com uma breve leitura do Evangelho em cada "
+            "mistério: gozosos (segunda e sábado), dolorosos (terça e sexta), gloriosos (quarta e domingo) e luminosos "
+            "(quinta). #SantoRosário #TerçoDeHoje")
+
+
+def metadatos_pt(clave):
+    r = GUION["rosarios"][clave]
+    titulo = f"Santo Rosário de Hoje · {r['titulo']} ({r['dias']}) · Terço completo"[:100]
+    caps = (ARCH / f"rosario-{clave}.capitulos.txt").read_text(encoding="utf-8").strip()
+    lect = " · ".join(m["cita"] for m in r["misterios"])
+    creditos = "; ".join(c for c in (ev.credito_musica({"musica": m}) for m in MUSICA) if c)
+    nombre = r["titulo"]
+    desc = (f"Reze o Santo Rosário conosco: {nombre.lower()}, "
+            f"que se rezam {r['dias_largo']}. Um terço completo, guiado por duas vozes; São {r['evangelista']} lê "
+            "uma breve passagem do Evangelho em cada mistério. Para rezar em casa, em família ou no caminho.\n\n"
+            f"Capítulos:\n{caps}\n\n"
+            f"📖 Leituras: {lect} (Bíblia do Pe. Antônio Pereira de Figueiredo, domínio público, em português atual).\n"
+            "📿 Os quatro rosários estão na playlist “Santo Rosário” do canal.\n"
+            "✝️ Todas as manhãs, o Evangelho do dia em um vídeo curto: inscreva-se para não perder.\n\n"
+            "🎨 Imagens geradas com IA.\n🎙️ Vozes geradas com inteligência artificial.\n"
+            f"🎵 Música: {creditos}\n\n"
+            f"#SantoRosário #TerçoDeHoje #{nombre.replace(' ', '')} #Terço #Católico")
+    etiquetas = ["santo rosário", "terço de hoje", "rosário completo", nombre.lower(), "terço católico",
+                 "rosário em português", "nossa senhora", "oração"]
+    return {"snippet": {"title": titulo, "description": desc[:4900], "categoryId": "22", "tags": etiquetas,
+                        "defaultLanguage": "pt-BR", "defaultAudioLanguage": "pt-BR"},
+            "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}}
+
+
 def main():
     clave, viejo = PLAN["rosario"], PLAN.get("borrar")
     tok = ev.token_youtube(IDIOMA)  # en/pt: comprueba que el permiso no sea del canal español
@@ -87,7 +116,7 @@ def main():
     hechos = {i["snippet"]["title"]: i["snippet"]["resourceId"]["videoId"] for i in ev.http(
         ev.YT + f"playlistItems?part=snippet&maxResults=50&playlistId={subidas}", headers=h).get("items", [])
         if i["snippet"]["resourceId"]["videoId"] != viejo}
-    meta = metadatos(clave) if IDIOMA == "es" else metadatos_en(clave)
+    meta = {"es": metadatos, "en": metadatos_en, "pt": metadatos_pt}[IDIOMA](clave)
     if meta["snippet"]["title"] in hechos:
         vid = hechos[meta["snippet"]["title"]]
         print(f"{clave}: ya está subido el nuevo (https://youtu.be/{vid}); no lo repito")
@@ -101,7 +130,7 @@ def main():
         with urllib.request.urlopen(req, timeout=3600) as r2:
             vid = json.loads(r2.read())["id"]
         print(f"{clave}: subido https://youtu.be/{vid} (público)", flush=True)
-        lista = LISTA if IDIOMA == "es" else LISTA_EN
+        lista = {"es": LISTA, "en": LISTA_EN, "pt": LISTA_PT}[IDIOMA]
         ev.anadir_a_lista(tok, lista[0], lista[1], vid, IDIOMA)
         mini = (RAIZ / "rosario" / "v2" / "miniaturas" if IDIOMA == "es" else ARCH) / f"miniatura_{clave}.jpg"
         print("   miniatura:", ev.subir_miniatura(tok, vid, mini))

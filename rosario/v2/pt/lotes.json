@@ -1,0 +1,113 @@
+{
+ "_nota": "Santo Rosário em português (27/11/2026): mesmas vozes e disposição que o espanhol (Rasalgethi / Callirrhoe), sotaque brasileiro. Depois de cada Glória, a oração de Fátima.",
+ "idioma": "pt",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "lotes": [
+  {
+   "id": "H_oraciones",
+   "voz": "Rasalgethi",
+   "estilo": "a voz de um homem de uns 30 anos, de timbre médio, calorosa e serena, nem aguda nem grave, rezando o santo rosário em voz alta numa paróquia, com ritmo natural e fluido, sem arrastar as palavras; sotaque brasileiro natural e claro. Mantenha exatamente a mesma voz, o mesmo tom e a mesma entonação em todos os parágrafos",
+   "lineas": [
+    {
+     "id": "H_cruz",
+     "texto": "Em nome do Pai, e do Filho, e do Espírito Santo. Amém."
+    },
+    {
+     "id": "H_credo",
+     "texto": "Creio em Deus Pai todo-poderoso, criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor, que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria; padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus; está sentado à direita de Deus Pai todo-poderoso, donde há de vir a julgar os vivos e os mortos."
+    },
+    {
+     "id": "H_pn_a",
+     "texto": "Pai nosso, que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu."
+    },
+    {
+     "id": "H_pn_b",
+     "texto": "O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal."
+    },
+    {
+     "id": "H_av_a",
+     "texto": "Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus."
+    },
+    {
+     "id": "H_av_b",
+     "texto": "Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém."
+    },
+    {
+     "id": "H_gl_a",
+     "texto": "Glória ao Pai, e ao Filho, e ao Espírito Santo."
+    },
+    {
+     "id": "H_gl_b",
+     "texto": "Como era no princípio, agora e sempre. Amém."
+    },
+    {
+     "id": "H_jac_a",
+     "texto": "Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno,"
+    },
+    {
+     "id": "H_jac_b",
+     "texto": "levai as almas todas para o céu e socorrei principalmente as que mais precisarem. Amém."
+    },
+    {
+     "id": "H_salve",
+     "texto": "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro, mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria."
+    },
+    {
+     "id": "H_ruega",
+     "texto": "Rogai por nós, santa Mãe de Deus,"
+    },
+    {
+     "id": "H_cruzfin",
+     "texto": "Em nome do Pai, e do Filho, e do Espírito Santo. Amém."
+    }
+   ]
+  },
+  {
+   "id": "M_oraciones",
+   "voz": "Callirrhoe",
+   "estilo": "a voz de uma mulher, calorosa e próxima, rezando o santo rosário em voz alta numa paróquia, com ritmo natural e fluido, sem arrastar as palavras; sotaque brasileiro natural e claro. Mantenha exatamente a mesma voz, o mesmo tom e a mesma entonação em todos os parágrafos",
+   "lineas": [
+    {
+     "id": "M_credo",
+     "texto": "Creio no Espírito Santo, na santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém."
+    },
+    {
+     "id": "M_pn_a",
+     "texto": "Pai nosso, que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu."
+    },
+    {
+     "id": "M_pn_b",
+     "texto": "O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal."
+    },
+    {
+     "id": "M_av_a",
+     "texto": "Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus."
+    },
+    {
+     "id": "M_av_b",
+     "texto": "Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém."
+    },
+    {
+     "id": "M_gl_a",
+     "texto": "Glória ao Pai, e ao Filho, e ao Espírito Santo."
+    },
+    {
+     "id": "M_gl_b",
+     "texto": "Como era no princípio, agora e sempre. Amém."
+    },
+    {
+     "id": "M_jac_a",
+     "texto": "Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno,"
+    },
+    {
+     "id": "M_jac_b",
+     "texto": "levai as almas todas para o céu e socorrei principalmente as que mais precisarem. Amém."
+    },
+    {
+     "id": "M_ruega",
+     "texto": "para que sejamos dignos das promessas de Cristo. Amém."
+    }
+   ]
+  }
+ ]
+}

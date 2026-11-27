@@ -1,0 +1,207 @@
+{
+ "_nota": "Santo Rosário em português: mesmas pinturas e disposição que o espanhol. Leituras: Figueiredo (domínio público) atualizado para o português do Brasil (guias/revision-portugues.md), mesmos versículos.",
+ "idioma": "pt",
+ "rosarios": {
+  "gozosos": {
+   "titulo": "Mistérios Gozosos",
+   "dias": "Segunda-feira e sábado",
+   "dias_largo": "às segundas-feiras e aos sábados",
+   "ordinal": "gozoso",
+   "evangelista": "Lucas",
+   "intro": "3b",
+   "misterios": [
+    {
+     "nombre": "A Anunciação do anjo a Maria e a Encarnação do Filho de Deus",
+     "corto": "A Anunciação",
+     "fruto": "a humildade",
+     "cita": "Lucas 1,30-31.38",
+     "lectura": "O anjo lhe disse: “Não tenha medo, Maria, pois você encontrou graça diante de Deus. Eis que você conceberá em seu ventre e dará à luz um filho, e lhe porá o nome de Jesus”. Então Maria disse: “Eis aqui a serva do Senhor; faça-se em mim segundo a tua palavra”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Visitação de Maria à sua prima Isabel",
+     "corto": "A Visitação",
+     "fruto": "o amor ao próximo",
+     "cita": "Lucas 1,39-42",
+     "lectura": "Naqueles dias, Maria se levantou e foi às pressas para a região das montanhas, a uma cidade de Judá. Entrou na casa de Zacarias e saudou Isabel. Quando Isabel ouviu a saudação de Maria, o menino saltou em seu ventre, e Isabel ficou cheia do Espírito Santo. Ela exclamou em alta voz: “Bendita és tu entre as mulheres, e bendito é o fruto do teu ventre!”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "O Nascimento do Filho de Deus em Belém",
+     "corto": "O Nascimento de Jesus",
+     "fruto": "o desapego das coisas materiais",
+     "cita": "Lucas 2,6-7",
+     "lectura": "Enquanto estavam ali, completaram-se os dias em que ela devia dar à luz. E ela deu à luz o seu filho primogênito, o envolveu em faixas e o deitou numa manjedoura, porque não havia lugar para eles na hospedaria.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Apresentação de Jesus no Templo",
+     "corto": "A Apresentação",
+     "fruto": "a obediência",
+     "cita": "Lucas 2,22.28-30",
+     "lectura": "Quando se completaram os dias da purificação, segundo a lei de Moisés, levaram o menino a Jerusalém para apresentá-lo ao Senhor. Simeão o tomou nos braços, bendisse a Deus e disse: “Agora, Senhor, deixas o teu servo ir em paz, segundo a tua palavra, porque os meus olhos viram a tua salvação”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Perda e o Encontro do Menino Jesus no Templo",
+     "corto": "O Encontro no Templo",
+     "fruto": "procurar sempre Jesus",
+     "cita": "Lucas 2,46.48-49",
+     "lectura": "Três dias depois, eles o encontraram no Templo, sentado no meio dos doutores, ouvindo-os e fazendo-lhes perguntas. Sua mãe lhe disse: “Filho, por que você fez isso conosco? Eis que seu pai e eu procurávamos você, aflitos”. Ele lhes respondeu: “Por que vocês me procuravam? Não sabiam que eu devo estar nas coisas de meu Pai?”",
+     "imagen_lectura": "a"
+    }
+   ]
+  },
+  "dolorosos": {
+   "titulo": "Mistérios Dolorosos",
+   "dias": "Terça-feira e sexta-feira",
+   "dias_largo": "às terças e sextas-feiras",
+   "ordinal": "doloroso",
+   "evangelista": "João",
+   "intro": "5c",
+   "misterios": [
+    {
+     "nombre": "A Agonia de Jesus no Horto",
+     "corto": "A Agonia no Horto",
+     "fruto": "a dor dos nossos pecados",
+     "cita": "João 18,11",
+     "lectura": "Então Jesus disse a Pedro: “Guarde a sua espada na bainha. Por acaso não vou beber o cálice que o Pai me deu?”",
+     "imagen_lectura": "L"
+    },
+    {
+     "nombre": "A Flagelação do Senhor",
+     "corto": "A Flagelação",
+     "fruto": "a mortificação dos sentidos",
+     "cita": "João 19,1",
+     "lectura": "Então Pilatos tomou Jesus e mandou açoitá-lo.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Coroação de Espinhos",
+     "corto": "A Coroação de Espinhos",
+     "fruto": "a humildade",
+     "cita": "João 19,2-3",
+     "lectura": "Os soldados teceram uma coroa de espinhos, a puseram sobre a cabeça dele e o vestiram com um manto de púrpura. Depois se aproximavam dele e diziam: “Salve, rei dos judeus!” E lhe davam bofetadas.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "Jesus carrega a Cruz até o Calvário",
+     "corto": "Jesus carrega a Cruz",
+     "fruto": "a paciência nas provações",
+     "cita": "João 19,16-17",
+     "lectura": "Eles tomaram Jesus e o levaram para fora. E, carregando a sua cruz, ele saiu para o lugar chamado Calvário, que em hebraico se diz Gólgota.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Crucifixão e Morte de Jesus",
+     "corto": "A Crucifixão",
+     "fruto": "a perseverança no amor",
+     "cita": "João 19,25-27.30",
+     "lectura": "Junto à cruz de Jesus estavam de pé sua mãe, a irmã de sua mãe, Maria, mulher de Cléofas, e Maria Madalena. Jesus, vendo sua mãe e, junto dela, o discípulo que ele amava, disse à sua mãe: “Mulher, eis aí o teu filho”. Depois disse ao discípulo: “Eis aí a tua mãe”. Jesus, depois de tomar o vinagre, disse: “Tudo está consumado”. E, inclinando a cabeça, entregou o espírito.",
+     "imagen_lectura": "a"
+    }
+   ]
+  },
+  "gloriosos": {
+   "titulo": "Mistérios Gloriosos",
+   "dias": "Quarta-feira e domingo",
+   "dias_largo": "às quartas-feiras e aos domingos",
+   "ordinal": "glorioso",
+   "evangelista": "Marcos",
+   "intro": "5b",
+   "misterios": [
+    {
+     "nombre": "A Ressurreição do Senhor",
+     "corto": "A Ressurreição",
+     "fruto": "a fé",
+     "cita": "Marcos 16,5-6",
+     "lectura": "Entrando no sepulcro, as mulheres viram um jovem sentado do lado direito, vestido de branco, e ficaram assustadas. Mas ele lhes disse: “Não tenham medo. Vocês procuram Jesus de Nazaré, que foi crucificado. Ele ressuscitou, não está aqui. Vejam o lugar onde o puseram”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Ascensão do Senhor ao Céu",
+     "corto": "A Ascensão",
+     "fruto": "a esperança",
+     "cita": "Marcos 16,19",
+     "lectura": "E o Senhor Jesus, depois de lhes ter falado, foi elevado ao céu e está sentado à direita de Deus.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Vinda do Espírito Santo",
+     "corto": "Pentecostes",
+     "fruto": "o amor de Deus",
+     "cita": "Atos 2,1-4",
+     "lectura": "Quando chegou o dia de Pentecostes, estavam todos reunidos no mesmo lugar. De repente, veio do céu um ruído, como de um vento impetuoso, e encheu toda a casa onde estavam sentados. Então lhes apareceram umas línguas como de fogo, que se repartiram e pousaram sobre cada um deles. E todos ficaram cheios do Espírito Santo e começaram a falar em várias línguas, conforme o Espírito Santo lhes concedia que falassem.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Assunção de Maria ao Céu",
+     "corto": "A Assunção",
+     "fruto": "a graça de uma santa morte",
+     "cita": "Lucas 1,46-49",
+     "lectura": "Então Maria disse: “A minha alma glorifica o Senhor, e o meu espírito se alegra em Deus, meu Salvador, porque olhou para a humildade da sua serva. Eis que, de hoje em diante, todas as gerações me chamarão bem-aventurada, porque o Todo-Poderoso fez em mim grandes coisas. Santo é o seu nome”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Coroação de Maria como Rainha do Céu",
+     "corto": "A Coroação de Maria",
+     "fruto": "a confiança em Nossa Senhora",
+     "cita": "Apocalipse 12,1",
+     "lectura": "Apareceu no céu um grande sinal: uma mulher vestida de sol, tendo a lua debaixo dos pés e sobre a cabeça uma coroa de doze estrelas.",
+     "imagen_lectura": "a"
+    }
+   ]
+  },
+  "luminosos": {
+   "titulo": "Mistérios Luminosos",
+   "dias": "Quinta-feira",
+   "dias_largo": "às quintas-feiras",
+   "ordinal": "luminoso",
+   "evangelista": "Mateus",
+   "intro": "4a",
+   "misterios": [
+    {
+     "nombre": "O Batismo de Jesus no Jordão",
+     "corto": "O Batismo de Jesus",
+     "fruto": "a fidelidade ao nosso batismo",
+     "cita": "Mateus 3,16-17",
+     "lectura": "Depois de ser batizado, Jesus saiu logo da água, e eis que os céus se abriram para ele, e ele viu o Espírito de Deus descendo como uma pomba e vindo sobre ele. E eis que uma voz dos céus dizia: “Este é o meu Filho amado, em quem pus todo o meu agrado”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "As Bodas de Caná",
+     "corto": "As Bodas de Caná",
+     "fruto": "a confiança em Jesus por meio de Maria",
+     "cita": "João 2,1-5",
+     "lectura": "Houve um casamento em Caná da Galileia, e a mãe de Jesus estava lá. Jesus também foi convidado para o casamento com os seus discípulos. Faltando o vinho, a mãe de Jesus lhe disse: “Eles não têm vinho”. Jesus lhe respondeu: “Mulher, que temos nós com isso? A minha hora ainda não chegou”. Sua mãe disse aos que serviam: “Façam tudo o que ele disser a vocês”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "O Anúncio do Reino de Deus e o convite à conversão",
+     "corto": "O Anúncio do Reino",
+     "fruto": "a conversão do coração",
+     "cita": "Mateus 4,17",
+     "lectura": "Desde então Jesus começou a pregar e a dizer: “Convertam-se, porque o Reino dos Céus está próximo”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Transfiguração do Senhor",
+     "corto": "A Transfiguração",
+     "fruto": "o desejo de santidade",
+     "cita": "Mateus 17,1-2.5",
+     "lectura": "Jesus tomou consigo Pedro, Tiago e João, seu irmão, e os levou à parte a um monte alto. E se transfigurou diante deles: o seu rosto brilhou como o sol, e as suas vestes ficaram brancas como a neve. E eis que uma nuvem luminosa os cobriu, e da nuvem saiu uma voz que dizia: “Este é o meu Filho amado, em quem pus todo o meu agrado. Escutem o que ele diz”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "A Instituição da Eucaristia",
+     "corto": "A Eucaristia",
+     "fruto": "o amor à Eucaristia",
+     "cita": "Mateus 26,26-28",
+     "lectura": "Enquanto ceavam, Jesus tomou o pão, o abençoou, o partiu e o deu aos seus discípulos, dizendo: “Tomem e comam: isto é o meu corpo”. Depois tomou o cálice, deu graças e o deu a eles, dizendo: “Bebam dele todos, porque este é o meu sangue da nova aliança, que será derramado por muitos para a remissão dos pecados”.",
+     "imagen_lectura": "a"
+    }
+   ]
+  }
+ },
+ "piezas": []
+}

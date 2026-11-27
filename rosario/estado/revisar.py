@@ -1,6 +1,8 @@
 """Pone la lista del rosario como sección de la portada del canal (una vez; si ya está, no hace nada).
-24/11/2026: «Santo Rosario» en el canal español · 27/11/2026: «Holy Rosary» en el canal inglés."""
+24/11/2026: «Santo Rosario» en el canal español · 27/11/2026: «Holy Rosary» (inglés) y «Santo Rosário» (portugués).
+Idioma en la variable IDIOMA (por defecto pt)."""
 import json
+import os
 import pathlib
 import sys
 import urllib.error
@@ -9,7 +11,8 @@ RAIZ = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ / "proceso"))
 import evangelio as ev  # noqa: E402
 
-IDIOMA, TITULO = "en", "Holy Rosary"
+IDIOMA = os.environ.get("IDIOMA") or "pt"
+TITULO = {"es": "Santo Rosario", "en": "Holy Rosary", "pt": "Santo Rosário"}[IDIOMA]
 tok = ev.token_youtube(IDIOMA)
 h = {"Authorization": f"Bearer {tok}"}
 listas = ev.http(ev.YT + "playlists?part=snippet&mine=true&maxResults=50", headers=h).get("items", [])
