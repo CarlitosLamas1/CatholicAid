@@ -35,10 +35,26 @@ jobs:
           if [ "$IDIOMA" = "es" ]; then NO=lotes-v2; NL=lecturas-v2; else NO=grabacion; NL=grabacion; fi
           gh run download "$OR" -R "$GITHUB_REPOSITORY" -n $NO -D /tmp/oraciones
           gh run download "$LE" -R "$GITHUB_REPOSITORY" -n $NL -D /tmp/lecturas
+          if [ "$IDIOMA" != "es" ]; then cp -n /tmp/lecturas/*.wav /tmp/oraciones/; fi  # lo que no se repitió, de la primera tirada
       - name: Montar
         run: |
           mkdir -p salida
           python3 rosario/v2/montar.py "$CLAVE" /tmp/oraciones /tmp/lecturas "salida/rosario-$CLAVE.mp4" $FOTOS
+      - name: Cata y fotogramas (otros idiomas)
+        if: env.IDIOMA != 'es' && env.FOTOS == ''
+        run: |
+          FF=$(python3 -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())")
+          V="salida/rosario-$CLAVE.mp4"
+          mkdir -p cata
+          "$FF" -y -loglevel error -i "$V" -t 420 -vn -c:a libmp3lame -b:a 128k cata/cata-$CLAVE.mp3
+          for t in 20 120 165 200 300; do "$FF" -y -loglevel error -ss $t -i "$V" -frames:v 1 -q:v 4 cata/foto-$t.jpg; done
+          cp salida/miniatura_*.jpg cata/ || true
+      - uses: actions/upload-artifact@v4
+        if: env.IDIOMA != 'es' && env.FOTOS == ''
+        with:
+          name: cata
+          path: cata/
+          retention-days: 14
       - uses: actions/upload-artifact@v4
         if: always()
         with:
