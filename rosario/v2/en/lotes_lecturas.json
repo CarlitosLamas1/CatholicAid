@@ -1,0 +1,196 @@
+{
+ "_nota": "Holy Rosary in English: announcements and readings, one take per rosary with its evangelist's voice.",
+ "idioma": "en",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "intentos": 3,
+ "lotes": [
+  {
+   "id": "gozosos_lecturas",
+   "voz": "Charon",
+   "estilo": "the voice of a gentle and cultured old man, warm and delicate like a kind physician, reading the Gospel with reverence, with a natural and brisk pace, without long pauses, clear neutral American accent",
+   "lineas": [
+    {
+     "id": "gozosos_anuncio1",
+     "texto": "The first joyful mystery: the Annunciation of the angel to Mary and the Incarnation of the Son of God."
+    },
+    {
+     "id": "gozosos_lectura1",
+     "texto": "The angel said to her, “Don’t be afraid, Mary, for you have found favor with God. Behold, you will conceive in your womb and give birth to a son, and shall name him ‘Jesus.’” Mary said, “Behold, the servant of the Lord; let it be done to me according to your word.”"
+    },
+    {
+     "id": "gozosos_anuncio2",
+     "texto": "The second joyful mystery: the Visitation of Mary to her cousin Elizabeth."
+    },
+    {
+     "id": "gozosos_lectura2",
+     "texto": "Mary arose in those days and went into the hill country with haste, into a city of Judah, and entered into the house of Zacharias and greeted Elizabeth. When Elizabeth heard Mary’s greeting, the baby leaped in her womb; and Elizabeth was filled with the Holy Spirit. She called out with a loud voice and said, “Blessed are you among women, and blessed is the fruit of your womb!”"
+    },
+    {
+     "id": "gozosos_anuncio3",
+     "texto": "The third joyful mystery: the Birth of the Son of God in Bethlehem."
+    },
+    {
+     "id": "gozosos_lectura3",
+     "texto": "While they were there, the day had come for her to give birth. She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn."
+    },
+    {
+     "id": "gozosos_anuncio4",
+     "texto": "The fourth joyful mystery: the Presentation of Jesus in the Temple."
+    },
+    {
+     "id": "gozosos_lectura4",
+     "texto": "When the days of their purification according to the law of Moses were fulfilled, they brought him up to Jerusalem to present him to the Lord. Simeon received him into his arms and blessed God, and said, “Now you are releasing your servant, Master, according to your word, in peace; for my eyes have seen your salvation.”"
+    },
+    {
+     "id": "gozosos_anuncio5",
+     "texto": "The fifth joyful mystery: the Child Jesus lost and found in the Temple."
+    },
+    {
+     "id": "gozosos_lectura5",
+     "texto": "After three days they found him in the temple, sitting in the middle of the teachers, both listening to them and asking them questions. His mother said to him, “Son, why have you treated us this way? Behold, your father and I were anxiously looking for you.” He said to them, “Why were you looking for me? Didn’t you know that I must be in my Father’s house?”"
+    }
+   ]
+  },
+  {
+   "id": "dolorosos_lecturas",
+   "voz": "Achird",
+   "estilo": "the voice of a contemplative and profound old man, warm and full of tenderness, reading the Gospel with reverence, with a natural and brisk pace, without long pauses, clear neutral American accent",
+   "lineas": [
+    {
+     "id": "dolorosos_anuncio1",
+     "texto": "The first sorrowful mystery: the Agony of Jesus in the Garden."
+    },
+    {
+     "id": "dolorosos_lectura1",
+     "texto": "Jesus said to Peter, “Put the sword into its sheath. The cup which the Father has given me, shall I not surely drink it?”"
+    },
+    {
+     "id": "dolorosos_anuncio2",
+     "texto": "The second sorrowful mystery: the Scourging of the Lord."
+    },
+    {
+     "id": "dolorosos_lectura2",
+     "texto": "Then Pilate took Jesus and flogged him."
+    },
+    {
+     "id": "dolorosos_anuncio3",
+     "texto": "The third sorrowful mystery: the Crowning with Thorns."
+    },
+    {
+     "id": "dolorosos_lectura3",
+     "texto": "The soldiers twisted thorns into a crown and put it on his head, and dressed him in a purple garment. They kept saying, “Hail, King of the Jews!” and they kept slapping him."
+    },
+    {
+     "id": "dolorosos_anuncio4",
+     "texto": "The fourth sorrowful mystery: Jesus carrying the Cross to Calvary."
+    },
+    {
+     "id": "dolorosos_lectura4",
+     "texto": "So they took Jesus and led him away. He went out, bearing his cross, to the place called “The Place of a Skull”, which is called in Hebrew, “Golgotha”."
+    },
+    {
+     "id": "dolorosos_anuncio5",
+     "texto": "The fifth sorrowful mystery: the Crucifixion and Death of Jesus."
+    },
+    {
+     "id": "dolorosos_lectura5",
+     "texto": "Standing by Jesus’ cross were his mother, his mother’s sister, Mary the wife of Clopas, and Mary Magdalene. When Jesus saw his mother, and the disciple whom he loved standing there, he said to his mother, “Woman, behold, your son!” Then he said to the disciple, “Behold, your mother!” When Jesus had received the vinegar, he said, “It is finished!” Then he bowed his head and gave up his spirit."
+    }
+   ]
+  },
+  {
+   "id": "gloriosos_lecturas",
+   "voz": "Schedar",
+   "estilo": "the voice of an older man, clear and direct, with restrained liveliness, reading the Gospel with reverence, with a natural and brisk pace, without long pauses, clear neutral American accent",
+   "lineas": [
+    {
+     "id": "gloriosos_anuncio1",
+     "texto": "The first glorious mystery: the Resurrection of the Lord."
+    },
+    {
+     "id": "gloriosos_lectura1",
+     "texto": "The women, entering into the tomb, saw a young man sitting on the right side, dressed in a white robe; and they were amazed. He said to them, “Don’t be amazed. You seek Jesus, the Nazarene, who has been crucified. He has risen! He is not here. See the place where they laid him!”"
+    },
+    {
+     "id": "gloriosos_anuncio2",
+     "texto": "The second glorious mystery: the Ascension of the Lord into Heaven."
+    },
+    {
+     "id": "gloriosos_lectura2",
+     "texto": "Then the Lord, after he had spoken to them, was received up into heaven and sat down at the right hand of God."
+    },
+    {
+     "id": "gloriosos_anuncio3",
+     "texto": "The third glorious mystery: the Descent of the Holy Spirit."
+    },
+    {
+     "id": "gloriosos_lectura3",
+     "texto": "Now when the day of Pentecost had come, they were all with one accord in one place. Suddenly there came from the sky a sound like the rushing of a mighty wind, and it filled all the house where they were sitting. Tongues like fire appeared and were distributed to them, and one sat on each of them. They were all filled with the Holy Spirit and began to speak with other languages, as the Spirit gave them the ability to speak."
+    },
+    {
+     "id": "gloriosos_anuncio4",
+     "texto": "The fourth glorious mystery: the Assumption of Mary into Heaven."
+    },
+    {
+     "id": "gloriosos_lectura4",
+     "texto": "Mary said, “My soul magnifies the Lord. My spirit has rejoiced in God my Savior, for he has looked at the humble state of his servant. For behold, from now on, all generations will call me blessed. For he who is mighty has done great things for me. Holy is his name.”"
+    },
+    {
+     "id": "gloriosos_anuncio5",
+     "texto": "The fifth glorious mystery: the Coronation of Mary as Queen of Heaven."
+    },
+    {
+     "id": "gloriosos_lectura5",
+     "texto": "A great sign was seen in heaven: a woman clothed with the sun, and the moon under her feet, and on her head a crown of twelve stars."
+    }
+   ]
+  },
+  {
+   "id": "luminosos_lecturas",
+   "voz": "Iapetus",
+   "estilo": "the voice of a wise and serene old man, deep and warm, reading the Gospel with reverence, with a natural and brisk pace, without long pauses, clear neutral American accent",
+   "lineas": [
+    {
+     "id": "luminosos_anuncio1",
+     "texto": "The first luminous mystery: the Baptism of Jesus in the Jordan."
+    },
+    {
+     "id": "luminosos_lectura1",
+     "texto": "Jesus, when he was baptized, went up directly from the water: and behold, the heavens were opened to him. He saw the Spirit of God descending as a dove, and coming on him. Behold, a voice out of the heavens said, “This is my beloved Son, with whom I am well pleased.”"
+    },
+    {
+     "id": "luminosos_anuncio2",
+     "texto": "The second luminous mystery: the Wedding at Cana."
+    },
+    {
+     "id": "luminosos_lectura2",
+     "texto": "There was a wedding in Cana of Galilee. Jesus’ mother was there. Jesus also was invited, with his disciples, to the wedding. When the wine ran out, Jesus’ mother said to him, “They have no wine.” Jesus said to her, “Woman, what does that have to do with you and me? My hour has not yet come.” His mother said to the servants, “Whatever he says to you, do it.”"
+    },
+    {
+     "id": "luminosos_anuncio3",
+     "texto": "The third luminous mystery: the Proclamation of the Kingdom of God and the call to conversion."
+    },
+    {
+     "id": "luminosos_lectura3",
+     "texto": "From that time, Jesus began to preach, and to say, “Repent! For the Kingdom of Heaven is at hand.”"
+    },
+    {
+     "id": "luminosos_anuncio4",
+     "texto": "The fourth luminous mystery: the Transfiguration of the Lord."
+    },
+    {
+     "id": "luminosos_lectura4",
+     "texto": "Jesus took with him Peter, James, and John his brother, and brought them up into a high mountain by themselves. He was changed before them. His face shone like the sun, and his garments became as white as the light. Behold, a bright cloud overshadowed them. Behold, a voice came out of the cloud, saying, “This is my beloved Son, in whom I am well pleased. Listen to him.”"
+    },
+    {
+     "id": "luminosos_anuncio5",
+     "texto": "The fifth luminous mystery: the Institution of the Eucharist."
+    },
+    {
+     "id": "luminosos_lectura5",
+     "texto": "As they were eating, Jesus took bread, gave thanks for it, and broke it. He gave to the disciples and said, “Take, eat; this is my body.” He took the cup, gave thanks, and gave to them, saying, “All of you drink it, for this is my blood of the new covenant, which is poured out for many for the remission of sins.”"
+    }
+   ]
+  }
+ ]
+}

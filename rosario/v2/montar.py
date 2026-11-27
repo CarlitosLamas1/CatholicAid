@@ -36,10 +36,27 @@ LIMPIAR = ("silenceremove=start_periods=1:start_threshold=-42dB,afade=t=in:d=0.0
            "silenceremove=start_periods=1:start_threshold=-42dB,afade=t=in:d=0.015,areverse,"
            "silenceremove=stop_periods=-1:stop_duration=0.45:stop_threshold=-40dB:stop_silence=0.35")
 FUENTES = pathlib.Path(os.environ.get("FUENTES", "/tmp/fuentes"))
-GUION = json.loads((REPO / "rosario" / "v2" / "guion.json").read_text(encoding="utf-8"))
+IDIOMA = os.environ.get("IDIOMA", "es")  # es: rosario/v2/*.json · en/pt: rosario/v2/<idioma>/*.json
+CARPETA = REPO / "rosario" / "v2" / ("" if IDIOMA == "es" else IDIOMA)
+GUION = json.loads((CARPETA / "guion.json").read_text(encoding="utf-8"))
+UI = {
+    "es": dict(ord=["Primer", "Segundo", "Tercer", "Cuarto", "Quinto"], misterio="misterio", inicio="Inicio",
+               iniciales="Oraciones iniciales", final_cap="Salve y oración final", salve="Salve", final="Oración final",
+               rosario="Santo Rosario", siguenos="Síguenos para rezar cada día", fruto="Fruto del misterio",
+               lee="Lee san", gloria="Gloria", jac="María, Madre de gracia", pn="Padre nuestro", av="Avemaría {} de {}"),
+    "en": dict(ord=["First", "Second", "Third", "Fourth", "Fifth"], misterio="Mystery", inicio="Start",
+               iniciales="Opening prayers", final_cap="Hail, Holy Queen and closing prayer", salve="Hail, Holy Queen",
+               final="Closing prayer", rosario="Holy Rosary", siguenos="Follow us to pray every day",
+               fruto="Fruit of the mystery", lee="Read by St.", gloria="Glory Be", jac="O my Jesus", pn="Our Father",
+               av="Hail Mary {} of {}"),
+    "pt": dict(ord=["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto"], misterio="mistério", inicio="Início",
+               iniciales="Orações iniciais", final_cap="Salve Rainha e oração final", salve="Salve Rainha",
+               final="Oração final", rosario="Santo Rosário", siguenos="Siga-nos para rezar todos os dias",
+               fruto="Fruto do mistério", lee="Lê São", gloria="Glória", jac="Ó meu Jesus", pn="Pai-Nosso",
+               av="Ave-Maria {} de {}")}[IDIOMA]
 ROS = GUION["rosarios"][CLAVE]
 MIS = ROS["misterios"]
-ORD = ["Primer", "Segundo", "Tercer", "Cuarto", "Quinto"]
+ORD = UI["ord"]
 EVANG = ROS["evangelista"]
 MUSICA = ["Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg", "Chopin_-_Nocturne-op-55-no-1.ogg",
           "Schubert_-_Piano_Sonata_No._13_in_A_major,_D664_-_II._Andante_(Paul_Pitman).flac",
@@ -47,10 +64,10 @@ MUSICA = ["Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg", "Chopin
           "Frederic_Chopin_-_nocturne_no._2_in_e_flat_major,_op._62.ogg",
           "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg"]
 TXT = {}
-for l in json.loads((REPO / "rosario" / "v2" / "lotes.json").read_text(encoding="utf-8"))["lotes"]:
+for l in json.loads((CARPETA / "lotes.json").read_text(encoding="utf-8"))["lotes"]:
     for x in l["lineas"]:
         TXT[x["id"]] = x["texto"]
-for p in GUION["piezas"]:
+for p in GUION.get("piezas", []):
     TXT.setdefault(p["id"], p["texto"])
 
 
@@ -92,8 +109,8 @@ def dos(a, b, base, img, cuentas, cab, tipo="", pausa_fin=0.6):
     pasos.append((f"{b}_{base}_b", pausa_fin, img, TXT[f"{b}_{base}_b"], COLOR[b], cuentas, tipo, cab))
 
 
-capitulos = [(0.0, "Inicio")]
-CAB0 = "Oraciones iniciales"
+capitulos = [(0.0, UI["inicio"])]
+CAB0 = UI["iniciales"]
 pasos.append((None, 4.0, ROS["intro"], None, None, None, "intro", None))
 pasos.append(("H_cruz", 1.0, ROS["intro"], TXT["H_cruz"], "blanco", None, "", CAB0))
 pasos.append(("H_credo", 0.3, ROS["intro"], TXT["H_credo"], "blanco", None, "", CAB0))
@@ -106,8 +123,9 @@ dos("H", "M", "gl", "maria", (3, 4), CAB0, "gloria", 1.2)
 for n, m in enumerate(MIS):
     i = n + 1
     a, b = ("H", "M") if i % 2 else ("M", "H")
-    cab = f"{ORD[n]} misterio · {m['corto']}"
-    pasos.append(("CAP", 0, None, f"{ORD[n]} misterio: {m['nombre'][0].lower() + m['nombre'][1:] if not m['nombre'].startswith('Jesús') else m['nombre']}", None, None, None, None))
+    cab = f"{ORD[n]} {UI['misterio']} · {m['corto']}"
+    nombre = m['nombre'] if IDIOMA == "en" or m['nombre'].startswith('Jesús') else m['nombre'][0].lower() + m['nombre'][1:]
+    pasos.append(("CAP", 0, None, f"{ORD[n]} {UI['misterio']}: {nombre}", None, None, None, None))
     img_lect = f"{i}{m.get('imagen_lectura', 'a')}"
     if not IMG.get(img_lect, pathlib.Path("-")).exists():
         img_lect = f"{i}a"
@@ -118,11 +136,11 @@ for n, m in enumerate(MIS):
         dos(a, b, "av", f"{i}{'abc'[0 if k < 3 else 1 if k < 7 else 2]}", (10, k + 1), cab)
     dos(a, b, "gl", f"{i}c", (10, 11), cab, "gloria", 0.5)
     dos(a, b, "jac", f"{i}c", (10, 11), cab, "jac", 2.0)
-pasos.append(("CAP", 0, None, "Salve y oración final", None, None, None, None))
-pasos.append(("H_salve", 1.0, "maria", TXT["H_salve"], "blanco", None, "", "Salve"))
-pasos.append(("H_ruega", 0.3, "maria", TXT["H_ruega"], "blanco", None, "", "Oración final"))
-pasos.append(("M_ruega", 1.0, "maria", TXT["M_ruega"], "azul", None, "", "Oración final"))
-pasos.append(("H_cruzfin", 1.5, ROS["intro"], TXT["H_cruzfin"], "blanco", None, "", "Oración final"))
+pasos.append(("CAP", 0, None, UI["final_cap"], None, None, None, None))
+pasos.append(("H_salve", 1.0, "maria", TXT["H_salve"], "blanco", None, "", UI["salve"]))
+pasos.append(("H_ruega", 0.3, "maria", TXT["H_ruega"], "blanco", None, "", UI["final"]))
+pasos.append(("M_ruega", 1.0, "maria", TXT["M_ruega"], "azul", None, "", UI["final"]))
+pasos.append(("H_cruzfin", 1.5, ROS["intro"], TXT["H_cruzfin"], "blanco", None, "", UI["final"]))
 pasos.append((None, 7.0, ROS["intro"], None, None, None, "fin", None))
 
 
@@ -285,23 +303,23 @@ def capa(p):
     d = ImageDraw.Draw(c)
     cx = RX + RW // 2
     if tipo in ("intro", "fin"):
-        d.text((cx, 400), "Santo Rosario", font=F_GRANDE, fill=(255, 255, 255, 255), anchor="mm")
+        d.text((cx, 400), UI["rosario"], font=F_GRANDE, fill=(255, 255, 255, 255), anchor="mm")
         d.text((cx, 490), ROS["titulo"], font=F_SUB, fill=ORO + (255,), anchor="mm")
         d.text((cx, 565), ROS["dias"], font=F_MARCA, fill=(255, 255, 255, 200), anchor="mm")
         if tipo == "fin":
-            d.text((cx, 700), "Síguenos para rezar cada día", font=F_MARCA, fill=(255, 255, 255, 200), anchor="mm")
+            d.text((cx, 700), UI["siguenos"], font=F_MARCA, fill=(255, 255, 255, 200), anchor="mm")
         d.text((cx, 980), "CatolicAid", font=F_MARCA, fill=(255, 255, 255, 170), anchor="mm")
         capas[clave] = c
         return c
-    d.text((cx, 95), "SANTO ROSARIO  ·  " + ROS["titulo"].upper(), font=F_CAB, fill=ORO + (235,), anchor="mm")
+    d.text((cx, 95), UI["rosario"].upper() + "  ·  " + ROS["titulo"].upper(), font=F_CAB, fill=ORO + (235,), anchor="mm")
     d.text((cx, 148), cab, font=F_TIT, fill=(255, 255, 255, 215), anchor="mm")
     d.line((cx - 60, 188, cx + 60, 188), fill=ORO + (160,), width=2)
     if tipo == "anuncio":
         m = MIS[texto[1]]
-        d.text((cx, 400), f"{ORD[texto[1]]} misterio", font=F_GRANDE, fill=(255, 255, 255, 255), anchor="mm")
+        d.text((cx, 400), f"{ORD[texto[1]]} {UI['misterio']}", font=F_GRANDE, fill=(255, 255, 255, 255), anchor="mm")
         for j, l in enumerate(envolver(m["nombre"], F_SUB, RW - 80)):
             d.text((cx, 500 + j * 62), l, font=F_SUB, fill=ORO + (255,), anchor="mm")
-        d.text((cx, 700), f"Fruto del misterio: {m['fruto']}", font=F_MARCA, fill=(255, 255, 255, 210), anchor="mm")
+        d.text((cx, 700), f"{UI['fruto']}: {m['fruto']}", font=F_MARCA, fill=(255, 255, 255, 210), anchor="mm")
     elif texto:
         f = F_TXT
         lineas = envolver(texto, f, RW - 60)
@@ -313,7 +331,7 @@ def capa(p):
         rgb = AZUL if color == "azul" else (255, 255, 255)
         if tipo == "lectura":
             cita = next(m["cita"] for m in MIS if m["corto"] in cab)
-            d.text((cx, 250), f"Lee san {EVANG} · {cita}", font=F_MARCA, fill=(255, 255, 255, 170), anchor="mm")
+            d.text((cx, 250), f"{UI['lee']} {EVANG} · {cita}", font=F_MARCA, fill=(255, 255, 255, 170), anchor="mm")
         for j, l in enumerate(lineas):
             d.text((cx, y0 + j * alto), l, font=f, fill=rgb + (255,), anchor="mm", stroke_width=2,
                    stroke_fill=(0, 0, 0, 120))
@@ -330,8 +348,8 @@ def capa(p):
                 d.ellipse((x - r, y - r, x + r, y + r), fill=(255, 236, 170, 255))
             else:
                 d.ellipse((x - r, y - r, x + r, y + r), outline=(255, 255, 255, 150), width=3)
-        etiqueta = {"gloria": "Gloria", "jac": "María, Madre de gracia"}.get(tipo) or (
-            "Padre nuestro" if actual == 0 else f"Avemaría {actual} de {total}")
+        etiqueta = {"gloria": UI["gloria"], "jac": UI["jac"]}.get(tipo) or (
+            UI["pn"] if actual == 0 else UI["av"].format(actual, total))
         d.text((cx, 960), etiqueta, font=F_MARCA, fill=(255, 255, 255, 190), anchor="mm")
     capas[clave] = c
     return c
@@ -372,6 +390,48 @@ def cuadro(t):
     marco.alpha_composite(desvanecer(capa(p), max(0.0, f) if suave else max(f, 0.55)))
     return marco.convert("RGB")
 
+
+def miniatura():
+    """Miniatura 1280x720 como la del español (rosario/v2/miniaturas/): pintura del primer misterio a la izquierda con
+    marco dorado y, a la derecha, «HOLY ROSARY» / título / días. Para inglés y portugués."""
+    TW, TH = 1280, 720
+    im = Image.open(P / f"{CLAVE}_1a.jpg").convert("RGB")
+    fondo = im.resize((TW, int(TW * im.height / im.width)), Image.LANCZOS)
+    y = (fondo.height - TH) // 2
+    fondo = Image.eval(fondo.crop((0, y, TW, y + TH)).filter(ImageFilter.GaussianBlur(30)), lambda v: int(v * 0.25))
+    ph = 680
+    pw = int(ph * im.width / im.height)
+    fondo.paste(im.resize((pw, ph), Image.LANCZOS), (40, 20))
+    d = ImageDraw.Draw(fondo)
+    d.rectangle((38, 18, 40 + pw + 1, 20 + ph + 1), outline=(200, 170, 90), width=3)
+    cx = (40 + pw + TW) // 2
+    ancho = TW - (40 + pw) - 60
+    grande = fuente("negrita", 120)
+    palabras = UI["rosario"].upper().split()
+    for j, pal in enumerate(palabras):
+        d.text((cx, 190 + j * 120 - (len(palabras) - 2) * 60), pal, font=grande, fill=(255, 255, 255), anchor="mm",
+               stroke_width=4, stroke_fill=(0, 0, 0))
+    titulo = re.sub(r"^The ", "", ROS["titulo"])
+    t = 64
+    while fuente("negrita", t).getlength(titulo) > ancho and t > 36:
+        t -= 2
+    fn = fuente("negrita", t)
+    try:
+        fn = ImageFont.truetype(str(FUENTES / "Gelasio-Italic[wght].ttf"), t)
+        fn.set_variation_by_name("Bold")
+    except Exception:
+        pass
+    d.text((cx, 455), titulo, font=fn, fill=ORO, anchor="mm", stroke_width=3, stroke_fill=(0, 0, 0))
+    d.text((cx, 540), ROS["dias"], font=fuente("cursiva", 46), fill=(255, 255, 255), anchor="mm")
+    pie = {"en": "Complete Rosary · CatolicAid", "pt": "Rosário completo · CatolicAid"}.get(IDIOMA, "")
+    d.text((cx, 650), pie, font=fuente("cursiva", 30), fill=(230, 230, 230), anchor="mm")
+    destino = SALIDA.parent / f"miniatura_{CLAVE}.jpg"
+    fondo.save(destino, quality=92)
+    print("Miniatura:", destino, flush=True)
+
+
+if IDIOMA != "es":
+    miniatura()
 
 if FOTOS:
     for x in FOTOS.split(","):

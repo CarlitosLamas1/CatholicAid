@@ -1,0 +1,113 @@
+{
+ "_nota": "Holy Rosary in English (27/11/2026): same voices and layout as the Spanish (Rasalgethi / Callirrhoe), American accent. After each Glory Be, the Fatima prayer.",
+ "idioma": "en",
+ "modelo": "gemini-2.5-flash-preview-tts",
+ "lotes": [
+  {
+   "id": "H_oraciones",
+   "voz": "Rasalgethi",
+   "estilo": "the voice of a man of about 30, with a medium timbre, warm and serene, neither high nor low, praying the holy rosary aloud in a parish, with a natural, flowing pace, without drawing out the words; clear neutral American accent. Keep exactly the same voice, the same tone and the same intonation in every paragraph",
+   "lineas": [
+    {
+     "id": "H_cruz",
+     "texto": "In the name of the Father, and of the Son, and of the Holy Spirit. Amen."
+    },
+    {
+     "id": "H_credo",
+     "texto": "I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from there he will come to judge the living and the dead."
+    },
+    {
+     "id": "H_pn_a",
+     "texto": "Our Father, who art in heaven, hallowed be thy name; thy kingdom come, thy will be done on earth as it is in heaven."
+    },
+    {
+     "id": "H_pn_b",
+     "texto": "Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil."
+    },
+    {
+     "id": "H_av_a",
+     "texto": "Hail Mary, full of grace, the Lord is with thee; blessed art thou among women, and blessed is the fruit of thy womb, Jesus."
+    },
+    {
+     "id": "H_av_b",
+     "texto": "Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen."
+    },
+    {
+     "id": "H_gl_a",
+     "texto": "Glory be to the Father, and to the Son, and to the Holy Spirit."
+    },
+    {
+     "id": "H_gl_b",
+     "texto": "As it was in the beginning, is now, and ever shall be, world without end. Amen."
+    },
+    {
+     "id": "H_jac_a",
+     "texto": "O my Jesus, forgive us our sins, save us from the fires of hell,"
+    },
+    {
+     "id": "H_jac_b",
+     "texto": "lead all souls to heaven, especially those in most need of thy mercy. Amen."
+    },
+    {
+     "id": "H_salve",
+     "texto": "Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary."
+    },
+    {
+     "id": "H_ruega",
+     "texto": "Pray for us, O holy Mother of God,"
+    },
+    {
+     "id": "H_cruzfin",
+     "texto": "In the name of the Father, and of the Son, and of the Holy Spirit. Amen."
+    }
+   ]
+  },
+  {
+   "id": "M_oraciones",
+   "voz": "Callirrhoe",
+   "estilo": "the voice of a woman, warm and close, praying the holy rosary aloud in a parish, with a natural, flowing pace, without drawing out the words; clear neutral American accent. Keep exactly the same voice, the same tone and the same intonation in every paragraph",
+   "lineas": [
+    {
+     "id": "M_credo",
+     "texto": "I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen."
+    },
+    {
+     "id": "M_pn_a",
+     "texto": "Our Father, who art in heaven, hallowed be thy name; thy kingdom come, thy will be done on earth as it is in heaven."
+    },
+    {
+     "id": "M_pn_b",
+     "texto": "Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil."
+    },
+    {
+     "id": "M_av_a",
+     "texto": "Hail Mary, full of grace, the Lord is with thee; blessed art thou among women, and blessed is the fruit of thy womb, Jesus."
+    },
+    {
+     "id": "M_av_b",
+     "texto": "Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen."
+    },
+    {
+     "id": "M_gl_a",
+     "texto": "Glory be to the Father, and to the Son, and to the Holy Spirit."
+    },
+    {
+     "id": "M_gl_b",
+     "texto": "As it was in the beginning, is now, and ever shall be, world without end. Amen."
+    },
+    {
+     "id": "M_jac_a",
+     "texto": "O my Jesus, forgive us our sins, save us from the fires of hell,"
+    },
+    {
+     "id": "M_jac_b",
+     "texto": "lead all souls to heaven, especially those in most need of thy mercy. Amen."
+    },
+    {
+     "id": "M_ruega",
+     "texto": "that we may be made worthy of the promises of Christ. Amen."
+    }
+   ]
+  }
+ ]
+}

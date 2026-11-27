@@ -22,20 +22,28 @@ import numpy as np
 from faster_whisper import WhisperModel
 
 RAIZ = pathlib.Path(__file__).resolve().parents[2]
-LOTES = json.loads((RAIZ / os.environ.get("LOTES", "rosario/v2/lotes.json")).read_text(encoding="utf-8"))
+_LISTA = [json.loads((RAIZ / x.strip()).read_text(encoding="utf-8"))
+          for x in os.environ.get("LOTES", "rosario/v2/lotes.json").split(",") if x.strip()]
+LOTES = dict(_LISTA[0], lotes=[l for d in _LISTA for l in d["lotes"]])  # varias tandas en una tirada (mismo modelo)
+IDIOMA = LOTES.get("idioma", "es")
+PROMPT = {
+    "es": ("Lee en voz alta, con {}, los siguientes párrafos, en este orden. Entre un párrafo y el siguiente haz siempre "
+           "una pausa clara de dos segundos. Lee solo el texto de los párrafos, todos y cada uno, sin saltarte ninguno:"),
+    "en": ("Read aloud, with {}, the following paragraphs, in this order. Between one paragraph and the next always make "
+           "a clear two-second pause. Read only the text of the paragraphs, every single one, without skipping any:"),
+    "pt": ("Leia em voz alta, com {}, os parágrafos seguintes, nesta ordem. Entre um parágrafo e o seguinte faça sempre "
+           "uma pausa clara de dois segundos. Leia só o texto dos parágrafos, todos e cada um, sem pular nenhum:")}[IDIOMA]
 REFS = RAIZ / "rosario" / "referencias"  # tiradas aprobadas (para parecerse a ellas)
 SALIDA = RAIZ / "rosario" / "salida"
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 URL = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
 CLAVE = os.environ["GEMINI_API_KEY_IMAGENES"].strip()
 OIDO = WhisperModel("small", device="cpu", compute_type="int8")
-norm = lambda t: re.sub(r"[^a-záéíóúüñ ]", " ", t.lower()).split()  # noqa: E731
+norm = lambda t: re.sub(r"[^a-záéíóúüñàâãêôõç' ]", " ", t.lower().replace("’", "'")).split()  # noqa: E731
 
 
 def grabar(lote, destino):
-    prompt = (f"Lee en voz alta, con {lote['estilo']}, los siguientes párrafos, en este orden. Entre un párrafo y el "
-              "siguiente haz siempre una pausa clara de dos segundos. Lee solo el texto de los párrafos, todos y cada "
-              "uno, sin saltarte ninguno:\n\n" + "\n\n".join(x["texto"] for x in lote["lineas"]))
+    prompt = PROMPT.format(lote["estilo"]) + "\n\n" + "\n\n".join(x["texto"] for x in lote["lineas"])
     cuerpo = {"contents": [{"parts": [{"text": prompt}]}],
               "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": {
                   "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": lote["voz"]}}}}}
@@ -86,7 +94,7 @@ def escuchar(ruta):
         hz = w.getframerate()
         x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
     x = np.interp(np.arange(0, len(x), hz / 16000), np.arange(len(x)), x).astype(np.float32)
-    return " ".join(s.text for s in OIDO.transcribe(x, language="es")[0]).strip()
+    return " ".join(s.text for s in OIDO.transcribe(x, language=IDIOMA)[0]).strip()
 
 
 def palabras(ruta):
@@ -94,7 +102,7 @@ def palabras(ruta):
         hz = w.getframerate()
         x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
     x = np.interp(np.arange(0, len(x), hz / 16000), np.arange(len(x)), x).astype(np.float32)
-    segs, _ = OIDO.transcribe(x, language="es", word_timestamps=True)
+    segs, _ = OIDO.transcribe(x, language=IDIOMA, word_timestamps=True)
     salida = []
     for sg in segs:
         for w in sg.words or []:

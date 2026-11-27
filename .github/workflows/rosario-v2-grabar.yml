@@ -1,0 +1,40 @@
+name: "Rosario v2: grabar (otros idiomas)"
+
+# rosario/v2/grabar.json dice qué tandas grabar ({"lotes": ["rosario/v2/en/lotes.json", ...]}). Cada voz graba sus
+# piezas de una vez (mismo método que las oraciones aprobadas en español); todo sale en el artefacto «grabacion».
+on:
+  push:
+    branches: [muestra-rosario]
+    paths: ["rosario/v2/grabar.json"]
+
+permissions:
+  contents: read
+
+jobs:
+  grabar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+      - run: pip install -q --timeout 120 numpy faster-whisper imageio-ffmpeg
+      - name: Grabar, cortar y escuchar
+        env:
+          GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
+        run: |
+          export LOTES=$(python3 -c "import json;print(','.join(json.load(open('rosario/v2/grabar.json'))['lotes']))")
+          python3 rosario/v2/grabar_lotes.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grabacion
+          path: |
+            rosario/salida/*.wav
+            rosario/salida/informe.txt
+          retention-days: 30

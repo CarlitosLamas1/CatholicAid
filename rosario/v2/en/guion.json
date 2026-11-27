@@ -1,0 +1,207 @@
+{
+ "_nota": "Holy Rosary in English: same paintings and layout as the Spanish (rosario/v2/guion.json). Readings: World English Bible, Catholic Edition (public domain), same verses as the Spanish.",
+ "idioma": "en",
+ "rosarios": {
+  "gozosos": {
+   "titulo": "The Joyful Mysteries",
+   "dias": "Monday and Saturday",
+   "dias_largo": "on Mondays and Saturdays",
+   "ordinal": "joyful",
+   "evangelista": "Luke",
+   "intro": "3b",
+   "misterios": [
+    {
+     "nombre": "The Annunciation of the angel to Mary and the Incarnation of the Son of God",
+     "corto": "The Annunciation",
+     "fruto": "humility",
+     "cita": "Luke 1:30-31, 38",
+     "lectura": "The angel said to her, “Don’t be afraid, Mary, for you have found favor with God. Behold, you will conceive in your womb and give birth to a son, and shall name him ‘Jesus.’” Mary said, “Behold, the servant of the Lord; let it be done to me according to your word.”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Visitation of Mary to her cousin Elizabeth",
+     "corto": "The Visitation",
+     "fruto": "love of neighbor",
+     "cita": "Luke 1:39-42",
+     "lectura": "Mary arose in those days and went into the hill country with haste, into a city of Judah, and entered into the house of Zacharias and greeted Elizabeth. When Elizabeth heard Mary’s greeting, the baby leaped in her womb; and Elizabeth was filled with the Holy Spirit. She called out with a loud voice and said, “Blessed are you among women, and blessed is the fruit of your womb!”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Birth of the Son of God in Bethlehem",
+     "corto": "The Nativity",
+     "fruto": "detachment from material things",
+     "cita": "Luke 2:6-7",
+     "lectura": "While they were there, the day had come for her to give birth. She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Presentation of Jesus in the Temple",
+     "corto": "The Presentation",
+     "fruto": "obedience",
+     "cita": "Luke 2:22, 28-30",
+     "lectura": "When the days of their purification according to the law of Moses were fulfilled, they brought him up to Jerusalem to present him to the Lord. Simeon received him into his arms and blessed God, and said, “Now you are releasing your servant, Master, according to your word, in peace; for my eyes have seen your salvation.”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Child Jesus lost and found in the Temple",
+     "corto": "The Finding in the Temple",
+     "fruto": "always seeking Jesus",
+     "cita": "Luke 2:46, 48-49",
+     "lectura": "After three days they found him in the temple, sitting in the middle of the teachers, both listening to them and asking them questions. His mother said to him, “Son, why have you treated us this way? Behold, your father and I were anxiously looking for you.” He said to them, “Why were you looking for me? Didn’t you know that I must be in my Father’s house?”",
+     "imagen_lectura": "a"
+    }
+   ]
+  },
+  "dolorosos": {
+   "titulo": "The Sorrowful Mysteries",
+   "dias": "Tuesday and Friday",
+   "dias_largo": "on Tuesdays and Fridays",
+   "ordinal": "sorrowful",
+   "evangelista": "John",
+   "intro": "5c",
+   "misterios": [
+    {
+     "nombre": "The Agony of Jesus in the Garden",
+     "corto": "The Agony in the Garden",
+     "fruto": "sorrow for our sins",
+     "cita": "John 18:11",
+     "lectura": "Jesus said to Peter, “Put the sword into its sheath. The cup which the Father has given me, shall I not surely drink it?”",
+     "imagen_lectura": "L"
+    },
+    {
+     "nombre": "The Scourging of the Lord",
+     "corto": "The Scourging",
+     "fruto": "mortification of the senses",
+     "cita": "John 19:1",
+     "lectura": "Then Pilate took Jesus and flogged him.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Crowning with Thorns",
+     "corto": "The Crowning with Thorns",
+     "fruto": "humility",
+     "cita": "John 19:2-3",
+     "lectura": "The soldiers twisted thorns into a crown and put it on his head, and dressed him in a purple garment. They kept saying, “Hail, King of the Jews!” and they kept slapping him.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "Jesus carrying the Cross to Calvary",
+     "corto": "The Carrying of the Cross",
+     "fruto": "patience in trials",
+     "cita": "John 19:16-17",
+     "lectura": "So they took Jesus and led him away. He went out, bearing his cross, to the place called “The Place of a Skull”, which is called in Hebrew, “Golgotha”.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Crucifixion and Death of Jesus",
+     "corto": "The Crucifixion",
+     "fruto": "perseverance in love",
+     "cita": "John 19:25-27, 30",
+     "lectura": "Standing by Jesus’ cross were his mother, his mother’s sister, Mary the wife of Clopas, and Mary Magdalene. When Jesus saw his mother, and the disciple whom he loved standing there, he said to his mother, “Woman, behold, your son!” Then he said to the disciple, “Behold, your mother!” When Jesus had received the vinegar, he said, “It is finished!” Then he bowed his head and gave up his spirit.",
+     "imagen_lectura": "a"
+    }
+   ]
+  },
+  "gloriosos": {
+   "titulo": "The Glorious Mysteries",
+   "dias": "Wednesday and Sunday",
+   "dias_largo": "on Wednesdays and Sundays",
+   "ordinal": "glorious",
+   "evangelista": "Mark",
+   "intro": "5b",
+   "misterios": [
+    {
+     "nombre": "The Resurrection of the Lord",
+     "corto": "The Resurrection",
+     "fruto": "faith",
+     "cita": "Mark 16:5-6",
+     "lectura": "The women, entering into the tomb, saw a young man sitting on the right side, dressed in a white robe; and they were amazed. He said to them, “Don’t be amazed. You seek Jesus, the Nazarene, who has been crucified. He has risen! He is not here. See the place where they laid him!”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Ascension of the Lord into Heaven",
+     "corto": "The Ascension",
+     "fruto": "hope",
+     "cita": "Mark 16:19",
+     "lectura": "Then the Lord, after he had spoken to them, was received up into heaven and sat down at the right hand of God.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Descent of the Holy Spirit",
+     "corto": "Pentecost",
+     "fruto": "love of God",
+     "cita": "Acts 2:1-4",
+     "lectura": "Now when the day of Pentecost had come, they were all with one accord in one place. Suddenly there came from the sky a sound like the rushing of a mighty wind, and it filled all the house where they were sitting. Tongues like fire appeared and were distributed to them, and one sat on each of them. They were all filled with the Holy Spirit and began to speak with other languages, as the Spirit gave them the ability to speak.",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Assumption of Mary into Heaven",
+     "corto": "The Assumption",
+     "fruto": "the grace of a holy death",
+     "cita": "Luke 1:46-49",
+     "lectura": "Mary said, “My soul magnifies the Lord. My spirit has rejoiced in God my Savior, for he has looked at the humble state of his servant. For behold, from now on, all generations will call me blessed. For he who is mighty has done great things for me. Holy is his name.”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Coronation of Mary as Queen of Heaven",
+     "corto": "The Coronation of Mary",
+     "fruto": "trust in Our Lady",
+     "cita": "Revelation 12:1",
+     "lectura": "A great sign was seen in heaven: a woman clothed with the sun, and the moon under her feet, and on her head a crown of twelve stars.",
+     "imagen_lectura": "a"
+    }
+   ]
+  },
+  "luminosos": {
+   "titulo": "The Luminous Mysteries",
+   "dias": "Thursday",
+   "dias_largo": "on Thursdays",
+   "ordinal": "luminous",
+   "evangelista": "Matthew",
+   "intro": "4a",
+   "misterios": [
+    {
+     "nombre": "The Baptism of Jesus in the Jordan",
+     "corto": "The Baptism",
+     "fruto": "faithfulness to our baptism",
+     "cita": "Matthew 3:16-17",
+     "lectura": "Jesus, when he was baptized, went up directly from the water: and behold, the heavens were opened to him. He saw the Spirit of God descending as a dove, and coming on him. Behold, a voice out of the heavens said, “This is my beloved Son, with whom I am well pleased.”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Wedding at Cana",
+     "corto": "The Wedding at Cana",
+     "fruto": "trust in Jesus through Mary",
+     "cita": "John 2:1-5",
+     "lectura": "There was a wedding in Cana of Galilee. Jesus’ mother was there. Jesus also was invited, with his disciples, to the wedding. When the wine ran out, Jesus’ mother said to him, “They have no wine.” Jesus said to her, “Woman, what does that have to do with you and me? My hour has not yet come.” His mother said to the servants, “Whatever he says to you, do it.”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Proclamation of the Kingdom of God and the call to conversion",
+     "corto": "The Proclamation of the Kingdom",
+     "fruto": "conversion of heart",
+     "cita": "Matthew 4:17",
+     "lectura": "From that time, Jesus began to preach, and to say, “Repent! For the Kingdom of Heaven is at hand.”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Transfiguration of the Lord",
+     "corto": "The Transfiguration",
+     "fruto": "the desire for holiness",
+     "cita": "Matthew 17:1-2, 5",
+     "lectura": "Jesus took with him Peter, James, and John his brother, and brought them up into a high mountain by themselves. He was changed before them. His face shone like the sun, and his garments became as white as the light. Behold, a bright cloud overshadowed them. Behold, a voice came out of the cloud, saying, “This is my beloved Son, in whom I am well pleased. Listen to him.”",
+     "imagen_lectura": "a"
+    },
+    {
+     "nombre": "The Institution of the Eucharist",
+     "corto": "The Eucharist",
+     "fruto": "love of the Eucharist",
+     "cita": "Matthew 26:26-28",
+     "lectura": "As they were eating, Jesus took bread, gave thanks for it, and broke it. He gave to the disciples and said, “Take, eat; this is my body.” He took the cup, gave thanks, and gave to them, saying, “All of you drink it, for this is my blood of the new covenant, which is poured out for many for the remission of sins.”",
+     "imagen_lectura": "a"
+    }
+   ]
+  }
+ },
+ "piezas": []
+}
