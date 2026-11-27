@@ -1,8 +1,36 @@
 {
-  "fecha": "2026-11-26",
-  "releases_borradas": [],
+  "fecha": "2026-11-27",
+  "releases_borradas": [
+    "pt-2026-11-24",
+    "en-2026-11-24",
+    "tiktok-2026-11-24"
+  ],
   "imagenes_archivadas": 0,
   "sobrantes": [
+    {
+      "idioma": "es",
+      "id": "DZDMiQ-wwdw",
+      "titulo": "Santo Rosario de hoy · Misterios gloriosos (miércoles y domingo) · Rosario completo",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-26T14:29:47Z"
+    },
+    {
+      "idioma": "es",
+      "id": "6A6E52JeS4M",
+      "titulo": "Santo Rosario de hoy · Misterios dolorosos (martes y viernes) · Rosario completo",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-26T14:28:45Z"
+    },
+    {
+      "idioma": "es",
+      "id": "Sx6jKzVlbMo",
+      "titulo": "Santo Rosario de hoy · Misterios gozosos (lunes y sábado) · Rosario completo",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-26T14:28:27Z"
+    },
     {
       "idioma": "es",
       "id": "oBBuNug_V_c",
@@ -10,30 +38,6 @@
       "estado": "public",
       "publica": "",
       "subido": "2026-11-26T13:49:33Z"
-    },
-    {
-      "idioma": "es",
-      "id": "D5Cyt1T6H3c",
-      "titulo": "Santo Rosario de hoy · Misterios gozosos (lunes y sábado) · Rosario completo",
-      "estado": "private",
-      "publica": "2026-11-28T06:30:00Z",
-      "subido": "2026-11-24T20:55:30Z"
-    },
-    {
-      "idioma": "es",
-      "id": "ZZqUO3F8NTo",
-      "titulo": "Santo Rosario de hoy · Misterios dolorosos (martes y viernes) · Rosario completo",
-      "estado": "private",
-      "publica": "2026-11-27T06:30:00Z",
-      "subido": "2026-11-24T20:55:03Z"
-    },
-    {
-      "idioma": "es",
-      "id": "4g5SfhRa0VY",
-      "titulo": "Santo Rosario de hoy · Misterios gloriosos (miércoles y domingo) · Rosario completo",
-      "estado": "public",
-      "publica": "",
-      "subido": "2026-11-25T06:30:30Z"
     }
   ],
   "fotogramas_borrados": 0,
