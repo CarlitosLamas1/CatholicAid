@@ -739,5 +739,13 @@
       "fecha": "2026-11-24T22:02:48+01:00",
       "_nota": "Carlos recargó 10 € el 24/11/2026 (22:02) sobre 3,24 €. Dicho por Carlos el 24/11/2026 (22:01, aistudio.google.com/billing). Del 17/11 (8,39 €) a hoy se gastaron 5,15 €: unos 2,85 € de los cuatro rosarios (69 pinturas) y el resto la producción diaria; la estimación del parte se quedaba ~1 € corta (no ve los vídeos rehechos). Antes: 8,39 € el 17/11 y 10,52 € el 15/11."
     }
+  },
+  "rosario": {
+    "activo": true,
+    "idiomas": [
+      "es",
+      "en"
+    ],
+    "_nota": "Línea «hoy se rezan los misterios…» en la descripción y el comentario de los Shorts de estos idiomas (lista «Santo Rosario» / «Holy Rosary»; inglés desde el 27/11/2026)."
   }
 }
