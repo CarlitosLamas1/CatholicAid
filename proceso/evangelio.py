@@ -1986,10 +1986,20 @@ def rosario_del_dia(fecha):
     return ROSARIO_DIA[fecha.weekday()]
 
 
-def linea_rosario(fecha):
-    """Frase del Short (español) que lleva al rosario del día. Los enlaces no se pueden pulsar en los Shorts
-    (YouTube los quitó en 2023): se nombra la lista. Se apaga con config «rosario.activo»: false."""
-    if not CFG.get("rosario", {}).get("activo", True):
+ROSARIO_EN = {"gozosos": "Joyful", "dolorosos": "Sorrowful", "gloriosos": "Glorious", "luminosos": "Luminous"}
+
+
+def linea_rosario(fecha, idioma="es"):
+    """Frase del Short que lleva al rosario del día. Los enlaces no se pueden pulsar en los Shorts (YouTube los quitó
+    en 2023): se nombra la lista. Se apaga con config «rosario.activo»: false; «rosario.idiomas» dice en qué canales
+    ya están los rosarios (inglés desde el 27/11/2026)."""
+    cfg = CFG.get("rosario", {})
+    if not cfg.get("activo", True) or idioma not in cfg.get("idiomas", ["es"]):
+        return ""
+    if idioma == "en":
+        return (f"📿 Today we pray the {ROSARIO_EN[rosario_del_dia(fecha)]} Mysteries: the complete Holy Rosary is in "
+                "the “Holy Rosary” playlist on the channel.\n")
+    if idioma != "es":
         return ""
     return (f"📿 Hoy se rezan los misterios {rosario_del_dia(fecha)}: tienes el Santo Rosario completo en la lista "
             "«Santo Rosario» del canal.\n")
@@ -2201,7 +2211,8 @@ def metadatos_youtube(ev, fecha, modo, idioma="es"):
                        f"Today's Catholic Gospel reading for the Mass of {DAYS[fecha.weekday()]}, "
                        f"{MONTHS[fecha.month - 1]} {fecha.day}, {fecha.year}, read aloud with several voices.\n\n"
                        + liturgia_txt
-                       + (f"🕊️ To meditate: {ev['reflexion']}\n\n" if ev.get("reflexion") else "") +
+                       + (f"🕊️ To meditate: {ev['reflexion']}\n\n" if ev.get("reflexion") else "")
+                       + (linea_rosario(fecha, "en") + "\n" if linea_rosario(fecha, "en") else "") +
                        f"📖 Text: {ev.get('fuente_texto', 'World English Bible')}. Liturgical calendar: Vatican News.\n"
                        "🎨 Images: scenes generated with AI and classic paintings (public domain).\n"
                        "🎙️ Voices generated with artificial intelligence.\n"

@@ -60,6 +60,21 @@ class Rosario(unittest.TestCase):
         self.assertIn("misterios luminosos", linea)
         self.assertNotIn("http", linea)
 
+    def test_frase_por_idioma(self):
+        guardado = ev.CFG.get("rosario")
+        try:
+            ev.CFG["rosario"] = {"activo": True, "idiomas": ["es"]}
+            self.assertEqual(ev.linea_rosario(dt.date(2026, 11, 27), "en"), "")  # aún sin rosarios en inglés
+            ev.CFG["rosario"] = {"activo": True, "idiomas": ["es", "en"]}
+            self.assertIn("Sorrowful Mysteries", ev.linea_rosario(dt.date(2026, 11, 27), "en"))
+            self.assertIn("misterios dolorosos", ev.linea_rosario(dt.date(2026, 11, 27), "es"))
+            self.assertEqual(ev.linea_rosario(dt.date(2026, 11, 27), "pt"), "")
+        finally:
+            if guardado is None:
+                ev.CFG.pop("rosario", None)
+            else:
+                ev.CFG["rosario"] = guardado
+
 
 if __name__ == "__main__":
     unittest.main()
