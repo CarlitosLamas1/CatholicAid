@@ -25,6 +25,10 @@ RAIZ = pathlib.Path(__file__).resolve().parents[2]
 _LISTA = [json.loads((RAIZ / x.strip()).read_text(encoding="utf-8"))
           for x in os.environ.get("LOTES", "rosario/v2/lotes.json").split(",") if x.strip()]
 LOTES = dict(_LISTA[0], lotes=[l for d in _LISTA for l in d["lotes"]])  # varias tandas en una tirada (mismo modelo)
+if os.environ.get("SOLO"):  # repetir solo algunas tandas (p. ej. «H_oraciones»)
+    LOTES["lotes"] = [l for l in LOTES["lotes"] if l["id"] in os.environ["SOLO"].split(",")]
+if os.environ.get("INTENTOS"):
+    LOTES["intentos"] = int(os.environ["INTENTOS"])
 IDIOMA = LOTES.get("idioma", "es")
 PROMPT = {
     "es": ("Lee en voz alta, con {}, los siguientes párrafos, en este orden. Entre un párrafo y el siguiente haz siempre "

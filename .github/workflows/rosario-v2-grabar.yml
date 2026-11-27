@@ -29,6 +29,8 @@ jobs:
           GEMINI_API_KEY_IMAGENES: ${{ secrets.GEMINI_API_KEY_IMAGENES }}
         run: |
           export LOTES=$(python3 -c "import json;print(','.join(json.load(open('rosario/v2/grabar.json'))['lotes']))")
+          export SOLO=$(python3 -c "import json;print(','.join(json.load(open('rosario/v2/grabar.json')).get('solo', [])))")
+          export INTENTOS=$(python3 -c "import json;print(json.load(open('rosario/v2/grabar.json')).get('intentos', ''))")
           python3 rosario/v2/grabar_lotes.py
       - uses: actions/upload-artifact@v4
         if: always()
