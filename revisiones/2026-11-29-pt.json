@@ -3,12 +3,11 @@
   "idioma": "pt",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-27T09:51:52+01:00",
-  "revisado": "2026-11-27T10:33:06+01:00",
+  "generado": "2026-11-27T10:44:07+01:00",
+  "revisado": "2026-11-27T11:33:07+01:00",
   "motivos": [],
   "avisos": [
-    "La sincronía de subtítulos no es del todo fiable: el narrador se cortó sin poder escucharlo (sincronia.ok falso). El código puede rehacerlo una vez.",
-    "Fotogramas: la imagen de la escena 3 (la de biblioteca con mujeres con lámparas) no es la del portero, pero es devocional y aceptable."
+    "La sincronía de subtítulos no es del todo fiable (sincronia.ok falso: el narrador se cortó sin poder escucharlo). Ya es una versión rehecha."
   ],
   "puntos": {
     "fidelidad": "✅ Texto idéntico a Figueiredo revisado (Marcos 13,33-37)",
@@ -16,7 +15,7 @@
     "frase_clave": "✅ Literal, de Jesús, se entiende sola",
     "reflexion": "✅ Cálida, doctrinalmente correcta, sin política",
     "tecnica": "✅ 69.8 s, LUFS -13.9",
-    "audio": "✅ 12,5–14,6 car/s en fragmentos largos; el más lento corto 7–8 (normal)",
+    "audio": "✅ Fragmentos largos 10,5–14,3 car/s; el más lento corto 7,0 (normal)",
     "imagenes": "✅ Reutilizadas del español, devocionales; subtítulos legibles",
     "metadatos": "✅ Título y cita en portugués"
   }
