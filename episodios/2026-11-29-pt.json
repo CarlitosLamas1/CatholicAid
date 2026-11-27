@@ -103,25 +103,14 @@
       "reflexion": true
     }
   ],
-  "generado": "2026-11-27T09:51:52+01:00",
-  "run": "45966596691",
+  "generado": "2026-11-27T10:44:07+01:00",
+  "run": "45974821546",
   "idioma": "pt",
   "libro": "Marcos",
   "cita_es": "Marcos 13, 33-37",
   "frase_es": "Estad atentos, velad, porque no sabéis cuándo llegará el momento.",
   "reflexion_es": "Mantén tu corazón despierto a la presencia del Señor en cada momento. Vivir atentos a su amor transforma tus tareas diarias en una oportunidad para amar. ¿De qué manera vas a cuidar hoy tu oración?",
   "copiado_de": "2026-11-27T09:20:39+01:00",
-  "cupo_agotado": [
-    "gemini-3.7-flash",
-    "gemini-3.8-flash"
-  ],
-  "reserva_pago": [
-    "gemini-3.7-flash",
-    "gemini-3.8-flash"
-  ],
-  "modelos_voz": [
-    "gemini-3.1-flash-tts-preview (pago)"
-  ],
   "sincronia": {
     "frases_oidas": 7,
     "frases_por_pausas": [],
@@ -130,6 +119,6 @@
     ],
     "ok": false
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1
 }
