@@ -1,0 +1,126 @@
+{
+  "fecha": "2026-11-29",
+  "modo": "diario",
+  "cita": "Marcos 13, 33-37",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/29.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Chopin_-_Nocturne-op-55-no-1.ogg",
+  "duracion_s": 60.5,
+  "imagenes": [
+    "dias/2026-11-29_e1.jpg",
+    "evangelistas/marcos.jpg",
+    "dias/2026-11-29_e1.jpg",
+    "dias/2026-11-29_e2.jpg",
+    "dias/2026-11-29_e3.jpg",
+    "evangelistas/marcos.jpg",
+    "biblioteca/R05",
+    "evangelistas/marcos.jpg"
+  ],
+  "frase_clave": "Estad atentos, velad, porque no sabéis cuándo llegará el momento.",
+  "reflexion": "Mantén tu corazón despierto a la presencia del Señor en cada momento. Vivir atentos a su amor transforma tus tareas diarias en una oportunidad para amar. ¿De qué manera vas a cuidar hoy tu oración?",
+  "lufs": -13.9,
+  "gancho_segundos": 4.5,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-29.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus sitting among his disciples on a grassy hill at sunset, speaking with intense care and earnest expression as he instructs them to keep watch.",
+      "busqueda": "Jesus teaching disciples",
+      "personajes": [
+        "jesus",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "A noble homeowner in a courtyard giving final instructions and responsibilities to his household servants and gatekeeper before setting off on a long journey.",
+      "busqueda": "man leaving house",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "A faithful gatekeeper holding a small burning oil lamp by a wooden door in the quiet night, looking out into the starlight with hopeful expectation.",
+      "busqueda": "watching at night",
+      "personajes": [
+        "hombre"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Marcos.",
+  "texto_evangelio": "En aquel tiempo, dijo Jesús a sus discípulos: “Estad atentos, velad, porque no sabéis cuándo llegará el momento. Es como un hombre que se fue de viaje: dejó su casa, dio a cada uno de sus criados su tarea y encargó al portero que velase. Velad, pues, porque no sabéis cuándo vendrá el dueño de la casa: si al atardecer, a medianoche, al canto del gallo o de madrugada; no sea que llegue de repente y os encuentre dormidos. Lo que os digo a vosotros, lo digo a todos: velad.”",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 5.1,
+      "texto": "Lectura del santo evangelio según san Marcos."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 9.06,
+      "texto": "En aquel tiempo, dijo Jesús a sus discípulos:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 11.98,
+      "texto": "“Estad atentos, velad, porque no sabéis cuándo llegará el momento."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 17.06,
+      "texto": "Es como un hombre que se fue de viaje: dejó su casa, dio a cada uno de sus criados su tarea y encargó al portero que velase."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 3,
+      "inicio": 25.22,
+      "texto": "Velad, pues, porque no sabéis cuándo vendrá el dueño de la casa: si al atardecer, a medianoche, al canto del gallo o de madrugada; no sea que llegue de repente y os encuentre dormidos. Lo que os digo a vosotros, lo digo a todos: velad.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 40.93,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 43.19,
+      "texto": "Mantén tu corazón despierto a la presencia del Señor en cada momento. Vivir atentos a su amor transforma tus tareas diarias en una oportunidad para amar. ¿De qué manera vas a cuidar hoy tu oración?",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-27T09:20:39+01:00",
+  "estilo_imagenes": "oleo",
+  "reparto_visual": [
+    {
+      "nombre": "Housemaster",
+      "aspecto": "A mature man in his fifties with a grey beard, gentle brown eyes, wearing a dark blue tunic and a travel mantle."
+    },
+    {
+      "nombre": "Gatekeeper",
+      "aspecto": "A young dutiful man in his twenties with short dark hair, clean-shaven face, wearing a simple beige linen tunic."
+    }
+  ],
+  "run": "45962723124",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
