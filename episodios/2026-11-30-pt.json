@@ -112,17 +112,14 @@
       "reflexion": true
     }
   ],
-  "generado": "2026-11-28T09:49:55+01:00",
-  "run": "46126387899",
+  "generado": "2026-11-28T10:40:24+01:00",
+  "run": "46131019329",
   "idioma": "pt",
   "libro": "Mateo",
   "cita_es": "Mateo 4, 18-22",
   "frase_es": "Seguidme, y os haré pescadores de hombres.",
   "reflexion_es": "Jesús te llama hoy en medio de tu rutina diaria. No pongas excusas ni esperes al momento perfecto: confía en Él, da el paso y déjate transformar por su amor.",
   "copiado_de": "2026-11-28T09:23:09+01:00",
-  "modelos_voz": [
-    "gemini-3.1-flash-tts-preview (pago)"
-  ],
   "sincronia": {
     "frases_oidas": 6,
     "frases_por_pausas": [
@@ -134,6 +131,6 @@
     ],
     "ok": false
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1
 }
