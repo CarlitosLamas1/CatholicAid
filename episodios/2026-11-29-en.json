@@ -3,26 +3,26 @@
   "modo": "diario",
   "cita": "Mark 13:33-37",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/29.html",
-  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
-  "guion": "gemini-3.6-flash",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), revised by CatolicAid",
+  "guion": "gemini-3-flash-preview",
   "voces": "gemini",
-  "peticiones_voz": 6,
+  "peticiones_voz": 8,
   "musica": "Chopin_-_Nocturne-op-55-no-1.ogg",
-  "duracion_s": 66.2,
+  "duracion_s": 67.0,
   "imagenes": [
     "dias/2026-11-29_e1.jpg",
     "evangelistas/marcos.jpg",
     "dias/2026-11-29_e1.jpg",
     "dias/2026-11-29_e2.jpg",
     "dias/2026-11-29_e3.jpg",
-    "biblioteca/G12",
+    "dias/2026-11-29_e4.jpg",
     "evangelistas/marcos.jpg",
     "biblioteca/R05",
     "evangelistas/marcos.jpg"
   ],
   "frase_clave": "What I tell you, I tell all: Watch!",
-  "reflexion": "Keep your heart awake to the Lord's presence at every moment, transforming your daily tasks into opportunities to love. How will you take care of your prayer today?",
-  "lufs": -14.1,
+  "reflexion": "Live with a wakeful heart, loving in every detail of your day. The Lord comes to meet you today; are you prepared to receive Him with joy?",
+  "lufs": -14.0,
   "gancho_segundos": 3.9,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
@@ -30,8 +30,8 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus sitting among his disciples on a grassy hill at sunset, speaking with intense care and earnest expression as he instructs them to keep watch.",
-      "busqueda": "Jesus disciples sunset",
+      "descripcion": "Jesus sits among his disciples on a grassy hill, speaking with a gentle and serious expression.",
+      "busqueda": "Jesus teaching disciples",
       "personajes": [
         "jesus",
         "apostol"
@@ -39,19 +39,32 @@
     },
     {
       "numero": 2,
-      "descripcion": "A noble homeowner in a courtyard giving final instructions and responsibilities to his household servants and gatekeeper before setting off on a long journey.",
-      "busqueda": "master servants courtyard",
-      "personajes": []
+      "descripcion": "A noble Master in a travel cloak hands keys and instructions to his Servants in a warm, sunlit courtyard.",
+      "busqueda": "Master and servants",
+      "personajes": [
+        "hombre",
+        "multitud"
+      ]
     },
     {
       "numero": 3,
-      "descripcion": "A faithful gatekeeper holding a small burning oil lamp by a wooden door in the quiet night, looking out into the starlight with hopeful expectation.",
-      "busqueda": "gatekeeper lamp night",
-      "personajes": []
+      "descripcion": "A faithful Porter stands by a wooden door at night, holding a glowing oil lamp and looking out into the darkness.",
+      "busqueda": "Porter watching door",
+      "personajes": [
+        "hombre"
+      ]
+    },
+    {
+      "numero": 4,
+      "descripcion": "Jesus looks directly at the viewer with a compassionate gaze, extending his hand in a gesture of invitation.",
+      "busqueda": "Jesus inviting",
+      "personajes": [
+        "jesus"
+      ]
     }
   ],
   "titulo": "A reading from the holy Gospel according to Mark.",
-  "texto_evangelio": "At that time, watch, keep alert, and pray; for you don’t know when the time is. “It is like a man traveling to another country, having left his house and given authority to his servants, and to each one his work, and also commanded the doorkeeper to keep watch. Watch therefore, for you don’t know when the lord of the house is coming—whether at evening, or at midnight, or when the rooster crows, or in the morning; lest, coming suddenly, he might find you sleeping. What I tell you, I tell all: Watch!”",
+  "texto_evangelio": "At that time, Jesus said to his disciples: “Watch, keep alert, and pray; for you don’t know when the time is. It is like a man traveling to another country, having left his house and given authority to his servants, and to each one his work, and also commanded the doorkeeper to keep watch. Watch therefore, for you don’t know when the lord of the house is coming—whether at evening, or at midnight, or when the rooster crows, or in the morning; lest, coming suddenly, he might find you sleeping. What I tell you, I tell all: Watch!”",
   "fragmentos": [
     {
       "personaje": "narrador",
@@ -62,59 +75,69 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 8.45,
-      "texto": "At that time, watch, keep alert, and pray; for you don’t know when the time is."
+      "inicio": 8.54,
+      "texto": "At that time, Jesus said to his disciples:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 1,
+      "inicio": 12.22,
+      "texto": "“Watch, keep alert, and pray; for you don’t know when the time is."
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 16.26,
-      "texto": "“It is like a man traveling to another country, having left his house and given authority to his servants, and to each one his work, and also commanded the doorkeeper to keep watch."
+      "inicio": 19.29,
+      "texto": "It is like a man traveling to another country, having left his house and given authority to his servants, and to each one his work, and also commanded the doorkeeper to keep watch."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 28.39,
-      "texto": "Watch therefore, for you don’t know when the lord of the house is coming—whether at evening, or at midnight, or when the rooster crows, or in the morning; lest, coming suddenly, he might find you sleeping. What I tell you, I tell all: Watch!”"
+      "inicio": 31.36,
+      "texto": "Watch therefore, for you don’t know when the lord of the house is coming—whether at evening, or at midnight, or when the rooster crows, or in the morning; lest, coming suddenly, he might find you sleeping."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 4,
+      "inicio": 45.15,
+      "texto": "What I tell you, I tell all: Watch!”"
     },
     {
       "personaje": "narrador",
-      "escena": 3,
-      "inicio": 47.99,
+      "escena": 4,
+      "inicio": 49.93,
       "texto": "The Gospel of the Lord."
     },
     {
       "personaje": "narrador",
-      "escena": 3,
-      "inicio": 50.85,
-      "texto": "Keep your heart awake to the Lord's presence at every moment, transforming your daily tasks into opportunities to love. How will you take care of your prayer today?",
+      "escena": 4,
+      "inicio": 53.0,
+      "texto": "Live with a wakeful heart, loving in every detail of your day. The Lord comes to meet you today; are you prepared to receive Him with joy?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-27T09:49:34+01:00",
-  "run": "45966592351",
+  "generado": "2026-11-28T18:59:10+01:00",
+  "run": "46171089158",
   "idioma": "en",
   "libro": "Marcos",
   "cita_es": "Marcos 13, 33-37",
   "frase_es": "Estad atentos, velad, porque no sabéis cuándo llegará el momento.",
-  "reflexion_es": "Mantén tu corazón despierto a la presencia del Señor en cada momento. Vivir atentos a su amor transforma tus tareas diarias en una oportunidad para amar. ¿De qué manera vas a cuidar hoy tu oración?",
-  "copiado_de": "2026-11-27T09:20:39+01:00",
+  "reflexion_es": "Vive con el corazón despierto, amando en cada detalle de tu día. El Señor viene a tu encuentro hoy, ¿estás preparado para recibirle con alegría?",
+  "copiado_de": "2026-11-28T18:13:13+01:00",
   "cupo_agotado": [
-    "gemini-3.7-flash"
+    "gemini-3.5-flash",
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
   ],
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
   ],
   "sincronia": {
-    "frases_oidas": 6,
+    "frases_oidas": 8,
     "frases_por_pausas": [],
     "cortes_sin_oir": [],
+    "regrabados_por_bordes": [],
     "ok": true
   },
-  "revision": "rechazada",
-  "rehecho_por_cortes": {
-    "youtube_quitado": "yfvwHeRpg-E",
-    "fecha": "2026-11-28T16:43:08+00:00",
-    "motivo": "palabras cortadas al trocear la voz (arreglado el 28/11/2026); Carlos pidió rehacerlo"
-  }
+  "revision": "pendiente"
 }
