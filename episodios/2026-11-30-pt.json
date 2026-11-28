@@ -139,6 +139,18 @@
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true,
-    "publishAt": "2026-11-30T06:30:00Z"
+    "publishAt": "2026-11-30T06:30:00Z",
+    "lista": {
+      "id": "PLHimy6injfgg",
+      "titulo": "Evangelho segundo São Mateus",
+      "url": "https://www.youtube.com/playlist?list=PLHimy6injfgg"
+    },
+    "lista_liturgica": {
+      "id": "PLdyXnFyl8nyw",
+      "titulo": "Evangelho do dia · Advento",
+      "url": "https://www.youtube.com/playlist?list=PLdyXnFyl8nyw"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
   }
 }
