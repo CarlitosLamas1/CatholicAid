@@ -1,0 +1,136 @@
+{
+  "fecha": "2026-11-30",
+  "modo": "diario",
+  "cita": "Mateo 4, 18-22",
+  "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/30.html",
+  "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
+  "guion": "gemini-3.6-flash",
+  "voces": "gemini",
+  "peticiones_voz": 7,
+  "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
+  "duracion_s": 61.7,
+  "imagenes": [
+    "dias/2026-11-30_e1.jpg",
+    "evangelistas/mateo.jpg",
+    "dias/2026-11-30_e1.jpg",
+    "dias/2026-11-30_e2.jpg",
+    "dias/2026-11-30_e3.jpg",
+    "biblioteca/D10",
+    "evangelistas/mateo.jpg",
+    "biblioteca/D10",
+    "evangelistas/mateo.jpg"
+  ],
+  "frase_clave": "Seguidme, y os haré pescadores de hombres.",
+  "reflexion": "Jesús te llama hoy en medio de tu rutina diaria. No pongas excusas ni esperes al momento perfecto: confía en Él, da el paso y déjate transformar por su amor.",
+  "lufs": -13.9,
+  "gancho_segundos": 3.6,
+  "subtitulos_karaoke": true,
+  "miniatura": "miniatura.jpg",
+  "fotogramas": "fotogramas/2026-11-30.jpg",
+  "escenas": [
+    {
+      "numero": 1,
+      "descripcion": "Jesus walks along the sunlit shore of the Sea of Galilee, warmly watching Peter and Andrew casting their net into the calm waters.",
+      "busqueda": "calling of disciples",
+      "personajes": [
+        "jesus",
+        "pedro",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 2,
+      "descripcion": "Jesus reaches out His hand invitingly toward Peter and Andrew, who leave their fishing nets on the beach to follow Him with joy.",
+      "busqueda": "follow me",
+      "personajes": [
+        "jesus",
+        "pedro",
+        "apostol"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "Jesus calls James and Juan as they mend nets in a wooden boat beside their father Zebedee, who watches fondly as his sons step out to follow the Lord.",
+      "busqueda": "james and john",
+      "personajes": [
+        "jesus",
+        "juan",
+        "apostol"
+      ]
+    }
+  ],
+  "titulo": "Lectura del santo evangelio según san Mateo.",
+  "texto_evangelio": "En aquel tiempo, caminando Jesús junto al mar de Galilea, vio a dos hermanos, Simón, llamado Pedro, y Andrés, su hermano, que echaban la red en el mar, pues eran pescadores. Y les dijo: “Seguidme, y os haré pescadores de hombres.” Al instante, dejando las redes, lo siguieron. Pasando más adelante, vio a otros dos hermanos, Santiago, hijo de Zebedeo, y Juan, su hermano, que estaban en la barca con Zebedeo, su padre, arreglando sus redes, y los llamó. Ellos, al punto, dejando la barca y a su padre, lo siguieron.",
+  "fragmentos": [
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 4.2,
+      "texto": "Lectura del santo evangelio según san Mateo."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 1,
+      "inicio": 8.27,
+      "texto": "En aquel tiempo, caminando Jesús junto al mar de Galilea, vio a dos hermanos, Simón, llamado Pedro, y Andrés, su hermano, que echaban la red en el mar, pues eran pescadores. Y les dijo:"
+    },
+    {
+      "personaje": "jesus",
+      "escena": 2,
+      "inicio": 20.72,
+      "texto": "“Seguidme, y os haré pescadores de hombres.”"
+    },
+    {
+      "personaje": "narrador",
+      "escena": 2,
+      "inicio": 24.15,
+      "texto": "Al instante, dejando las redes, lo siguieron."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 28.46,
+      "texto": "Pasando más adelante, vio a otros dos hermanos, Santiago, hijo de Zebedeo, y Juan, su hermano, que estaban en la barca con Zebedeo, su padre, arreglando sus redes, y los llamó. Ellos, al punto, dejando la barca y a su padre, lo siguieron."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 44.72,
+      "texto": "Palabra del Señor."
+    },
+    {
+      "personaje": "narrador",
+      "escena": 3,
+      "inicio": 47.17,
+      "texto": "Jesús te llama hoy en medio de tu rutina diaria. No pongas excusas ni esperes al momento perfecto: confía en Él, da el paso y déjate transformar por su amor.",
+      "reflexion": true
+    }
+  ],
+  "generado": "2026-11-28T09:23:09+01:00",
+  "estilo_imagenes": "acuarela",
+  "reparto_visual": [
+    {
+      "nombre": "Andrew",
+      "aspecto": "A middle-aged fisherman with a strong build, short curly dark hair and beard, wearing a simple blue tunic."
+    },
+    {
+      "nombre": "James",
+      "aspecto": "A young fisherman with broad shoulders, short dark beard and brown hair, dressed in a coarse green tunic."
+    },
+    {
+      "nombre": "Zebedee",
+      "aspecto": "An elderly man with weathered skin, thin grey hair, a long white beard, wearing a humble beige linen robe."
+    }
+  ],
+  "run": "46123993636",
+  "modelos_voz": [
+    "gemini-2.5-flash-preview-tts"
+  ],
+  "sincronia": {
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "ok": true
+  },
+  "revision": "pendiente"
+}
