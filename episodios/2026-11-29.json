@@ -4,24 +4,25 @@
   "cita": "Marcos 13, 33-37",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/29.html",
   "texto_fuente": "Torres Amat (1836), versión revisada por CatholicAid",
-  "guion": "gemini-3.6-flash",
+  "guion": "gemini-3-flash-preview",
   "voces": "gemini",
-  "peticiones_voz": 7,
+  "peticiones_voz": 8,
   "musica": "Chopin_-_Nocturne-op-55-no-1.ogg",
-  "duracion_s": 60.5,
+  "duracion_s": 59.9,
   "imagenes": [
     "dias/2026-11-29_e1.jpg",
     "evangelistas/marcos.jpg",
     "dias/2026-11-29_e1.jpg",
     "dias/2026-11-29_e2.jpg",
     "dias/2026-11-29_e3.jpg",
+    "dias/2026-11-29_e4.jpg",
     "evangelistas/marcos.jpg",
     "biblioteca/R05",
     "evangelistas/marcos.jpg"
   ],
   "frase_clave": "Estad atentos, velad, porque no sabéis cuándo llegará el momento.",
-  "reflexion": "Mantén tu corazón despierto a la presencia del Señor en cada momento. Vivir atentos a su amor transforma tus tareas diarias en una oportunidad para amar. ¿De qué manera vas a cuidar hoy tu oración?",
-  "lufs": -13.9,
+  "reflexion": "Vive con el corazón despierto, amando en cada detalle de tu día. El Señor viene a tu encuentro hoy, ¿estás preparado para recibirle con alegría?",
+  "lufs": -14.0,
   "gancho_segundos": 4.5,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
@@ -29,7 +30,7 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus sitting among his disciples on a grassy hill at sunset, speaking with intense care and earnest expression as he instructs them to keep watch.",
+      "descripcion": "Jesus sits among his disciples on a grassy hill, speaking with a gentle and serious expression.",
       "busqueda": "Jesus teaching disciples",
       "personajes": [
         "jesus",
@@ -38,18 +39,27 @@
     },
     {
       "numero": 2,
-      "descripcion": "A noble homeowner in a courtyard giving final instructions and responsibilities to his household servants and gatekeeper before setting off on a long journey.",
-      "busqueda": "man leaving house",
+      "descripcion": "A noble Master in a travel cloak hands keys and instructions to his Servants in a warm, sunlit courtyard.",
+      "busqueda": "Master leaving house",
+      "personajes": [
+        "hombre",
+        "multitud"
+      ]
+    },
+    {
+      "numero": 3,
+      "descripcion": "A faithful Porter stands by a wooden door at night, holding a glowing oil lamp and looking out into the darkness.",
+      "busqueda": "Porter watching night",
       "personajes": [
         "hombre"
       ]
     },
     {
-      "numero": 3,
-      "descripcion": "A faithful gatekeeper holding a small burning oil lamp by a wooden door in the quiet night, looking out into the starlight with hopeful expectation.",
-      "busqueda": "watching at night",
+      "numero": 4,
+      "descripcion": "Jesus looks directly at the viewer with a compassionate gaze, extending his hand in a gesture of invitation.",
+      "busqueda": "Jesus inviting",
       "personajes": [
-        "hombre"
+        "jesus"
       ]
     }
   ],
@@ -65,42 +75,48 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 9.06,
+      "inicio": 9.12,
       "texto": "En aquel tiempo, dijo Jesús a sus discípulos:"
     },
     {
       "personaje": "jesus",
       "escena": 1,
-      "inicio": 11.98,
+      "inicio": 12.55,
       "texto": "“Estad atentos, velad, porque no sabéis cuándo llegará el momento."
     },
     {
       "personaje": "jesus",
       "escena": 2,
-      "inicio": 17.06,
+      "inicio": 17.99,
       "texto": "Es como un hombre que se fue de viaje: dejó su casa, dio a cada uno de sus criados su tarea y encargó al portero que velase."
     },
     {
       "personaje": "jesus",
       "escena": 3,
-      "inicio": 25.22,
-      "texto": "Velad, pues, porque no sabéis cuándo vendrá el dueño de la casa: si al atardecer, a medianoche, al canto del gallo o de madrugada; no sea que llegue de repente y os encuentre dormidos. Lo que os digo a vosotros, lo digo a todos: velad.”"
+      "inicio": 26.44,
+      "texto": "Velad, pues, porque no sabéis cuándo vendrá el dueño de la casa: si al atardecer, a medianoche, al canto del gallo o de madrugada; no sea que llegue de repente y os encuentre dormidos."
+    },
+    {
+      "personaje": "jesus",
+      "escena": 4,
+      "inicio": 39.53,
+      "texto": "Lo que os digo a vosotros, lo digo a todos: velad.”"
     },
     {
       "personaje": "narrador",
-      "escena": 3,
-      "inicio": 40.93,
+      "escena": 4,
+      "inicio": 44.13,
       "texto": "Palabra del Señor."
     },
     {
       "personaje": "narrador",
-      "escena": 3,
-      "inicio": 43.19,
-      "texto": "Mantén tu corazón despierto a la presencia del Señor en cada momento. Vivir atentos a su amor transforma tus tareas diarias en una oportunidad para amar. ¿De qué manera vas a cuidar hoy tu oración?",
+      "escena": 4,
+      "inicio": 46.56,
+      "texto": "Vive con el corazón despierto, amando en cada detalle de tu día. El Señor viene a tu encuentro hoy, ¿estás preparado para recibirle con alegría?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-27T09:20:39+01:00",
+  "generado": "2026-11-28T18:13:13+01:00",
   "estilo_imagenes": "oleo",
   "reparto_visual": [
     {
@@ -112,20 +128,18 @@
       "aspecto": "A young dutiful man in his twenties with short dark hair, clean-shaven face, wearing a simple beige linen tunic."
     }
   ],
-  "run": "45962723124",
+  "run": "46166674763",
   "modelos_voz": [
     "gemini-2.5-flash-preview-tts"
   ],
   "sincronia": {
-    "frases_oidas": 7,
+    "frases_oidas": 8,
     "frases_por_pausas": [],
-    "cortes_sin_oir": [],
-    "ok": true
+    "cortes_sin_oir": [
+      "jesus"
+    ],
+    "regrabados_por_bordes": [],
+    "ok": false
   },
-  "revision": "rechazada",
-  "rehecho_por_cortes": {
-    "youtube_quitado": "AMt_nKN1hNo",
-    "fecha": "2026-11-28T16:43:08+00:00",
-    "motivo": "palabras cortadas al trocear la voz (arreglado el 28/11/2026); Carlos pidió rehacerlo"
-  }
+  "revision": "pendiente"
 }
