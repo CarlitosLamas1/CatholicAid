@@ -1,0 +1,46 @@
+name: Escuchar vídeo
+
+# Solo lectura: transcribe con whisper el audio de los vídeos ya hechos de una fecha (copia de 30 días de cada run)
+# y lo compara con el texto del registro (proceso/escuchar.py). No graba ni sube nada.
+on:
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha AAAA-MM-DD (se escuchan es, en y pt)"
+        required: true
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  escuchar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+      - name: Herramientas
+        run: |
+          pip install -q --timeout 120 faster-whisper imageio-ffmpeg
+          mkdir -p ~/bin && ln -sf "$(python3 -c 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/bin/ffmpeg
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+      - name: Escuchar
+        run: |
+          regs=""
+          for s in "" "-en" "-pt"; do
+            r="episodios/${{ inputs.fecha }}$s.json"
+            [ -f "$r" ] || continue
+            run=$(python3 -c "import json;print(json.load(open('$r')).get('run',''))")
+            [ -n "$run" ] && gh run download "$run" -D "copias/$run" || echo "sin copia del run $run"
+            regs="$regs $r"
+          done
+          python3 proceso/escuchar.py copias $regs
