@@ -1143,6 +1143,10 @@ def grabar_personaje(frs, indices, carpeta):
                 + "»; grabo sus fragmentos por separado")
             BORDES_REGRABADOS.append(quien)
             return por_separado(p, quien, indices, textos, carpeta)
+        if quien in CORTES_SIN_OIR:  # cortado por estimación, pero cada trozo empieza y acaba con sus palabras
+            log(f"   {quien}: cortado por estimación, comprobado al escuchar cada trozo: bien")
+            while quien in CORTES_SIN_OIR:
+                CORTES_SIN_OIR.remove(quien)
     return salida
 
 

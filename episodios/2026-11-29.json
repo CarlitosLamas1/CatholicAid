@@ -135,11 +135,10 @@
   "sincronia": {
     "frases_oidas": 8,
     "frases_por_pausas": [],
-    "cortes_sin_oir": [
-      "jesus"
-    ],
+    "cortes_sin_oir": [],
     "regrabados_por_bordes": [],
-    "ok": false
+    "ok": true,
+    "comprobado_al_escuchar": "gestor 28/11/2026: vídeo transcrito con «Escuchar vídeo», sin palabras perdidas"
   },
   "revision": "pendiente"
 }
