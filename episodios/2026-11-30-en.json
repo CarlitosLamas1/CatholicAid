@@ -126,8 +126,16 @@
     "regrabados_por_bordes": [],
     "ok": true
   },
-  "revision": "pendiente",
+  "revision": "ok",
   "cupo_agotado": [
     "gemini-3.8-flash"
-  ]
+  ],
+  "youtube": {
+    "id": "b1BPWpreScs",
+    "url": "https://youtu.be/b1BPWpreScs",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-30T06:30:00Z"
+  }
 }
