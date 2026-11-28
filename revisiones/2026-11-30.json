@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-30",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-28T18:50:43+01:00",
+  "revisado": "2026-11-28T19:33:04+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio y a Mateo 4,18-22 revisado; cita coincide con citas.json",
+    "voces": "✅ Jesús solo en «Seguidme…»; resto narrador",
+    "frase_clave": "✅ «Seguidme, y os haré pescadores de hombres.» literal, de Jesús, se entiende sola",
+    "reflexion": "✅ Cálida, ligada a la lectura, ~28 palabras",
+    "tecnica": "✅ 73 s, -13.9 LUFS; audio: más lento fragmento 6 (reflexión) 8,3 c/s en 18 s; más rápido fragmento 2 (Jesús) 12,8 c/s; sincronía ok",
+    "audio": "✅ Sin anomalías",
+    "imagenes": "✅ Acuarela/óleo devocional; Jesús coherente en todas las escenas; pescadores y Zebedeo coherentes con reparto_visual; subtítulos legibles en la hoja de fotogramas",
+    "metadatos": "✅ Mateo, fecha y cita coherentes"
+  }
+}
