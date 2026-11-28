@@ -2,18 +2,18 @@
   "fecha": "2026-11-29",
   "ok": true,
   "por": "revisor",
-  "generado": "2026-11-27T09:20:39+01:00",
-  "revisado": "2026-11-27T09:33:00+01:00",
+  "generado": "2026-11-28T18:13:13+01:00",
+  "revisado": "2026-11-28T18:32:46+01:00",
   "motivos": [],
   "avisos": [],
   "puntos": {
     "fidelidad": "✅ Texto idéntico a texto_evangelio (Marcos 13, 33-37, coincide con citas.json)",
     "voces": "✅ Todo el discurso es de Jesús; narrador en título, introducción, «Palabra del Señor» y reflexión",
-    "frase_clave": "✅ Literal, de Jesús, 11 palabras, se entiende sola",
-    "reflexion": "✅ Cálida, doctrinalmente correcta, ~40 palabras, relacionada con velar",
-    "tecnica": "✅ 60,5 s; -13,9 LUFS; sincronía por lo oído",
-    "audio": "✅ Más lento: 'Palabra del Señor.' 8,0 c/s (corto, normal); más rápido: 15,4 c/s",
-    "imagenes": "✅ Óleo devocional coherente; el portero igual en e2 y e3; Jesús como en su retrato; fotogramas legibles",
+    "frase_clave": "✅ Literal, de Jesús, 10 palabras, se entiende sola",
+    "reflexion": "✅ Cálida, doctrinalmente correcta, ~25 palabras, relacionada con velar",
+    "tecnica": "✅ 59,9 s; -14,0 LUFS; sincronía por lo oído",
+    "audio": "✅ Más lento: 'Palabra del Señor.' 7,4 c/s (corto, normal); más rápido: 14,7 c/s",
+    "imagenes": "✅ Óleo devocional coherente; el portero igual en e3 y e4; Jesús como en su retrato; fotogramas legibles",
     "metadatos": "✅ Fecha, cita y título (Marcos) coherentes"
   }
 }
