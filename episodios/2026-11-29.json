@@ -122,26 +122,10 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "ok",
-  "youtube": {
-    "id": "AMt_nKN1hNo",
-    "url": "https://youtu.be/AMt_nKN1hNo",
-    "privacyStatus": "private",
-    "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true,
-    "publishAt": "2026-11-29T06:30:00Z",
-    "lista": {
-      "id": "PLUwwfiFBdOWY",
-      "titulo": "Evangelio según san Marcos",
-      "url": "https://www.youtube.com/playlist?list=PLUwwfiFBdOWY"
-    },
-    "lista_liturgica": {
-      "id": "PLb6NMCbtaIr0",
-      "titulo": "Evangelio del día · Adviento",
-      "url": "https://www.youtube.com/playlist?list=PLb6NMCbtaIr0"
-    },
-    "miniatura": "ok",
-    "subtitulos": "ok",
-    "miniatura_shorts": "ok"
+  "revision": "rechazada",
+  "rehecho_por_cortes": {
+    "youtube_quitado": "AMt_nKN1hNo",
+    "fecha": "2026-11-28T16:43:08+00:00",
+    "motivo": "palabras cortadas al trocear la voz (arreglado el 28/11/2026); Carlos pidió rehacerlo"
   }
 }

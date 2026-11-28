@@ -111,26 +111,10 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "ok",
-  "youtube": {
-    "id": "yfvwHeRpg-E",
-    "url": "https://youtu.be/yfvwHeRpg-E",
-    "privacyStatus": "private",
-    "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true,
-    "publishAt": "2026-11-29T06:30:00Z",
-    "lista": {
-      "id": "PLA2_TOS14axg",
-      "titulo": "Gospel according to St. Mark",
-      "url": "https://www.youtube.com/playlist?list=PLA2_TOS14axg"
-    },
-    "lista_liturgica": {
-      "id": "PLTG-zlKmclhU",
-      "titulo": "Daily Gospel · Advent",
-      "url": "https://www.youtube.com/playlist?list=PLTG-zlKmclhU"
-    },
-    "miniatura": "ok",
-    "subtitulos": "ok",
-    "miniatura_shorts": "ok"
+  "revision": "rechazada",
+  "rehecho_por_cortes": {
+    "youtube_quitado": "yfvwHeRpg-E",
+    "fecha": "2026-11-28T16:43:08+00:00",
+    "motivo": "palabras cortadas al trocear la voz (arreglado el 28/11/2026); Carlos pidió rehacerlo"
   }
 }

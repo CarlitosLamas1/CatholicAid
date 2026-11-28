@@ -132,26 +132,10 @@
     "cortes_sin_oir": [],
     "ok": true
   },
-  "revision": "ok",
-  "youtube": {
-    "id": "I1JKzBP4-YM",
-    "url": "https://youtu.be/I1JKzBP4-YM",
-    "privacyStatus": "private",
-    "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true,
-    "publishAt": "2026-11-30T06:30:00Z",
-    "lista": {
-      "id": "PLDWdFjTnQWpE",
-      "titulo": "Evangelio según san Mateo",
-      "url": "https://www.youtube.com/playlist?list=PLDWdFjTnQWpE"
-    },
-    "lista_liturgica": {
-      "id": "PLb6NMCbtaIr0",
-      "titulo": "Evangelio del día · Adviento",
-      "url": "https://www.youtube.com/playlist?list=PLb6NMCbtaIr0"
-    },
-    "miniatura": "ok",
-    "subtitulos": "ok",
-    "miniatura_shorts": "ok"
+  "revision": "rechazada",
+  "rehecho_por_cortes": {
+    "youtube_quitado": "I1JKzBP4-YM",
+    "fecha": "2026-11-28T16:43:08+00:00",
+    "motivo": "palabras cortadas al trocear la voz (arreglado el 28/11/2026); Carlos pidió rehacerlo"
   }
 }

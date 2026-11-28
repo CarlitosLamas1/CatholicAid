@@ -119,27 +119,11 @@
     ],
     "ok": false
   },
-  "revision": "ok",
+  "revision": "rechazada",
   "rehechos": 1,
-  "youtube": {
-    "id": "13Ru-JzFWFI",
-    "url": "https://youtu.be/13Ru-JzFWFI",
-    "privacyStatus": "private",
-    "selfDeclaredMadeForKids": false,
-    "containsSyntheticMedia": true,
-    "publishAt": "2026-11-29T06:30:00Z",
-    "lista": {
-      "id": "PLGVTZc7maiRk",
-      "titulo": "Evangelho segundo São Marcos",
-      "url": "https://www.youtube.com/playlist?list=PLGVTZc7maiRk"
-    },
-    "lista_liturgica": {
-      "id": "PLdyXnFyl8nyw",
-      "titulo": "Evangelho do dia · Advento",
-      "url": "https://www.youtube.com/playlist?list=PLdyXnFyl8nyw"
-    },
-    "miniatura": "ok",
-    "subtitulos": "ok",
-    "miniatura_shorts": "ok"
+  "rehecho_por_cortes": {
+    "youtube_quitado": "13Ru-JzFWFI",
+    "fecha": "2026-11-28T16:43:08+00:00",
+    "motivo": "palabras cortadas al trocear la voz (arreglado el 28/11/2026); Carlos pidió rehacerlo"
   }
 }
