@@ -131,7 +131,7 @@
     "regrabados_por_bordes": [],
     "ok": true
   },
-  "revision": "pendiente",
+  "revision": "ok",
   "rehechos": 1,
   "cupo_agotado": [
     "gemini-3.8-flash"
@@ -141,5 +141,13 @@
   ],
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview (pago)"
-  ]
+  ],
+  "youtube": {
+    "id": "Rddb6NKGM9M",
+    "url": "https://youtu.be/Rddb6NKGM9M",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-29T06:30:00Z"
+  }
 }
