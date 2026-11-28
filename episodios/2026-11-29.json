@@ -147,6 +147,18 @@
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true,
-    "publishAt": "2026-11-29T06:30:00Z"
+    "publishAt": "2026-11-29T06:30:00Z",
+    "lista": {
+      "id": "PLUwwfiFBdOWY",
+      "titulo": "Evangelio según san Marcos",
+      "url": "https://www.youtube.com/playlist?list=PLUwwfiFBdOWY"
+    },
+    "lista_liturgica": {
+      "id": "PLb6NMCbtaIr0",
+      "titulo": "Evangelio del día · Adviento",
+      "url": "https://www.youtube.com/playlist?list=PLb6NMCbtaIr0"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
   }
 }
