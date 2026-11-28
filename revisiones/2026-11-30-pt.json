@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-30",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-28T20:45:18+01:00",
+  "revisado": "2026-11-28T20:51:08+01:00",
+  "motivos": [],
+  "avisos": [
+    "Hacia el segundo 46 («e os chamou») sale una imagen devocional de reserva (Jesús con corona de espinas y un cordero) que no tiene que ver con la llamada de los apóstoles; el español usa otra de reserva en ese tramo."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio y a la versión revisada (Mateo 4, 18-22, coincide con citas.json)",
+    "voces": "✅ Narrador para el relato; Jesús solo en «Venham atrás de mim…»",
+    "frase_clave": "✅ Literal, de Jesús, se entiende sola y es el mismo pasaje que la del español",
+    "reflexion": "✅ Portugués de Brasil con «você», 28 palabras, traducida de la del español",
+    "tecnica": "✅ 71,1 s; -13,8 LUFS; sincronía por lo oído (7 frases), sin cortes sin oír",
+    "audio": "✅ Entre 6,9 c/s («Palavra da Salvação.», corto) y 13,0 c/s; ningún fragmento anómalo",
+    "imagenes": "⚠️ Escenas del día coherentes (Jesús y los pescadores en la orilla, la barca con Zebedeu); un tramo con imagen de reserva poco relacionada",
+    "metadatos": "✅ Fecha (segunda-feira, 30 de novembro), cita y título (Mateus) coherentes"
+  }
+}
