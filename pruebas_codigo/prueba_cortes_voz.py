@@ -43,7 +43,7 @@ class Cortes(unittest.TestCase):
 
     def test_trozos_sin_la_pausa(self):
         partes = ev.partes_sin_pausa([(10.0, 11.0)], 20.0)
-        self.assertEqual([tuple(round(x, 2) for x in p) for p in partes], [(0.0, 10.08), (10.95, 20.0)])
+        self.assertEqual([tuple(round(x, 2) for x in p) for p in partes], [(0.0, 10.12), (10.82, 20.0)])  # márgenes del 28/11/2026
 
     def test_pausa_corta_no_se_cruza(self):
         a, b = ev.partes_sin_pausa([(5.0, 5.1)], 9.0)

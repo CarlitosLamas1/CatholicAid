@@ -1008,6 +1008,11 @@ def voz_gemini(p, texto, destino):
 LIMPIAR = ("silenceremove=start_periods=1:start_threshold=-42dB,afade=t=in:d=0.015,areverse,"
            "silenceremove=start_periods=1:start_threshold=-42dB,afade=t=in:d=0.015,areverse,"
            "loudnorm=I=-18:TP=-2:LRA=11")
+# Trozos ya cortados junto a la voz (partes_sin_pausa): el principio NO se recorta por umbral (se comía el arranque
+# suave de la primera palabra, 28/11/2026); solo el final, y un fundido de entrada de 20 ms.
+LIMPIAR_TROZO = ("afade=t=in:d=0.02,areverse,"
+                 "silenceremove=start_periods=1:start_threshold=-42dB,afade=t=in:d=0.015,areverse,"
+                 "loudnorm=I=-18:TP=-2:LRA=11")
 
 
 def silencios(ruta):
@@ -1128,10 +1133,47 @@ def grabar_personaje(frs, indices, carpeta):
     salida = {}
     for n, (i, (a, b)) in enumerate(zip(indices, partes)):
         trozo = carpeta / f"voz_{quien}_{n:02d}.wav"
-        ffmpeg("-i", completo, "-ss", f"{a:.3f}", "-to", f"{b:.3f}", "-af", LIMPIAR,
+        ffmpeg("-i", completo, "-ss", f"{a:.3f}", "-to", f"{b:.3f}", "-af", LIMPIAR if len(partes) == 1 else LIMPIAR_TROZO,
                "-ar", HZ, "-ac", 1, "-sample_fmt", "s16", trozo)
         salida[i] = trozo
+    if len(partes) > 1 and CFG.get("karaoke", {}).get("comprobar_bordes", True):
+        malos = [textos[n][:40] for n, i in enumerate(indices) if not bordes_oidos(salida[i], textos[n])]
+        if malos:
+            log(f"   {quien}: al cortar se pierde el principio o el final de «" + "», «".join(malos)
+                + "»; grabo sus fragmentos por separado")
+            BORDES_REGRABADOS.append(quien)
+            return por_separado(p, quien, indices, textos, carpeta)
     return salida
+
+
+def _parecida(a, b):
+    import difflib
+    return a == b or (len(a) > 2 and difflib.SequenceMatcher(None, a, b).ratio() >= 0.75)
+
+
+def bordes_se_oyen(esperadas, oidas):
+    """¿Se oyen al principio y al final del trozo sus primeras y últimas palabras? (listas ya normalizadas)."""
+    esperadas = [w for w in esperadas if w]
+    oidas = [w for w in oidas if w]
+    if not esperadas:
+        return True
+    if not oidas:
+        return False
+    inicio = any(_parecida(e, o) for e in esperadas[:2] for o in oidas[:4])
+    final = any(_parecida(e, o) for e in esperadas[-2:] for o in oidas[-4:])
+    return inicio and final
+
+
+def bordes_oidos(ruta, texto):
+    """28/11/2026: el trozo cortado empieza y acaba con sus palabras (no se comió «No», «Pa-»… ni arrastra el
+    principio del siguiente). Si whisper no está disponible, no se bloquea."""
+    try:
+        oidas, _ = oir(ruta)
+    except Exception as e:
+        log(f"   No pude escuchar el trozo para comprobar sus bordes ({type(e).__name__}); sigo")
+        return True
+    return bordes_se_oyen([_normal_palabra(w) for w in espacios(texto).split()],
+                          [_normal_palabra(w) for _, _, w in oidas])
 
 
 def tts_edge(f, destino):
@@ -1290,6 +1332,7 @@ def es_video(p):
     return Path(p).suffix.lower() in (".mp4", ".mov", ".webm")
 
 
+BORDES_REGRABADOS = []  # personajes regrabados por fragmentos porque al cortar se perdía una palabra (28/11/2026)
 CORTES_SIN_OIR = []  # personajes cuya grabación se cortó sin poder escucharla (riesgo de desfase entre frases)
 AVISOS = []  # cosas que requieren a Carlos (se mandan por Telegram con el aviso de «vídeo listo»)
 
@@ -1706,18 +1749,38 @@ def cortes_oidos(ruta, textos):
         ini_sig = min((rel[j][0] for j in range(len(rel)) if de[j] == k and rel[j]), default=None)
         if fin_prev is None or ini_sig is None or ini_sig <= fin_prev:
             return None
-        # Whisper alarga la última palabra hasta casi la siguiente y marca tarde el arranque: no sirve para el borde.
-        # Se corta en el centro del silencio de verdad (20/11/2026: el corte caía ~0,2 s dentro de la frase siguiente y
-        # el trozo acababa con «Pe-» de «Pero…»). La pausa buena puede empezar antes de lo que dice whisper.
-        huecos = [(a, b) for a, b in sil if b > fin_prev - 0.6 and a < ini_sig + 0.05]
-        if huecos:
-            a, b = max(huecos, key=lambda x: x[1] - x[0])
-            cortes.append((a + b) / 2)
-        else:
-            cortes.append((fin_prev + ini_sig) / 2)
+        ultima_oida = rel[max(j for j in range(len(rel)) if de[j] == k - 1)] is not None
+        primera_oida = rel[min(j for j in range(len(rel)) if de[j] == k)] is not None
+        corte = elegir_corte(sil, fin_prev, ini_sig, ultima_oida, primera_oida)
+        if corte is None:
+            return None
+        cortes.append(corte)
     if any(y <= x for x, y in zip(cortes, cortes[1:])):
         return None
     return cortes
+
+
+def elegir_corte(sil, fin_prev, ini_sig, ultima_oida, primera_oida):
+    """Dónde cortar entre dos fragmentos. 28/11/2026: si whisper no reconocía las primeras palabras del siguiente
+    («porque vendrá…»), ini_sig caía más adelante y se cortaba en la pausa MÁS LARGA hasta allí, que podía estar
+    DENTRO de la frase siguiente: esas palabras se quedaban al final del trozo anterior y no se oían en su sitio
+    («Velad, pues» → «pues»; «porque vendrá» desaparecía). Ahora, si la última palabra del anterior se oyó, se corta
+    en la PRIMERA pausa tras ella; si no, pero sí la primera del siguiente, en la ÚLTIMA pausa antes de ella; si no se
+    oye ninguna de las dos, no es fiable (None)."""
+    if ultima_oida and primera_oida:
+        huecos = [(a, b) for a, b in sil if b > fin_prev - 0.6 and a < ini_sig + 0.05]
+        if not huecos:
+            return (fin_prev + ini_sig) / 2
+        a, b = max(huecos, key=lambda x: x[1] - x[0])
+        return (a + b) / 2
+    if ultima_oida:
+        huecos = [(a, b) for a, b in sil if b > fin_prev - 0.3 and a < ini_sig]
+        return None if not huecos else (lambda h: (h[0] + h[1]) / 2)(min(huecos, key=lambda x: x[0]))
+    if primera_oida:
+        huecos = [(a, b) for a, b in sil if b > fin_prev and a < ini_sig + 0.05]
+        return None if not huecos else (lambda h: (h[0] + h[1]) / 2)(max(huecos, key=lambda x: x[1]))
+    return None
+
 
 
 def ajustar_cortes(cortes, sil, margen=0.45):
@@ -1735,11 +1798,13 @@ def ajustar_cortes(cortes, sil, margen=0.45):
     return salida
 
 
-def partes_sin_pausa(huecos, dur, cola=0.08, arranque=0.05):
+def partes_sin_pausa(huecos, dur, cola=0.12, arranque=0.18):
     """Trozos de la grabación SIN la pausa entre párrafos: cada uno acaba poco después de que deja de oírse la voz y
     empieza justo antes de que vuelva. La pausa la pone luego montar_audio (pausa_tras). Si se corta en medio del
     silencio, el ruido de fondo de la grabación (entre -42 y -40 dB) no se recorta y las pausas salían de 1,2 s
-    (español del 22/11/2026)."""
+    (español del 22/11/2026). 28/11/2026: arranque 0,05 → 0,18 s y cola 0,08 → 0,12 s: los arranques suaves («N-»,
+    «P-», «V-») suenan casi tan bajo como el ruido de fondo y se perdían («No permitas» → «permitas»,
+    «Palabra» → «-abra»)."""
     bordes = [0.0]
     for a, b in huecos:
         bordes += [min(a + cola, (a + b) / 2), max(b - arranque, (a + b) / 2)]
@@ -2908,6 +2973,7 @@ def producir(a, fecha, idioma, suf, carpeta, hecho):
         por_pausas = [f["texto"][:60] for f in frs if f.get("sinc") == "pausas"]
         registro["sincronia"] = {"frases_oidas": len(oidas), "frases_por_pausas": por_pausas,
                                  "cortes_sin_oir": sorted(set(CORTES_SIN_OIR)),
+                                 "regrabados_por_bordes": sorted(set(BORDES_REGRABADOS)),
                                  "ok": not CORTES_SIN_OIR and len(por_pausas) <= 1}
         log(f"   Sincronía de subtítulos: {len(oidas)} frases por lo que se oye, {len(por_pausas)} por pausas"
             + (f"; cortes sin oír: {', '.join(sorted(set(CORTES_SIN_OIR)))}" if CORTES_SIN_OIR else ""))

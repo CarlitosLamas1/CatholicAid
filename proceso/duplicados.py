@@ -43,6 +43,16 @@ def conocidos():
     musica = RAIZ / "estado" / "musica.json"
     if musica.exists():
         recoger(json.loads(musica.read_text(encoding="utf-8")))
+    fijos = RAIZ / "estado" / "videos_fijos.json"  # rosarios y demás vídeos fijos (28/11/2026)
+    if fijos.exists():
+        def todos(x):
+            if isinstance(x, dict):
+                for k, v in x.items():
+                    if not k.startswith("_"):
+                        todos(v)
+            elif isinstance(x, str):
+                ids.add(x)
+        todos(json.loads(fijos.read_text(encoding="utf-8")))
     return ids
 
 
