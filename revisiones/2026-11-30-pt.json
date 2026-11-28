@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-30",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-28T09:49:55+01:00",
+  "revisado": "2026-11-28T10:33:01+01:00",
+  "idioma": "pt",
+  "motivos": [],
+  "avisos": [
+    "La sincronía de subtítulos del portugués no es fiable (el narrador se cortó sin poder oírlo; dos frases por pausas): el sistema rehará el vídeo una vez por su cuenta."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico al Figueiredo revisado, Mt 4,18-22 (con «Naquele tempo»).",
+    "voces": "✅ Jesús solo en «Venham atrás de mim…»; el resto, narrador.",
+    "frase_clave": "✅ Literal, de Jesús, 12 palabras, se entiende sola.",
+    "reflexion": "✅ 31 palabras, portugués de Brasil, «você», sin política.",
+    "tecnica": "⚠️ 70,7 s; LUFS -13,9; sincronia.ok falso (cortes_sin_oir: narrador).",
+    "audio": "✅ Largos 9,8–15,9 c/s; el más lento «E lhes disse:» 3,2 c/s en 4,1 s (corto, normal).",
+    "imagenes": "✅ Las del español; coherentes. Subtítulos legibles.",
+    "metadatos": "✅ Título del evangelista correcto, cita Mateus 4,18-22, karaoke."
+  }
+}
