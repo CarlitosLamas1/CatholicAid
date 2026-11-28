@@ -1,5 +1,5 @@
 {
-  "fecha": "2026-11-27",
+  "fecha": "2026-11-28",
   "releases_borradas": [],
   "imagenes_archivadas": 0,
   "sobrantes": [
@@ -34,8 +34,72 @@
       "estado": "public",
       "publica": "",
       "subido": "2026-11-26T13:49:33Z"
+    },
+    {
+      "idioma": "en",
+      "id": "aCOHG1Zyn5s",
+      "titulo": "Holy Rosary Today · The Luminous Mysteries (Thursday) · Complete Rosary",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-27T19:26:24Z"
+    },
+    {
+      "idioma": "en",
+      "id": "vTNhhuxLE3Y",
+      "titulo": "Holy Rosary Today · The Glorious Mysteries (Wednesday and Sunday) · Complete Rosary",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-27T19:25:21Z"
+    },
+    {
+      "idioma": "en",
+      "id": "weZnvidpbhg",
+      "titulo": "Holy Rosary Today · The Joyful Mysteries (Monday and Saturday) · Complete Rosary",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-27T19:24:21Z"
+    },
+    {
+      "idioma": "en",
+      "id": "Vot-v9B-NzQ",
+      "titulo": "Holy Rosary Today · The Sorrowful Mysteries (Tuesday and Friday) · Complete Rosary",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-27T18:58:08Z"
+    },
+    {
+      "idioma": "pt",
+      "id": "Q4wJHw04FfQ",
+      "titulo": "Santo Rosário de Hoje · Mistérios Dolorosos (Terça-feira e sexta-feira) · Terço completo",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-27T21:34:24Z"
+    },
+    {
+      "idioma": "pt",
+      "id": "BijC73wfhdk",
+      "titulo": "Santo Rosário de Hoje · Mistérios Luminosos (Quinta-feira) · Terço completo",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-27T21:33:44Z"
+    },
+    {
+      "idioma": "pt",
+      "id": "WPM1pJpW5mA",
+      "titulo": "Santo Rosário de Hoje · Mistérios Gloriosos (Quarta-feira e domingo) · Terço completo",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-27T21:32:55Z"
+    },
+    {
+      "idioma": "pt",
+      "id": "tpAQpLgEyz0",
+      "titulo": "Santo Rosário de Hoje · Mistérios Gozosos (Segunda-feira e sábado) · Terço completo",
+      "estado": "public",
+      "publica": "",
+      "subido": "2026-11-27T21:32:34Z"
     }
   ],
-  "fotogramas_borrados": 0,
+  "fotogramas_borrados": 3,
   "textos_con_problemas": 0
 }
