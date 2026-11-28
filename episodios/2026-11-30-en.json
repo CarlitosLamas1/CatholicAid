@@ -136,6 +136,18 @@
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true,
-    "publishAt": "2026-11-30T06:30:00Z"
+    "publishAt": "2026-11-30T06:30:00Z",
+    "lista": {
+      "id": "PLXdNKbtzVLWk",
+      "titulo": "Gospel according to St. Matthew",
+      "url": "https://www.youtube.com/playlist?list=PLXdNKbtzVLWk"
+    },
+    "lista_liturgica": {
+      "id": "PLTG-zlKmclhU",
+      "titulo": "Daily Gospel · Advent",
+      "url": "https://www.youtube.com/playlist?list=PLTG-zlKmclhU"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
   }
 }
