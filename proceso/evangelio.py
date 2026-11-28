@@ -443,11 +443,27 @@ def texto_torres_amat(cita):
                         "En aquel tiempo,", NOMBRES, "Torres Amat (1836)")
 
 
+INICIOS_EN = {"En aquel tiempo, dijo Jesús a sus discípulos:": "At that time, Jesus said to his disciples:",
+              "En aquel tiempo, dijo Jesús a sus discípulos esta parábola:": "At that time, Jesus told his disciples this parable:",
+              "En aquel tiempo, dijo el Señor:": "At that time, the Lord said:",
+              "En aquel tiempo, dijo Jesús:": "At that time, Jesus said:", "": ""}
+
+
+def inicio_es_en(libro, clave):
+    """Inglés sin entrada propia en _inicios: la del español revisado, traducida (28/11/2026: el inglés de Lucas
+    21,34-36 salió «At that time, “So be careful…» porque la entrada solo estaba en español y portugués)."""
+    try:
+        es = json.loads((RAIZ / "biblia" / "revisada" / f"{libro.lower()}.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    return INICIOS_EN.get(es.get("_inicios", {}).get(clave))
+
+
 def texto_web(cita):
     """Canal en inglés: la misma cita (en español) con el texto de la World English Bible (Catholic)."""
     texto, fuente = texto_biblia(cita, cargar_web, RAIZ / "biblia" / "web" / "revisada", lambda t: t,
                                  "At that time,", NOMBRES_EN, "World English Bible, Catholic Edition (public domain)",
-                                 saltar_ausentes=True, comillas=equilibrar_comillas)
+                                 saltar_ausentes=True, comillas=equilibrar_comillas, inicio_de=inicio_es_en)
     return texto, fuente.replace("versión revisada por CatholicAid", "revised by CatolicAid").replace(
         "revisión parcial", "partly revised").replace("ortografía actualizada", "original text")
 
@@ -495,7 +511,7 @@ def equilibrar_comillas(texto):
 
 
 def texto_biblia(cita, cargar, carpeta_rev, arreglar, inicio_defecto, nombres, nombre, saltar_ausentes=False,
-                 comillas=None):
+                 comillas=None, inicio_de=None):
     libro = cita.split()[0]
     datos = cargar(libro)
     ruta_rev = carpeta_rev / f"{libro.lower()}.json"
@@ -520,6 +536,8 @@ def texto_biblia(cita, cargar, carpeta_rev, arreglar, inicio_defecto, nombres, n
     if comillas:
         texto = comillas(texto)
     inicio = rev.get("_inicios", {}).get(f"{vs[0][0]}:{vs[0][1]}")
+    if inicio is None and inicio_de:
+        inicio = inicio_de(libro, f"{vs[0][0]}:{vs[0][1]}")
     if inicio is None:
         inicio = "" if vs[0] == (1, 1) else inicio_defecto
     if inicio:
