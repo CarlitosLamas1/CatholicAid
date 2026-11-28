@@ -139,5 +139,13 @@
     "regrabados_por_bordes": [],
     "ok": true
   },
-  "revision": "pendiente"
+  "revision": "ok",
+  "youtube": {
+    "id": "jCkmiQdjF-k",
+    "url": "https://youtu.be/jCkmiQdjF-k",
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true,
+    "publishAt": "2026-11-29T06:30:00Z"
+  }
 }
