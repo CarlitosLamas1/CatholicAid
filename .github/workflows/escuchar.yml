@@ -30,7 +30,7 @@ jobs:
           key: whisper-small-v1
       - name: Herramientas
         run: |
-          pip install -q --timeout 120 faster-whisper imageio-ffmpeg
+          pip install -q --timeout 120 faster-whisper imageio-ffmpeg numpy
           mkdir -p ~/bin && ln -sf "$(python3 -c 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/bin/ffmpeg
           echo "$HOME/bin" >> "$GITHUB_PATH"
       - name: Escuchar

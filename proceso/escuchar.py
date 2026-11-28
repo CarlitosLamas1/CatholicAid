@@ -39,7 +39,13 @@ def silencios(video):
 def escuchar(video, reg, modelo):
     idioma = reg.get("idioma", "es")
     print(f"\n══════ {reg['fecha']} {idioma} · {reg.get('cita')} · {video.name}", flush=True)
-    segs, _ = modelo.transcribe(str(video), language=IDIOMA_WHISPER[idioma], word_timestamps=True, beam_size=5,
+    wav = video.with_suffix(".16k.wav")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video), "-ac", "1", "-ar", "16000", str(wav)], check=True)
+    import numpy as np
+    import wave
+    with wave.open(str(wav)) as f:
+        audio = np.frombuffer(f.readframes(f.getnframes()), dtype=np.int16).astype(np.float32) / 32768
+    segs, _ = modelo.transcribe(audio, language=IDIOMA_WHISPER[idioma], word_timestamps=True, beam_size=5,
                                 vad_filter=False, condition_on_previous_text=False)
     palabras = [w for s in segs for w in (s.words or [])]
     print("TRANSCRIPCIÓN (segundo: texto):")
