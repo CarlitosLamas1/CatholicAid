@@ -146,6 +146,18 @@
     "privacyStatus": "private",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true,
-    "publishAt": "2026-11-29T06:30:00Z"
+    "publishAt": "2026-11-29T06:30:00Z",
+    "lista": {
+      "id": "PLA2_TOS14axg",
+      "titulo": "Gospel according to St. Mark",
+      "url": "https://www.youtube.com/playlist?list=PLA2_TOS14axg"
+    },
+    "lista_liturgica": {
+      "id": "PLTG-zlKmclhU",
+      "titulo": "Daily Gospel · Advent",
+      "url": "https://www.youtube.com/playlist?list=PLTG-zlKmclhU"
+    },
+    "miniatura": "ok",
+    "subtitulos": "ok"
   }
 }
