@@ -1,0 +1,22 @@
+{
+  "fecha": "2026-11-29",
+  "idioma": "pt",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-28T18:41:45+01:00",
+  "revisado": "2026-11-28T18:51:39+01:00",
+  "motivos": [],
+  "avisos": [
+    "La frase clave no es la misma que la del español de hoy («Estad atentos, velad…»): el portugués usa «O que digo a vocês, digo a todos: Vigiem.» Es literal y de Jesús, pero los títulos de los canales no coinciden."
+  ],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio y a la versión revisada (Marcos 13, 33-37, coincide con citas.json)",
+    "voces": "✅ Todo el discurso es de Jesús; narrador en título, introducción, «Palavra da Salvação» y reflexión",
+    "frase_clave": "⚠️ Literal y de Jesús, se entiende sola, pero no es el mismo pasaje que la frase del español",
+    "reflexion": "✅ Portugués de Brasil con «você», 26 palabras, traducida de la del español",
+    "tecnica": "✅ 66,0 s; -13,8 LUFS; sincronía por lo oído (8 frases), sin cortes sin oír",
+    "audio": "✅ Entre 6,9 c/s («Palavra da Salvação.», corto) y 13,5 c/s; ningún fragmento anómalo",
+    "imagenes": "✅ Óleo devocional coherente; el portero igual en sus dos escenas; Jesús como en su retrato; reflexión sobre fondo sin personas",
+    "metadatos": "✅ Fecha, cita, 1.º Domingo del Adviento y título (Marcos) coherentes"
+  }
+}
