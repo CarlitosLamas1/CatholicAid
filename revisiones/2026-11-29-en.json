@@ -1,0 +1,20 @@
+{
+  "fecha": "2026-11-29",
+  "idioma": "en",
+  "ok": true,
+  "por": "revisor",
+  "generado": "2026-11-28T18:59:10+01:00",
+  "revisado": "2026-11-28T19:33:04+01:00",
+  "motivos": [],
+  "avisos": [],
+  "puntos": {
+    "fidelidad": "✅ Texto idéntico a texto_evangelio (WEB, Marcos 13,33-37 vía cita_es)",
+    "voces": "✅ Palabras de Jesús en jesus, narración en narrador",
+    "frase_clave": "✅ «What I tell you, I tell all: Watch!» literal, de Jesús, 8 palabras",
+    "reflexion": "✅ En inglés, ~26 palabras, de tú, doctrinal",
+    "tecnica": "✅ 67 s, -14.0 LUFS; audio entre 7,5 y 14,9 c/s (fragmentos cortos lentos por las pausas, normal); sincronía ok",
+    "audio": "✅ Sin anomalías",
+    "imagenes": "✅ Reutilizadas del español, coherentes; subtítulos legibles",
+    "metadatos": "✅ Título Mark, cita 13:33-37, gancho 3,9 s, karaoke"
+  }
+}
