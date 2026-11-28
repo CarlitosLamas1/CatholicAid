@@ -6,22 +6,24 @@
   "texto_fuente": "Bíblia do Pe. Antônio Pereira de Figueiredo (domínio público), revisada e atualizada por CatolicAid",
   "guion": "gemini-3.8-flash",
   "voces": "gemini",
-  "peticiones_voz": 8,
+  "peticiones_voz": 7,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 70.7,
+  "duracion_s": 71.1,
   "imagenes": [
     "dias/2026-11-30_e1.jpg",
     "evangelistas/mateo.jpg",
     "dias/2026-11-30_e1.jpg",
+    "biblioteca/D01",
     "dias/2026-11-30_e2.jpg",
     "dias/2026-11-30_e3.jpg",
+    "biblioteca/D07",
     "evangelistas/mateo.jpg",
     "biblioteca/D10",
     "evangelistas/mateo.jpg"
   ],
   "frase_clave": "Venham atrás de mim, e eu farei de vocês pescadores de homens.",
-  "reflexion": "Jesus chama você hoje no meio da sua rotina diária. Não dê desculpas nem espere o momento perfeito: confie nele, dê o passo e deixe-se transformar pelo seu amor.",
-  "lufs": -13.9,
+  "reflexion": "Jesus passa hoje pela sua vida cotidiana e convida você a confiar nele. Que redes você precisa soltar para segui-lo de verdade e levar seu amor aos outros?",
+  "lufs": -13.8,
   "gancho_segundos": 5.0,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
@@ -29,7 +31,7 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus walks along the sunlit shore of the Sea of Galilee, warmly watching Peter and Andrew casting their net into the calm waters.",
+      "descripcion": "Jesus stands by the sunlit shore of the Sea of Galilee, gesturing gently with an inviting smile towards Simon Peter and Andrew, who pause while casting their nets into the sparkling blue water.",
       "busqueda": "calling disciples",
       "personajes": [
         "jesus",
@@ -39,8 +41,8 @@
     },
     {
       "numero": 2,
-      "descripcion": "Jesus reaches out His hand invitingly toward Peter and Andrew, who leave their fishing nets on the beach to follow Him with joy.",
-      "busqueda": "fishers of men",
+      "descripcion": "Simon Peter and Andrew leave their fishing nets resting on the sandy beach, walking faithfully behind Jesus along the tranquil Galilean shore under warm sunlight.",
+      "busqueda": "disciples follow Jesus",
       "personajes": [
         "jesus",
         "pedro",
@@ -49,12 +51,12 @@
     },
     {
       "numero": 3,
-      "descripcion": "Jesus calls James and Juan as they mend nets in a wooden boat beside their father Zebedee, who watches fondly as his sons step out to follow the Lord.",
+      "descripcion": "From the beach, Jesus warmly calls James and John as they step out of their wooden boat, bidding a respectful farewell to their elderly father Zebedee who sits peacefully among the mended nets.",
       "busqueda": "calling James John",
       "personajes": [
         "jesus",
-        "apostol",
         "juan",
+        "apostol",
         "hombre"
       ]
     }
@@ -71,71 +73,65 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 10.85,
-      "texto": "Naquele tempo, caminhando Jesus ao longo do mar da Galileia, viu dois irmãos, Simão, chamado Pedro, e seu irmão André, que lançavam a rede ao mar, porque eram pescadores."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 2,
-      "inicio": 24.45,
-      "texto": "E lhes disse:"
+      "inicio": 10.83,
+      "texto": "Naquele tempo, caminhando Jesus ao longo do mar da Galileia, viu dois irmãos, Simão, chamado Pedro, e seu irmão André, que lançavam a rede ao mar, porque eram pescadores. E lhes disse:"
     },
     {
       "personaje": "jesus",
-      "escena": 2,
-      "inicio": 28.53,
+      "escena": 1,
+      "inicio": 25.0,
       "texto": "“Venham atrás de mim, e eu farei de vocês pescadores de homens”."
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 33.93,
+      "inicio": 30.4,
       "texto": "Eles, sem demora, deixaram as redes e o seguiram."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 37.02,
+      "inicio": 34.85,
       "texto": "Passando adiante, viu outros dois irmãos, Tiago, filho de Zebedeu, e João, seu irmão, numa barca com Zebedeu, seu pai, consertando as redes; e os chamou. Eles, no mesmo instante, deixaram as redes e o pai e foram atrás dele."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 51.53,
+      "inicio": 53.38,
       "texto": "Palavra da Salvação."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 54.31,
-      "texto": "Jesus chama você hoje no meio da sua rotina diária. Não dê desculpas nem espere o momento perfeito: confie nele, dê o passo e deixe-se transformar pelo seu amor.",
+      "inicio": 56.28,
+      "texto": "Jesus passa hoje pela sua vida cotidiana e convida você a confiar nele. Que redes você precisa soltar para segui-lo de verdade e levar seu amor aos outros?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-28T10:40:24+01:00",
-  "run": "46131019329",
+  "generado": "2026-11-28T20:45:18+01:00",
+  "run": "46181751634",
   "idioma": "pt",
   "libro": "Mateo",
   "cita_es": "Mateo 4, 18-22",
   "frase_es": "Seguidme, y os haré pescadores de hombres.",
-  "reflexion_es": "Jesús te llama hoy en medio de tu rutina diaria. No pongas excusas ni esperes al momento perfecto: confía en Él, da el paso y déjate transformar por su amor.",
-  "copiado_de": "2026-11-28T09:23:09+01:00",
+  "reflexion_es": "Jesús pasa hoy junto a tu vida cotidiana y te invita a confiar en Él. ¿Qué redes necesitas soltar para seguirle de verdad y llevar su amor a los demás?",
+  "copiado_de": "2026-11-28T18:50:43+01:00",
   "sincronia": {
-    "frases_oidas": 6,
-    "frases_por_pausas": [
-      "E lhes disse:",
-      "Eles, sem demora, deixaram as redes e o seguiram."
-    ],
-    "cortes_sin_oir": [
-      "narrador"
-    ],
-    "ok": false
+    "frases_oidas": 7,
+    "frases_por_pausas": [],
+    "cortes_sin_oir": [],
+    "regrabados_por_bordes": [],
+    "ok": true
   },
-  "revision": "rechazada",
+  "revision": "pendiente",
   "rehechos": 1,
-  "rehecho_por_cortes": {
-    "youtube_quitado": "5oNVWn5l-F4",
-    "fecha": "2026-11-28T16:43:08+00:00",
-    "motivo": "palabras cortadas al trocear la voz (arreglado el 28/11/2026); Carlos pidió rehacerlo"
-  }
+  "cupo_agotado": [
+    "gemini-3.8-flash"
+  ],
+  "reserva_pago": [
+    "gemini-3.8-flash"
+  ],
+  "modelos_voz": [
+    "gemini-3.1-flash-tts-preview (pago)"
+  ]
 }
