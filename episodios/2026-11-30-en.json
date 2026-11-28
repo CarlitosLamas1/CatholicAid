@@ -3,26 +3,27 @@
   "modo": "diario",
   "cita": "Matthew 4:18-22",
   "fuente": "https://www.vaticannews.va/es/evangelio-de-hoy/2026/11/30.html",
-  "texto_fuente": "World English Bible, Catholic Edition (public domain), original text",
+  "texto_fuente": "World English Bible, Catholic Edition (public domain), revised by CatolicAid",
   "guion": "gemini-3.8-flash",
   "voces": "gemini",
-  "peticiones_voz": 8,
+  "peticiones_voz": 7,
   "musica": "Erik_Satie_-_gymnopedies_-_la_1_ere._lent_et_douloureux.ogg",
-  "duracion_s": 67.2,
+  "duracion_s": 69.0,
   "imagenes": [
     "dias/2026-11-30_e1.jpg",
     "evangelistas/mateo.jpg",
     "dias/2026-11-30_e1.jpg",
+    "biblioteca/D01",
     "dias/2026-11-30_e2.jpg",
     "dias/2026-11-30_e3.jpg",
-    "biblioteca/D02",
+    "biblioteca/D10",
     "evangelistas/mateo.jpg",
     "biblioteca/D10",
     "evangelistas/mateo.jpg"
   ],
   "frase_clave": "Come after me, and I will make you fishers for men.",
-  "reflexion": "Jesus calls you today in the midst of your daily routine. Do not make excuses or wait for the perfect moment: trust in Him, take the step, and let yourself be transformed by His love.",
-  "lufs": -13.9,
+  "reflexion": "Jesus walks into your everyday life today and invites you to trust in Him. What nets do you need to leave behind to truly follow Him and share His love?",
+  "lufs": -14.0,
   "gancho_segundos": 4.8,
   "subtitulos_karaoke": true,
   "miniatura": "miniatura.jpg",
@@ -30,8 +31,8 @@
   "escenas": [
     {
       "numero": 1,
-      "descripcion": "Jesus walks along the sunlit shore of the Sea of Galilee, warmly watching Peter and Andrew casting their net into the calm waters.",
-      "busqueda": "calling of apostles",
+      "descripcion": "Jesus stands by the sunlit shore of the Sea of Galilee, gesturing gently with an inviting smile towards Simon Peter and Andrew, who pause while casting their nets into the sparkling blue water.",
+      "busqueda": "calling of disciples",
       "personajes": [
         "jesus",
         "pedro",
@@ -40,8 +41,8 @@
     },
     {
       "numero": 2,
-      "descripcion": "Jesus reaches out His hand invitingly toward Peter and Andrew, who leave their fishing nets on the beach to follow Him with joy.",
-      "busqueda": "fishers of men",
+      "descripcion": "Simon Peter and Andrew leave their fishing nets resting on the sandy beach, walking faithfully behind Jesus along the tranquil Galilean shore under warm sunlight.",
+      "busqueda": "following Jesus",
       "personajes": [
         "jesus",
         "pedro",
@@ -50,8 +51,8 @@
     },
     {
       "numero": 3,
-      "descripcion": "Jesus calls James and Juan as they mend nets in a wooden boat beside their father Zebedee, who watches fondly as his sons step out to follow the Lord.",
-      "busqueda": "calling of James",
+      "descripcion": "From the beach, Jesus warmly calls James and John as they step out of their wooden boat, bidding a respectful farewell to their elderly father Zebedee who sits peacefully among the mended nets.",
+      "busqueda": "calling James John",
       "personajes": [
         "jesus",
         "juan",
@@ -61,7 +62,7 @@
     }
   ],
   "titulo": "A reading from the holy Gospel according to Matthew.",
-  "texto_evangelio": "At that time, walking by the sea of Galilee, he saw two brothers: Simon, who is called Peter, and Andrew, his brother, casting a net into the sea; for they were fishermen. He said to them, “Come after me, and I will make you fishers for men.” They immediately left their nets and followed him. Going on from there, he saw two other brothers, James the son of Zebedee, and John his brother, in the boat with Zebedee their father, mending their nets. He called them. They immediately left the boat and their father, and followed him.",
+  "texto_evangelio": "At that time, walking by the sea of Galilee, Jesus saw two brothers: Simon, who is called Peter, and Andrew, his brother, casting a net into the sea; for they were fishermen. He said to them, “Come after me, and I will make you fishers for men.” They immediately left their nets and followed him. Going on from there, he saw two other brothers, James the son of Zebedee, and John his brother, in the boat with Zebedee their father, mending their nets. He called them. They immediately left the boat and their father, and followed him.",
   "fragmentos": [
     {
       "personaje": "narrador",
@@ -72,68 +73,61 @@
     {
       "personaje": "narrador",
       "escena": 1,
-      "inicio": 9.99,
-      "texto": "At that time, walking by the sea of Galilee, he saw two brothers: Simon, who is called Peter, and Andrew, his brother, casting a net into the sea; for they were fishermen."
-    },
-    {
-      "personaje": "narrador",
-      "escena": 2,
-      "inicio": 22.34,
-      "texto": "He said to them,"
+      "inicio": 10.13,
+      "texto": "At that time, walking by the sea of Galilee, Jesus saw two brothers: Simon, who is called Peter, and Andrew, his brother, casting a net into the sea; for they were fishermen. He said to them,"
     },
     {
       "personaje": "jesus",
-      "escena": 2,
-      "inicio": 23.56,
+      "escena": 1,
+      "inicio": 25.18,
       "texto": "“Come after me, and I will make you fishers for men.”"
     },
     {
       "personaje": "narrador",
       "escena": 2,
-      "inicio": 27.78,
+      "inicio": 29.4,
       "texto": "They immediately left their nets and followed him."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 31.65,
+      "inicio": 33.22,
       "texto": "Going on from there, he saw two other brothers, James the son of Zebedee, and John his brother, in the boat with Zebedee their father, mending their nets. He called them. They immediately left the boat and their father, and followed him."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 47.85,
+      "inicio": 50.27,
       "texto": "The Gospel of the Lord."
     },
     {
       "personaje": "narrador",
       "escena": 3,
-      "inicio": 50.97,
-      "texto": "Jesus calls you today in the midst of your daily routine. Do not make excuses or wait for the perfect moment: trust in Him, take the step, and let yourself be transformed by His love.",
+      "inicio": 53.28,
+      "texto": "Jesus walks into your everyday life today and invites you to trust in Him. What nets do you need to leave behind to truly follow Him and share His love?",
       "reflexion": true
     }
   ],
-  "generado": "2026-11-28T09:47:01+01:00",
-  "run": "46126386174",
+  "generado": "2026-11-28T20:44:26+01:00",
+  "run": "46181749698",
   "idioma": "en",
   "libro": "Mateo",
   "cita_es": "Mateo 4, 18-22",
   "frase_es": "Seguidme, y os haré pescadores de hombres.",
-  "reflexion_es": "Jesús te llama hoy en medio de tu rutina diaria. No pongas excusas ni esperes al momento perfecto: confía en Él, da el paso y déjate transformar por su amor.",
-  "copiado_de": "2026-11-28T09:23:09+01:00",
+  "reflexion_es": "Jesús pasa hoy junto a tu vida cotidiana y te invita a confiar en Él. ¿Qué redes necesitas soltar para seguirle de verdad y llevar su amor a los demás?",
+  "copiado_de": "2026-11-28T18:50:43+01:00",
   "modelos_voz": [
     "gemini-3.1-flash-tts-preview"
   ],
   "sincronia": {
-    "frases_oidas": 8,
+    "frases_oidas": 7,
     "frases_por_pausas": [],
     "cortes_sin_oir": [],
+    "regrabados_por_bordes": [],
     "ok": true
   },
-  "revision": "rechazada",
-  "rehecho_por_cortes": {
-    "youtube_quitado": "_JpmiXNeHZQ",
-    "fecha": "2026-11-28T16:43:08+00:00",
-    "motivo": "palabras cortadas al trocear la voz (arreglado el 28/11/2026); Carlos pidió rehacerlo"
-  }
+  "revision": "pendiente",
+  "cupo_agotado": [
+    "gemini-3.8-flash"
+  ]
 }
